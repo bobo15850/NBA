@@ -32,8 +32,8 @@ public class MyPanel extends JPanel implements MouseListener {
 
 	private void setComponentsLocarion() {
 		this.setLayout(null);
-		// minimizeButton.setBounds(711, 29, 33, 8);
-		// closeButton.setBounds(760, 8, 33, 30);
+		// minimizeButton.setBounds();
+		// closeButton.setBounds();
 		this.add(minimizeButton);
 		this.add(closeButton);
 
