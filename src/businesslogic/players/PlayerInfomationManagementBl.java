@@ -1,52 +1,47 @@
 package businesslogic.players;
 
+import po.OnePlayerPerformanceOfOneSeasonPo;
 import vo.OnePlayerPerformanceOfOneSeasonVo;
-
 import common.ResultMessage;
 import common.enums.KindOfPlayerData;
 import common.mydatastructure.Season;
 import common.mydatastructure.player.baseinformation.BaseInformationOfPlayer;
-import common.mydatastructure.player.matchinformation.AllPlayerPerformanceOfOneSeason;
-import common.mydatastructure.player.matchinformation.OnePlayerPerformanceOfAllSeason;
-
+import common.mydatastructure.player.matchinformation.AllPlayerPerformanceOfOneSeasonVo;
+import common.mydatastructure.player.matchinformation.OnePlayerPerformanceOfAllSeasonVo;
+import data.players.PlayerInfomationManagementData;
+import dataservice.players.PlayerInfomationManagementDataService;
 import businesslogicservice.players.PlayerInfomationManagementBlService;
 
 public class PlayerInfomationManagementBl implements PlayerInfomationManagementBlService {
+	private PlayerInfomationManagementDataService playerInfoManagementData;
 
-	@Override
-	public AllPlayerPerformanceOfOneSeason getAllPlayerPerformanceOfOneSeason(Season season) {
-		// TODO Auto-generated method stub
-		return null;
+	public PlayerInfomationManagementBl() {
+		this.playerInfoManagementData = new PlayerInfomationManagementData();
 	}
 
-	@Override
-	public OnePlayerPerformanceOfAllSeason getOnePlayerInformationOfAllSeason(String nameOfPlayer) {
-		// TODO Auto-generated method stub
-		return null;
+	public AllPlayerPerformanceOfOneSeasonVo getAllPlayerPerformanceOfOneSeason(Season season) {
+		return new AllPlayerPerformanceOfOneSeasonVo(season);
 	}
 
-	@Override
+	public OnePlayerPerformanceOfAllSeasonVo getOnePlayerInformationOfAllSeason(String nameOfPlayer) {
+		return new OnePlayerPerformanceOfAllSeasonVo(nameOfPlayer);
+	}
+
 	public OnePlayerPerformanceOfOneSeasonVo getOnePlayerPerformanceOfOneSeason(String nameOfPlayer, Season season) {
-		// TODO Auto-generated method stub
+		OnePlayerPerformanceOfOneSeasonPo po = this.playerInfoManagementData.getOnePlayerPerformanceOfOneSeason(nameOfPlayer, season);
+		return new OnePlayerPerformanceOfOneSeasonVo(po);
+	}
+
+	public ResultMessage ascendingSort(AllPlayerPerformanceOfOneSeasonVo data, KindOfPlayerData dataKind) {
 		return null;
 	}
 
-	@Override
-	public ResultMessage ascendingSort(AllPlayerPerformanceOfOneSeason data, KindOfPlayerData dataKind) {
-		// TODO Auto-generated method stub
+	public ResultMessage descendingSort(AllPlayerPerformanceOfOneSeasonVo data, KindOfPlayerData dataKind) {
 		return null;
 	}
 
-	@Override
-	public ResultMessage descendingSort(AllPlayerPerformanceOfOneSeason data, KindOfPlayerData dataKind) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public BaseInformationOfPlayer getBaseInformationOfOnePlayer(String nameOfPlayer) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.playerInfoManagementData.getBaseInformationOfOnePlayer(nameOfPlayer);
 	}
 
 }

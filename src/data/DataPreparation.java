@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import common.statics.PathOfFile;
+import common.statics.numbers.NUMBER;
 
 public class DataPreparation {
 
@@ -53,11 +54,47 @@ public class DataPreparation {
 		}
 	}
 
-	public void createFileOfTeam() {
+	public void handleFileOfTeam() {
+		try {
+			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO + "teams"));
+			teamReader.readLine();
+			String formatdetail;
+			for (int i = 0; i < NUMBER.NUMBER_OF_TEAM; i++) {
+				formatdetail = teamReader.readLine();
+				System.out.println(formatdetail);
+				this.createAndWriteFile(formatdetail);
+			}
+			teamReader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
+	private void createAndWriteFile(String formatdetail) {
+		String[] part;
+		String teamNameForShort;
+		part = formatdetail.split("│");
+		for (int i = 0; i < part.length; i++) {
+			System.out.println(part[i]);
+		}
+		teamNameForShort = part[1].trim();
+		String path = PathOfFile.TEAM_INFO + teamNameForShort;
+		System.out.println(path);
+		File teamFile = new File(path);
+		if (!teamFile.exists()) {
+			try {
+				teamFile.createNewFile();
+				BufferedWriter writerTeam = new BufferedWriter(new FileWriter(path, true));
+				writerTeam.write(formatdetail.trim());
+				writerTeam.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public static void main(String arg[]) {
-		new DataPreparation();
+		new DataPreparation().handleFileOfTeam();
 	}
 }

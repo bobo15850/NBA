@@ -16,4 +16,5 @@ public enum KindOfPlayerData {
 	turnoverNumber,// 失误数
 	foulNumber,// 犯规数
 	scoreNumber,// 得分数
+	
 }

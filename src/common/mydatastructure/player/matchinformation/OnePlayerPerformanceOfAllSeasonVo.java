@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 import vo.OnePlayerPerformanceOfOneSeasonVo;
 
-public class OnePlayerPerformanceOfAllSeason {
+public class OnePlayerPerformanceOfAllSeasonVo {
 	private String nameOfPlayer;
 	private ArrayList<OnePlayerPerformanceOfOneSeasonVo> listOfPlayerPerformanceOfOneseason;
 	private int numebrOfSeason;
 
-	public OnePlayerPerformanceOfAllSeason(String nameOfPlayer) {
+	public OnePlayerPerformanceOfAllSeasonVo(String nameOfPlayer) {
 
 	}
 }

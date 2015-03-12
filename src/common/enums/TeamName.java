@@ -1,36 +1,8 @@
 package common.enums;
+
 /*
  * 球队名称
  */
 public enum TeamName {
-	ATL_Hawks,
-	BKN_Nets,
-	BOS_Celtics,
-	CHA_Hornets,
-	CHI_Bulls,
-	CLE_Cavaliers,
-	DAL_Mavericks,
-	DEN_Nuggets,
-	DET_Pistons,
-	GSW_Warriors,
-	HOU_Rockets,
-	IND_Pacers,
-	LAC_Clippers,
-	LAL_Lakers,
-	MEN_Grizzlies,
-	MIA_Heat,
-	MIL_Bucks,
-	MIN_Timberwolves,
-	NOP_Pelicans,
-	NYK_Knicks,
-	OKC_Thunder,
-	ORL_Magic,
-	PHI_76ers,
-	PHX_Suns,
-	POR_TrailBlazers,
-	SAC_Kings,
-	SAS_Spurs,
-	TOR_Raptors,
-	UTA_Jazz,
-	WAS_Wizards,
+	ATL, BKN, BOS, CHA, CHI, CLE, DAL, DEN, DET, GSW, HOU, IND, LAC, LAL, MEN, MIA, MIL, MIN, NOP, NYK, OKC, ORL, PHI, PHX, POR, SAC, SAS, TOR, UTA, WAS,
 }
