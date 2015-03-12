@@ -1,4 +1,4 @@
-package common.mydatastructure.team.matchinformation;
+package businesslogic.teams;
 
 import common.enums.TeamName;
 

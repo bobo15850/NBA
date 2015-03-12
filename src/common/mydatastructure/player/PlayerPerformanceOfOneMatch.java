@@ -1,4 +1,4 @@
-package common.mydatastructure.player.matchinformation;
+package common.mydatastructure.player;
 
 import common.enums.TeamName;
 

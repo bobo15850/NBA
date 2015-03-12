@@ -1,4 +1,4 @@
-package common.mydatastructure.player.baseinformation;
+package common.mydatastructure.player;
 
 public class Height {
 	private final double INCH_TO_CENTIMETER = 2.54;

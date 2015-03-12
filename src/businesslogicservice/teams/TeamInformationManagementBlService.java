@@ -1,13 +1,13 @@
 package businesslogicservice.teams;
 
+import businesslogic.teams.AllTeamPerformanceOfOneSeason;
+import businesslogic.teams.OneTeamPerformanceOfAllSeason;
 import vo.OneTeamPerformanceOfOneSeasonVo;
-import common.ResultMessage;
 import common.enums.KindOfTeamData;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.baseinformation.BaseInformationOfTeam;
-import common.mydatastructure.team.matchinformation.AllTeamPerformanceOfOneSeason;
-import common.mydatastructure.team.matchinformation.OneTeamPerformanceOfAllSeason;
+import common.mydatastructure.team.BaseInformationOfTeam;
+import common.statics.ResultMessage;
 
 public interface TeamInformationManagementBlService {
 	// 获取某一个赛季所有球队的比赛信息

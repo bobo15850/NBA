@@ -1,4 +1,4 @@
-package common.mydatastructure.player.baseinformation;
+package common.mydatastructure.player;
 
 public class Weight {
 	private final double POUND_TO_KILOGRAM = 0.453592;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.matchinformation.TeamPerformanceOfOneMatch;
+import common.mydatastructure.team.TeamPerformanceOfOneMatch;
 
 public class OneTeamPerformanceOfOneSeasonPo {
 	private TeamName teamName;// 球队名称

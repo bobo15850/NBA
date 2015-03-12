@@ -2,29 +2,27 @@ package businesslogic.players;
 
 import po.OnePlayerPerformanceOfOneSeasonPo;
 import vo.OnePlayerPerformanceOfOneSeasonVo;
-import common.ResultMessage;
 import common.enums.KindOfPlayerData;
 import common.mydatastructure.Season;
-import common.mydatastructure.player.baseinformation.BaseInformationOfPlayer;
-import common.mydatastructure.player.matchinformation.AllPlayerPerformanceOfOneSeasonVo;
-import common.mydatastructure.player.matchinformation.OnePlayerPerformanceOfAllSeasonVo;
-import data.players.PlayerInfomationManagementData;
-import dataservice.players.PlayerInfomationManagementDataService;
+import common.mydatastructure.player.BaseInformationOfPlayer;
+import common.statics.ResultMessage;
+import data.players.PlayerInformationManagementData;
+import dataservice.players.PlayerInformationManagementDataService;
 import businesslogicservice.players.PlayerInfomationManagementBlService;
 
 public class PlayerInfomationManagementBl implements PlayerInfomationManagementBlService {
-	private PlayerInfomationManagementDataService playerInfoManagementData;
+	private PlayerInformationManagementDataService playerInfoManagementData;
 
 	public PlayerInfomationManagementBl() {
-		this.playerInfoManagementData = new PlayerInfomationManagementData();
+		this.playerInfoManagementData = new PlayerInformationManagementData();
 	}
 
-	public AllPlayerPerformanceOfOneSeasonVo getAllPlayerPerformanceOfOneSeason(Season season) {
-		return new AllPlayerPerformanceOfOneSeasonVo(season);
+	public AllPlayerPerformanceOfOneSeason getAllPlayerPerformanceOfOneSeason(Season season) {
+		return new AllPlayerPerformanceOfOneSeason(season);
 	}
 
-	public OnePlayerPerformanceOfAllSeasonVo getOnePlayerInformationOfAllSeason(String nameOfPlayer) {
-		return new OnePlayerPerformanceOfAllSeasonVo(nameOfPlayer);
+	public OnePlayerPerformanceOfAllSeason getOnePlayerInformationOfAllSeason(String nameOfPlayer) {
+		return new OnePlayerPerformanceOfAllSeason(nameOfPlayer);
 	}
 
 	public OnePlayerPerformanceOfOneSeasonVo getOnePlayerPerformanceOfOneSeason(String nameOfPlayer, Season season) {
@@ -32,11 +30,11 @@ public class PlayerInfomationManagementBl implements PlayerInfomationManagementB
 		return new OnePlayerPerformanceOfOneSeasonVo(po);
 	}
 
-	public ResultMessage ascendingSort(AllPlayerPerformanceOfOneSeasonVo data, KindOfPlayerData dataKind) {
+	public ResultMessage ascendingSort(AllPlayerPerformanceOfOneSeason data, KindOfPlayerData dataKind) {
 		return null;
 	}
 
-	public ResultMessage descendingSort(AllPlayerPerformanceOfOneSeasonVo data, KindOfPlayerData dataKind) {
+	public ResultMessage descendingSort(AllPlayerPerformanceOfOneSeason data, KindOfPlayerData dataKind) {
 		return null;
 	}
 

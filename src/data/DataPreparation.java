@@ -7,8 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import common.statics.NUMBER;
 import common.statics.PathOfFile;
-import common.statics.numbers.NUMBER;
 
 public class DataPreparation {
 

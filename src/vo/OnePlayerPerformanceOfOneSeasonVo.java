@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import po.OnePlayerPerformanceOfOneSeasonPo;
 import common.mydatastructure.Season;
-import common.mydatastructure.player.matchinformation.PlayerPerformanceOfOneMatch;
+import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
 
 public class OnePlayerPerformanceOfOneSeasonVo {
 	private String nameOfPlayer;

@@ -3,10 +3,10 @@ package data.players;
 import po.NamesOfAllPlayerPo;
 import po.OnePlayerPerformanceOfOneSeasonPo;
 import common.mydatastructure.Season;
-import common.mydatastructure.player.baseinformation.BaseInformationOfPlayer;
-import dataservice.players.PlayerInfomationManagementDataService;
+import common.mydatastructure.player.BaseInformationOfPlayer;
+import dataservice.players.PlayerInformationManagementDataService;
 
-public class PlayerInfomationManagementData implements PlayerInfomationManagementDataService {
+public class PlayerInformationManagementData implements PlayerInformationManagementDataService {
 
 	public OnePlayerPerformanceOfOneSeasonPo getOnePlayerPerformanceOfOneSeason(String nameOfPlayer, Season season) {
 		return new OnePlayerPerformanceOfOneSeasonPo(nameOfPlayer, season);

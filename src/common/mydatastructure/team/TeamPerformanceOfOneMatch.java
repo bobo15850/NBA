@@ -1,10 +1,10 @@
-package common.mydatastructure.team.matchinformation;
+package common.mydatastructure.team;
 
 import java.util.ArrayList;
 
 import common.enums.TeamName;
 import common.mydatastructure.Date;
-import common.mydatastructure.player.matchinformation.PlayerPerformanceOfOneMatch;
+import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
 
 public class TeamPerformanceOfOneMatch {
 	private ArrayList<PlayerPerformanceOfOneMatch> listOfPlayerPerformance;

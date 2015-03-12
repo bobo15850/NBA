@@ -1,4 +1,4 @@
-package common.mydatastructure.team.baseinformation;
+package common.mydatastructure.team;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

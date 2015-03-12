@@ -1,4 +1,4 @@
-package common.mydatastructure.player.baseinformation;
+package common.mydatastructure.player;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

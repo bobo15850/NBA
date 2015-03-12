@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.mydatastructure.Season;
-import common.mydatastructure.player.matchinformation.PlayerPerformanceOfOneMatch;
+import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
+import common.statics.NUMBER;
 import common.statics.PathOfFile;
-import common.statics.numbers.NUMBER;
 
 public class OnePlayerPerformanceOfOneSeasonPo {
 	private String nameOfPlayer;// 球员姓名

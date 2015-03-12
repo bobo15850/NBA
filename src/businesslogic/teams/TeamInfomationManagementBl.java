@@ -3,14 +3,11 @@ package businesslogic.teams;
 import po.OneTeamPerformanceOfOneSeasonPo;
 import vo.OneTeamPerformanceOfOneSeasonVo;
 import businesslogicservice.teams.TeamInformationManagementBlService;
-
-import common.ResultMessage;
 import common.enums.KindOfTeamData;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.baseinformation.BaseInformationOfTeam;
-import common.mydatastructure.team.matchinformation.AllTeamPerformanceOfOneSeason;
-import common.mydatastructure.team.matchinformation.OneTeamPerformanceOfAllSeason;
+import common.mydatastructure.team.BaseInformationOfTeam;
+import common.statics.ResultMessage;
 
 public class TeamInfomationManagementBl implements TeamInformationManagementBlService {
 
