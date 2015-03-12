@@ -10,6 +10,6 @@ public class OnePlayerPerformanceOfAllSeasonVo {
 	private int numebrOfSeason;
 
 	public OnePlayerPerformanceOfAllSeasonVo(String nameOfPlayer) {
-
+		
 	}
 }

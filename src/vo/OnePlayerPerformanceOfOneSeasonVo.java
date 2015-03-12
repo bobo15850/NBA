@@ -14,7 +14,7 @@ public class OnePlayerPerformanceOfOneSeasonVo {
 	private int numberOfFirst;// 先发场数
 
 	public OnePlayerPerformanceOfOneSeasonVo(OnePlayerPerformanceOfOneSeasonPo po) {
-		this.nameOfPlayer = po.getNameOfPlay();
+		this.nameOfPlayer = po.getNameOfPlayer();
 		this.season = po.getSeason();
 		this.listOfPerformanceOfOneMatch = po.getListOfPerformanceOfOneMatch();
 	}

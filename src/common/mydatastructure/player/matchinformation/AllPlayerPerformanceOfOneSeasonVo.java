@@ -23,17 +23,24 @@ public class AllPlayerPerformanceOfOneSeasonVo implements Iterator<OnePlayerPerf
 
 	}
 
+	public OnePlayerPerformanceOfOneSeasonVo first() {
+		pointer = 0;
+		return this.listOfOnePlayerPerformanceOfOneSeason.get(0);
+	}
+
 	public boolean hasNext() {
-		return this.pointer < numberOfPlayer;
+		return this.pointer < (numberOfPlayer - 1);
 	}
 
 	public OnePlayerPerformanceOfOneSeasonVo next() {
 		this.pointer++;
-		return listOfOnePlayerPerformanceOfOneSeason.get(pointer);
+		OnePlayerPerformanceOfOneSeasonVo temp = listOfOnePlayerPerformanceOfOneSeason.get(pointer);
+		return temp;
 	}
 
 	public void remove() {
-		this.listOfOnePlayerPerformanceOfOneSeason.remove(pointer - 1);
+		this.listOfOnePlayerPerformanceOfOneSeason.remove(pointer);
+		pointer--;
 		numberOfPlayer--;
 	}
 }

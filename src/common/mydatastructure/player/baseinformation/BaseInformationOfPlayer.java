@@ -25,10 +25,10 @@ public class BaseInformationOfPlayer {
 	private int trainingYear;// 球龄
 	private String school;// 毕业学校
 
-	public BaseInformationOfPlayer(String name) {
-		this.playerName = name;
-		this.portraitImageIcon = new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + name + ".png");
-		this.actionImageIcon = new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + name + ".png");
+	public BaseInformationOfPlayer(String nameOfPlayer) {
+		this.playerName = nameOfPlayer;
+		this.portraitImageIcon = new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + nameOfPlayer + ".png");
+		this.actionImageIcon = new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + nameOfPlayer + ".png");
 		this.init();
 	}
 

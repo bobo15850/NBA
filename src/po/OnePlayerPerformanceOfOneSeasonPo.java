@@ -39,7 +39,7 @@ public class OnePlayerPerformanceOfOneSeasonPo {
 		}
 	}
 
-	public String getNameOfPlay() {
+	public String getNameOfPlayer() {
 		return nameOfPlayer;
 	}
 
