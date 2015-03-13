@@ -1,13 +1,13 @@
-package po;
+package common.mydatastructure.player;
 
 import java.util.Iterator;
 
-public class NamesOfAllPlayerPo implements Iterator<String> {
+public class NamesOfAllPlayer implements Iterator<String> {
 	private String[] nameOfAllPlayer;
 	private int pointer;
 	private int numberOfPlayer;
 
-	public NamesOfAllPlayerPo() {
+	public NamesOfAllPlayer() {
 		// ////////////////初始化读取所有的球员姓名
 	}
 

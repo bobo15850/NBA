@@ -5,7 +5,7 @@ import common.mydatastructure.Season;
 import common.mydatastructure.team.GeneralInfoOfTeam;
 import po.OneTeamPerformanceOfOneSeasonPo;
 
-public interface TeamInformationManagementDataService {
+public interface TeamInfoDataService {
 	// 查找某一球队在某一赛季的具体信息
 	public OneTeamPerformanceOfOneSeasonPo getOneTeamPerformanceOfOneSeason(TeamName teamName, Season season);
 

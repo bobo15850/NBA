@@ -4,9 +4,9 @@ import po.OneTeamPerformanceOfOneSeasonPo;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
 import common.mydatastructure.team.GeneralInfoOfTeam;
-import dataservice.teams.TeamInformationManagementDataService;
+import dataservice.teams.TeamInfoDataService;
 
-public class TeamInformationManagementData implements TeamInformationManagementDataService {
+public class TeamInfoData implements TeamInfoDataService {
 
 	public OneTeamPerformanceOfOneSeasonPo getOneTeamPerformanceOfOneSeason(TeamName teamName, Season season) {
 		return new OneTeamPerformanceOfOneSeasonPo(teamName, season);

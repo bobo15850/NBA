@@ -8,14 +8,14 @@ import businesslogicservice.teams.TeamInfoBlService;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
 import common.mydatastructure.team.GeneralInfoOfTeam;
-import data.teams.TeamInformationManagementData;
-import dataservice.teams.TeamInformationManagementDataService;
+import data.teams.TeamInfoData;
+import dataservice.teams.TeamInfoDataService;
 
 public class TeamInfoBl implements TeamInfoBlService {
-	TeamInformationManagementDataService teamInformationManagementData;
+	TeamInfoDataService teamInformationManagementData;
 
 	public TeamInfoBl() {
-		teamInformationManagementData = new TeamInformationManagementData();
+		teamInformationManagementData = new TeamInfoData();
 	}
 
 	public AllTeamPerformanceOfOneSeason getAllTeamPerformanceOfOneSeason(Season season) {
