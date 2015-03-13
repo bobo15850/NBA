@@ -6,19 +6,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.mydatastructure.Season;
-import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class OnePlayerPerformanceOfOneSeasonPo {
 	private String nameOfPlayer;// 球员姓名
 	private Season season;// 赛季信息
-	private ArrayList<PlayerPerformanceOfOneMatch> listOfPerformanceOfOneMatch;// 每场比赛信息的链表
+	private ArrayList<PlayerPerformanceOfOneMatchPo> listOfPerformanceOfOneMatch;// 每场比赛信息的链表
 
 	public OnePlayerPerformanceOfOneSeasonPo(String nameOfPlayer, Season season) {
 		this.nameOfPlayer = nameOfPlayer;
 		this.season = season;
-		this.listOfPerformanceOfOneMatch = new ArrayList<PlayerPerformanceOfOneMatch>(128);
+		this.listOfPerformanceOfOneMatch = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
 		this.init();
 	}
 
@@ -32,7 +31,7 @@ public class OnePlayerPerformanceOfOneSeasonPo {
 				}
 			}
 			while ((temp = playerReader.readLine()) != null) {
-				PlayerPerformanceOfOneMatch oneMatch = new PlayerPerformanceOfOneMatch(temp);
+				PlayerPerformanceOfOneMatchPo oneMatch = new PlayerPerformanceOfOneMatchPo(temp);
 				this.listOfPerformanceOfOneMatch.add(oneMatch);
 			}
 			playerReader.close();
@@ -53,7 +52,7 @@ public class OnePlayerPerformanceOfOneSeasonPo {
 		return this.season;
 	}
 
-	public ArrayList<PlayerPerformanceOfOneMatch> getListOfPerformanceOfOneMatch() {
+	public ArrayList<PlayerPerformanceOfOneMatchPo> getListOfPerformanceOfOneMatch() {
 		return this.listOfPerformanceOfOneMatch;
 	}
 }

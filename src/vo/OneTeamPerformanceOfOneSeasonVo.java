@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.TeamPerformanceOfOneMatch;
 import po.OneTeamPerformanceOfOneSeasonPo;
+import po.TeamPerformanceOfOneMatchPo;
 
 public class OneTeamPerformanceOfOneSeasonVo {
 	private TeamName teamName;// 球队名称
 	private Season season;// 赛季
-	private ArrayList<TeamPerformanceOfOneMatch> listOfPerformanceOfOneMatch;// 球队赛季里每场比赛
+	private ArrayList<TeamPerformanceOfOneMatchPo> listOfPerformanceOfOneMatch;// 球队赛季里每场比赛
 	
 
 	public OneTeamPerformanceOfOneSeasonVo(OneTeamPerformanceOfOneSeasonPo po) {

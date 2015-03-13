@@ -1,4 +1,4 @@
-package common.mydatastructure.player;
+package po;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,12 +8,14 @@ import javax.swing.ImageIcon;
 
 import common.enums.PlayerPosition;
 import common.mydatastructure.Date;
+import common.mydatastructure.Height;
+import common.mydatastructure.Weight;
 import common.statics.PathOfFile;
 
 /*
  * 该类是球员的基本自然信息类
  */
-public class GeneralInfoOfPlayer {
+public class GeneralInfoOfPlayerPo {
 	private String playerName;// 姓名
 	private String playerNumber;// 球员号码
 	private ImageIcon portraitImageIcon;// 半身头像
@@ -25,7 +27,7 @@ public class GeneralInfoOfPlayer {
 	private int trainingYear;// 球龄
 	private String school;// 毕业学校
 
-	public GeneralInfoOfPlayer(String nameOfPlayer) {
+	public GeneralInfoOfPlayerPo(String nameOfPlayer) {
 		this.playerName = nameOfPlayer;
 		this.portraitImageIcon = new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + nameOfPlayer + ".png");
 		this.actionImageIcon = new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + nameOfPlayer + ".png");

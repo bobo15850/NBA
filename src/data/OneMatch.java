@@ -7,10 +7,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import po.PlayerPerformanceOfOneMatchPo;
+import po.TeamPerformanceOfOneMatchPo;
 import common.enums.TeamName;
 import common.mydatastructure.Date;
-import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
-import common.mydatastructure.team.TeamPerformanceOfOneMatch;
 import common.statics.PathOfFile;
 import common.statics.StringToEnum;
 
@@ -21,14 +21,14 @@ public class OneMatch {
 	private int firstTeamSocre;
 	private int secondTeamScore;
 	private boolean isDataCorrect;
-	private ArrayList<PlayerPerformanceOfOneMatch> listOfFirstTeamPlayerPerformance;
-	private ArrayList<PlayerPerformanceOfOneMatch> listOfSecondTeamPlayerPerformance;
-	private TeamPerformanceOfOneMatch firstTeamPerformance;
-	private TeamPerformanceOfOneMatch secondTeamPerformance;
+	private ArrayList<PlayerPerformanceOfOneMatchPo> listOfFirstTeamPlayerPerformance;
+	private ArrayList<PlayerPerformanceOfOneMatchPo> listOfSecondTeamPlayerPerformance;
+	private TeamPerformanceOfOneMatchPo firstTeamPerformance;
+	private TeamPerformanceOfOneMatchPo secondTeamPerformance;
 
 	public OneMatch(String pathOfFile) {
-		listOfFirstTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatch>(15);
-		listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatch>(15);
+		listOfFirstTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
+		listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
 		try {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + pathOfFile));
 			String temp;
@@ -39,19 +39,19 @@ public class OneMatch {
 			this.firstTeam = StringToEnum.toTeamName(firstTeam);// 初始化第一个队名
 			for (int j = 0; j < 6; j++) {
 				temp = matchReader.readLine();
-				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatch(temp));
+				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
 			}
 			while ((temp = matchReader.readLine()).length() != 3) {
-				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatch(temp));
+				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
 			}
 			String secondTeam = temp.trim();
 			this.secondTeam = StringToEnum.toTeamName(secondTeam);// 初始化第二个队名
 			while ((temp = matchReader.readLine()) != null) {
-				listOfSecondTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatch(temp));
+				listOfSecondTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
 			}
 			matchReader.close();
-			this.firstTeamPerformance = new TeamPerformanceOfOneMatch(this.firstTeam, this.secondTeam, this.date, this.listOfFirstTeamPlayerPerformance);
-			this.secondTeamPerformance = new TeamPerformanceOfOneMatch(this.secondTeam, this.firstTeam, this.date, this.listOfSecondTeamPlayerPerformance);
+			this.firstTeamPerformance = new TeamPerformanceOfOneMatchPo(this.firstTeam, this.secondTeam, this.date, this.listOfFirstTeamPlayerPerformance);
+			this.secondTeamPerformance = new TeamPerformanceOfOneMatchPo(this.secondTeam, this.firstTeam, this.date, this.listOfSecondTeamPlayerPerformance);
 			this.isDataCorrect = this.isDataCorrect();
 		} catch (IOException e) {
 			e.printStackTrace();

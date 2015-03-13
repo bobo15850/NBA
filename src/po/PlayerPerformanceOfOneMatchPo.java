@@ -1,8 +1,8 @@
-package common.mydatastructure.player;
+package po;
 
 import common.enums.TeamName;
 
-public class PlayerPerformanceOfOneMatch {
+public class PlayerPerformanceOfOneMatchPo {
 	private String formatData;
 	private TeamName teamName;// 效力球队
 	private boolean isFirst;// 是否先发
@@ -25,7 +25,7 @@ public class PlayerPerformanceOfOneMatch {
 
 	// TODO
 	// /////////////////////////////////////////////////////////////////////
-	public PlayerPerformanceOfOneMatch(String formatData) {
+	public PlayerPerformanceOfOneMatchPo(String formatData) {
 		this.formatData = formatData;
 		// 根据一个格式化的字符串初始化一个球员的一场比赛
 	}

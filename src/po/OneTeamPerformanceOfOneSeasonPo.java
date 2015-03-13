@@ -4,17 +4,16 @@ import java.util.ArrayList;
 
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.TeamPerformanceOfOneMatch;
 
 public class OneTeamPerformanceOfOneSeasonPo {
 	private TeamName teamName;// 球队名称
 	private Season season;// 赛季
-	private ArrayList<TeamPerformanceOfOneMatch> listOfPerformanceOfOneMatch;// 球队赛季里每场比赛
+	private ArrayList<TeamPerformanceOfOneMatchPo> listOfPerformanceOfOneMatch;// 球队赛季里每场比赛
 
 	public OneTeamPerformanceOfOneSeasonPo(TeamName teamName, Season season) {
 		this.teamName = teamName;
 		this.season = season;
-		this.listOfPerformanceOfOneMatch = new ArrayList<TeamPerformanceOfOneMatch>();
+		this.listOfPerformanceOfOneMatch = new ArrayList<TeamPerformanceOfOneMatchPo>();
 		this.init();
 	}
 
@@ -31,7 +30,7 @@ public class OneTeamPerformanceOfOneSeasonPo {
 		return this.season;
 	}
 
-	public ArrayList<TeamPerformanceOfOneMatch> getListOfPerformanceOfOneMatch() {
+	public ArrayList<TeamPerformanceOfOneMatchPo> getListOfPerformanceOfOneMatch() {
 		return this.listOfPerformanceOfOneMatch;
 	}
 }

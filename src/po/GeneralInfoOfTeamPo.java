@@ -1,4 +1,4 @@
-package common.mydatastructure.team;
+package po;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +14,7 @@ import common.statics.PathOfFile;
 /*
  * 该类定义球队的自然信息
  */
-public class GeneralInfoOfTeam {
+public class GeneralInfoOfTeamPo {
 	private TeamName teamName;
 	private ImageIcon teamIcon;
 	private String location;
@@ -23,7 +23,7 @@ public class GeneralInfoOfTeam {
 	private String homeField;
 	private int establishYear;
 
-	public GeneralInfoOfTeam(TeamName teamName) {
+	public GeneralInfoOfTeamPo(TeamName teamName) {
 		this.teamName = teamName;
 		this.teamIcon = new ImageIcon(PathOfFile.TEAM_IMAGE + teamName + ".svg");
 		this.init();

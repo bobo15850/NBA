@@ -16,7 +16,7 @@ public class AllPlayerPerformanceOfOneSeasonVo implements Iterator<OnePlayerPerf
 		this.season = season;
 		this.pointer = 0;
 		this.listOfOnePlayerPerformanceOfOneSeason = listOfOnePlayerPerformanceOfOneSeason;
-		this.numberOfPlayer=listOfOnePlayerPerformanceOfOneSeason.size();
+		this.numberOfPlayer = listOfOnePlayerPerformanceOfOneSeason.size();
 	}
 
 	public Season getSeason() {
@@ -50,10 +50,12 @@ public class AllPlayerPerformanceOfOneSeasonVo implements Iterator<OnePlayerPerf
 
 	// 根据某一项将所有球员某一赛季成绩升序排序
 	public void ascendingSort(PerformanceOfPlayer dataKind) {
+		
 	}
 
 	// 根据某一项将所有球员某一赛季成绩降序排序
 	public void descendingSort(PerformanceOfPlayer dataKind) {
+		
 	}
 
 }

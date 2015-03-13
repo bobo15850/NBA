@@ -1,12 +1,11 @@
-package common.mydatastructure.team;
+package po;
 
 import java.util.ArrayList;
 
 import common.enums.TeamName;
 import common.mydatastructure.Date;
-import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
 
-public class TeamPerformanceOfOneMatch {
+public class TeamPerformanceOfOneMatchPo {
 	private TeamName teamName;
 	private Date date;
 	private TeamName opponentTeamName;
@@ -26,16 +25,16 @@ public class TeamPerformanceOfOneMatch {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	public TeamPerformanceOfOneMatch(String formatData) {
+	public TeamPerformanceOfOneMatchPo(String formatData) {
 		// /////////////////////////////////根据格式化语句初始化一场比赛信息
 		// TODO
 	}
 
-	public TeamPerformanceOfOneMatch(TeamName teamName, TeamName opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatch> listOfPlayerPerformanceOfOneMatch) {
+	public TeamPerformanceOfOneMatchPo(TeamName teamName, TeamName opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
 		this.opponentTeamName = opponentTeamName;
 		this.date = date;
-		PlayerPerformanceOfOneMatch temp;
+		PlayerPerformanceOfOneMatchPo temp;
 		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
 			temp = listOfPlayerPerformanceOfOneMatch.get(i);
 			this.totalHitNumber += temp.getTotalHitNumber();
