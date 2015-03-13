@@ -12,6 +12,7 @@ public class OnePlayerPerformanceOfOneSeasonVo {
 	private ArrayList<PlayerPerformanceOfOneMatch> listOfPerformanceOfOneMatch;// 每场比赛信息的链表
 	private int numberOfMatch;// 比赛场数
 	private int numberOfFirst;// 先发场数
+	
 
 	public OnePlayerPerformanceOfOneSeasonVo(OnePlayerPerformanceOfOneSeasonPo po) {
 		this.nameOfPlayer = po.getNameOfPlayer();

@@ -3,7 +3,7 @@ package data.teams;
 import po.OneTeamPerformanceOfOneSeasonPo;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
-import common.mydatastructure.team.BaseInformationOfTeam;
+import common.mydatastructure.team.GeneralInfoOfTeam;
 import dataservice.teams.TeamInformationManagementDataService;
 
 public class TeamInformationManagementData implements TeamInformationManagementDataService {
@@ -12,8 +12,8 @@ public class TeamInformationManagementData implements TeamInformationManagementD
 		return new OneTeamPerformanceOfOneSeasonPo(teamName, season);
 	}
 
-	public BaseInformationOfTeam getBaseInformationOfOneTeam(TeamName teamName) {
-		return new BaseInformationOfTeam(teamName);
+	public GeneralInfoOfTeam getBaseInformationOfOneTeam(TeamName teamName) {
+		return new GeneralInfoOfTeam(teamName);
 	}
 
 }

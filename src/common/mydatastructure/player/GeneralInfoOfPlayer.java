@@ -13,7 +13,7 @@ import common.statics.PathOfFile;
 /*
  * 该类是球员的基本自然信息类
  */
-public class BaseInformationOfPlayer {
+public class GeneralInfoOfPlayer {
 	private String playerName;// 姓名
 	private String playerNumber;// 球员号码
 	private ImageIcon portraitImageIcon;// 半身头像
@@ -25,7 +25,7 @@ public class BaseInformationOfPlayer {
 	private int trainingYear;// 球龄
 	private String school;// 毕业学校
 
-	public BaseInformationOfPlayer(String nameOfPlayer) {
+	public GeneralInfoOfPlayer(String nameOfPlayer) {
 		this.playerName = nameOfPlayer;
 		this.portraitImageIcon = new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + nameOfPlayer + ".png");
 		this.actionImageIcon = new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + nameOfPlayer + ".png");
@@ -33,7 +33,7 @@ public class BaseInformationOfPlayer {
 	}
 
 	// //////////////////////////////////////////////////////该方法待编辑
-	// TODO
+	// TODO//根据球员信息的前二十行初始化一个球员基本信息
 	private void init() {
 		try {
 			BufferedReader bufferedreader = new BufferedReader(new FileReader(PathOfFile.PLAYER_INFO + playerName));

@@ -14,7 +14,7 @@ import common.statics.PathOfFile;
 /*
  * 该类定义球队的自然信息
  */
-public class BaseInformationOfTeam {
+public class GeneralInfoOfTeam {
 	private TeamName teamName;
 	private ImageIcon teamIcon;
 	private String location;
@@ -23,14 +23,14 @@ public class BaseInformationOfTeam {
 	private String homeField;
 	private int establishYear;
 
-	public BaseInformationOfTeam(TeamName teamName) {
+	public GeneralInfoOfTeam(TeamName teamName) {
 		this.teamName = teamName;
 		this.teamIcon = new ImageIcon(PathOfFile.TEAM_IMAGE + teamName + ".svg");
 		this.init();
 	}
 
 	// //////////////////////////////////////////////////////该方法待编辑
-	// TODO
+	// TODO//根据一行数据初始化球队信息
 	private void init() {
 		try {
 			BufferedReader bufferedreader = new BufferedReader(new FileReader(PathOfFile.TEAM_IMAGE + teamName));

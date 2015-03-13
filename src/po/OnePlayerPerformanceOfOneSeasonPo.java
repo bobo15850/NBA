@@ -26,8 +26,10 @@ public class OnePlayerPerformanceOfOneSeasonPo {
 		try {
 			BufferedReader playerReader = new BufferedReader(new FileReader(PathOfFile.PLAYER_INFO + this.nameOfPlayer));
 			String temp;
-			for (int i = 0; i < NUMBER.LINE_OF_PLAYER_BASE_INFO; i++) {
-				temp = playerReader.readLine();
+			if (this.hasBaseInformation(playerReader)) {
+				for (int i = 0; i < NUMBER.LINE_OF_PLAYER_BASE_INFO; i++) {
+					temp = playerReader.readLine();
+				}
 			}
 			while ((temp = playerReader.readLine()) != null) {
 				PlayerPerformanceOfOneMatch oneMatch = new PlayerPerformanceOfOneMatch(temp);
@@ -37,7 +39,11 @@ public class OnePlayerPerformanceOfOneSeasonPo {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}//
+
+	private boolean hasBaseInformation(BufferedReader playerReader) {
+		return false;
+	}// 读取文件时判断该文件内是否有球员基本信息
 
 	public String getNameOfPlayer() {
 		return nameOfPlayer;

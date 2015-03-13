@@ -1,6 +1,6 @@
 package common.enums;
 
-public enum KindOfTeamData {
+public enum PerformanceOfTeam {
 	nameOfTeam, // 球队名称
 	NumberOfMatch, // 比赛场数
 	totalHitNumber, // 总命中数

@@ -3,10 +3,8 @@ package businesslogic.teams;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import po.OneTeamPerformanceOfOneSeasonPo;
 import vo.OneTeamPerformanceOfOneSeasonVo;
 
-import common.enums.TeamName;
 import common.mydatastructure.Season;
 
 public class AllTeamPerformanceOfOneSeason implements Iterator<OneTeamPerformanceOfOneSeasonVo> {
@@ -15,18 +13,10 @@ public class AllTeamPerformanceOfOneSeason implements Iterator<OneTeamPerformanc
 	private int numberOfTeam;
 	private int pointer;
 
-	public AllTeamPerformanceOfOneSeason(Season season) {
+	public AllTeamPerformanceOfOneSeason(Season season, ArrayList<OneTeamPerformanceOfOneSeasonVo> listOfOneTeamPerformanceOfOneSeason) {
 		this.season = season;
 		this.pointer = 0;
-		this.listOfOneTeamPerformanceOfOneSeason = new ArrayList<OneTeamPerformanceOfOneSeasonVo>(64);
-		this.init();
-	}
-
-	private void init() {
-		TeamName[] namesOfAllTeam = TeamName.values();
-		for (int i = 0; i < namesOfAllTeam.length; i++) {
-			this.listOfOneTeamPerformanceOfOneSeason.add(new OneTeamPerformanceOfOneSeasonVo(new OneTeamPerformanceOfOneSeasonPo(namesOfAllTeam[i], season)));
-		}
+		this.listOfOneTeamPerformanceOfOneSeason = listOfOneTeamPerformanceOfOneSeason;
 		this.numberOfTeam = listOfOneTeamPerformanceOfOneSeason.size();
 	}
 
@@ -59,5 +49,4 @@ public class AllTeamPerformanceOfOneSeason implements Iterator<OneTeamPerformanc
 		pointer--;
 		numberOfTeam--;
 	}
-
 }

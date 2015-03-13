@@ -3,6 +3,7 @@ package common.mydatastructure.player;
 import common.enums.TeamName;
 
 public class PlayerPerformanceOfOneMatch {
+	private String formatData;
 	private TeamName teamName;// 效力球队
 	private boolean isFirst;// 是否先发
 	private int playingTime;// 上场时间
@@ -25,10 +26,15 @@ public class PlayerPerformanceOfOneMatch {
 	// TODO
 	// /////////////////////////////////////////////////////////////////////
 	public PlayerPerformanceOfOneMatch(String formatData) {
+		this.formatData = formatData;
 		// 根据一个格式化的字符串初始化一个球员的一场比赛
 	}
 
 	// ///////////////////////////////////////////////////////////////////////////
+	public String getFormatData() {
+		return formatData;
+	}
+
 	public TeamName getTeamName() {
 		return this.teamName;
 	}// 得到效力球队

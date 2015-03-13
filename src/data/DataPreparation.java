@@ -11,50 +11,12 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class DataPreparation {
-
-	public void fillMatchInformationOfPlayer() {
-		File matchFile = new File(PathOfFile.MATCH_INFO);
-		String matchName[] = matchFile.list();
-		for (int i = 0; i < matchName.length; i++) {
-			try {
-				BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + matchName[i]));
-				String temp;
-				String mainInfo = matchReader.readLine();
-				String scoresOfEachPart = matchReader.readLine();
-				String firstTeam = matchReader.readLine();
-				String secondTeam = null;
-				for (int j = 0; j < 6; j++) {
-					temp = matchReader.readLine();
-					this.writeOneMatchOfOnePlayer(temp);
-				}
-				while ((temp = matchReader.readLine()).length() != 3) {
-					this.writeOneMatchOfOnePlayer(temp);
-				}
-				secondTeam = temp;
-				while ((temp = matchReader.readLine()) != null) {
-					this.writeOneMatchOfOnePlayer(temp);
-				}
-				matchReader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	public DataPreparation() {
+		this.handleFileOfTeam();
+		this.handleFileOfMatch();
 	}
 
-	private void writeOneMatchOfOnePlayer(String detailInfo) {
-		String[] eachInfoOfOneMatch;
-		eachInfoOfOneMatch = detailInfo.split(";");
-		String nameOfPlayer = eachInfoOfOneMatch[0];
-		try {
-			BufferedWriter matchWriter = new BufferedWriter(new FileWriter(PathOfFile.PLAYER_INFO + nameOfPlayer, true));
-			matchWriter.write(detailInfo + "\n");
-			matchWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void handleFileOfTeam() {
+	private void handleFileOfTeam() {
 		try {
 			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO + "teams"));
 			teamReader.readLine();
@@ -62,25 +24,29 @@ public class DataPreparation {
 			for (int i = 0; i < NUMBER.NUMBER_OF_TEAM; i++) {
 				formatdetail = teamReader.readLine();
 				System.out.println(formatdetail);
-				this.createAndWriteFile(formatdetail);
+				this.createAndWriteFileOfTeam(formatdetail);
 			}
 			teamReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}// 创建球队信息文件，并写入球队基本信息
 
+	private void handleFileOfMatch() {
+		File matchFile = new File(PathOfFile.MATCH_INFO);
+		String matchName[] = matchFile.list();
+		for (int i = 0; i < matchName.length; i++) {
+			OneMatch match = new OneMatch(matchName[i]);
+			match.writeDetailInformationOfPlayerAndTeam();
+		}
 	}
 
-	private void createAndWriteFile(String formatdetail) {
+	private void createAndWriteFileOfTeam(String formatdetail) {
 		String[] part;
 		String teamNameForShort;
 		part = formatdetail.split("│");
-		for (int i = 0; i < part.length; i++) {
-			System.out.println(part[i]);
-		}
 		teamNameForShort = part[1].trim();
 		String path = PathOfFile.TEAM_INFO + teamNameForShort;
-		System.out.println(path);
 		File teamFile = new File(path);
 		if (!teamFile.exists()) {
 			try {
@@ -94,7 +60,4 @@ public class DataPreparation {
 		}
 	}
 
-	public static void main(String arg[]) {
-		new DataPreparation().handleFileOfTeam();
-	}
 }

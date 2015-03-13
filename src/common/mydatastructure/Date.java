@@ -22,4 +22,8 @@ public class Date {
 	public int getDay() {
 		return this.day;
 	}
+
+	public String getFormatString() {
+		return this.year + "-" + this.month + "-" + this.day;
+	}
 }

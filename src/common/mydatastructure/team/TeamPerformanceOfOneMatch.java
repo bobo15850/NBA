@@ -7,7 +7,6 @@ import common.mydatastructure.Date;
 import common.mydatastructure.player.PlayerPerformanceOfOneMatch;
 
 public class TeamPerformanceOfOneMatch {
-	private ArrayList<PlayerPerformanceOfOneMatch> listOfPlayerPerformance;
 	private TeamName teamName;
 	private Date date;
 	private TeamName opponentTeamName;
@@ -27,42 +26,50 @@ public class TeamPerformanceOfOneMatch {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	public TeamPerformanceOfOneMatch(TeamName teamName, Date date) {
+	public TeamPerformanceOfOneMatch(String formatData) {
+		// /////////////////////////////////根据格式化语句初始化一场比赛信息
+		// TODO
+	}
+
+	public TeamPerformanceOfOneMatch(TeamName teamName, TeamName opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatch> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
+		this.opponentTeamName = opponentTeamName;
 		this.date = date;
-		this.getDetailOfEachPlayer();
-		this.init();
-	}
-
-	private void getDetailOfEachPlayer() {
-		this.getPathOfMatchInformation();
-		// 逐个得到每个球员每场比赛的信息
-	}
-
-	private void init() {
 		PlayerPerformanceOfOneMatch temp;
-		for (int i = 0; i < listOfPlayerPerformance.size(); i++) {
-			temp = listOfPlayerPerformance.get(i);
+		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
+			temp = listOfPlayerPerformanceOfOneMatch.get(i);
 			this.totalHitNumber += temp.getTotalHitNumber();
 			this.totalShootNumber += temp.getTotalShootNumber();
-			this.threePointHitNumber += temp.getThreePointHitNumber();// 三分命中数
-			this.threePointShootNumber += temp.getThreePointShootNumber();// 三分出手数
-			this.freePointHitNumber += temp.getFreePointHitNumber();// 罚球命中数
-			this.freePointShootNumber += temp.getFreePointShootNumber();// 罚球出手数
-			this.offensiveReboundNumber += temp.getOffensiveReboundNumber(); // 进攻篮板
-			this.defensiveReboundNumber += temp.getDefensiveReboundNumber(); // 防守篮板
-			this.totalReboundNumber += temp.getTotalReboundNumber(); // 总篮板
-			this.assistNumber += temp.getAssistNumber(); // 助攻
-			this.stealNumber += temp.getStealNumber(); // 抢断数
-			this.blockNumber += temp.getBlockNumber(); // 盖帽数
-			this.turnoverNumber += temp.getTurnoverNumber(); // 失误数
-			this.foulNumber += temp.getFoulNumber(); // 犯规数
-			this.scoreNumber += temp.getScoreNumber(); // 得分数
+			this.threePointHitNumber += temp.getThreePointHitNumber();
+			this.threePointShootNumber += temp.getThreePointShootNumber();
+			this.freePointHitNumber += temp.getFreePointHitNumber();
+			this.freePointShootNumber += temp.getFreePointShootNumber();
+			this.offensiveReboundNumber += temp.getOffensiveReboundNumber();
+			this.defensiveReboundNumber += temp.getDefensiveReboundNumber();
+			this.totalReboundNumber += temp.getTotalReboundNumber();
+			this.assistNumber += temp.getAssistNumber();
+			this.stealNumber += temp.getStealNumber();
+			this.blockNumber += temp.getBlockNumber();
+			this.turnoverNumber += temp.getTurnoverNumber();
+			this.foulNumber += temp.getFoulNumber();
+			this.scoreNumber += temp.getScoreNumber();
 		}
 	}
 
-	private void getPathOfMatchInformation() {
-
+	@SuppressWarnings("null")
+	public String getFormatString() {
+		StringBuffer result = null;
+		String tag=";";
+		result.append(this.teamName).append(tag).append(this.date.getFormatString()).
+		append(tag).append(this.opponentTeamName).append(tag).append(this.totalHitNumber).
+		append(tag).append(this.totalShootNumber).append(tag).append(this.threePointHitNumber).
+		append(tag).append(this.threePointShootNumber).append(tag).append(this.freePointHitNumber).
+		append(tag).append(this.freePointShootNumber).append(tag).append(this.offensiveReboundNumber).
+		append(tag).append(this.defensiveReboundNumber).append(tag).append(this.totalReboundNumber).
+		append(tag).append(this.assistNumber).append(tag).append(this.stealNumber).
+		append(tag).append(this.blockNumber).append(tag).append(this.turnoverNumber).
+		append(tag).append(this.foulNumber).append(tag).append(this.scoreNumber).append(tag);
+		return result.toString();
 	}
 
 	public TeamName getTeamName() {

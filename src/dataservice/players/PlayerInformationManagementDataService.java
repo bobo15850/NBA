@@ -3,7 +3,7 @@ package dataservice.players;
 import po.NamesOfAllPlayerPo;
 import po.OnePlayerPerformanceOfOneSeasonPo;
 import common.mydatastructure.Season;
-import common.mydatastructure.player.BaseInformationOfPlayer;
+import common.mydatastructure.player.GeneralInfoOfPlayer;
 
 public interface PlayerInformationManagementDataService {
 	// 查找某一球员在某一赛季的比赛信息
@@ -13,5 +13,8 @@ public interface PlayerInformationManagementDataService {
 	public NamesOfAllPlayerPo getNamesOfAllPlayer();
 
 	// 根据球员姓名查找某一球员具体基本自然信息
-	public BaseInformationOfPlayer getBaseInformationOfOnePlayer(String nameOfPlayer);
+	public GeneralInfoOfPlayer getBaseInformationOfOnePlayer(String nameOfPlayer);
+	
+	
+	
 }

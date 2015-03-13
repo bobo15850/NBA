@@ -1,6 +1,6 @@
 package common.enums;
 
-public enum KindOfPlayerData {
+public enum PerformanceOfPlayer {
 	totalHitNumber,// 总命中数
 	totalShootNumber,// 总出手数
 	threePointHitNumber,// 三分命中数
