@@ -79,7 +79,7 @@ public class OneMatch {
 		}
 	}// 将球员比赛数据写到球员信息文件中
 
-	public void writeDetailInformationOfPlayerAndTeam() {
+	public void writeDetailInfoOfPlayerAndTeamToTxt() {
 		if (isDataCorrect) {
 			for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
 				this.writeOneMatchOfOnePlayer(listOfFirstTeamPlayerPerformance.get(i).getFormatData());
@@ -100,4 +100,8 @@ public class OneMatch {
 		}
 		// 先判断该比赛信息是否为脏数据，若不为脏数据则处理后写入对应文本文件
 	}
+
+	public void writeDetailInfoOfPlayerAndTeamToDB() {
+
+	}// 写入数据库
 }

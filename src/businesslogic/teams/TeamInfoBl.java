@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import po.GeneralInfoOfTeamPo;
 import po.OneTeamPerformanceOfOneSeasonPo;
 import vo.AllTeamPerformanceOfOneSeasonVo;
+import vo.GeneralInfoOfTeamVo;
 import vo.OneTeamPerformanceOfAllSeasonVo;
 import vo.OneTeamPerformanceOfOneSeasonVo;
 import businesslogicservice.teams.TeamInfoBlService;
@@ -39,8 +40,10 @@ public class TeamInfoBl implements TeamInfoBlService {
 		return new OneTeamPerformanceOfOneSeasonVo(po);
 	}// 查找某一球队在某一赛季的比赛信息
 
-	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(TeamName teamName) {
-		return this.teamInformationManagementData.getBaseInformationOfOneTeam(teamName);
+	public GeneralInfoOfTeamVo getBaseInformationOfOneTeam(TeamName teamName) {
+		GeneralInfoOfTeamPo po = this.teamInformationManagementData.getBaseInformationOfOneTeam(teamName);
+		GeneralInfoOfTeamVo vo = new GeneralInfoOfTeamVo(po);
+		return vo;
 	}// 根据球员姓名查找某一球队具体基本自然信息
 
 	public void ascendingSort(AllTeamPerformanceOfOneSeasonVo vo, PerformanceOfPlayer dataKind) {

@@ -6,6 +6,7 @@ import po.GeneralInfoOfPlayerPo;
 import po.NamesOfAllPlayerPo;
 import po.OnePlayerPerformanceOfOneSeasonPo;
 import vo.AllPlayerPerformanceOfOneSeasonVo;
+import vo.GeneralInfoOfPlayerVo;
 import vo.OnePlayerPerformanceOfAllSeasonVo;
 import vo.OnePlayerPerformanceOfOneSeasonVo;
 import businesslogicservice.players.PlayerInfoBlService;
@@ -43,8 +44,10 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		return new OnePlayerPerformanceOfOneSeasonVo(po);
 	}// 查找某一球员在某一赛季的比赛信息
 
-	public GeneralInfoOfPlayerPo getBaseInformationOfOnePlayer(String nameOfPlayer) {
-		return this.playerInfoData.getBaseInformationOfOnePlayer(nameOfPlayer);
+	public GeneralInfoOfPlayerVo getBaseInformationOfOnePlayer(String nameOfPlayer) {
+		GeneralInfoOfPlayerPo po = this.playerInfoData.getBaseInformationOfOnePlayer(nameOfPlayer);
+		GeneralInfoOfPlayerVo vo = new GeneralInfoOfPlayerVo(po);
+		return vo;
 	}// 根据球员姓名查找某一球员具体基本自然信息
 
 	public void ascendingSort(AllPlayerPerformanceOfOneSeasonVo vo, PerformanceOfPlayer dataKind) {

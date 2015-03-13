@@ -37,7 +37,7 @@ public class DataPreparation {
 		String matchName[] = matchFile.list();
 		for (int i = 0; i < matchName.length; i++) {
 			OneMatch match = new OneMatch(matchName[i]);
-			match.writeDetailInformationOfPlayerAndTeam();
+			match.writeDetailInfoOfPlayerAndTeamToTxt();
 		}
 	}
 

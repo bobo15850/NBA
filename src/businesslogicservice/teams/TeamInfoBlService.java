@@ -1,9 +1,10 @@
 package businesslogicservice.teams;
 
-import po.GeneralInfoOfTeamPo;
 import vo.AllTeamPerformanceOfOneSeasonVo;
+import vo.GeneralInfoOfTeamVo;
 import vo.OneTeamPerformanceOfAllSeasonVo;
 import vo.OneTeamPerformanceOfOneSeasonVo;
+
 import common.enums.PerformanceOfPlayer;
 import common.enums.TeamName;
 import common.mydatastructure.Season;
@@ -19,7 +20,7 @@ public interface TeamInfoBlService {
 	public OneTeamPerformanceOfOneSeasonVo getOneTeamPerformanceOfOneSeason(TeamName teamName, Season season);
 
 	// 根据球员姓名查找某一球队具体基本自然信息
-	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(TeamName teamName);
+	public GeneralInfoOfTeamVo getBaseInformationOfOneTeam(TeamName teamName);
 
 	// 根据某一项将所有球队某一赛季成绩升序排序
 	public void ascendingSort(AllTeamPerformanceOfOneSeasonVo vo, PerformanceOfPlayer dataKind);
