@@ -2,13 +2,12 @@ package po;
 
 import java.util.ArrayList;
 
-import common.enums.TeamName;
 import common.mydatastructure.Date;
 
 public class TeamPerformanceOfOneMatchPo {
-	private TeamName teamName;
+	private String teamName;
 	private Date date;
-	private TeamName opponentTeamName;
+	private String opponentTeamName;
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -30,7 +29,7 @@ public class TeamPerformanceOfOneMatchPo {
 		// TODO
 	}
 
-	public TeamPerformanceOfOneMatchPo(TeamName teamName, TeamName opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
+	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
 		this.opponentTeamName = opponentTeamName;
 		this.date = date;
@@ -58,24 +57,89 @@ public class TeamPerformanceOfOneMatchPo {
 	@SuppressWarnings("null")
 	public String getFormatString() {
 		StringBuffer result = null;
-		String tag=";";
-		result.append(this.teamName).append(tag).append(this.date.getFormatString()).
-		append(tag).append(this.opponentTeamName).append(tag).append(this.totalHitNumber).
-		append(tag).append(this.totalShootNumber).append(tag).append(this.threePointHitNumber).
-		append(tag).append(this.threePointShootNumber).append(tag).append(this.freePointHitNumber).
-		append(tag).append(this.freePointShootNumber).append(tag).append(this.offensiveReboundNumber).
-		append(tag).append(this.defensiveReboundNumber).append(tag).append(this.totalReboundNumber).
-		append(tag).append(this.assistNumber).append(tag).append(this.stealNumber).
-		append(tag).append(this.blockNumber).append(tag).append(this.turnoverNumber).
-		append(tag).append(this.foulNumber).append(tag).append(this.scoreNumber).append(tag);
+		String tag = ";";
+		result.append(this.teamName).append(tag).append(this.date.getFormatString()).append(tag).append(this.opponentTeamName).append(tag).append(this.totalHitNumber).append(tag).append(this.totalShootNumber).append(tag).append(this.threePointHitNumber).append(tag).append(this.threePointShootNumber).append(tag).append(this.freePointHitNumber).append(tag).append(this.freePointShootNumber).append(tag).append(this.offensiveReboundNumber).append(tag).append(this.defensiveReboundNumber).append(tag).append(this.totalReboundNumber).append(tag).append(this.assistNumber).append(tag).append(this.stealNumber).append(tag).append(this.blockNumber).append(tag).append(this.turnoverNumber).append(tag).append(this.foulNumber).append(tag).append(this.scoreNumber).append(tag);
 		return result.toString();
 	}
 
-	public TeamName getTeamName() {
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}// 设置球队名称
+
+	public void setOpponentTeamName(String opponentTeamName) {
+		this.opponentTeamName = opponentTeamName;
+	}// 设置对手名称
+
+	public void setDate(Date date) {
+		this.date = date;
+	}// 设置比赛时间
+
+	public void setTotalHitNumber(int totalHitNumber) {
+		this.totalHitNumber = totalHitNumber;
+	}// 设置总命中数
+
+	public void setTotalShootNumber(int totalShootNumber) {
+		this.totalShootNumber = totalShootNumber;
+	}// 设置总出手数
+
+	public void setThreePointHitNumber(int threePointHitNumber) {
+		this.threePointHitNumber = threePointHitNumber;
+	}// 设置总三分命中数
+
+	public void setThreePointShootNumber(int threePointShootNumber) {
+		this.threePointShootNumber = threePointShootNumber;
+	}// 设置总三分出手数
+
+	public void setFreePointHitNumber(int freePointHitNumber) {
+		this.freePointHitNumber = freePointHitNumber;
+	}// 设置总罚球命中数
+
+	public void setFreePointShootNumber(int freePointShootNumber) {
+		this.freePointShootNumber = freePointShootNumber;
+	}// 设置总罚球出手数
+
+	public void setOffensiveReboundNumber(int offensiveReboundNumber) {
+		this.offensiveReboundNumber = offensiveReboundNumber;
+	}// 设置总进攻篮板数
+
+	public void setDefensiveReboundNumber(int defensiveReboundNumber) {
+		this.defensiveReboundNumber = defensiveReboundNumber;
+	}// 设置总防守篮板数
+
+	public void setTotalReboundNumber(int totalReboundNumber) {
+		this.totalReboundNumber = totalReboundNumber;
+	}// 设置总篮板数
+
+	public void setAssistNumber(int assistNumber) {
+		this.assistNumber = assistNumber;
+	}// 设置助攻数
+
+	public void setStealNumber(int stealNumber) {
+		this.stealNumber = stealNumber;
+	}// 设置抢断数
+
+	public void setBlockNumber(int blockNumber) {
+		this.blockNumber = blockNumber;
+	}// 设置盖帽数
+
+	public void setTurnoverNumber(int turnoverNumber) {
+		this.turnoverNumber = turnoverNumber;
+	}// 设置失误数
+
+	public void setFoulNumber(int foulNumber) {
+		this.foulNumber = foulNumber;
+	}// 设置犯规数
+
+	public void setScoreNumber(int scoreNumber) {
+		this.scoreNumber = scoreNumber;
+	}// 设置得分数
+		// //////////////////////////
+
+	public String getTeamName() {
 		return this.teamName;
 	}// 得到球队名称
 
-	public TeamName getOpponentTeamName() {
+	public String getOpponentTeamName() {
 		return this.opponentTeamName;
 	}// 得到对手名称
 

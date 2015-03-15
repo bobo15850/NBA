@@ -1,22 +1,27 @@
 package data.players;
 
+import java.util.ArrayList;
+
 import po.GeneralInfoOfPlayerPo;
-import po.NamesOfAllPlayerPo;
-import po.OnePlayerPerformanceOfOneSeasonPo;
+import po.PlayerPerformanceOfOneMatchPo;
+
 import common.mydatastructure.Season;
+
 import dataservice.players.PlayerInfoDataService;
 
 public class PlayerInfoData implements PlayerInfoDataService {
 
-	public OnePlayerPerformanceOfOneSeasonPo getOnePlayerPerformanceOfOneSeasonPo(String nameOfPlayer, Season season) {
-		return new OnePlayerPerformanceOfOneSeasonPo(nameOfPlayer, season);
+	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformanceOfOneSeasonPo(String nameOfPlayer, Season season) {
+		ArrayList<PlayerPerformanceOfOneMatchPo> poList = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
+		return poList;
 	}// 查找某一球员某一赛季的比赛信息
 
 	public GeneralInfoOfPlayerPo getBaseInformationOfOnePlayer(String nameOfPlayer) {
 		return new GeneralInfoOfPlayerPo(nameOfPlayer);
 	}// 查找某一球员的基本自然信息
 
-	public NamesOfAllPlayerPo getNamesOfAllPlayer() {
-		return new NamesOfAllPlayerPo();
+	public ArrayList<String> getNamesOfAllPlayer() {
+		ArrayList<String> namesList = new ArrayList<String>(1024);
+		return namesList;
 	}// 查找所有球员姓名
 }

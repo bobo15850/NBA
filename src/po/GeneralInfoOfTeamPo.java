@@ -1,50 +1,57 @@
 package po;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
 import javax.swing.ImageIcon;
 
 import common.enums.Conference;
 import common.enums.Division;
-import common.enums.TeamName;
 import common.statics.PathOfFile;
 
 /*
  * 该类定义球队的自然信息
  */
 public class GeneralInfoOfTeamPo {
-	private TeamName teamName;
-	private ImageIcon teamIcon;
+	private String teamName;// 球队名称
+	private ImageIcon teamIcon;//
 	private String location;
 	private Conference conference;
 	private Division division;
 	private String homeField;
 	private int establishYear;
 
-	public GeneralInfoOfTeamPo(TeamName teamName) {
+	public GeneralInfoOfTeamPo(String teamName) {
 		this.teamName = teamName;
 		this.teamIcon = new ImageIcon(PathOfFile.TEAM_IMAGE + teamName + ".svg");
-		this.init();
 	}
 
-	// //////////////////////////////////////////////////////该方法待编辑
-	// TODO//根据一行数据初始化球队信息
-	private void init() {
-		try {
-			BufferedReader bufferedreader = new BufferedReader(new FileReader(PathOfFile.TEAM_IMAGE + teamName));
-			String temp;
-			while ((temp = bufferedreader.readLine()) != null) {
-				System.out.println(temp);
-			}
-			bufferedreader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}// //////////////////////////////////////////////////////////////////
+	public void setTeamName(String TeamName) {
+		this.teamName = TeamName;
+	}// 设置队名
 
-	public TeamName getTeamName() {
+	public void setTeamIcon(ImageIcon teamIcon) {
+		this.teamIcon = teamIcon;
+	}// 设置球队图标
+
+	public void setLocation(String location) {
+		this.location = location;
+	}// 设置球队地址
+
+	public void setConference(Conference conference) {
+		this.conference = conference;
+	}// 设置球队所属联盟
+
+	public void setDivision(Division division) {
+		this.division = division;
+	}// 设置球队所属赛区
+
+	public void setHomeField(String homeField) {
+		this.homeField = homeField;
+	}// 设置球队主场
+
+	public void setEstablishYear(int establishYear) {
+		this.establishYear = establishYear;
+	}// 设置建立时间
+
+	public String getTeamName() {
 		return this.teamName;
 	}// 得到队名
 

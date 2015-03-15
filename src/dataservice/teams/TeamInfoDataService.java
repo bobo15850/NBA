@@ -1,14 +1,16 @@
 package dataservice.teams;
 
-import common.enums.TeamName;
-import common.mydatastructure.Season;
+import java.util.ArrayList;
+
 import po.GeneralInfoOfTeamPo;
-import po.OneTeamPerformanceOfOneSeasonPo;
+import po.TeamPerformanceOfOneMatchPo;
+
+import common.mydatastructure.Season;
 
 public interface TeamInfoDataService {
 	// 查找某一球队在某一赛季的具体信息
-	public OneTeamPerformanceOfOneSeasonPo getOneTeamPerformanceOfOneSeason(TeamName teamName, Season season);
+	public ArrayList<TeamPerformanceOfOneMatchPo> getOneTeamPerformanceOfOneSeason(String teamName, Season season);
 
 	// 根据球队名称查找某一球队具体自然信息
-	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(TeamName teamName);
+	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(String teamName);
 }

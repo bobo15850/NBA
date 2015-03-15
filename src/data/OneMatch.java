@@ -9,14 +9,14 @@ import java.util.ArrayList;
 
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
-import common.enums.TeamName;
+
 import common.mydatastructure.Date;
 import common.statics.PathOfFile;
 import common.statics.StringToEnum;
 
 public class OneMatch {
-	private TeamName firstTeam;
-	private TeamName secondTeam;
+	private String firstTeam;
+	private String secondTeam;
 	private Date date;
 	private int firstTeamSocre;
 	private int secondTeamScore;
@@ -36,7 +36,7 @@ public class OneMatch {
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分时间
 			String scoresOfEachPart = matchReader.readLine();// 得到每节比分
 			String firstTeam = matchReader.readLine().trim();
-			this.firstTeam = StringToEnum.toTeamName(firstTeam);// 初始化第一个队名
+			this.firstTeam = firstTeam;// 初始化第一个队名
 			for (int j = 0; j < 6; j++) {
 				temp = matchReader.readLine();
 				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
@@ -45,7 +45,7 @@ public class OneMatch {
 				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
 			}
 			String secondTeam = temp.trim();
-			this.secondTeam = StringToEnum.toTeamName(secondTeam);// 初始化第二个队名
+			this.secondTeam = secondTeam;// 初始化第二个队名
 			while ((temp = matchReader.readLine()) != null) {
 				listOfSecondTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
 			}

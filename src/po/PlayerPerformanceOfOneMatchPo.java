@@ -1,10 +1,8 @@
 package po;
 
-import common.enums.TeamName;
-
 public class PlayerPerformanceOfOneMatchPo {
 	private String formatData;
-	private TeamName teamName;// 效力球队
+	private String teamName;// 效力球队
 	private boolean isFirst;// 是否先发
 	private int playingTime;// 上场时间
 	private int totalHitNumber;// 总命中数
@@ -23,23 +21,93 @@ public class PlayerPerformanceOfOneMatchPo {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	// TODO
-	// /////////////////////////////////////////////////////////////////////
 	public PlayerPerformanceOfOneMatchPo(String formatData) {
 		this.formatData = formatData;
 		// 根据一个格式化的字符串初始化一个球员的一场比赛
 	}
 
-	// ///////////////////////////////////////////////////////////////////////////
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}// 设置效力球队
+
+	public void setIsFirst(boolean isFirst) {
+		this.isFirst = isFirst;
+	}// 是否先发
+
+	public void setPlayingTime(int playingTime) {
+		this.playingTime = playingTime;
+	}// 设置上场时间
+
+	public void setTotalHitNumber(int totalHitNumber) {
+		this.totalHitNumber = totalHitNumber;
+	}// 设置总命中数
+
+	public void setTotalShootNumber(int totalShootNumber) {
+		this.totalShootNumber = totalShootNumber;
+	}// 设置总出手数
+
+	public void setThreePointHitNumber(int threePointHitNumber) {
+		this.threePointHitNumber = threePointHitNumber;
+	}// 设置总三分命中数
+
+	public void setThreePointShootNumber(int threePointShootNumber) {
+		this.threePointShootNumber = threePointShootNumber;
+	}// 设置总三分出手数
+
+	public void setFreePointHitNumber(int freePointHitNumber) {
+		this.freePointHitNumber = freePointHitNumber;
+	}// 设置总罚球命中数
+
+	public void setFreePointShootNumber(int freePointShootNumber) {
+		this.freePointShootNumber = freePointShootNumber;
+	}// 设置总罚球出手数
+
+	public void setOffensiveReboundNumber(int offensiveReboundNumber) {
+		this.offensiveReboundNumber = offensiveReboundNumber;
+	}// 设置总进攻篮板数
+
+	public void setDefensiveReboundNumber(int defensiveReboundNumber) {
+		this.defensiveReboundNumber = defensiveReboundNumber;
+	}// 设置总防守篮板数
+
+	public void setTotalReboundNumber(int totalReboundNumber) {
+		this.totalReboundNumber = totalReboundNumber;
+	}// 设置总篮板数
+
+	public void setAssistNumber(int assistNumber) {
+		this.assistNumber = assistNumber;
+	}// 设置助攻数
+
+	public void setStealNumber(int stealNumber) {
+		this.stealNumber = stealNumber;
+	}// 设置抢断数
+
+	public void setBlockNumber(int blockNumber) {
+		this.blockNumber = blockNumber;
+	}// 设置盖帽数
+
+	public void setTurnoverNumber(int turnoverNumber) {
+		this.turnoverNumber = turnoverNumber;
+	}// 设置失误数
+
+	public void setFoulNumber(int foulNumber) {
+		this.foulNumber = foulNumber;
+	}// 设置犯规数
+
+	public void setScoreNumber(int scoreNumber) {
+		this.scoreNumber = scoreNumber;
+	}// 设置得分数
+		// ///////////////////////////////////////////////////////////////////////////
+
 	public String getFormatData() {
 		return formatData;
 	}
 
-	public TeamName getTeamName() {
+	public String getTeamName() {
 		return this.teamName;
 	}// 得到效力球队
 
-	public boolean isFirst() {
+	public boolean getIsFirst() {
 		return this.isFirst;
 	}// 是否先发
 
