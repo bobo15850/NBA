@@ -1,7 +1,6 @@
 package po;
 
 public class PlayerPerformanceOfOneMatchPo {
-	private String formatData;
 	private String teamName;// 效力球队
 	private boolean isFirst;// 是否先发
 	private int playingTime;// 上场时间
@@ -20,11 +19,6 @@ public class PlayerPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
-
-	public PlayerPerformanceOfOneMatchPo(String formatData) {
-		this.formatData = formatData;
-		// 根据一个格式化的字符串初始化一个球员的一场比赛
-	}
 
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
@@ -98,10 +92,6 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.scoreNumber = scoreNumber;
 	}// 设置得分数
 		// ///////////////////////////////////////////////////////////////////////////
-
-	public String getFormatData() {
-		return formatData;
-	}
 
 	public String getTeamName() {
 		return this.teamName;

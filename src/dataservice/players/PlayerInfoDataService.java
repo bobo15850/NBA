@@ -9,7 +9,7 @@ import common.mydatastructure.Season;
 
 public interface PlayerInfoDataService {
 	// 查找某一球员在某一赛季的比赛信息
-	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformanceOfOneSeasonPo(String nameOfPlayer, Season season);
+	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer, Season season);
 
 	// 查找出所有的球员姓名
 	public ArrayList<String> getNamesOfAllPlayer();

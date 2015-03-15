@@ -4,28 +4,27 @@ import javax.swing.ImageIcon;
 
 import common.enums.Conference;
 import common.enums.Division;
-import common.statics.PathOfFile;
 
 /*
  * 该类定义球队的自然信息
  */
 public class GeneralInfoOfTeamPo {
 	private String teamName;// 球队名称
-	private ImageIcon teamIcon;//
-	private String location;
-	private Conference conference;
-	private Division division;
-	private String homeField;
-	private int establishYear;
-
-	public GeneralInfoOfTeamPo(String teamName) {
-		this.teamName = teamName;
-		this.teamIcon = new ImageIcon(PathOfFile.TEAM_IMAGE + teamName + ".svg");
-	}
+	private String teamNameForShort;// 队名缩写
+	private ImageIcon teamIcon;// 球队图标
+	private String location;// 球队所在地
+	private Conference conference;// 赛区
+	private Division division;// 分区
+	private String homeField;// 球队主场
+	private int establishYear;// 建立时间
 
 	public void setTeamName(String TeamName) {
 		this.teamName = TeamName;
 	}// 设置队名
+
+	public void setTeamNameForShort(String teamNameForShort) {
+		this.teamNameForShort = teamNameForShort;
+	}// 设置队名缩写
 
 	public void setTeamIcon(ImageIcon teamIcon) {
 		this.teamIcon = teamIcon;
@@ -55,6 +54,10 @@ public class GeneralInfoOfTeamPo {
 		return this.teamName;
 	}// 得到队名
 
+	public String getTeamNameForShort() {
+		return teamNameForShort;
+	}// 得到队名缩写
+
 	public ImageIcon getTeamIcon() {
 		return teamIcon;
 	}// 得到球队图标
@@ -78,4 +81,5 @@ public class GeneralInfoOfTeamPo {
 	public int getEstablishYear() {
 		return this.establishYear;
 	}// 得到建立时间
+
 }

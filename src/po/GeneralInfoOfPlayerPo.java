@@ -6,7 +6,6 @@ import common.enums.PlayerPosition;
 import common.mydatastructure.Date;
 import common.mydatastructure.Height;
 import common.mydatastructure.Weight;
-import common.statics.PathOfFile;
 
 /*
  * 该类是球员的基本自然信息的数据po
@@ -20,14 +19,13 @@ public class GeneralInfoOfPlayerPo {
 	private Height height;// 身高
 	private Weight weight;// 体重
 	private Date birthday;// 生日
+	private int age;// 年龄
 	private int trainingYear;// 球龄
 	private String school;// 毕业学校
 
-	public GeneralInfoOfPlayerPo(String nameOfPlayer) {
-		this.playerName = nameOfPlayer;
-		this.portraitImageIcon = new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + nameOfPlayer + ".png");
-		this.actionImageIcon = new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + nameOfPlayer + ".png");
-	}
+	public void setName(String playerName) {
+		this.playerName = playerName;
+	}// 设置球员的姓名
 
 	public void setPortraitImageIcon(ImageIcon portraitImageIcon) {
 		this.portraitImageIcon = portraitImageIcon;
@@ -36,10 +34,6 @@ public class GeneralInfoOfPlayerPo {
 	public void setActionImageIcon(ImageIcon actionImageIcon) {
 		this.actionImageIcon = actionImageIcon;
 	}// 设置全身像
-
-	public void setName(String playerName) {
-		this.playerName = playerName;
-	}// 设置球员的姓名
 
 	public void setNumber(String playerNumber) {
 		this.playerNumber = playerNumber;
@@ -61,6 +55,10 @@ public class GeneralInfoOfPlayerPo {
 		this.birthday = birthday;
 	}// 设置球员的生日
 
+	public void setAge(int age) {
+		this.age = age;
+	}// 设置球员年龄
+
 	public void setTrainingYear(int trainingYear) {
 		this.trainingYear = trainingYear;
 	}// 设置球员的球龄
@@ -68,7 +66,14 @@ public class GeneralInfoOfPlayerPo {
 	public void setShool(String school) {
 		this.school = school;
 	}// 设置球员的毕业学校
-		// //////////////////////////////////////////////////////////////
+
+	/*
+	 * 以上是设置属性的方法；以下下是得到属性的方法
+	 */
+
+	public String getName() {
+		return this.playerName;
+	}// 得到球员的姓名
 
 	public ImageIcon getPortraitImageIcon() {
 		return this.portraitImageIcon;
@@ -77,10 +82,6 @@ public class GeneralInfoOfPlayerPo {
 	public ImageIcon getActionImageIcon() {
 		return this.actionImageIcon;
 	}// 得到全身像
-
-	public String getName() {
-		return this.playerName;
-	}// 得到球员的姓名
 
 	public String getNumber() {
 		return this.playerNumber;
@@ -101,6 +102,10 @@ public class GeneralInfoOfPlayerPo {
 	public Date getBirthday() {
 		return this.birthday;
 	}// 得到球员的生日
+
+	public int getAge() {
+		return this.age;
+	}// 得到球员年龄
 
 	public int getTrainingYear() {
 		return this.trainingYear;

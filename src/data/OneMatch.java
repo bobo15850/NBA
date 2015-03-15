@@ -39,15 +39,15 @@ public class OneMatch {
 			this.firstTeam = firstTeam;// 初始化第一个队名
 			for (int j = 0; j < 6; j++) {
 				temp = matchReader.readLine();
-				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
+				listOfFirstTeamPlayerPerformance.add(null);
 			}
 			while ((temp = matchReader.readLine()).length() != 3) {
-				listOfFirstTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
+				listOfFirstTeamPlayerPerformance.add(null);
 			}
 			String secondTeam = temp.trim();
 			this.secondTeam = secondTeam;// 初始化第二个队名
 			while ((temp = matchReader.readLine()) != null) {
-				listOfSecondTeamPlayerPerformance.add(new PlayerPerformanceOfOneMatchPo(temp));
+				listOfSecondTeamPlayerPerformance.add(null);
 			}
 			matchReader.close();
 			this.firstTeamPerformance = new TeamPerformanceOfOneMatchPo(this.firstTeam, this.secondTeam, this.date, this.listOfFirstTeamPlayerPerformance);
@@ -82,10 +82,10 @@ public class OneMatch {
 	public void writeDetailInfoOfPlayerAndTeamToTxt() {
 		if (isDataCorrect) {
 			for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
-				this.writeOneMatchOfOnePlayer(listOfFirstTeamPlayerPerformance.get(i).getFormatData());
+				// this.writeOneMatchOfOnePlayer(listOfFirstTeamPlayerPerformance.get(i).getFormatData());
 			}
 			for (int i = 0; i < listOfSecondTeamPlayerPerformance.size(); i++) {
-				this.writeOneMatchOfOnePlayer(listOfSecondTeamPlayerPerformance.get(i).getFormatData());
+				// this.writeOneMatchOfOnePlayer(listOfSecondTeamPlayerPerformance.get(i).getFormatData());
 			}
 			try {
 				BufferedWriter firstTeamPerformanceWriter = new BufferedWriter(new FileWriter(PathOfFile.TEAM_INFO + firstTeam.toString(), true));

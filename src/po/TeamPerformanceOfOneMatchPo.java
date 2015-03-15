@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import common.mydatastructure.Date;
 
 public class TeamPerformanceOfOneMatchPo {
-	private String teamName;
-	private Date date;
-	private String opponentTeamName;
+	private String teamName;// 球队名称
+	private Date date;// 比赛时间
+	private String opponentTeamName;// 对手名称
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -23,11 +23,6 @@ public class TeamPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
-
-	public TeamPerformanceOfOneMatchPo(String formatData) {
-		// /////////////////////////////////根据格式化语句初始化一场比赛信息
-		// TODO
-	}
 
 	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
