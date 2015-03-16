@@ -9,6 +9,5 @@ public class Main {
 
 	public static void main(String arg[]) {
 		DataPreparation d = new DataPreparation();
-		System.out.println(Time.number);
 	}
 }

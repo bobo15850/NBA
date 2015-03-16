@@ -11,7 +11,16 @@ import javax.swing.JOptionPane;
 import common.statics.ResultMessage;
 
 public class OperationOfPlayersDB {
-
+	private String createTableString = "(playerName varchar(255) NOT NULL ,date varchar(255) NOT NULL ,"
+			+ "teamName varchar(255) NOT NULL ,isFirst varchar(255) NOT NULL ,"
+			+ "playingTime double NOT NULL ,totalHitNumber int NOT NULL ,"
+			+ "totalShootNumber int NOT NULL ,threePointHitNumber int NOT NULL ,"
+			+ "threePointShootNumber int NOT NULL ,freePointHitNumber int NOT NULL ,"
+			+ "freePointShootNumber int NOT NULL ,offensiveReboundNumber int NOT NULL ,"
+			+ "defensiveReboundNumber int NOT NULL ,totalReboundNumber int NOT NULL ,"
+			+ "assistNumber int NOT NULL ,stealNumber int NOT NULL ,"
+			+ "blockNumber int NOT NULL ,turnoverNumber int NOT NULL ,"
+			+ "foulNumber int NOT NULL , scoreNumber int NOT NULL,PRIMARY KEY (`date`))";
 	private static OperationOfPlayersDB dbOfPlayers = null;
 	private String dbDriver = "com.mysql.jdbc.Driver";
 	private String dbUrl = "jdbc:mysql://localhost:3306/players";
@@ -29,7 +38,7 @@ public class OperationOfPlayersDB {
 		}
 	}
 
-	public static OperationOfPlayersDB getConnection() {
+	public static OperationOfPlayersDB getPlayerDB() {
 		if (dbOfPlayers == null) {
 			dbOfPlayers = new OperationOfPlayersDB();
 		}
@@ -55,15 +64,10 @@ public class OperationOfPlayersDB {
 		return conn;
 	} // 连接数据库
 
-	public ResultMessage createTable(String table, String[] column) {
+	public ResultMessage createTable(String table) {
 		try {
-			StringBuffer sql = new StringBuffer();
-			sql.append("(").append(column[0]);
-			for (int i = 1; i < column.length; i++) {
-				sql.append(",").append(column[i]);
-			}
-			sql.append(")");
-			this.statement.executeUpdate("CREATE TABLE " + table + " " + sql.toString());
+			this.statement.executeUpdate("CREATE TABLE `players`.`" + table + "` "
+					+ this.createTableString);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,11 +88,11 @@ public class OperationOfPlayersDB {
 			e.printStackTrace();
 			return ResultMessage.DB_FAULT;
 		}
-	}
+	}// 判断表格是否存在
 
 	public ResultMessage add(String table, String sql) {
 		try {
-			this.statement.executeUpdate("INSERT INTO " + table + " " + sql);
+			this.statement.executeUpdate("INSERT INTO `players`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -98,7 +102,7 @@ public class OperationOfPlayersDB {
 
 	public ResultMessage updata(String table, String sql) {
 		try {
-			this.statement.executeUpdate("UPDATE " + table + " " + sql);
+			this.statement.executeUpdate("UPDATE `players`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,7 +112,7 @@ public class OperationOfPlayersDB {
 
 	public ResultMessage delete(String table, String sql) {
 		try {
-			this.statement.executeUpdate("DELETE FROM " + table + " " + sql);
+			this.statement.executeUpdate("DELETE FROM `players`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,7 +122,8 @@ public class OperationOfPlayersDB {
 
 	public ResultSet find(String table, String sql) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM " + table + " " + sql);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table
+					+ "` " + sql);
 			return result;// 得到符合条件的集合
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +135,8 @@ public class OperationOfPlayersDB {
 
 	public ResultSet find_all(String table) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM " + table);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table
+					+ "`");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();

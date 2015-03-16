@@ -198,4 +198,47 @@ public class TeamPerformanceOfOneMatchPo {
 	public int getScoreNumber() {
 		return this.scoreNumber;
 	}// 得到得分数
+
+	public String toDBString() {
+		String resultString = "(`teamName`, `date`, `opponentTeamName`, "
+				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
+				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
+				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
+				+ " `assistNumber`, `stealNumber`, `blockNumber`,"
+				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + " VALUES ('"
+				+ this.getTeamName()
+				+ "','"
+				+ this.getDate().getFormatString()
+				+ "','"
+				+ this.getOpponentTeamName()
+				+ "','"
+				+ this.getTotalHitNumber()
+				+ "','"
+				+ this.getTotalShootNumber()
+				+ "','"
+				+ this.getThreePointHitNumber()
+				+ "','"
+				+ this.getThreePointShootNumber()
+				+ "','"
+				+ this.getFreePointHitNumber()
+				+ "','"
+				+ this.getFreePointShootNumber()
+				+ "','"
+				+ this.getOffensiveReboundNumber()
+				+ "','"
+				+ this.getDefensiveReboundNumber()
+				+ "','"
+				+ this.getTotalReboundNumber()
+				+ "','"
+				+ this.getAssistNumber()
+				+ "','"
+				+ this.getStealNumber()
+				+ "','"
+				+ this.getBlockNumber()
+				+ "','"
+				+ this.getTurnoverNumber()
+				+ "','"
+				+ this.getFoulNumber() + "','" + this.getScoreNumber() + "')";
+		return resultString;
+	}
 }

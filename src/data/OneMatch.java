@@ -13,10 +13,12 @@ import common.mydatastructure.Time;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 import common.statics.ResultMessage;
+import databaseutility.OperationOfPlayersDB;
 import databaseutility.OperationOfTeamsDB;
 
 public class OneMatch {
-	private OperationOfTeamsDB db = OperationOfTeamsDB.getConnection();
+	private OperationOfTeamsDB dbOfTeam = OperationOfTeamsDB.getTeamDB();
+	private OperationOfPlayersDB dbOfPlayer = OperationOfPlayersDB.getPlayerDB();
 	private String nameOfFile;
 	private String firstTeam;// 第一支球队
 	private String secondTeam;// 第二支球队
@@ -64,7 +66,6 @@ public class OneMatch {
 					this.secondTeam, this.date, this.listOfFirstTeamPlayerPerformance);
 			this.secondTeamPerformance = new TeamPerformanceOfOneMatchPo(this.secondTeam,
 					this.firstTeam, this.date, this.listOfSecondTeamPlayerPerformance);
-
 			this.isDataCorrect = this.isDataCorrect();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,6 +99,7 @@ public class OneMatch {
 		PlayerPerformanceOfOneMatchPo resultPo = new PlayerPerformanceOfOneMatchPo();
 		String part[] = temp.split(";");
 		resultPo.setTeamName(firstTeam);
+		resultPo.setDate(date);
 		resultPo.setIsFirst(true);
 		resultPo.setNameOfPlayer(part[0]);
 		resultPo.setPlayingTime(Time.stringToDouble(part[2]));
@@ -142,85 +144,55 @@ public class OneMatch {
 		try {
 			return Integer.parseInt(str);
 		} catch (NumberFormatException e) {
-			Time.number++;
-			System.out.println(str);
 			return 0;
 		}
 	}
 
 	private boolean isDataCorrect() {
+		// ///////////////////////////////////////////////////待编辑
 		return true;
 	}// 判断是否为脏数据
 
 	public void writeDetailInfoOfPlayerAndTeamToDB() {
 		System.out.println(this.nameOfFile);
 		if (this.isDataCorrect) {
-			this.writeDetailInfoOfPlayerPerform();
-			this.writeDetailInfoOfTeamPerform();
+			PlayerPerformanceOfOneMatchPo playerPo;
+			for (int i = 0; i < 1; i++) {
+				playerPo = listOfFirstTeamPlayerPerformance.get(i);
+				this.writeDetailInfoOfPlayerPerform(playerPo);
+			}
+			for (int i = 0; i < listOfSecondTeamPlayerPerformance.size(); i++) {
+				playerPo = listOfSecondTeamPlayerPerformance.get(i);
+				this.writeDetailInfoOfPlayerPerform(playerPo);
+			}
+			// ////////////////
+			// this.writeDetailInfoOfTeamPerform();
 		}
-	}// 写入数据库
+	}// 初始化比赛信息数据库
 
 	private void writeDetailInfoOfTeamPerform() {
-		if (db.isTableExist(firstTeam).equals(ResultMessage.EXIST)) {
-			db.add(firstTeam, this.getTeamDetaiString(firstTeamPerformance));
-		} else if (db.isTableExist(firstTeam).equals(ResultMessage.NOT_EXIST)) {
-			db.createTable(firstTeam);
-			db.add(firstTeam, this.getTeamDetaiString(firstTeamPerformance));
+		if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.EXIST)) {
+			dbOfTeam.add(firstTeam, firstTeamPerformance.toDBString());
+		} else if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.NOT_EXIST)) {
+			dbOfTeam.createTable(firstTeam);
+			dbOfTeam.add(firstTeam, firstTeamPerformance.toDBString());
 		}
-		if (db.isTableExist(secondTeam).equals(ResultMessage.EXIST)) {
-			db.add(secondTeam, this.getTeamDetaiString(secondTeamPerformance));
-		} else if (db.isTableExist(secondTeam).equals(ResultMessage.NOT_EXIST)) {
-			db.createTable(secondTeam);
-			db.add(secondTeam, this.getTeamDetaiString(secondTeamPerformance));
+		if (dbOfTeam.isTableExist(secondTeam).equals(ResultMessage.EXIST)) {
+			dbOfTeam.add(secondTeam, secondTeamPerformance.toDBString());
+		} else if (dbOfTeam.isTableExist(secondTeam).equals(ResultMessage.NOT_EXIST)) {
+			dbOfTeam.createTable(secondTeam);
+			dbOfTeam.add(secondTeam, secondTeamPerformance.toDBString());
 		}
-	}
+	}// 写入一个球队一场比赛的数据到数据库
 
-	private String getTeamDetaiString(TeamPerformanceOfOneMatchPo teamPo) {
-		String resultString = "(`teamName`, `date`, `opponentTeamName`, "
-				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
-				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
-				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
-				+ " `assistNumber`, `stealNumber`, `blockNumber`,"
-				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + "VALUES ('"
-				+ teamPo.getTeamName()
-				+ "','"
-				+ teamPo.getDate().getFormatString()
-				+ "','"
-				+ teamPo.getOpponentTeamName()
-				+ "','"
-				+ teamPo.getTotalHitNumber()
-				+ "','"
-				+ teamPo.getTotalShootNumber()
-				+ "','"
-				+ teamPo.getThreePointHitNumber()
-				+ "','"
-				+ teamPo.getThreePointShootNumber()
-				+ "','"
-				+ teamPo.getFreePointHitNumber()
-				+ "','"
-				+ teamPo.getFreePointShootNumber()
-				+ "','"
-				+ teamPo.getOffensiveReboundNumber()
-				+ "','"
-				+ teamPo.getDefensiveReboundNumber()
-				+ "','"
-				+ teamPo.getTotalReboundNumber()
-				+ "','"
-				+ teamPo.getAssistNumber()
-				+ "','"
-				+ teamPo.getStealNumber()
-				+ "','"
-				+ teamPo.getBlockNumber()
-				+ "','"
-				+ teamPo.getTurnoverNumber()
-				+ "','"
-				+ teamPo.getFoulNumber()
-				+ "','"
-				+ teamPo.getScoreNumber() + "')";
-		return resultString;
-	}
-
-	private void writeDetailInfoOfPlayerPerform() {
-
-	}
+	private void writeDetailInfoOfPlayerPerform(PlayerPerformanceOfOneMatchPo playerPo) {
+		String nameOfPlayer = playerPo.getNameOfPlayer();
+		if (dbOfPlayer.isTableExist(nameOfPlayer).equals(ResultMessage.EXIST)) {
+			dbOfPlayer.add(nameOfPlayer, playerPo.toDBString());
+		} else if (dbOfPlayer.isTableExist(playerPo.getNameOfPlayer()).equals(
+				ResultMessage.NOT_EXIST)) {
+			dbOfPlayer.createTable(nameOfPlayer);
+			dbOfPlayer.add(nameOfPlayer, playerPo.toDBString());
+		}
+	}// 写入一个球员一场比赛的数据到数据库
 }
