@@ -50,7 +50,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			int numberOfFirst = 0;// 先发场数
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
-			int playingTime = 0;// 总上场时间
+			double playingTime = 0;// 总上场时间
 			int stealNumber = 0;// 总抢断数
 			int blockNumber = 0;// 总 盖帽数
 			int turnoverNumber = 0;// 总失误数

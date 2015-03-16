@@ -2,12 +2,11 @@ package data.players;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import po.GeneralInfoOfPlayerPo;
 import po.PlayerPerformanceOfOneMatchPo;
+
 import common.mydatastructure.Season;
-import common.statics.PathOfFile;
+
 import dataservice.players.PlayerInfoDataService;
 
 public class PlayerInfoData implements PlayerInfoDataService {
@@ -19,8 +18,6 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public GeneralInfoOfPlayerPo getBaseInformationOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo generalInfoOfPlayer = new GeneralInfoOfPlayerPo();
-		generalInfoOfPlayer.setPortraitImageIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + nameOfPlayer + ".png"));
-		generalInfoOfPlayer.setActionImageIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + nameOfPlayer + ".png"));
 		return generalInfoOfPlayer;
 	}// 查找某一球员的基本自然信息
 

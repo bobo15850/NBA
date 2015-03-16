@@ -24,7 +24,8 @@ public class TeamPerformanceOfOneMatchPo {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
+	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date,
+			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
 		this.opponentTeamName = opponentTeamName;
 		this.date = date;
@@ -49,12 +50,8 @@ public class TeamPerformanceOfOneMatchPo {
 		}
 	}
 
-	@SuppressWarnings("null")
-	public String getFormatString() {
-		StringBuffer result = null;
-		String tag = ";";
-		result.append(this.teamName).append(tag).append(this.date.getFormatString()).append(tag).append(this.opponentTeamName).append(tag).append(this.totalHitNumber).append(tag).append(this.totalShootNumber).append(tag).append(this.threePointHitNumber).append(tag).append(this.threePointShootNumber).append(tag).append(this.freePointHitNumber).append(tag).append(this.freePointShootNumber).append(tag).append(this.offensiveReboundNumber).append(tag).append(this.defensiveReboundNumber).append(tag).append(this.totalReboundNumber).append(tag).append(this.assistNumber).append(tag).append(this.stealNumber).append(tag).append(this.blockNumber).append(tag).append(this.turnoverNumber).append(tag).append(this.foulNumber).append(tag).append(this.scoreNumber).append(tag);
-		return result.toString();
+	public TeamPerformanceOfOneMatchPo() {
+		// 无参构造函数
 	}
 
 	public void setTeamName(String teamName) {

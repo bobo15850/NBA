@@ -25,7 +25,6 @@ public class GeneralInfoOfTeamVo {
 	public GeneralInfoOfTeamVo(GeneralInfoOfTeamPo po) {
 		this.teamName = po.getTeamName();
 		this.teamNameForShort = po.getTeamNameForShort();
-		this.teamIcon = po.getTeamIcon();
 		this.location = po.getLocation();
 		this.conference = po.getConference();
 		this.division = po.getDivision();
