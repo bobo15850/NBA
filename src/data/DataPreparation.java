@@ -12,13 +12,14 @@ import common.statics.PathOfFile;
 
 public class DataPreparation {
 	public DataPreparation() {
-		this.handleFileOfTeam();
+		// this.handleFileOfTeam();
 		this.handleFileOfMatch();
 	}
 
 	private void handleFileOfTeam() {
 		try {
-			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO + "teams"));
+			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO
+					+ "teams"));
 			teamReader.readLine();
 			String formatdetail;
 			for (int i = 0; i < NUMBER.NUMBER_OF_TEAM; i++) {
@@ -37,8 +38,9 @@ public class DataPreparation {
 		String matchName[] = matchFile.list();
 		for (int i = 0; i < matchName.length; i++) {
 			OneMatch match = new OneMatch(matchName[i]);
-			match.writeDetailInfoOfPlayerAndTeamToTxt();
+			match.writeDetailInfoOfPlayerAndTeamToDB();
 		}
+		System.out.println("结束");
 	}
 
 	private void createAndWriteFileOfTeam(String formatdetail) {

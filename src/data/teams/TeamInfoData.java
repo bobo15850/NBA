@@ -2,12 +2,11 @@ package data.teams;
 
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
 import po.GeneralInfoOfTeamPo;
 import po.TeamPerformanceOfOneMatchPo;
+
 import common.mydatastructure.Season;
-import common.statics.PathOfFile;
+
 import dataservice.teams.TeamInfoDataService;
 
 public class TeamInfoData implements TeamInfoDataService {
@@ -19,7 +18,6 @@ public class TeamInfoData implements TeamInfoDataService {
 
 	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(String teamName) {
 		GeneralInfoOfTeamPo generalInfoOfTeam = new GeneralInfoOfTeamPo();
-		generalInfoOfTeam.setTeamIcon(new ImageIcon(PathOfFile.TEAM_IMAGE + teamName + ".svg"));
 		return generalInfoOfTeam;
 	}
 

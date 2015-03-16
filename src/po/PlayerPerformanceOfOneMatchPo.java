@@ -1,9 +1,10 @@
 package po;
 
 public class PlayerPerformanceOfOneMatchPo {
+	private String nameOfPlayer;// 球员姓名
 	private String teamName;// 效力球队
 	private boolean isFirst;// 是否先发
-	private int playingTime;// 上场时间
+	private double playingTime;// 上场时间
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -28,7 +29,7 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.isFirst = isFirst;
 	}// 是否先发
 
-	public void setPlayingTime(int playingTime) {
+	public void setPlayingTime(double playingTime) {
 		this.playingTime = playingTime;
 	}// 设置上场时间
 
@@ -101,7 +102,7 @@ public class PlayerPerformanceOfOneMatchPo {
 		return this.isFirst;
 	}// 是否先发
 
-	public int getPlayingTime() {
+	public double getPlayingTime() {
 		return this.playingTime;
 	}// 得到上场时间
 
@@ -164,4 +165,12 @@ public class PlayerPerformanceOfOneMatchPo {
 	public int getScoreNumber() {
 		return this.scoreNumber;
 	}// 得到得分数
+
+	public String getNameOfPlayer() {
+		return nameOfPlayer;
+	}
+
+	public void setNameOfPlayer(String nameOfPlayer) {
+		this.nameOfPlayer = nameOfPlayer;
+	}
 }
