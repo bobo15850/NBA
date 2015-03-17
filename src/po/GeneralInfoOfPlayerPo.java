@@ -94,4 +94,14 @@ public class GeneralInfoOfPlayerPo {
 	public String getShool() {
 		return this.school;
 	}// 得到球员的毕业学校
+
+	public String toDBString() {
+		String resultString = "(`playerName`, `playerNumber`, `position`," + " `height`, `weight`, `birthday`,"
+				+ " `age`, `trainingYear`, `school`) " + " VALUES ('" + this.getName() + "','" + this.getNumber()
+				+ "','" + this.getPosition().toString() + "','" + this.getHeight().getFeetAndInchAsStringOfHeight()
+				+ "','" + String.valueOf(this.getWeight().getPoundOfWeight()) + "','"
+				+ this.getBirthday().getFormatString() + "','" + this.getAge() + "','" + this.getTrainingYear() + "','"
+				+ this.getShool() + "')";
+		return resultString;
+	}
 }

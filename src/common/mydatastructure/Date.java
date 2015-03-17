@@ -11,6 +11,13 @@ public class Date {
 		this.day = day;
 	}
 
+	public Date(String formatString) {
+		String part[] = formatString.split("-");
+		this.year = Integer.parseInt(part[0]);
+		this.month = Integer.parseInt(part[1]);
+		this.day = Integer.parseInt(part[2]);
+	}
+
 	public int getYear() {
 		return this.year;
 	}

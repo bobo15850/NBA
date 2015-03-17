@@ -71,4 +71,12 @@ public class GeneralInfoOfTeamPo {
 		return this.establishYear;
 	}// 得到建立时间
 
+	public String toDBString() {
+		String resultString = "(`teamName`, `teamNameForShort`, `location`,"
+				+ " `conference`, `division`, `homeField`," + " `establishYear`) " + " VALUES ('" + this.getTeamName()
+				+ "','" + this.getTeamNameForShort() + "','" + this.getLocation() + "','"
+				+ this.getConference().toString() + "','" + this.getDivision().toString() + "','" + this.getHomeField()
+				+ "','" + this.getEstablishYear() + "')";
+		return resultString;
+	}
 }

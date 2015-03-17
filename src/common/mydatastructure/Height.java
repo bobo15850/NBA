@@ -16,6 +16,12 @@ public class Height {
 		}
 	}
 
+	public Height(String formatString) {
+		String[] part = formatString.split("-");
+		this.feetOfHeight = Integer.parseInt(part[0]);
+		this.inchOfHeight = Integer.parseInt(part[1]);
+	}
+
 	public int getFeetOfHeight() {
 		return this.feetOfHeight;
 	}// 英尺数

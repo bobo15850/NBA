@@ -10,26 +10,16 @@ import javax.swing.JOptionPane;
 
 import common.statics.ResultMessage;
 
-public class OperationOfTeamsDB {
-	private String createTableString = "(teamName varchar(255) NOT NULL, "
-			+ "date varchar(255) NOT NULL ,opponentTeamName varchar(255) NOT NULL , "
-			+ "totalHitNumber int NOT NULL ,totalShootNumber int NOT NULL , "
-			+ " threePointHitNumber int NOT NULL  , threePointShootNumber int NOT NULL  , "
-			+ " freePointHitNumber int NOT NULL  , freePointShootNumber int NOT NULL  ,"
-			+ "  offensiveReboundNumber int NOT NULL  ,defensiveReboundNumber int NOT NULL  ,"
-			+ "  totalReboundNumber int NOT NULL  ,	 assistNumber int NOT NULL  ,"
-			+ "  stealNumber int NOT NULL  ,  blockNumber int NOT NULL  ,"
-			+ "	turnoverNumber int NOT NULL  , foulNumber int NOT NULL  ,"
-			+ "scoreNumber int NOT NULL  , PRIMARY KEY (teamName, date)) ";// 建表语句
-	private static OperationOfTeamsDB dbOfTeams = null;
+public class OperationOfGeneralInfoDB {
+	private static OperationOfGeneralInfoDB dbOfGeneralInfo = null;
 	private String dbDriver = "com.mysql.jdbc.Driver";
-	private String dbUrl = "jdbc:mysql://localhost:3306/teams";
+	private String dbUrl = "jdbc:mysql://localhost:3306/generalinfo";
 	private String dbUser = "root";
 	private String dbPass = "1234";
 	private Connection connection;
 	private Statement statement;
 
-	private OperationOfTeamsDB() {
+	private OperationOfGeneralInfoDB() {
 		this.connection = this.getConn();
 		try {
 			this.statement = (Statement) this.connection.createStatement();
@@ -38,11 +28,11 @@ public class OperationOfTeamsDB {
 		}
 	}
 
-	public static OperationOfTeamsDB getTeamDB() {
-		if (dbOfTeams == null) {
-			dbOfTeams = new OperationOfTeamsDB();
+	public static OperationOfGeneralInfoDB getGeneralInfo() {
+		if (dbOfGeneralInfo == null) {
+			dbOfGeneralInfo = new OperationOfGeneralInfoDB();
 		}
-		return dbOfTeams;
+		return dbOfGeneralInfo;
 	}// 单件模式，数据库只有一个连接
 
 	private Connection getConn() {
@@ -62,16 +52,6 @@ public class OperationOfTeamsDB {
 		return conn;
 	} // 连接数据库
 
-	public ResultMessage createTable(String table) {
-		try {
-			this.statement.executeUpdate("CREATE TABLE `teams`.`" + table + "` " + this.createTableString);
-			return ResultMessage.SUCCEED;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return ResultMessage.DB_FAULT;
-		}
-	}// 新建一张表格
-
 	public ResultMessage isTableExist(String table) {
 		ResultSet rs;
 		try {
@@ -89,9 +69,10 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage add(String table, String sql) {
 		try {
-			this.statement.executeUpdate("INSERT INTO `teams`.`" + table + "` " + sql);
+			this.statement.executeUpdate("INSERT INTO `generalinfo`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
+			System.out.println(sql);
 			e.printStackTrace();
 			return ResultMessage.DB_FAULT;
 		}
@@ -99,7 +80,7 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage updata(String table, String sql) {
 		try {
-			this.statement.executeUpdate("UPDATE `teams`.`" + table + "` " + sql);
+			this.statement.executeUpdate("UPDATE `generalinfo`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,7 +90,7 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage delete(String table, String sql) {
 		try {
-			this.statement.executeUpdate("DELETE FROM `teams`.`" + table + "` " + sql);
+			this.statement.executeUpdate("DELETE FROM `generalinfo`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -119,7 +100,7 @@ public class OperationOfTeamsDB {
 
 	public ResultSet find(String table, String sql) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `teams`.`" + table + "` " + sql);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `generalinfo`.`" + table + "` " + sql);
 			return result;// 得到符合条件的集合
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,7 +111,7 @@ public class OperationOfTeamsDB {
 
 	public ResultSet find_all(String table) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `teams`.`" + table + "` ");
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `generalinfo`.`" + table + "` ");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
