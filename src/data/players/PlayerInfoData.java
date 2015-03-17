@@ -6,11 +6,23 @@ import po.GeneralInfoOfPlayerPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.Season;
+import databaseutility.OperationOfGeneralInfoDB;
+import databaseutility.OperationOfPlayersDB;
 import dataservice.players.PlayerInfoDataService;
 
 public class PlayerInfoData implements PlayerInfoDataService {
+
+	private OperationOfGeneralInfoDB generalInfoDB;
+	private OperationOfPlayersDB playerDB;
+
+	public PlayerInfoData() {
+		generalInfoDB = OperationOfGeneralInfoDB.getGeneralInfo();
+		playerDB = OperationOfPlayersDB.getPlayerDB();
+	}
+
 	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer, Season season) {
 		ArrayList<PlayerPerformanceOfOneMatchPo> poList = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
+
 		return poList;
 	}// 查找某一球员某一赛季的比赛信息
 
