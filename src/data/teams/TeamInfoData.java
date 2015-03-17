@@ -11,8 +11,8 @@ import dataservice.teams.TeamInfoDataService;
 
 public class TeamInfoData implements TeamInfoDataService {
 
-	public ArrayList<TeamPerformanceOfOneMatchPo> getOneTeamPerformOfOneSeason(String teamName, Season season) {
-		ArrayList<TeamPerformanceOfOneMatchPo> poList = new ArrayList<TeamPerformanceOfOneMatchPo>(128);
+	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String teamName, Season season) {
+		ArrayList<TeamPerformanceOfOneMatchPo[]> poList = new ArrayList<TeamPerformanceOfOneMatchPo[]>(128);
 		return poList;
 	}
 

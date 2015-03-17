@@ -24,6 +24,8 @@ public class TeamPerformanceOfOneMatchPo {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
+	//
+
 	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date,
 			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.teamName = teamName;
@@ -204,8 +206,8 @@ public class TeamPerformanceOfOneMatchPo {
 				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
 				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
 				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
-				+ " `assistNumber`, `stealNumber`, `blockNumber`,"
-				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + " VALUES ('"
+				+ " `assistNumber`, `stealNumber`, `blockNumber`," + " `turnoverNumber`, `foulNumber`, `scoreNumber`)"
+				+ " VALUES ('"
 				+ this.getTeamName()
 				+ "','"
 				+ this.getDate().getFormatString()
@@ -238,7 +240,9 @@ public class TeamPerformanceOfOneMatchPo {
 				+ "','"
 				+ this.getTurnoverNumber()
 				+ "','"
-				+ this.getFoulNumber() + "','" + this.getScoreNumber() + "')";
+				+ this.getFoulNumber()
+				+ "','"
+				+ this.getScoreNumber() + "')";
 		return resultString;
 	}
 }
