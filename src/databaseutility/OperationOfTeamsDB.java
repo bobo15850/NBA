@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import common.statics.ResultMessage;
 
 public class OperationOfTeamsDB {
-	private String column = "(teamName varchar(255) NOT NULL, "
+	private String createTableString = "(teamName varchar(255) NOT NULL, "
 			+ "date varchar(255) NOT NULL ,opponentTeamName varchar(255) NOT NULL , "
 			+ "totalHitNumber int NOT NULL ,totalShootNumber int NOT NULL , "
 			+ " threePointHitNumber int NOT NULL  , threePointShootNumber int NOT NULL  , "
@@ -20,7 +20,7 @@ public class OperationOfTeamsDB {
 			+ "  totalReboundNumber int NOT NULL  ,	 assistNumber int NOT NULL  ,"
 			+ "  stealNumber int NOT NULL  ,  blockNumber int NOT NULL  ,"
 			+ "	turnoverNumber int NOT NULL  , foulNumber int NOT NULL  ,"
-			+ "scoreNumber int NOT NULL  , PRIMARY KEY (teamName, date)) ";
+			+ "scoreNumber int NOT NULL  , PRIMARY KEY (teamName, date)) ";// 建表语句
 	private static OperationOfTeamsDB dbOfTeams = null;
 	private String dbDriver = "com.mysql.jdbc.Driver";
 	private String dbUrl = "jdbc:mysql://localhost:3306/teams";
@@ -38,7 +38,7 @@ public class OperationOfTeamsDB {
 		}
 	}
 
-	public static OperationOfTeamsDB getConnection() {
+	public static OperationOfTeamsDB getTeamDB() {
 		if (dbOfTeams == null) {
 			dbOfTeams = new OperationOfTeamsDB();
 		}
@@ -50,15 +50,13 @@ public class OperationOfTeamsDB {
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		try {
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 		} catch (SQLException e) {
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return conn;
@@ -66,7 +64,7 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage createTable(String table) {
 		try {
-			this.statement.executeUpdate("CREATE TABLE " + table + " " + this.column);
+			this.statement.executeUpdate("CREATE TABLE `teams`.`" + table + "` " + this.createTableString);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,11 +85,11 @@ public class OperationOfTeamsDB {
 			e.printStackTrace();
 			return ResultMessage.DB_FAULT;
 		}
-	}
+	}// 判断表格是否存在
 
 	public ResultMessage add(String table, String sql) {
 		try {
-			this.statement.executeUpdate("INSERT INTO " + table + " " + sql);
+			this.statement.executeUpdate("INSERT INTO `teams`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -101,7 +99,7 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage updata(String table, String sql) {
 		try {
-			this.statement.executeUpdate("UPDATE " + table + " " + sql);
+			this.statement.executeUpdate("UPDATE `teams`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,7 +109,7 @@ public class OperationOfTeamsDB {
 
 	public ResultMessage delete(String table, String sql) {
 		try {
-			this.statement.executeUpdate("DELETE FROM " + table + " " + sql);
+			this.statement.executeUpdate("DELETE FROM `teams`.`" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,24 +119,22 @@ public class OperationOfTeamsDB {
 
 	public ResultSet find(String table, String sql) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM " + table + " " + sql);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `teams`.`" + table + "` " + sql);
 			return result;// 得到符合条件的集合
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			return null;// 数据库连接错误
 		}// 根据表格名称和语句查找
 	}
 
 	public ResultSet find_all(String table) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM " + table);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `teams`.`" + table + "` ");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}// 根据编号和表格名称查找
 	}
