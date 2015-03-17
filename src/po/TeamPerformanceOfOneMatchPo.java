@@ -23,7 +23,7 @@ public class TeamPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
-	//
+	private double playingTime;// 球员上场时间之和
 
 	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date,
 			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
@@ -48,6 +48,7 @@ public class TeamPerformanceOfOneMatchPo {
 			this.turnoverNumber += temp.getTurnoverNumber();
 			this.foulNumber += temp.getFoulNumber();
 			this.scoreNumber += temp.getScoreNumber();
+			this.playingTime += temp.getPlayingTime();
 		}
 	}
 
@@ -243,5 +244,13 @@ public class TeamPerformanceOfOneMatchPo {
 				+ "','"
 				+ this.getScoreNumber() + "')";
 		return resultString;
+	}
+
+	public double getPlayingTime() {
+		return playingTime;
+	}
+
+	public void setPlayingTime(double playingTime) {
+		this.playingTime = playingTime;
 	}
 }
