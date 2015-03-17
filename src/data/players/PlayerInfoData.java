@@ -25,9 +25,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		return namesList;
 	}// 查找所有球员姓名
 
-	@Override
 	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String playerName, Season season) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

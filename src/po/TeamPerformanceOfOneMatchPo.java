@@ -247,6 +247,16 @@ public class TeamPerformanceOfOneMatchPo {
 	}
 
 	public double getPlayingTime() {
+		if (this.playingTime <= 240 + 1) {
+			return 240;
+		} else {
+			for (int i = 1; i < 10; i++) {
+				if (this.playingTime <= 241 + 25 * i) {
+					return 240 + 25 * i;
+				}
+			}
+		}
+
 		return playingTime;
 	}
 
