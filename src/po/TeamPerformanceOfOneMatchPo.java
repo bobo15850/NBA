@@ -23,6 +23,7 @@ public class TeamPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
+	//
 
 	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date,
 			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
