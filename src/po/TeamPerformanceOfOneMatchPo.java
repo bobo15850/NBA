@@ -3,11 +3,13 @@ package po;
 import java.util.ArrayList;
 
 import common.mydatastructure.Date;
+import common.mydatastructure.Season;
 
 public class TeamPerformanceOfOneMatchPo {
-	private String teamName;// 球队名称
+	private String TeamNameForShort;// 球队名称
 	private Date date;// 比赛时间
-	private String opponentTeamName;// 对手名称
+	private Season season;// 赛季
+	private String opponentTeamNameForShort;// 对手名称
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -25,11 +27,12 @@ public class TeamPerformanceOfOneMatchPo {
 	private int scoreNumber;// 得分数
 	private double playingTime;// 球员上场时间之和
 
-	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date,
+	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, Season season,
 			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
-		this.teamName = teamName;
-		this.opponentTeamName = opponentTeamName;
+		this.TeamNameForShort = teamName;
+		this.opponentTeamNameForShort = opponentTeamName;
 		this.date = date;
+		this.season = season;
 		PlayerPerformanceOfOneMatchPo temp;
 		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
 			temp = listOfPlayerPerformanceOfOneMatch.get(i);
@@ -56,12 +59,12 @@ public class TeamPerformanceOfOneMatchPo {
 		// 无参构造函数
 	}
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setTeamNameForShort(String teamName) {
+		this.TeamNameForShort = teamName;
 	}// 设置球队名称
 
-	public void setOpponentTeamName(String opponentTeamName) {
-		this.opponentTeamName = opponentTeamName;
+	public void setOpponentTeamName(String opponentTeamNameForShort) {
+		this.opponentTeamNameForShort = opponentTeamNameForShort;
 	}// 设置对手名称
 
 	public void setDate(Date date) {
@@ -129,12 +132,12 @@ public class TeamPerformanceOfOneMatchPo {
 	}// 设置得分数
 		// //////////////////////////
 
-	public String getTeamName() {
-		return this.teamName;
+	public String getTeamNameForShort() {
+		return this.TeamNameForShort;
 	}// 得到球队名称
 
-	public String getOpponentTeamName() {
-		return this.opponentTeamName;
+	public String getOpponentTeamNameForShort() {
+		return this.opponentTeamNameForShort;
 	}// 得到对手名称
 
 	public Date getDate() {
@@ -202,17 +205,21 @@ public class TeamPerformanceOfOneMatchPo {
 	}// 得到得分数
 
 	public String toDBString() {
-		String resultString = "(`teamName`, `date`, `opponentTeamName`, "
+		String resultString = "(`teamNameForShort`, `date`, `season`, `opponentTeamName`, `playingTime`,"
 				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
 				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
 				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
 				+ " `assistNumber`, `stealNumber`, `blockNumber`," + " `turnoverNumber`, `foulNumber`, `scoreNumber`)"
 				+ " VALUES ('"
-				+ this.getTeamName()
+				+ this.getTeamNameForShort()
 				+ "','"
 				+ this.getDate().getFormatString()
 				+ "','"
-				+ this.getOpponentTeamName()
+				+ this.getSeason().getFormatStyleOfSeason()
+				+ "','"
+				+ this.getOpponentTeamNameForShort()
+				+ "','"
+				+ this.getPlayingTime()
 				+ "','"
 				+ this.getTotalHitNumber()
 				+ "','"
@@ -262,5 +269,13 @@ public class TeamPerformanceOfOneMatchPo {
 
 	public void setPlayingTime(double playingTime) {
 		this.playingTime = playingTime;
+	}
+
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
 	}
 }

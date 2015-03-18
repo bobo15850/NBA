@@ -71,7 +71,6 @@ public class GeneralInfoOfPlayerVo {
 	public void setShool(String school) {
 		this.school = school;
 	}// 设置球员的毕业学校
-		// //////////////////////////////////////////////////////////////
 
 	public String getName() {
 		return this.playerName;

@@ -14,6 +14,6 @@ public interface TeamInfoDataService {
 	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(String teamName);
 
 	// 查找出所有的球队的名称
-	public ArrayList<String> getNamesOfAllTeam();
+	public ArrayList<String> getNamesForShortOfAllTeam();
 
 }

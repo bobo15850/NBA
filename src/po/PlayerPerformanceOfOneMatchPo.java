@@ -1,10 +1,12 @@
 package po;
 
 import common.mydatastructure.Date;
+import common.mydatastructure.Season;
 
 public class PlayerPerformanceOfOneMatchPo {
 	private String playerName;// 球员姓名
 	private String teamName;// 效力球队
+	private Season season;// 赛季
 	private Date date;// 比赛时间
 	private boolean isFirst;// 是否先发
 	private double playingTime;// 上场时间
@@ -193,17 +195,26 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.date = date;
 	}
 
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
 	public String toDBString() {
-		String resultString = "(`playerName`, `date`, `teamName`, "
+		String resultString = "(`playerName`, `date`,`season`, `teamNameForShort`, "
 				+ "`isFirst`, `playingTime`, `totalHitNumber`, "
 				+ "`totalShootNumber`, `threePointHitNumber`, `threePointShootNumber`,"
 				+ " `freePointHitNumber`, `freePointShootNumber`, `offensiveReboundNumber`, "
 				+ "`defensiveReboundNumber`, `totalReboundNumber`, `assistNumber`, "
-				+ "`stealNumber`, `blockNumber`, `turnoverNumber`,"
-				+ " `foulNumber`, `scoreNumber`) " + " VALUES ('"
+				+ "`stealNumber`, `blockNumber`, `turnoverNumber`," + " `foulNumber`, `scoreNumber`) " + " VALUES ('"
 				+ this.getNameOfPlayer()
 				+ "','"
 				+ this.getDate().getFormatString()
+				+ "','"
+				+ this.getSeason().getFormatStyleOfSeason()
 				+ "','"
 				+ this.getTeamName()
 				+ "','"
@@ -235,9 +246,8 @@ public class PlayerPerformanceOfOneMatchPo {
 				+ "','"
 				+ this.getBlockNumber()
 				+ "','"
-				+ this.getTurnoverNumber()
-				+ "','"
-				+ this.getFoulNumber() + "','" + this.getScoreNumber() + "')";
+				+ this.getTurnoverNumber() + "','" + this.getFoulNumber() + "','" + this.getScoreNumber() + "')";
 		return resultString;
 	}
+
 }

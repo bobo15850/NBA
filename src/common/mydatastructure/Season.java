@@ -29,7 +29,7 @@ public class Season {
 	}// 将年份转化为标准格式
 
 	public String getFormatStyleOfSeason() {
-		return String.valueOf(this.startYear % 100) + "-" + String.valueOf(this.finishYear % 100);
+		return String.valueOf(this.startYear) + "-" + String.valueOf(this.finishYear);
 	}// 得到标准形式的赛季表示格式
 
 	public int getStartYear() {
