@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import po.GeneralInfoOfPlayerPo;
+import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.Date;
@@ -119,6 +120,20 @@ public class PlayerInfoData implements PlayerInfoDataService {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");
 			return teamPerformData.getOneTeamPerformOfOneSeason(teamNameForShort, season);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public GeneralInfoOfTeamPo getGeneralInfoOfPlayer(String playerName, Season season) {
+		TeamInfoDataService teamPerformData = new TeamInfoData();
+		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
+		ResultSet rs = this.playerDB.find(playerName, sql);
+		try {
+			rs.first();
+			String teamNameForShort = rs.getString("teamNameForShort");
+			return teamPerformData.getBaseInformationOfOneTeam(teamNameForShort);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
