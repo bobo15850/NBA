@@ -3,9 +3,13 @@ package businesslogicservice.players;
 import java.util.ArrayList;
 
 import vo.GeneralInfoOfPlayerVo;
+import vo.GeneralInfoOfTeamVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
+import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
+import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
+import common.mydatastructure.SelectionCondition;
 
 public interface PlayerInfoBlService {
 	// 获取某一个赛季所有球员的比赛信息
@@ -25,4 +29,9 @@ public interface PlayerInfoBlService {
 
 	// 根据某一项将所有球员某一赛季成绩降序排序
 	public void descendingSort(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PerformanceOfPlayer dataKind);
+	
+	//根据球员位置，球员联盟，排序依据进行筛选前50名球员
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition,Season season);
+
+
 }
