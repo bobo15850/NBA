@@ -10,14 +10,15 @@ public class Main {
 
 	public static void main(String arg[]) {
 		Player_Driver pd = new Player_Driver();
-		pd.testGeneralInfoPo();
-		pd.testAllNames();
-		pd.testOnePlayerPerformOfOneSeason();
-		pd.testOneTeamPerformOfOneSeason();
+		// pd.testGeneralInfoPo();
+		// pd.testAllNames();
+		// pd.testOnePlayerPerformOfOneSeason();
+		// pd.testOneTeamPerformOfOneSeason();
+		pd.testGeneralTeamPo();
 		Team_Driver td = new Team_Driver();
-		td.testAllNames();
-		td.testGeneralInfoPo();
-		td.testOneTeamPerformOfOneSeason();
+		// td.testAllNames();
+		// td.testGeneralInfoPo();
+		// td.testOneTeamPerformOfOneSeason();
 		// DataPreparation dataPre = new DataPreparation();
 	}
 }

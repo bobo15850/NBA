@@ -3,6 +3,7 @@ package data_driver;
 import java.util.ArrayList;
 
 import po.GeneralInfoOfPlayerPo;
+import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.Season;
@@ -45,5 +46,12 @@ public class Player_Driver {
 			System.out.println(teamPerformPoList.get(i)[0].toDBString());
 			System.out.println(teamPerformPoList.get(i)[1].toDBString());
 		}
+	}
+
+	public void testGeneralTeamPo() {
+		String playerName = "Al Harrington";
+		Season season = new Season("2013-2014");
+		GeneralInfoOfTeamPo teampo = this.plData.getGeneralInfoOfPlayer(playerName, season);
+		System.out.println(teampo.toDBString());
 	}
 }
