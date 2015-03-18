@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -12,7 +13,7 @@ import common.statics.ResultMessage;
 
 public class OperationOfPlayersDB {
 	private String createTableString = "(playerName varchar(255) NOT NULL ,date varchar(255) NOT NULL ,"
-			+ "teamName varchar(255) NOT NULL ,isFirst varchar(255) NOT NULL ,"
+			+ "season varchar(255) NOT NULL,teamNameForShort varchar(255) NOT NULL ,isFirst varchar(255) NOT NULL ,"
 			+ "playingTime double NOT NULL ,totalHitNumber int NOT NULL ,"
 			+ "totalShootNumber int NOT NULL ,threePointHitNumber int NOT NULL ,"
 			+ "threePointShootNumber int NOT NULL ,freePointHitNumber int NOT NULL ,"
@@ -50,15 +51,13 @@ public class OperationOfPlayersDB {
 		try {
 			Class.forName(dbDriver);
 		} catch (ClassNotFoundException e) {
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		try {
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
 		} catch (SQLException e) {
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		return conn;
@@ -66,8 +65,7 @@ public class OperationOfPlayersDB {
 
 	public ResultMessage createTable(String table) {
 		try {
-			this.statement.executeUpdate("CREATE TABLE `players`.`" + table + "` "
-					+ this.createTableString);
+			this.statement.executeUpdate("CREATE TABLE `players`.`" + table + "` " + this.createTableString);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,28 +120,45 @@ public class OperationOfPlayersDB {
 
 	public ResultSet find(String table, String sql) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table
-					+ "` " + sql);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table + "` " + sql);
 			return result;// 得到符合条件的集合
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			return null;// 数据库连接错误
 		}// 根据表格名称和语句查找
 	}
 
 	public ResultSet find_all(String table) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table
-					+ "`");
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `players`.`" + table + "`");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			JOptionPane
-					.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}// 根据编号和表格名称查找
+	}
+
+	public ArrayList<String> findAllTableName() {
+		try {
+			ArrayList<String> nameList = new ArrayList<>(512);
+			ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[] { "TABLE" });
+			if (!rs.next()) {
+				return null;
+			} else {
+				rs.first();
+				nameList.add(rs.getString("table_name"));
+				while (rs.next()) {
+					nameList.add(rs.getString("table_name"));
+				}
+				return nameList;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
 	}
 
 }

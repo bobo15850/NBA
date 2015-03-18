@@ -18,7 +18,7 @@ import common.statics.StringToEnum;
 import databaseutility.OperationOfGeneralInfoDB;
 
 public class DataPreparation {
-	OperationOfGeneralInfoDB dbOfGeaneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
+	OperationOfGeneralInfoDB dbOfGeneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
 
 	public DataPreparation() {
 		// this.handleFileOfTeams();
@@ -91,7 +91,7 @@ public class DataPreparation {
 			playerInfoPo.setAge(toInt(element[6]));
 			playerInfoPo.setTrainingYear(toInt(element[7]));
 			playerInfoPo.setShool(element[8]);
-			dbOfGeaneralInfo.add("generalinfoofplayer", playerInfoPo.toDBString());
+			dbOfGeneralInfo.add("generalinfoofplayer", playerInfoPo.toDBString());
 			playerReader.close();
 		} catch (IOException e) {
 			e.printStackTrace();

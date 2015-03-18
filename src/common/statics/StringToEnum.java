@@ -86,4 +86,12 @@ public class StringToEnum {
 			return 0;
 		}
 	}
+	
+	public static boolean ToBoolean(String str){
+		if(str.equals("true")){
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

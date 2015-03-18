@@ -5,14 +5,16 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import common.statics.ResultMessage;
 
 public class OperationOfTeamsDB {
-	private String createTableString = "(teamName varchar(255) NOT NULL, "
-			+ "date varchar(255) NOT NULL ,opponentTeamName varchar(255) NOT NULL , "
+	private String createTableString = "(teamNameForShort varchar(255) NOT NULL, "
+			+ "date varchar(255) NOT NULL ,season varchar(255) NOT NULL,"
+			+ "opponentTeamName varchar(255) NOT NULL ,playingTime double NOT NULL,"
 			+ "totalHitNumber int NOT NULL ,totalShootNumber int NOT NULL , "
 			+ " threePointHitNumber int NOT NULL  , threePointShootNumber int NOT NULL  , "
 			+ " freePointHitNumber int NOT NULL  , freePointShootNumber int NOT NULL  ,"
@@ -20,7 +22,7 @@ public class OperationOfTeamsDB {
 			+ "  totalReboundNumber int NOT NULL  ,	 assistNumber int NOT NULL  ,"
 			+ "  stealNumber int NOT NULL  ,  blockNumber int NOT NULL  ,"
 			+ "	turnoverNumber int NOT NULL  , foulNumber int NOT NULL  ,"
-			+ "scoreNumber int NOT NULL  , PRIMARY KEY (teamName, date)) ";// 建表语句
+			+ "scoreNumber int NOT NULL  , PRIMARY KEY (teamNameForShort, date)) ";// 建表语句
 	private static OperationOfTeamsDB dbOfTeams = null;
 	private String dbDriver = "com.mysql.jdbc.Driver";
 	private String dbUrl = "jdbc:mysql://localhost:3306/teams";
@@ -137,5 +139,26 @@ public class OperationOfTeamsDB {
 			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}// 根据编号和表格名称查找
+	}
+
+	public ArrayList<String> findAllTableName() {
+		try {
+			ArrayList<String> nameList = new ArrayList<>(512);
+			ResultSet rs = connection.getMetaData().getTables(null, null, null, new String[] { "TABLE" });
+			if (!rs.next()) {
+				return null;
+			} else {
+				rs.first();
+				nameList.add(rs.getString("table_name"));
+				while (rs.next()) {
+					nameList.add(rs.getString("table_name"));
+				}
+				return nameList;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			return null;
+		}
 	}
 }
