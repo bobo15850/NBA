@@ -37,12 +37,10 @@ public class OneMatch {
 		this.listOfFirstTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
 		this.listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
 		try {
-			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO
-					+ nameOfFile));
+			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
 			String temp;
 			String mainInfo = matchReader.readLine();
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分,时间
-			String scoresOfEachPart = matchReader.readLine();// 得到每节比分
 			String firstTeam = matchReader.readLine().trim();
 			this.firstTeam = firstTeam;// 初始化第一个队名
 			for (int j = 0; j < NUMBER.NUMBER_OF_FIRST; j++) {
@@ -62,10 +60,10 @@ public class OneMatch {
 				listOfSecondTeamPlayerPerformance.add(this.getSecondTeamReplacePlayerPo(temp));
 			}
 			matchReader.close();
-			this.firstTeamPerformance = new TeamPerformanceOfOneMatchPo(this.firstTeam,
-					this.secondTeam, this.date, this.listOfFirstTeamPlayerPerformance);
-			this.secondTeamPerformance = new TeamPerformanceOfOneMatchPo(this.secondTeam,
-					this.firstTeam, this.date, this.listOfSecondTeamPlayerPerformance);
+			this.firstTeamPerformance = new TeamPerformanceOfOneMatchPo(this.firstTeam, this.secondTeam, this.date,
+					this.season, this.listOfFirstTeamPlayerPerformance);
+			this.secondTeamPerformance = new TeamPerformanceOfOneMatchPo(this.secondTeam, this.firstTeam, this.date,
+					this.season, this.listOfSecondTeamPlayerPerformance);
 			this.isDataCorrect = this.isDataCorrect();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -100,6 +98,7 @@ public class OneMatch {
 		String part[] = temp.split(";");
 		resultPo.setTeamName(firstTeam);
 		resultPo.setDate(date);
+		resultPo.setSeason(season);
 		resultPo.setIsFirst(true);
 		resultPo.setNameOfPlayer(part[0]);
 		resultPo.setPlayingTime(Time.stringToDouble(part[2]));
@@ -165,12 +164,12 @@ public class OneMatch {
 				playerPo = listOfSecondTeamPlayerPerformance.get(i);
 				this.writeDetailInfoOfPlayerPerform(playerPo);
 			}
-			// ////////////////
-			// this.writeDetailInfoOfTeamPerform();
+			this.writeDetailInfoOfTeamPerform();
 		}
 	}// 初始化比赛信息数据库
 
 	private void writeDetailInfoOfTeamPerform() {
+		System.out.println("writeDetailInfoOfTeamPerform");
 		if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.EXIST)) {
 			dbOfTeam.add(firstTeam, firstTeamPerformance.toDBString());
 		} else if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.NOT_EXIST)) {
@@ -186,11 +185,11 @@ public class OneMatch {
 	}// 写入一个球队一场比赛的数据到数据库
 
 	private void writeDetailInfoOfPlayerPerform(PlayerPerformanceOfOneMatchPo playerPo) {
+		System.out.println("writeDetailInfoOfPlayerPerform");
 		String nameOfPlayer = playerPo.getNameOfPlayer();
 		if (dbOfPlayer.isTableExist(nameOfPlayer).equals(ResultMessage.EXIST)) {
 			dbOfPlayer.add(nameOfPlayer, playerPo.toDBString());
-		} else if (dbOfPlayer.isTableExist(playerPo.getNameOfPlayer()).equals(
-				ResultMessage.NOT_EXIST)) {
+		} else if (dbOfPlayer.isTableExist(playerPo.getNameOfPlayer()).equals(ResultMessage.NOT_EXIST)) {
 			dbOfPlayer.createTable(nameOfPlayer);
 			dbOfPlayer.add(nameOfPlayer, playerPo.toDBString());
 		}

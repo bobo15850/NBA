@@ -22,7 +22,7 @@ public class TeamInfoBl implements TeamInfoBlService {
 	
 	public ArrayList<OneTeamPerformOfOneSeasonVo> getOneSeasonPerformOfAllTeam(Season season) {
 		ArrayList<OneTeamPerformOfOneSeasonVo> resultVo = new ArrayList<OneTeamPerformOfOneSeasonVo>(32);
-		ArrayList<String> nameOfAllTeam = this.teamInfoData.getNamesOfAllTeam();
+		ArrayList<String> nameOfAllTeam = this.teamInfoData.getNamesForShortOfAllTeam();
 		OneTeamPerformOfOneSeasonVo tempOfOneTeamVo;
 		String tempName;
 		for (int i = 0; i < nameOfAllTeam.size(); i++) {
