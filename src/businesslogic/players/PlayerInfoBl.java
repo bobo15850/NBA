@@ -1,9 +1,11 @@
 package businesslogic.players;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import po.GeneralInfoOfPlayerPo;
+import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
 import vo.GeneralInfoOfPlayerVo;
@@ -247,26 +249,31 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition,Season season){
 		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonArray=getOneSeasonPerformOfAllPlayer(season);
-		LinkedList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonLink=new LinkedList<OnePlayerPerformOfOneSeasonVo>(allPlayerPerformOfOneSeasonArray);
+		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonResult=getOneSeasonPerformOfAllPlayer(season);
+
 		PlayerPosition position=condition.getPosition();
 		Conference conference=condition.getConference();
 		Division division=condition.getDivision();
 		PerformanceOfPlayer performance=condition.getPerformance();
-		OnePlayerPerformOfOneSeasonVo onePlayer=allPlayerPerformOfOneSeasonLink.element();
-		OnePlayerPerformOfOneSeasonVo tempPlayer=onePlayer;
-		while(tempPlayer!=null){
+		for(int i=0;i<allPlayerPerformOfOneSeasonArray.size();i++){
+			OnePlayerPerformOfOneSeasonVo  tempPlayer=allPlayerPerformOfOneSeasonArray.get(i);
 			GeneralInfoOfPlayerVo generalInfoOfPlayer=getBaseInformationOfOnePlayer(tempPlayer.getNameOfPlayer());
-			if(generalInfoOfPlayer.getPosition().equals(position)){
+			if(!generalInfoOfPlayer.getPosition().equals(position)){
 				
-				allPlayerPerformOfOneSeasonLink.remove(tempPlayer);
+				allPlayerPerformOfOneSeasonResult.add(tempPlayer);
 			}else{
-				String teamName=tempPlayer.getNameOfTeam();	
-			//	GeneralInfoOfTeamVo generalInfoOfTeam=getBaseInformationOfOneTeam(teamName);			
-			//	if(generalInfoOfTeam.getConference().equals(conference)||generalInfoOfTeam.getDivision().equals(division)){
-				//	allPlayerPerformOfOneSeasonLink.remove(tempPlayer);
+				GeneralInfoOfTeamPo generalInfoOfTeam=playerInfoData.getGeneralInfoOfPlayer(tempPlayer.getNameOfPlayer(),season);			
+				if(!generalInfoOfTeam.getConference().equals(conference)||!generalInfoOfTeam.getDivision().equals(division)){
+					allPlayerPerformOfOneSeasonResult.add(tempPlayer);
 	
-				//}
+				}
 			}
+			//	allPlayerPerformOfOneSeasonResult存放已经筛选的所有球员
+			
+			/**
+			 * 排序
+			 */
+
 		}
 		return null;
 	}

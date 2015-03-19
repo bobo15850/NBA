@@ -111,7 +111,7 @@ public class TeamInfoBl implements TeamInfoBlService {
 
 			}
 			//球队名称
-			resultVo.setTeamName(poList.get(0)[0].getTeamName());
+			resultVo.setTeamName(poList.get(0)[0].getTeamNameForShort());
 			//比赛场数
 			resultVo.setNumberOfMatch(numberOfMatch);
 			//投篮命中数
@@ -189,7 +189,7 @@ public class TeamInfoBl implements TeamInfoBlService {
 			//防守效率
 			resultVo.setDefensiveEfficiency(CalculationOfTeamPerform.calDefensiveEfficiency(scoreOfCompetitor, shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber, shootOfCompetitor-hitOfCompetitor, turnoverOfCompetitor));
 			//篮板效率
-		//	resultVo.setReboundEfficiency(CalculationOfTeamPerform.);
+			resultVo.setReboundEfficiency(CalculationOfTeamPerform.calOffensiveEfficiency(scoreNumber, totalShootNumber, freePointShootNumber, offensiveReboundNumber, defensiveReboundOfCompetitor, totalShootNumber-totalHitNumber, turnoverNumber)+CalculationOfTeamPerform.calDefensiveEfficiency(scoreOfCompetitor, shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber, shootOfCompetitor-hitOfCompetitor, turnoverOfCompetitor));
 			//抢断率
 			resultVo.setStealEfficiency(CalculationOfTeamPerform.calStealEfficiency(stealNumber, shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber, shootOfCompetitor-hitOfCompetitor, turnoverOfCompetitor));
 			//助攻率
