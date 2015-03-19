@@ -23,7 +23,7 @@ public class DataPreparation {
 	public DataPreparation() {
 		// this.handleFileOfTeams();
 		// this.handleFileOfPlayers();
-		// this.handleFileOfMatches();
+		this.handleFileOfMatches();
 	}// 初始化数据库系统
 
 	private void handleFileOfTeams() {
