@@ -1,14 +1,24 @@
 package businesslogic.players;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 import po.GeneralInfoOfPlayerPo;
+import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
+import po.TeamPerformanceOfOneMatchPo;
 import vo.GeneralInfoOfPlayerVo;
+import vo.GeneralInfoOfTeamVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
+import businesslogic.teams.CalculationOfTeamPerform;
 import businesslogicservice.players.PlayerInfoBlService;
+import common.enums.Conference;
+import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
+import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
+import common.mydatastructure.SelectionCondition;
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -24,7 +34,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	public ArrayList<OnePlayerPerformOfOneSeasonVo> getOneSeasonPerformOfAllPlayer(Season season) {
 		ArrayList<String> namesOfAllPlayer = this.playerInfoData.getNamesOfAllPlayer();
-		ArrayList<OnePlayerPerformOfOneSeasonVo> resultList = new ArrayList<OnePlayerPerformOfOneSeasonVo>(512);
+		ArrayList<OnePlayerPerformOfOneSeasonVo> resultList = new ArrayList<OnePlayerPerformOfOneSeasonVo>();
 		OnePlayerPerformOfOneSeasonVo tempOfOnePlayerVo;
 		String tempName;
 		for (int i = 0; i < namesOfAllPlayer.size(); i++) {
@@ -41,13 +51,52 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	public OnePlayerPerformOfOneSeasonVo getOnePlayerPerformOfOneSeason(String nameOfPlayer, Season season) {
 		ArrayList<PlayerPerformanceOfOneMatchPo> poList = this.playerInfoData.getOnePlayerPerformOfOneSeasonPo(nameOfPlayer, season);
+		ArrayList<TeamPerformanceOfOneMatchPo[]> poArrayList=this.playerInfoData.getOneTeamPerformOfOneSeason(nameOfPlayer, season);
+
 		if (poList.size() == 0) {
 			return null;// 返回值为null表示该球员未参加一场比赛
 		} else {
 			OnePlayerPerformOfOneSeasonVo resultVo = new OnePlayerPerformOfOneSeasonVo();
-			String nameOfTeam;// 球队名称
+			String nameOfTeam=poList.get(0).getTeamName();// 球队名称
 			int numberOfMatch = poList.size();// 比赛场数
 			int numberOfFirst = 0;// 先发场数
+			//总命中数
+			int totalHitNumber=0;
+			//总出手数
+			int totalShootNumber=0;
+			//三分命中数
+			int threePointHitNumber=0;
+			//三分出手数
+			int threePointShootNumber=0;
+			//罚球命中数
+			int freePointHitNumber=0;
+			//罚球出手数
+			int freePointShootNumber=0;
+			//球队所有球员上场时间
+			int timeOfAllPlayer=0;
+			//球队所有篮板数
+			int totalReboundOfTeam=0;
+			//对手所有篮板数
+			int totalReboundOfCompetitor=0;
+			//球队所有命中数
+			int hitOfAllPlayer=0;
+			//球队所有出手数
+			int shootOfAllPlayer=0;
+			//球队所有罚球数
+			int freePointOfAllPlayer=0;
+			//球队所有失误数
+			int turnoverOfAllPlayer=0;
+			//对手进攻数
+			int offensiveReboundOfCompetitor=0;
+			//对手总命中数
+			//int hitNumOfCompetitor=0;
+			//对手总出手数
+			int shootNumOfCompetitor=0;
+			//对手三分命中数
+			//int threePointHitOfCompetitor=0;
+			//对手三分出手数
+			int threePointShootOfCompetitor=0;
+			
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
 			double playingTime = 0;// 总上场时间
@@ -64,6 +113,12 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				if (tempMatch.getIsFirst()) {
 					numberOfFirst++;
 				}
+				totalHitNumber+=tempMatch.getTotalHitNumber();
+				totalShootNumber+=tempMatch.getTotalShootNumber();
+				threePointHitNumber+=tempMatch.getThreePointHitNumber();
+				threePointShootNumber+=tempMatch.getThreePointShootNumber();
+				freePointHitNumber+=tempMatch.getFreePointHitNumber();
+				freePointShootNumber+=tempMatch.getFreePointShootNumber();
 				totalReboundNumber += tempMatch.getTotalReboundNumber();
 				assistNumber += tempMatch.getAssistNumber();
 				playingTime = tempMatch.getPlayingTime();
@@ -75,6 +130,104 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				offensiveReboundNumber = tempMatch.getOffensiveReboundNumber();
 				defensiveReboundNumber = tempMatch.getDefensiveReboundNumber();
 			}
+			for(int i=0;i<poArrayList.size();i++){
+				TeamPerformanceOfOneMatchPo ourSide=poArrayList.get(i)[0];
+				TeamPerformanceOfOneMatchPo competitor=poArrayList.get(i)[1];
+				
+				timeOfAllPlayer+=ourSide.getPlayingTime();
+				totalReboundOfTeam+=ourSide.getTotalReboundNumber();
+				freePointOfAllPlayer+=ourSide.getFoulNumber();
+				turnoverOfAllPlayer+=ourSide.getTurnoverNumber();
+				hitOfAllPlayer+=ourSide.getTotalHitNumber();
+
+				totalReboundOfCompetitor+=competitor.getTotalReboundNumber();
+				offensiveReboundOfCompetitor+=competitor.getOffensiveReboundNumber();
+			//	hitNumOfCompetitor+=competitor.getTotalHitNumber();
+				shootNumOfCompetitor+=competitor.getTotalShootNumber();
+				//threePointHitOfCompetitor+=competitor.getThreePointHitNumber();
+				threePointShootOfCompetitor+=competitor.getThreePointShootNumber();
+			
+			}
+			//球队名称
+			resultVo.setNameOfTeam(nameOfTeam);
+			//球员名称
+			resultVo.setNameOfPlayer(nameOfPlayer);
+			//比赛场数
+			resultVo.setNumberOfMatch(numberOfMatch);
+			//先发场数
+			resultVo.setNumberOfFirst(numberOfFirst);
+			//总篮板数
+			resultVo.setTotalReboundNumber(totalReboundNumber);
+			//总助攻
+			resultVo.setAssistNumber(assistNumber);
+			//总上场时间
+			resultVo.setPlayingTime(playingTime);
+			//总抢断数
+			resultVo.setStealNumber(stealNumber);
+			//总盖帽数
+			resultVo.setBlockNumber(blockNumber);
+			//总失误数
+			resultVo.setTurnoverNumber(turnoverNumber);
+			//总犯规数
+			resultVo.setFoulNumber(foulNumber);
+			//总得分
+			resultVo.setScoreNumber(scoreNumber);
+			//进攻篮板数
+			resultVo.setOffensiveReboundNumber(offensiveReboundNumber);
+			//防守篮板数
+			resultVo.setDefensiveReboundNumber(defensiveReboundNumber);
+			//场均总篮板
+			resultVo.setAverageTotalReboundNumber(CalculationOfTeamPerform.average(totalReboundNumber, numberOfMatch));
+			//场均助攻数
+			resultVo.setAverageAssistNumber(CalculationOfTeamPerform.average(assistNumber, numberOfMatch));
+			//场均上场时间
+			resultVo.setAveragePlayingTime(CalculationOfTeamPerform.average(playingTime, numberOfMatch));
+			//场均抢断数
+			resultVo.setAverageStealNumber(CalculationOfTeamPerform.average(stealNumber, numberOfMatch));
+			//场均盖帽数
+			resultVo.setAverageBlockNumber(CalculationOfTeamPerform.average(blockNumber, numberOfMatch));
+			//场均失误数
+			resultVo.setAverageTurnoverNumber(CalculationOfTeamPerform.average(turnoverNumber, numberOfMatch));
+			//场均犯规数
+			resultVo.setAverageFoulNumber(CalculationOfTeamPerform.average(foulNumber, numberOfMatch));
+			//场均得分数
+			resultVo.setAverageScoreNumber(CalculationOfTeamPerform.average(scoreNumber, numberOfMatch));
+			//场均进攻篮板数
+			resultVo.setAverageOffensiveReboundNumber(CalculationOfTeamPerform.average(offensiveReboundNumber, numberOfMatch));
+			//场均防守篮板数
+			resultVo.setAverageDefensiveReboundNumber(CalculationOfTeamPerform.average(defensiveReboundNumber, numberOfMatch));
+			//投篮命中率
+			resultVo.setTotalHitRate(CalculationOfPlayerPerform.calHitRate(totalHitNumber, totalShootNumber));
+			//三分命中率
+			resultVo.setThreePointHitRate(CalculationOfPlayerPerform.calHitRate(threePointHitNumber, threePointShootNumber));
+			//罚球命中率
+			resultVo.setFreePointHitRate(CalculationOfPlayerPerform.calHitRate(freePointHitNumber, freePointShootNumber));
+			//效率
+			resultVo.setCommonEfficiency(CalculationOfPlayerPerform.calCommonEfficiency(scoreNumber, totalReboundNumber, assistNumber, assistNumber, blockNumber, totalShootNumber, totalHitNumber, freePointShootNumber, freePointHitNumber, turnoverNumber));
+			//GmSc效率
+			resultVo.setGmScEfficiency(CalculationOfPlayerPerform.calGmScEfficiency(scoreNumber, totalHitNumber, totalShootNumber, freePointShootNumber, freePointHitNumber, offensiveReboundNumber, defensiveReboundNumber, stealNumber, assistNumber, blockNumber, foulNumber, turnoverNumber));
+			//真实命中率
+			resultVo.setRealHitRate(CalculationOfPlayerPerform.calRealHitRate(scoreNumber, totalShootNumber, freePointShootNumber));
+			//投篮效率
+			resultVo.setShootEfficiency(CalculationOfPlayerPerform.calShootEfficiency(totalHitNumber, threePointHitNumber, totalShootNumber));
+			//篮板效率
+			resultVo.setReboundEfficiency(CalculationOfPlayerPerform.calReboundRate(totalReboundNumber, timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
+			//进攻篮板率
+			resultVo.setOffensiveReboundRate(CalculationOfPlayerPerform.calReboundRate(offensiveReboundNumber, timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
+			//防守篮板率
+			resultVo.setDefensiveReboundRate(CalculationOfPlayerPerform.calReboundRate(defensiveReboundNumber, timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
+
+			//助攻率
+			resultVo.setAssistRate(CalculationOfPlayerPerform.calAssistRate(assistNumber, playingTime, timeOfAllPlayer, hitOfAllPlayer, totalHitNumber));
+			//抢断率
+			resultVo.setStealRate(CalculationOfPlayerPerform.calStealRate(stealNumber, timeOfAllPlayer, playingTime, offensiveReboundOfCompetitor));
+			//盖帽率
+			resultVo.setBlockRate(CalculationOfPlayerPerform.calBlockRate(blockNumber, timeOfAllPlayer, playingTime, shootNumOfCompetitor-threePointShootOfCompetitor));
+			//失误率
+			resultVo.setTurnoverRate(CalculationOfPlayerPerform.calTurnoverRate(turnoverNumber, totalShootNumber-threePointShootNumber, freePointShootNumber));
+			//使用率
+			resultVo.setUseRate(CalculationOfPlayerPerform.calUseRate(totalShootNumber, freePointShootNumber, turnoverNumber, timeOfAllPlayer, playingTime, shootOfAllPlayer, freePointOfAllPlayer, turnoverOfAllPlayer));
+			
 			return resultVo;
 		}
 
@@ -94,4 +247,35 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	}// 根据某一项将所有球员某一赛季成绩降序排序
 
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition,Season season){
+		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonArray=getOneSeasonPerformOfAllPlayer(season);
+		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonResult=getOneSeasonPerformOfAllPlayer(season);
+
+		PlayerPosition position=condition.getPosition();
+		Conference conference=condition.getConference();
+		Division division=condition.getDivision();
+		PerformanceOfPlayer performance=condition.getPerformance();
+		for(int i=0;i<allPlayerPerformOfOneSeasonArray.size();i++){
+			OnePlayerPerformOfOneSeasonVo  tempPlayer=allPlayerPerformOfOneSeasonArray.get(i);
+			GeneralInfoOfPlayerVo generalInfoOfPlayer=getBaseInformationOfOnePlayer(tempPlayer.getNameOfPlayer());
+			if(!generalInfoOfPlayer.getPosition().equals(position)){
+				
+				allPlayerPerformOfOneSeasonResult.add(tempPlayer);
+			}else{
+				GeneralInfoOfTeamPo generalInfoOfTeam=playerInfoData.getGeneralInfoOfPlayer(tempPlayer.getNameOfPlayer(),season);			
+				if(!generalInfoOfTeam.getConference().equals(conference)||!generalInfoOfTeam.getDivision().equals(division)){
+					allPlayerPerformOfOneSeasonResult.add(tempPlayer);
+	
+				}
+			}
+			//	allPlayerPerformOfOneSeasonResult存放已经筛选的所有球员
+			
+			/**
+			 * 排序
+			 */
+
+		}
+		return null;
+	}
+	
 }
