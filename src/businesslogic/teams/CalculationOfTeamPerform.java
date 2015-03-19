@@ -1,7 +1,6 @@
 package businesslogic.teams;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
 /*
  * 用以计算xx率

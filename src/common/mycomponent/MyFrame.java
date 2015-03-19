@@ -12,6 +12,6 @@ public class MyFrame extends JFrame {
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 }

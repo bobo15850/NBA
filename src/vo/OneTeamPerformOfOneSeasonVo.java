@@ -1,7 +1,7 @@
 package vo;
 
 public class OneTeamPerformOfOneSeasonVo {
-	private String teamName;// 球队名称
+	private String teamNameForShort;// 球队名称
 	private int numberOfMatch;// 比赛场数
 	//
 	private int totalHitNumber;// 总命中数
@@ -49,11 +49,11 @@ public class OneTeamPerformOfOneSeasonVo {
 	private double assistEfficiency;// 助攻率
 
 	public String getTeamName() {
-		return teamName;
+		return teamNameForShort;
 	}
 
 	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+		this.teamNameForShort = teamName;
 	}
 
 	public int getNumberOfMatch() {
