@@ -264,7 +264,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		int right = voList.size();
 		switch (dataKind) {
 		case PlayerName:
-		case TeamName:
+		case TeamName:// TODO
 		case MatchNumber:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.MatchNumber(), left, right - 1);
 			break;
@@ -381,7 +381,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		int right = voList.size();
 		switch (dataKind) {
 		case PlayerName:
-		case TeamName:
+		case TeamName:// TODO
 		case MatchNumber:
 			SortOfPlayer.sortDescending(voList, new SortOfPlayer.MatchNumber(), left, right - 1);
 			break;
@@ -493,7 +493,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		}
 	}// 根据某一项将所有球员某一赛季成绩降序排序
 
-	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition, Season season) {
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctPlayer(SelectionCondition condition, Season season) {
 		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonArray = getOneSeasonPerformOfAllPlayer(season);
 		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonResult = getOneSeasonPerformOfAllPlayer(season);
 
