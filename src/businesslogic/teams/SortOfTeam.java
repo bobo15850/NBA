@@ -2,8 +2,6 @@ package businesslogic.teams;
 
 import java.util.ArrayList;
 
-import businesslogic.players.SortOfPlayer.PlayerPerformance;
-import vo.OnePlayerPerformOfOneSeasonVo;
 import vo.OneTeamPerformOfOneSeasonVo;
 
 public class SortOfTeam {
@@ -53,7 +51,6 @@ public class SortOfTeam {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team);
 	}
 
-	// /////////////////
 	static class MatchNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getNumberOfMatch();
@@ -96,19 +93,19 @@ public class SortOfTeam {
 		}
 	}// 罚球出手数
 
-	static class OffensiveRebondNumber implements TeamPerformance {
+	static class OffensiveReboundNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getOffensiveReboundNumber();
 		}
 	}// 前场篮板
 
-	static class DeffensiveRebondNumber implements TeamPerformance {
+	static class DefensiveReboundNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getOffensiveReboundNumber();
 		}
 	}// 后场篮板
 
-	static class TotalRebondNumber implements TeamPerformance {
+	static class TotalReboundNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getTotalReboundNumber();
 		}
@@ -156,19 +153,59 @@ public class SortOfTeam {
 		}
 	}// 进攻回合数
 
-	
-	
-	
-	
-	
-	
-	
-	
+	static class AverageTotalHitNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageTotalHitNumber();
+		}
+	}// 场均命中数
+
+	static class AverageTotalShootNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageTotalShootNumber();
+		}
+	}// 场均出手数
+
+	static class AverageThreePointHitNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageThreePointHitNumber();
+		}
+	}// 场均三分命中数
+
+	static class AverageThreePointShootNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageThreePointShootNumber();
+		}
+	}// 场均三分出手数
+
+	static class AverageFreePointHitNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageFreePointHitNumber();
+		}
+	}// 场均罚球命中数
+
+	static class AverageFreePointShootNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageFreePointShootNumber();
+		}
+	}// 场均罚球出手数
+
 	static class AverageTotalReboundNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getAverageTotalReboundNumber();
 		}
 	}// 场均篮板数
+
+	static class AverageOffensiveReboundNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageOffensiveReboundNumber();
+		}
+	}// 场均进攻篮板
+
+	static class AverageDefensiveReboundNumber implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAverageDefensiveReboundNumber();
+		}
+	}// 场均防守篮板
 
 	static class AverageAssistNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
@@ -192,13 +229,13 @@ public class SortOfTeam {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getAverageTurnoverNumber();
 		}
-	}// 场均失误率
+	}// 场均失误数
 
 	static class AverageFoulNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getAverageFoulNumber();
 		}
-	}// 场均犯规
+	}// 场均犯规数
 
 	static class AverageScoreNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
@@ -206,17 +243,11 @@ public class SortOfTeam {
 		}
 	}// 场均得分
 
-	static class AverageOffensiveReboundNumber implements TeamPerformance {
+	static class AverageOffensiveNumber implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
-			return team.getAverageOffensiveReboundNumber();
+			return team.getAverageOffensiveNumber();
 		}
-	}// 场均进攻篮板
-
-	static class AverageDefensiveReboundNumber implements TeamPerformance {
-		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
-			return team.getAverageDefensiveReboundNumber();
-		}
-	}// 场均防守篮板
+	}// 场均进攻回合数
 
 	static class TotalHitRate implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
@@ -236,10 +267,39 @@ public class SortOfTeam {
 		}
 	}// 罚球命中率
 
+	static class WinRate implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getWinRate();
+		}
+	}// 胜率
+
+	static class OffensiveEfficiency implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getOffensiveEfficiency();
+		}
+	}// 进攻效率
+
+	static class DefensiveEfficiency implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getDefensiveEfficiency();
+		}
+	}// 防守效率
+
 	static class ReboundEfficiency implements TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
 			return team.getReboundEfficiency();
 		}
 	}// 篮板效率
 
+	static class StealEfficiency implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getStealEfficiency();
+		}
+	}// 抢断率
+
+	static class AssistEfficiency implements TeamPerformance {
+		public double getPerformance(OneTeamPerformOfOneSeasonVo team) {
+			return team.getAssistEfficiency();
+		}
+	}// 助攻率
 }
