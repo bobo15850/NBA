@@ -49,17 +49,17 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 	}// 根据某一球员姓名查找其所有赛季比赛信息
 
 	public OnePlayerPerformOfOneSeasonVo getOnePlayerPerformOfOneSeason(String nameOfPlayer, Season season) {
-		ArrayList<PlayerPerformanceOfOneMatchPo> poList = this.playerInfoData.getOnePlayerPerformOfOneSeasonPo(
-				nameOfPlayer, season);
-		ArrayList<TeamPerformanceOfOneMatchPo[]> poArrayList = this.playerInfoData.getOneTeamPerformOfOneSeason(
+		ArrayList<PlayerPerformanceOfOneMatchPo> PlayerPerformPoList = this.playerInfoData
+				.getOnePlayerPerformOfOneSeasonPo(nameOfPlayer, season);
+		ArrayList<TeamPerformanceOfOneMatchPo[]> TeamPerFormPoList = this.playerInfoData.getOneTeamPerformOfOneSeason(
 				nameOfPlayer, season);
 
-		if (poList.size() == 0) {
+		if (PlayerPerformPoList.size() == 0) {
 			return null;// 返回值为null表示该球员未参加一场比赛
 		} else {
 			OnePlayerPerformOfOneSeasonVo resultVo = new OnePlayerPerformOfOneSeasonVo();
-			String nameOfTeam = poList.get(0).getTeamName();// 球队名称
-			int numberOfMatch = poList.size();// 比赛场数
+			String nameOfTeam = PlayerPerformPoList.get(0).getTeamName();// 球队名称
+			int numberOfMatch = PlayerPerformPoList.size();// 比赛场数
 			int numberOfFirst = 0;// 先发场数
 			// 总命中数
 			int totalHitNumber = 0;
@@ -97,7 +97,6 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			// int threePointHitOfCompetitor=0;
 			// 对手三分出手数
 			int threePointShootOfCompetitor = 0;
-
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
 			double playingTime = 0;// 总上场时间
@@ -109,8 +108,8 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			int offensiveReboundNumber = 0;// 进攻篮板数
 			int defensiveReboundNumber = 0;// 防守篮板数
 			PlayerPerformanceOfOneMatchPo tempMatch;
-			for (int i = 0; i < poList.size(); i++) {
-				tempMatch = poList.get(i);
+			for (int i = 0; i < PlayerPerformPoList.size(); i++) {
+				tempMatch = PlayerPerformPoList.get(i);
 				if (tempMatch.getIsFirst()) {
 					numberOfFirst++;
 				}
@@ -122,31 +121,31 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				freePointShootNumber += tempMatch.getFreePointShootNumber();
 				totalReboundNumber += tempMatch.getTotalReboundNumber();
 				assistNumber += tempMatch.getAssistNumber();
-				playingTime = tempMatch.getPlayingTime();
-				stealNumber = tempMatch.getStealNumber();
-				blockNumber = tempMatch.getBlockNumber();
-				turnoverNumber = tempMatch.getTurnoverNumber();
-				foulNumber = tempMatch.getFoulNumber();
-				scoreNumber = tempMatch.getScoreNumber();
-				offensiveReboundNumber = tempMatch.getOffensiveReboundNumber();
-				defensiveReboundNumber = tempMatch.getDefensiveReboundNumber();
+				playingTime += tempMatch.getPlayingTime();
+				stealNumber += tempMatch.getStealNumber();
+				blockNumber += tempMatch.getBlockNumber();
+				turnoverNumber += tempMatch.getTurnoverNumber();
+				foulNumber += tempMatch.getFoulNumber();
+				scoreNumber += tempMatch.getScoreNumber();
+				offensiveReboundNumber += tempMatch.getOffensiveReboundNumber();
+				defensiveReboundNumber += tempMatch.getDefensiveReboundNumber();
 			}
-			for (int i = 0; i < poArrayList.size(); i++) {
-				TeamPerformanceOfOneMatchPo ourSide = poArrayList.get(i)[0];
-				TeamPerformanceOfOneMatchPo competitor = poArrayList.get(i)[1];
+			for (int i = 0; i < TeamPerFormPoList.size(); i++) {
+				TeamPerformanceOfOneMatchPo selfTeam = TeamPerFormPoList.get(i)[0];
+				TeamPerformanceOfOneMatchPo opponentTeam = TeamPerFormPoList.get(i)[1];
 
-				timeOfAllPlayer += ourSide.getPlayingTime();
-				totalReboundOfTeam += ourSide.getTotalReboundNumber();
-				freePointOfAllPlayer += ourSide.getFoulNumber();
-				turnoverOfAllPlayer += ourSide.getTurnoverNumber();
-				hitOfAllPlayer += ourSide.getTotalHitNumber();
+				timeOfAllPlayer += selfTeam.getPlayingTime();
+				totalReboundOfTeam += selfTeam.getTotalReboundNumber();
+				freePointOfAllPlayer += selfTeam.getFoulNumber();
+				turnoverOfAllPlayer += selfTeam.getTurnoverNumber();
+				hitOfAllPlayer += selfTeam.getTotalHitNumber();
 
-				totalReboundOfCompetitor += competitor.getTotalReboundNumber();
-				offensiveReboundOfCompetitor += competitor.getOffensiveReboundNumber();
+				totalReboundOfCompetitor += opponentTeam.getTotalReboundNumber();
+				offensiveReboundOfCompetitor += opponentTeam.getOffensiveReboundNumber();
 				// hitNumOfCompetitor+=competitor.getTotalHitNumber();
-				shootNumOfCompetitor += competitor.getTotalShootNumber();
+				shootNumOfCompetitor += opponentTeam.getTotalShootNumber();
 				// threePointHitOfCompetitor+=competitor.getThreePointHitNumber();
-				threePointShootOfCompetitor += competitor.getThreePointShootNumber();
+				threePointShootOfCompetitor += opponentTeam.getThreePointShootNumber();
 
 			}
 			// 球队名称
@@ -162,7 +161,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			// 总助攻
 			resultVo.setAssistNumber(assistNumber);
 			// 总上场时间
-			resultVo.setPlayingTime(playingTime);
+			resultVo.setPlayingTime(CalculationOfPlayerPerform.cutToTwo(playingTime));
 			// 总抢断数
 			resultVo.setStealNumber(stealNumber);
 			// 总盖帽数
@@ -210,11 +209,12 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			// 效率
 			resultVo.setCommonEfficiency(CalculationOfPlayerPerform.calCommonEfficiency(scoreNumber,
 					totalReboundNumber, assistNumber, assistNumber, blockNumber, totalShootNumber, totalHitNumber,
-					freePointShootNumber, freePointHitNumber, turnoverNumber));
+					freePointShootNumber, freePointHitNumber, turnoverNumber, numberOfMatch));
 			// GmSc效率
 			resultVo.setGmScEfficiency(CalculationOfPlayerPerform.calGmScEfficiency(scoreNumber, totalHitNumber,
 					totalShootNumber, freePointShootNumber, freePointHitNumber, offensiveReboundNumber,
-					defensiveReboundNumber, stealNumber, assistNumber, blockNumber, foulNumber, turnoverNumber));
+					defensiveReboundNumber, stealNumber, assistNumber, blockNumber, foulNumber, turnoverNumber,
+					numberOfMatch));
 			// 真实命中率
 			resultVo.setRealHitRate(CalculationOfPlayerPerform.calRealHitRate(scoreNumber, totalShootNumber,
 					freePointShootNumber));
@@ -253,7 +253,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	}// 查找某一球员在某一赛季的比赛信息
 
-	public GeneralInfoOfPlayerVo getBaseInformationOfOnePlayer(String nameOfPlayer) {
+	public GeneralInfoOfPlayerVo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo po = this.playerInfoData.getGeneralInfoOfOnePlayer(nameOfPlayer);
 		GeneralInfoOfPlayerVo resultVo = new GeneralInfoOfPlayerVo(po);
 		return resultVo;
@@ -503,7 +503,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		PerformanceOfPlayer performance = condition.getPerformance();
 		for (int i = 0; i < allPlayerPerformOfOneSeasonArray.size(); i++) {
 			OnePlayerPerformOfOneSeasonVo tempPlayer = allPlayerPerformOfOneSeasonArray.get(i);
-			GeneralInfoOfPlayerVo generalInfoOfPlayer = getBaseInformationOfOnePlayer(tempPlayer.getNameOfPlayer());
+			GeneralInfoOfPlayerVo generalInfoOfPlayer = getGeneralInfoOfOnePlayer(tempPlayer.getNameOfPlayer());
 			if (!generalInfoOfPlayer.getPosition().equals(position)) {
 
 				allPlayerPerformOfOneSeasonResult.add(tempPlayer);

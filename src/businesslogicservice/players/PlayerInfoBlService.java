@@ -20,7 +20,7 @@ public interface PlayerInfoBlService {
 	public OnePlayerPerformOfOneSeasonVo getOnePlayerPerformOfOneSeason(String nameOfPlayer, Season season);
 
 	// 根据球员姓名查找某一球员具体基本自然信息
-	public GeneralInfoOfPlayerVo getBaseInformationOfOnePlayer(String nameOfPlayer);
+	public GeneralInfoOfPlayerVo getGeneralInfoOfOnePlayer(String nameOfPlayer);
 
 	// 根据某一项将所有球员某一赛季成绩升序排序
 	public void ascendingSort(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PerformanceOfPlayer dataKind);

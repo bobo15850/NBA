@@ -1,6 +1,6 @@
 package businesslogic.players;
 
-import java.text.NumberFormat;
+import java.math.BigDecimal;
 
 /*
  * 用以计算xx率
@@ -19,11 +19,11 @@ public class CalculationOfPlayerPerform {
 		if (shootNum == 0) {
 			return 0;
 		} else {
-			NumberFormat nf = NumberFormat.getNumberInstance();
-			nf.setMaximumFractionDigits(2);
-			return Double.parseDouble(nf.format(hitNum / shootNum));
+			double result = 0;
+			result = hitNum / shootNum;
+			return cutToTwo(result);
 		}
-	}// ////////////////////////////添加除数为零的情况
+	}
 
 	/**
 	 * 计算效率
@@ -48,18 +48,20 @@ public class CalculationOfPlayerPerform {
 	 *            罚球命中次数
 	 * @param turnover
 	 *            失误次数
+	 * @param numberOfMatch
+	 *            比赛场数
 	 * @return 保留两位有效数字 效率
 	 */
 	public static double calCommonEfficiency(double score, double rebound, double assist, double steal, double block,
-			int shoot, int hit, int freePointShoot, int freePointHit, int turnover) {
-		double result = 0;
-		result = (score + rebound + assist + steal + block) - (shoot + hit) - (freePointShoot - freePointHit)
-				- turnover;
-		System.out.println(result);
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+			int shoot, int hit, int freePointShoot, int freePointHit, int turnover, int numberOfMatch) {
+		if (numberOfMatch == 0) {
+			return 0;
+		} else {
+			double result = (score + rebound + assist + steal + block) - (shoot + hit)
+					- (freePointShoot - freePointHit) - turnover;
+			result = result / numberOfMatch;
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -72,10 +74,8 @@ public class CalculationOfPlayerPerform {
 	 * @return double 提升率 保留两位有效数字
 	 */
 	public static double calImproveRateInFiveMatch(double beforeScore, double afterScore) {
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format((afterScore - beforeScore) / beforeScore));
-
+		double result = (afterScore - beforeScore) / beforeScore;
+		return cutToTwo(result);
 	}
 
 	/**
@@ -105,17 +105,21 @@ public class CalculationOfPlayerPerform {
 	 *            犯规数
 	 * @param turnover
 	 *            失误数
+	 * @param numberOfMatch
+	 *            比赛场数
 	 * @return double GmSc效率值
 	 */
 	public static double calGmScEfficiency(double score, int hit, int shoot, int freePointShoot, int freePointHit,
-			int reboundBefore, int reboundAfter, int steal, int assist, int block, int foul, int turnover) {
-		double result = 0;
-		result = score + 0.4 * hit - 0.7 * shoot - 0.4 * (freePointShoot - freePointHit) + 0.7 * reboundBefore + 0.3
-				* reboundAfter + steal + 0.7 * assist + 0.7 * block - 0.4 * foul - turnover;
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+			int reboundBefore, int reboundAfter, int steal, int assist, int block, int foul, int turnover,
+			int numberOfMatch) {
+		if (numberOfMatch == 0) {
+			return 0;
+		} else {
+			double result = score + 0.4 * hit - 0.7 * shoot - 0.4 * (freePointShoot - freePointHit) + 0.7
+					* reboundBefore + 0.3 * reboundAfter + steal + 0.7 * assist + 0.7 * block - 0.4 * foul - turnover;
+			result = result / numberOfMatch;
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -130,11 +134,13 @@ public class CalculationOfPlayerPerform {
 	 * @return 真实投篮命中率 保留两位有效数字
 	 */
 	public static double calRealHitRate(double score, int shoot, int freePointShoot) {
-		double result = 0;
-		result = score / (2 * (shoot + 0.44 * freePointShoot));
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
+		if (shoot == 0 && freePointShoot == 0) {
+			return 0;
+		} else {
+			double result = 0;
+			result = score / (2 * (shoot + 0.44 * freePointShoot));
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -154,11 +160,9 @@ public class CalculationOfPlayerPerform {
 		} else {
 			double result = 0;
 			result = (hit + 0.5 * threePointHit) / shoot;
-			NumberFormat nf = NumberFormat.getNumberInstance();
-			nf.setMaximumFractionDigits(2);
-			return Double.parseDouble(nf.format(result));
+			return cutToTwo(result);
 		}
-	}// ////////////////////////////添加除数为零的情况
+	}
 
 	/**
 	 * 计算篮板率或进攻篮板率或防守篮板率
@@ -177,12 +181,13 @@ public class CalculationOfPlayerPerform {
 	 */
 	public static double calReboundRate(int rebound, double timeOfAllPlayer, double timeOfOnePlayer,
 			int totalReboundOfTeam, int totalReboundOfCompetitor) {
-		double result = 0;
-		result = rebound * (timeOfAllPlayer / 5) / timeOfOnePlayer / (totalReboundOfTeam + totalReboundOfCompetitor);
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+		int total = totalReboundOfTeam + totalReboundOfCompetitor;
+		if (timeOfOnePlayer == 0 || total == 0) {
+			return 0;
+		} else {
+			double result = rebound * (timeOfAllPlayer / 5) / timeOfOnePlayer / total;
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -202,11 +207,12 @@ public class CalculationOfPlayerPerform {
 	 */
 	public static double calAssistRate(int assist, double timeOfOnePlayer, double timeOfAllPlayer, int hitOfAllPlayer,
 			int hitOfOnePlayer) {
-		double result = 0;
-		result = assist / (timeOfOnePlayer / (timeOfAllPlayer / 5) * hitOfAllPlayer - hitOfOnePlayer);
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
+		if (timeOfOnePlayer == 0 || timeOfAllPlayer == 0) {
+			return 0;
+		} else {
+			double result = assist / (timeOfOnePlayer / (timeOfAllPlayer / 5) * hitOfAllPlayer - hitOfOnePlayer);
+			return cutToTwo(result);
+		}
 
 	}
 
@@ -225,12 +231,12 @@ public class CalculationOfPlayerPerform {
 	 */
 	public static double calStealRate(int steal, double timeOfAllPlayer, double timeOfOnePlayer,
 			int offensiveNumOfCompetitor) {
-		double result = 0;
-		result = steal * (timeOfAllPlayer / 5) / timeOfOnePlayer / offensiveNumOfCompetitor;
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+		if (timeOfOnePlayer == 0 || offensiveNumOfCompetitor == 0) {
+			return 0;
+		} else {
+			double result = steal * (timeOfAllPlayer / 5) / timeOfOnePlayer / offensiveNumOfCompetitor;
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -248,12 +254,12 @@ public class CalculationOfPlayerPerform {
 	 */
 	public static double calBlockRate(int block, double timeOfAllPlayer, double timeOfOnePlayer,
 			double TwoPointNumOfCompetitor) {
-		double result = 0;
-		result = block * (timeOfAllPlayer / 5) / timeOfOnePlayer / TwoPointNumOfCompetitor;
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+		if (timeOfOnePlayer == 0 || TwoPointNumOfCompetitor == 0) {
+			return 0;
+		} else {
+			double result = block * (timeOfAllPlayer / 5) / timeOfOnePlayer / TwoPointNumOfCompetitor;
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -268,12 +274,13 @@ public class CalculationOfPlayerPerform {
 	 * @return 失误率
 	 */
 	public static double calTurnoverRate(int turnover, int twoPointNumOfOnePlayer, int freePoint) {
-		double result = 0;
-		result = turnover / (twoPointNumOfOnePlayer + 0.44 * freePoint + turnover);
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+		if (turnover == 0 && twoPointNumOfOnePlayer == 0 && freePoint == 0) {
+			return 0;
+		} else {
+			double result = 0;
+			result = turnover / (twoPointNumOfOnePlayer + 0.44 * freePoint + turnover);
+			return cutToTwo(result);
+		}
 	}
 
 	/**
@@ -299,12 +306,18 @@ public class CalculationOfPlayerPerform {
 	 */
 	public static double calUseRate(int shoot, int freePoint, int turnover, double timeOfAllPlayer,
 			double timeOfOnePlayer, int shootNumOfAllPlayer, int freePointNumOfAllPlayer, int turnoverOfAllPlayer) {
-		double result = 0;
-		result = (shoot + 0.44 * freePoint + turnover) * (timeOfAllPlayer / 5) / timeOfOnePlayer
-				/ (shootNumOfAllPlayer + 0.44 * freePointNumOfAllPlayer + freePointNumOfAllPlayer);
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		nf.setMaximumFractionDigits(2);
-		return Double.parseDouble(nf.format(result));
-
+		double temp = shootNumOfAllPlayer + 0.44 * freePointNumOfAllPlayer + freePointNumOfAllPlayer;
+		if (temp == 0 || timeOfAllPlayer == 0 || timeOfOnePlayer == 0) {
+			return 0;
+		} else {
+			double result = (shoot + 0.44 * freePoint + turnover) * (timeOfAllPlayer / 5) / timeOfOnePlayer / temp;
+			return cutToTwo(result);
+		}
 	}
+
+	public static double cutToTwo(double number) {
+		BigDecimal bigDecimal = new BigDecimal(number);
+		double result = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+		return result;
+	}// 保留两位小数
 }

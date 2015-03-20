@@ -107,4 +107,16 @@ public class GeneralInfoOfPlayerVo {
 	public String getShool() {
 		return this.school;
 	}// 得到球员的毕业学校
+
+	public String[] toStringArray() {
+		return new String[] { playerName,// 姓名
+				playerNumber,// 球员号码
+				position.toString(),// 位置
+				height.getFeetAndInchAsStringOfHeight(),// 身高
+				String.valueOf(weight.getPoundOfWeight()),// 体重
+				birthday.getFormatString(),// 生日
+				String.valueOf(age), String.valueOf(trainingYear),// 球龄
+				school,// 毕业学校
+		};
+	}
 }

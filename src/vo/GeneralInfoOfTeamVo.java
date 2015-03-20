@@ -85,4 +85,8 @@ public class GeneralInfoOfTeamVo {
 		return this.establishYear;
 	}// 得到建立时间
 
+	public String[] toStringArray() {
+		return new String[] { teamName, teamNameForShort, location, conference.toString(), division.toString(),
+				homeField, String.valueOf(establishYear) };
+	}
 }
