@@ -254,7 +254,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 	}// 查找某一球员在某一赛季的比赛信息
 
 	public GeneralInfoOfPlayerVo getBaseInformationOfOnePlayer(String nameOfPlayer) {
-		GeneralInfoOfPlayerPo po = this.playerInfoData.getBaseInformationOfOnePlayer(nameOfPlayer);
+		GeneralInfoOfPlayerPo po = this.playerInfoData.getGeneralInfoOfOnePlayer(nameOfPlayer);
 		GeneralInfoOfPlayerVo resultVo = new GeneralInfoOfPlayerVo(po);
 		return resultVo;
 	}// 根据球员姓名查找某一球员具体基本自然信息
@@ -508,7 +508,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 				allPlayerPerformOfOneSeasonResult.add(tempPlayer);
 			} else {
-				GeneralInfoOfTeamPo generalInfoOfTeam = playerInfoData.getGeneralInfoOfPlayer(
+				GeneralInfoOfTeamPo generalInfoOfTeam = playerInfoData.getGeneralInfoOfOneTeam(
 						tempPlayer.getNameOfPlayer(), season);
 				if (!generalInfoOfTeam.getConference().equals(conference)
 						|| !generalInfoOfTeam.getDivision().equals(division)) {
@@ -524,8 +524,5 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 		}
 		return null;
-	}
-
-	public static void main(String arg[]) {
 	}
 }

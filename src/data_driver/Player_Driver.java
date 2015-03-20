@@ -14,7 +14,7 @@ public class Player_Driver {
 	PlayerInfoDataService plData = new PlayerInfoData();
 
 	public void testGeneralInfoPo() {
-		GeneralInfoOfPlayerPo playerPo = plData.getBaseInformationOfOnePlayer("Al Harrington");
+		GeneralInfoOfPlayerPo playerPo = plData.getGeneralInfoOfOnePlayer("Al Harrington");
 		System.out.println(playerPo.toDBString());
 	}
 
@@ -51,7 +51,16 @@ public class Player_Driver {
 	public void testGeneralTeamPo() {
 		String playerName = "Al Harrington";
 		Season season = new Season("2013-2014");
-		GeneralInfoOfTeamPo teampo = this.plData.getGeneralInfoOfPlayer(playerName, season);
+		GeneralInfoOfTeamPo teampo = this.plData.getGeneralInfoOfOneTeam(playerName, season);
 		System.out.println(teampo.toDBString());
+	}
+
+	public static void main(String arg[]) {
+		Player_Driver pd = new Player_Driver();
+		pd.testGeneralInfoPo();
+		pd.testAllNames();
+		pd.testOnePlayerPerformOfOneSeason();
+		pd.testOneTeamPerformOfOneSeason();
+		pd.testGeneralTeamPo();
 	}
 }

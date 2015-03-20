@@ -9,15 +9,15 @@ import common.mydatastructure.Weight;
 
 public class GeneralInfoOfPlayerVo {
 
-	private String playerName;// 姓名
-	private String playerNumber;// 球员号码
-	private PlayerPosition position;// 位置
-	private Height height;// 身高
-	private Weight weight;// 体重
-	private Date birthday;// 生日
-	private int age;
-	private int trainingYear;// 球龄
-	private String school;// 毕业学校
+	private String playerName = null;// 姓名
+	private String playerNumber = null;// 球员号码
+	private PlayerPosition position = null;// 位置
+	private Height height = null;// 身高
+	private Weight weight = null;// 体重
+	private Date birthday = null;// 生日
+	private int age = 0;
+	private int trainingYear = 0;// 球龄
+	private String school = null;// 毕业学校
 
 	public GeneralInfoOfPlayerVo() {
 		// 无参构造函数

@@ -3,11 +3,9 @@ package businesslogicservice.players;
 import java.util.ArrayList;
 
 import vo.GeneralInfoOfPlayerVo;
-import vo.GeneralInfoOfTeamVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
-import common.enums.Division;
+
 import common.enums.PerformanceOfPlayer;
-import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
 
