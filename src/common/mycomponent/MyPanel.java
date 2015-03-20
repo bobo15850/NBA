@@ -20,15 +20,15 @@ public class MyPanel extends JPanel implements MouseListener {
 
 	public MyPanel(ImageIcon background) {
 		this.backgroundImage = background.getImage();
-		this.createObjects();
+//		this.createObjects();
 		this.setComponentsLocarion();
 		this.addListener();
 	}
 
-	private void createObjects() {
-		closeButton = new MyButton(null);
-		minimizeButton = new MyButton(null);
-	}
+//	private void createObjects() {
+//		closeButton = new MyButton(null);
+//		minimizeButton = new MyButton(null);
+//	}
 
 	private void setComponentsLocarion() {
 		this.setLayout(null);
@@ -51,7 +51,7 @@ public class MyPanel extends JPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == minimizeButton) {
-			Main.mainFrame.setExtendedState(Frame.ICONIFIED);
+//			Main.mainFrame.setExtendedState(Frame.ICONIFIED);
 		} else if (e.getSource() == closeButton) {
 			System.exit(0);
 		}

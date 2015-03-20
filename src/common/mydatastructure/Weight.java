@@ -7,6 +7,7 @@ public class Weight {
 	public Weight(int pound) {
 		this.pound = pound;
 	}
+
 	public int getPoundOfWeight() {
 		return this.pound;
 	}// 体重磅数

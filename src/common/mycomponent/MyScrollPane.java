@@ -1,5 +1,5 @@
 package common.mycomponent;
 
-public class MyScrollPanel {
+public class MyScrollPane {
 
 }

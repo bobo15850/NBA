@@ -37,4 +37,11 @@ public class Team_Driver {
 			System.out.println(teamPerformPoList.get(i)[1].toDBString());
 		}
 	}
+
+	public static void main(String arg[]) {
+		Team_Driver td = new Team_Driver();
+		td.testGeneralInfoPo();
+		td.testAllNames();
+		td.testOneTeamPerformOfOneSeason();
+	}
 }

@@ -36,7 +36,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		ResultSet rs = this.playerDB.find(nameOfPlayer, sql);
 		try {
 			if (!rs.next()) {
-				return null;
+				return poList;
 			} else {
 				rs.first();
 				poList.add(this.createPlayerPerformPo(rs));
@@ -77,7 +77,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		return resultPo;
 	}// 根据一个集合创建一个po
 
-	public GeneralInfoOfPlayerPo getBaseInformationOfOnePlayer(String nameOfPlayer) {
+	public GeneralInfoOfPlayerPo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo generalInfoOfPlayer = new GeneralInfoOfPlayerPo();
 		String sql = " where " + "`playerName` = '" + nameOfPlayer + "'";
 		ResultSet resultSet = this.generalInfoDB.find("generalinfoofplayer", sql);
@@ -114,19 +114,20 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String playerName, Season season) {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
+		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
 		ResultSet rs = this.playerDB.find(playerName, sql);
 		try {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");
-			return teamPerformData.getOneTeamPerformOfOneSeason(teamNameForShort, season);
+			resultList = teamPerformData.getOneTeamPerformOfOneSeason(teamNameForShort, season);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
+		return resultList;
 	}
 
-	public GeneralInfoOfTeamPo getGeneralInfoOfPlayer(String playerName, Season season) {
+	public GeneralInfoOfTeamPo getGeneralInfoOfOneTeam(String playerName, Season season) {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
 		ResultSet rs = this.playerDB.find(playerName, sql);
@@ -138,5 +139,5 @@ public class PlayerInfoData implements PlayerInfoDataService {
 			e.printStackTrace();
 			return null;
 		}
-	}
+	}// 通过球员名称以及所处赛季查找其所属球队的基本信息
 }

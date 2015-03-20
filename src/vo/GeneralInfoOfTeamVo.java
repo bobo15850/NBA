@@ -1,7 +1,5 @@
 package vo;
 
-import javax.swing.ImageIcon;
-
 import po.GeneralInfoOfTeamPo;
 
 import common.enums.Conference;
@@ -9,9 +7,8 @@ import common.enums.Division;
 
 public class GeneralInfoOfTeamVo {
 
-	private String teamName;// 球队名称
-	private String teamNameForShort;// 队名缩写
-	private ImageIcon teamIcon;// 球队图标
+	private String teamName = null;// 球队名称
+	private String teamNameForShort = null;// 队名缩写
 	private String location;// 球队所在地
 	private Conference conference;// 赛区
 	private Division division;// 分区
@@ -39,10 +36,6 @@ public class GeneralInfoOfTeamVo {
 	public void setTeamNameForShort(String teamNameForShort) {
 		this.teamNameForShort = teamNameForShort;
 	}// 设置队名缩写
-
-	public void setTeamIcon(ImageIcon teamIcon) {
-		this.teamIcon = teamIcon;
-	}// 设置球队图标
 
 	public void setLocation(String location) {
 		this.location = location;
@@ -72,10 +65,6 @@ public class GeneralInfoOfTeamVo {
 		return teamNameForShort;
 	}// 得到队名缩写
 
-	public ImageIcon getTeamIcon() {
-		return teamIcon;
-	}// 得到球队图标
-
 	public String getLocation() {
 		return this.location;
 	}// 得到球队地址
@@ -96,4 +85,8 @@ public class GeneralInfoOfTeamVo {
 		return this.establishYear;
 	}// 得到建立时间
 
+	public String[] toStringArray() {
+		return new String[] { teamName, teamNameForShort, location, conference.toString(), division.toString(),
+				homeField, String.valueOf(establishYear) };
+	}
 }
