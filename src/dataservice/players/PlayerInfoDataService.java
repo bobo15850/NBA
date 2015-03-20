@@ -16,10 +16,10 @@ public interface PlayerInfoDataService {
 	public ArrayList<String> getNamesOfAllPlayer();
 
 	// 根据球员姓名查找某一球员具体基本自然信息
-	public GeneralInfoOfPlayerPo getBaseInformationOfOnePlayer(String nameOfPlayer);
+	public GeneralInfoOfPlayerPo getGeneralInfoOfOnePlayer(String nameOfPlayer);
 
 	// 通过球员姓名得到球队基本信息
-	public GeneralInfoOfTeamPo getGeneralInfoOfPlayer(String playerName, Season season);
+	public GeneralInfoOfTeamPo getGeneralInfoOfOneTeam(String playerName, Season season);
 
 	// 查找某一球队在某一赛季的具体信息比赛信息的数组中第一个为自己的信息，第二个为对方的信息
 	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String playerName, Season season);
