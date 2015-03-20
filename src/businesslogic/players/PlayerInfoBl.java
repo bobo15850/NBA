@@ -10,14 +10,12 @@ import vo.GeneralInfoOfPlayerVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.teams.CalculationOfTeamPerform;
 import businesslogicservice.players.PlayerInfoBlService;
-
 import common.enums.Conference;
 import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
 import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
-
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -263,8 +261,32 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		int left = 0;
 		int right = voList.size();
 		switch (dataKind) {
-		case PlayerName:
-		case TeamName:// TODO
+		case PlayerName: {
+			for (int i = 0; i < voList.size(); i++) {
+				for (int j = 0; j < voList.size() - i - 1; j++) {
+					OnePlayerPerformOfOneSeasonVo temp = null;
+					if (voList.get(j).getNameOfPlayer().compareTo(voList.get(j + 1).getNameOfPlayer()) > 0) {
+						temp = voList.get(j);
+						voList.set(j, voList.get(j + 1));
+						voList.set(j + 1, temp);
+					}
+				}
+			}
+			break;
+		}
+		case TeamName: {
+			for (int i = 0; i < voList.size(); i++) {
+				for (int j = 0; j < voList.size() - i - 1; j++) {
+					OnePlayerPerformOfOneSeasonVo temp = null;
+					if (voList.get(j).getNameOfTeam().compareTo(voList.get(j + 1).getNameOfTeam()) > 0) {
+						temp = voList.get(j);
+						voList.set(j, voList.get(j + 1));
+						voList.set(j + 1, temp);
+					}
+				}
+			}
+			break;
+		}
 		case MatchNumber:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.MatchNumber(), left, right - 1);
 			break;
@@ -380,8 +402,32 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		int left = 0;
 		int right = voList.size();
 		switch (dataKind) {
-		case PlayerName:
-		case TeamName:// TODO
+		case PlayerName: {
+			for (int i = 0; i < voList.size(); i++) {
+				for (int j = 0; j < voList.size() - i - 1; j++) {
+					OnePlayerPerformOfOneSeasonVo temp = null;
+					if (voList.get(j).getNameOfPlayer().compareTo(voList.get(j + 1).getNameOfPlayer()) < 0) {
+						temp = voList.get(j);
+						voList.set(j, voList.get(j + 1));
+						voList.set(j + 1, temp);
+					}
+				}
+			}
+			break;
+		}
+		case TeamName: {
+			for (int i = 0; i < voList.size(); i++) {
+				for (int j = 0; j < voList.size() - i - 1; j++) {
+					OnePlayerPerformOfOneSeasonVo temp = null;
+					if (voList.get(j).getNameOfTeam().compareTo(voList.get(j + 1).getNameOfTeam()) < 0) {
+						temp = voList.get(j);
+						voList.set(j, voList.get(j + 1));
+						voList.set(j + 1, temp);
+					}
+				}
+			}
+			break;
+		}
 		case MatchNumber:
 			SortOfPlayer.sortDescending(voList, new SortOfPlayer.MatchNumber(), left, right - 1);
 			break;
