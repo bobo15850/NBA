@@ -233,7 +233,7 @@ public class CalculationOfTeamPerform {
 		}
 	}
 
-	private static double cutToTwo(double number) {
+	public static double cutToTwo(double number) {
 		BigDecimal bigDecimal = new BigDecimal(number);
 		double result = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		return result;

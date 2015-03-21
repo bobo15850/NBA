@@ -29,7 +29,7 @@ public interface PlayerInfoBlService {
 	public void descendingSort(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PerformanceOfPlayer dataKind);
 	
 	//根据球员位置，球员联盟，排序依据进行筛选前50名球员
-	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition,Season season);
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctPlayer(SelectionCondition condition,Season season);
 
 
 }
