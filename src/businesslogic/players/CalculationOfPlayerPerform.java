@@ -15,12 +15,12 @@ public class CalculationOfPlayerPerform {
 	 *            出手数
 	 * @return 保留两位有效数字
 	 */
-	public static double calHitRate(double hitNum, double shootNum) {
+	public static double calHitRate(int hitNum, int shootNum) {
 		if (shootNum == 0) {
 			return 0;
 		} else {
 			double result = 0;
-			result = hitNum / shootNum;
+			result = (double)hitNum / (double)shootNum;
 			return cutToTwo(result);
 		}
 	}
@@ -138,7 +138,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = score / (2 * (shoot + 0.44 * freePointShoot));
+			result = score / (double)(2 * (shoot + 0.44 * freePointShoot));
 			return cutToTwo(result);
 		}
 	}
@@ -159,7 +159,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = (hit + 0.5 * threePointHit) / shoot;
+			result = (double)(hit + 0.5 * threePointHit) / (double)shoot;
 			return cutToTwo(result);
 		}
 	}
@@ -278,7 +278,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = turnover / (twoPointNumOfOnePlayer + 0.44 * freePoint + turnover);
+			result = (double)turnover / (double)(twoPointNumOfOnePlayer + 0.44 * freePoint + turnover);
 			return cutToTwo(result);
 		}
 	}
