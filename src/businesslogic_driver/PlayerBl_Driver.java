@@ -84,12 +84,7 @@ public class PlayerBl_Driver {
 		}
 	}
 
-	public static void main(String arg[]) {
-		PlayerBl_Driver pbd = new PlayerBl_Driver();
-		// pbd.testGetOneSeasonPerformOfAllPlayer();
-		// pbd.testGetOnePlayerPerformOfOneSeason();
-		// pbd.testGetBaseInformationOfOnePlayer();
-		// pbd.testAscendingSort();
-		pbd.testDescendingSort();
+	public void testSelsctionOfPlayer() {
+
 	}
 }

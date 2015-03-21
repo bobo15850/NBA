@@ -27,9 +27,9 @@ public interface PlayerInfoBlService {
 
 	// 根据某一项将所有球员某一赛季成绩降序排序
 	public void descendingSort(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PerformanceOfPlayer dataKind);
-	
-	//根据球员位置，球员联盟，排序依据进行筛选前50名球员
-	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctionOfPlayer(SelectionCondition condition,Season season);
 
+	// 根据球员位置，球员联盟，排序依据进行筛选前50名球员
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctPlayer(ArrayList<OnePlayerPerformOfOneSeasonVo> voList,
+			SelectionCondition condition, Season season);
 
 }

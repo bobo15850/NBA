@@ -42,15 +42,12 @@ public class TeamInfoBl implements TeamInfoBlService {
 	public OneTeamPerformOfOneSeasonVo getOneTeamPerformOfOneSeason(String teamName, Season season) {
 		ArrayList<TeamPerformanceOfOneMatchPo[]> poList = this.teamInfoData.getOneTeamPerformOfOneSeason(teamName,
 				season);
-
 		if (poList == null) {
 			return null;
 		} else {
 			OneTeamPerformOfOneSeasonVo resultVo = new OneTeamPerformOfOneSeasonVo();
-			String teamNameStr = null;
 			int numberOfMatch = 0;// 比赛场数
-			// 胜利场数
-			int winNumber = 0;
+			int winNumber = 0;// 胜利场数
 			int totalHitNumber = 0;// 总命中数
 			int totalShootNumber = 0;// 总出手数
 			int threePointHitNumber = 0;// 三分命中数
@@ -59,8 +56,8 @@ public class TeamInfoBl implements TeamInfoBlService {
 			int freePointShootNumber = 0;// 罚球出手数
 			int offensiveReboundNumber = 0;// 进攻篮板数
 			int defensiveReboundNumber = 0;// 防守篮板数
-			// 对手的防守篮板数
-			int defensiveReboundOfCompetitor = 0;
+
+			int defensiveReboundOfCompetitor = 0;// 对手的防守篮板数
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
 			int stealNumber = 0;// 抢断数
@@ -68,18 +65,13 @@ public class TeamInfoBl implements TeamInfoBlService {
 			int turnoverNumber = 0;// 失误数
 			int foulNumber = 0;// 犯规数
 			int scoreNumber = 0;// 得分数
-			// 对手得分
-			int scoreOfCompetitor = 0;
-			// 对手总出手数
-			int shootOfCompetitor = 0;
-			// 对手犯规数
-			int foulOfCompetitor = 0;
-			// 对手进攻篮板数
-			int offensiveReboundOfCompetitor = 0;
-			// 对手总命中数
-			int hitOfCompetitor = 0;
-			// 对手失误数
-			int turnoverOfCompetitor = 0;
+			double offensiveNumber = 0;// 进攻回合数
+			int scoreOfCompetitor = 0;// 对手得分
+			int shootOfCompetitor = 0;// 对手总出手数
+			int foulOfCompetitor = 0;// 对手犯规数
+			int offensiveReboundOfCompetitor = 0;// 对手进攻篮板数
+			int hitOfCompetitor = 0;// 对手总命中数
+			int turnoverOfCompetitor = 0;// 对手失误数
 
 			for (int i = 0; i < poList.size(); i++) {
 				numberOfMatch++;
@@ -110,7 +102,6 @@ public class TeamInfoBl implements TeamInfoBlService {
 				offensiveReboundOfCompetitor += competitor.getOffensiveReboundNumber();
 				hitOfCompetitor += competitor.getTotalHitNumber();
 				turnoverOfCompetitor += competitor.getTurnoverNumber();
-
 			}
 			// 球队名称
 			resultVo.setTeamName(poList.get(0)[0].getTeamNameForShort());
@@ -146,6 +137,10 @@ public class TeamInfoBl implements TeamInfoBlService {
 			resultVo.setFoulNumber(foulNumber);
 			// 比赛得分
 			resultVo.setScoreNumber(scoreNumber);
+			offensiveNumber = CalculationOfTeamPerform.calOffensiveNum(totalShootNumber, freePointShootNumber,
+					offensiveReboundNumber, defensiveReboundOfCompetitor, totalShootNumber - totalHitNumber,
+					turnoverNumber);
+			resultVo.setOffensiveNumber(offensiveNumber);// 总进攻回合数
 			// 场均命中数
 			resultVo.setAverageTotalHitNumber(CalculationOfTeamPerform.average(totalHitNumber, numberOfMatch));
 			// 场均总出手数
@@ -181,9 +176,7 @@ public class TeamInfoBl implements TeamInfoBlService {
 			// 场均得分数
 			resultVo.setAverageScoreNumber(CalculationOfTeamPerform.average(scoreNumber, numberOfMatch));
 			// 场均进攻回合
-			resultVo.setAverageOffensiveNumber(CalculationOfTeamPerform.calOffensiveNum(totalShootNumber,
-					freePointShootNumber, offensiveReboundNumber, defensiveReboundOfCompetitor, totalShootNumber
-							- totalHitNumber, turnoverNumber));
+			resultVo.setAverageOffensiveNumber(CalculationOfTeamPerform.average(offensiveNumber, numberOfMatch));
 			// 投篮命中率
 			resultVo.setTotalHitRate(CalculationOfPlayerPerform.calHitRate(totalHitNumber, totalShootNumber));
 			// 三分命中率
@@ -203,12 +196,13 @@ public class TeamInfoBl implements TeamInfoBlService {
 					shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber,
 					shootOfCompetitor - hitOfCompetitor, turnoverOfCompetitor));
 			// 篮板效率
-			resultVo.setReboundEfficiency(CalculationOfTeamPerform.calOffensiveEfficiency(scoreNumber,
-					totalShootNumber, freePointShootNumber, offensiveReboundNumber, defensiveReboundOfCompetitor,
-					totalShootNumber - totalHitNumber, turnoverNumber)
+			resultVo.setReboundEfficiency(CalculationOfTeamPerform.cutToTwo(CalculationOfTeamPerform
+					.calOffensiveEfficiency(scoreNumber, totalShootNumber, freePointShootNumber,
+							offensiveReboundNumber, defensiveReboundOfCompetitor, totalShootNumber - totalHitNumber,
+							turnoverNumber)
 					+ CalculationOfTeamPerform.calDefensiveEfficiency(scoreOfCompetitor, shootOfCompetitor,
 							foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber, shootOfCompetitor
-									- hitOfCompetitor, turnoverOfCompetitor));
+									- hitOfCompetitor, turnoverOfCompetitor)));
 			// 抢断率
 			resultVo.setStealEfficiency(CalculationOfTeamPerform.calStealEfficiency(stealNumber, shootOfCompetitor,
 					foulOfCompetitor, offensiveReboundOfCompetitor, defensiveReboundNumber, shootOfCompetitor
@@ -222,7 +216,7 @@ public class TeamInfoBl implements TeamInfoBlService {
 		}
 	}// 查找某一球队在某一赛季的比赛信息
 
-	public GeneralInfoOfTeamVo getBaseInformationOfOneTeam(String teamName) {
+	public GeneralInfoOfTeamVo getGeneralInfoOfOneTeam(String teamName) {
 		GeneralInfoOfTeamPo po = this.teamInfoData.getBaseInformationOfOneTeam(teamName);
 		GeneralInfoOfTeamVo vo = new GeneralInfoOfTeamVo(po);
 		return vo;

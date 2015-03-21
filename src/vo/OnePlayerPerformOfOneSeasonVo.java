@@ -16,6 +16,7 @@ public class OnePlayerPerformOfOneSeasonVo {
 	private int scoreNumber;// 总得分数
 	private int offensiveReboundNumber;// 进攻篮板数
 	private int defensiveReboundNumber;// 防守篮板数
+	private int scoreReboundAssistRate;// 得分篮板助攻比
 	//
 	private double averageTotalReboundNumber;// 场均篮板
 	private double averageAssistNumber;// 场均助攻
@@ -27,6 +28,7 @@ public class OnePlayerPerformOfOneSeasonVo {
 	private double averageScoreNumber;// 场均得分数
 	private double averageOffensiveReboundNumber;// 场均进攻篮板数
 	private double averageDefensiveReboundNumber;// 场均防守篮板数
+	private double averagescoreReboundAssistRate;// 场均得分篮板助攻比
 	//
 	private double totalHitRate;// 投篮命中率
 	private double threePointHitRate;// 三分命中率
@@ -43,6 +45,9 @@ public class OnePlayerPerformOfOneSeasonVo {
 	private double blockRate;// 盖帽率
 	private double turnoverRate;// 失误率
 	private double useRate;// 使用率
+	//
+	private int doubleDouble;// 两双
+	private int tripleDouble;// 三双
 
 	public String getNameOfPlayer() {
 		return nameOfPlayer;
@@ -356,6 +361,30 @@ public class OnePlayerPerformOfOneSeasonVo {
 		this.averageDefensiveReboundNumber = averageDefensiveReboundNumber;
 	}
 
+	public int getDoubleDouble() {
+		return doubleDouble;
+	}
+
+	public void setDoubleDouble(int doubleDouble) {
+		this.doubleDouble = doubleDouble;
+	}
+
+	public int getTripleDouble() {
+		return tripleDouble;
+	}
+
+	public void setTripleDouble(int tripleDouble) {
+		this.tripleDouble = tripleDouble;
+	}
+
+	public int getScoreReboundAssistRate() {
+		return scoreReboundAssistRate;
+	}
+
+	public void setScoreReboundAssistRate(int scoreReboundAssistRate) {
+		this.scoreReboundAssistRate = scoreReboundAssistRate;
+	}
+
 	public String[] toStringArray() {
 		return new String[] { nameOfPlayer,// 球员姓名
 				nameOfTeam,// 球队名称
@@ -399,6 +428,16 @@ public class OnePlayerPerformOfOneSeasonVo {
 				String.valueOf(blockRate),// 盖帽率
 				String.valueOf(turnoverRate),// 失误率
 				String.valueOf(useRate),// 使用率
+				String.valueOf(doubleDouble),// 两双个数
+				String.valueOf(tripleDouble),// 三双个数
 		};
+	}
+
+	public double getAveragescoreReboundAssistRate() {
+		return averagescoreReboundAssistRate;
+	}
+
+	public void setAveragescoreReboundAssistRate(double averagescoreReboundAssistRate) {
+		this.averagescoreReboundAssistRate = averagescoreReboundAssistRate;
 	}
 }

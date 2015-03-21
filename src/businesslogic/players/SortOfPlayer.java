@@ -276,4 +276,27 @@ public class SortOfPlayer {
 		}
 	}// 使用率
 
+	static class DoubleDouble implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getDoubleDouble();
+		}
+	}// 两双
+
+	static class TripleDouble implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getTripleDouble();
+		}
+	}// 三双
+
+	static class ScoreReboundAssistRate implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getScoreReboundAssistRate();
+		}
+	}// 得分篮板助攻比
+
+	static class AverageScoreReboundAssistRate implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getAveragescoreReboundAssistRate();
+		}
+	}// 场均得分篮板助攻比
 }

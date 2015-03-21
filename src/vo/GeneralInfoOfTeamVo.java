@@ -9,11 +9,11 @@ public class GeneralInfoOfTeamVo {
 
 	private String teamName = null;// 球队名称
 	private String teamNameForShort = null;// 队名缩写
-	private String location;// 球队所在地
-	private Conference conference;// 赛区
-	private Division division;// 分区
-	private String homeField;// 球队主场
-	private int establishYear;// 建立时间
+	private String location = null;// 球队所在地
+	private Conference conference = null;// 赛区
+	private Division division = null;// 分区
+	private String homeField = null;// 球队主场
+	private int establishYear = 0;// 建立时间
 
 	public GeneralInfoOfTeamVo() {
 		// 无参构造函数
