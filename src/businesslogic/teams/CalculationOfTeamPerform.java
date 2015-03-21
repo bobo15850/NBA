@@ -36,7 +36,7 @@ public class CalculationOfTeamPerform {
 		if (total == 0) {
 			return 0;
 		} else {
-			double result = winNum / total;
+			double result = (double)winNum / (double)total;
 			return cutToTwo(result);
 		}
 	}
@@ -65,7 +65,7 @@ public class CalculationOfTeamPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = shoot + 0.4 * foul - 1.07 * (offensiveRebound / totalNumber * miss) + 1.07 * turnover;
+			result = shoot +0.4 * foul- (1.07 * ((double)offensiveRebound / (double)(offensiveRebound + defensiveReboundOfCompetitor) * miss))+( 1.07 * turnover);
 			return cutToTwo(result);
 		}
 	}
@@ -97,7 +97,7 @@ public class CalculationOfTeamPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = score * 100 / offensiveNum;
+			result = (double)score * 100 / (double)offensiveNum;
 			return cutToTwo(result);
 		}
 	}
@@ -128,7 +128,7 @@ public class CalculationOfTeamPerform {
 		if (offensiveNum == 0) {
 			return 0;
 		} else {
-			double result = scoreOfCompetitor * 100 / offensiveNum;
+			double result = (double)scoreOfCompetitor * 100 / (double)offensiveNum;
 			return cutToTwo(result);
 		}
 	}
@@ -147,7 +147,7 @@ public class CalculationOfTeamPerform {
 		if (total == 0) {
 			return 0;
 		} else {
-			double result = reboundBefore / total;
+			double result = (double)reboundBefore / (double)total;
 			return cutToTwo(result);
 		}
 	}
@@ -166,7 +166,7 @@ public class CalculationOfTeamPerform {
 		if (total == 0) {
 			return 0;
 		} else {
-			double result = reboundBehind / total;
+			double result = (double)reboundBehind / (double)total;
 			return cutToTwo(result);
 		}
 	}
@@ -197,7 +197,7 @@ public class CalculationOfTeamPerform {
 		if (OffensiveNum == 0) {
 			return 0;
 		} else {
-			double result = steal * 100 / OffensiveNum;
+			double result = (double)steal * 100 / (double)OffensiveNum;
 			return cutToTwo(result);
 		}
 	}
@@ -228,7 +228,7 @@ public class CalculationOfTeamPerform {
 		if (offensiveNum == 0) {
 			return 0;
 		} else {
-			double result = assist * 100 / offensiveNum;
+			double result = (double)assist * 100 / (double)offensiveNum;
 			return cutToTwo(result);
 		}
 	}
