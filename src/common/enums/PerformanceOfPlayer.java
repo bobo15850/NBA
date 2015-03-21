@@ -24,6 +24,8 @@ public enum PerformanceOfPlayer {
 	AverageScoreNumber, //
 	AverageOffensiveReboundNumber, //
 	AverageDefensiveReboundNumber, //
+	AverageScoreReboundAssistRate, // 平均得分篮板助攻比
+	//
 	TotalHitRate, //
 	ThreePointHitRate, //
 	FreePointHitRate, //
@@ -39,5 +41,9 @@ public enum PerformanceOfPlayer {
 	BlockRate, //
 	TurnoverRate, //
 	UseRate, //
+	//
+	DoubleDouble, // 两双
+	TripleDouble, // 三双
+	ScoreReboundAssistRate, // 得分篮板助攻比
 
 }

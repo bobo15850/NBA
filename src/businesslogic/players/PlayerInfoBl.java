@@ -3,19 +3,22 @@ package businesslogic.players;
 import java.util.ArrayList;
 
 import po.GeneralInfoOfPlayerPo;
-import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
 import vo.GeneralInfoOfPlayerVo;
+import vo.GeneralInfoOfTeamVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.teams.CalculationOfTeamPerform;
 import businesslogicservice.players.PlayerInfoBlService;
+
 import common.enums.Conference;
 import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
 import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
+import common.statics.ResultMessage;
+
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -106,6 +109,10 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			int offensiveReboundNumber = 0;// 进攻篮板数
 			int defensiveReboundNumber = 0;// 防守篮板数
 			PlayerPerformanceOfOneMatchPo tempMatch;
+			int doubleDouble = 0;// 两双数
+			int tripleDouble = 0;// 三双数
+
+			int doubleOfOneMatch = 0;
 			for (int i = 0; i < PlayerPerformPoList.size(); i++) {
 				tempMatch = PlayerPerformPoList.get(i);
 				if (tempMatch.getIsFirst()) {
@@ -127,6 +134,27 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				scoreNumber += tempMatch.getScoreNumber();
 				offensiveReboundNumber += tempMatch.getOffensiveReboundNumber();
 				defensiveReboundNumber += tempMatch.getDefensiveReboundNumber();
+
+				if (tempMatch.getScoreNumber() >= 9.9) {
+					doubleOfOneMatch++;
+				}
+				if (tempMatch.getTotalReboundNumber() >= 9.9) {
+					doubleOfOneMatch++;
+				}
+				if (tempMatch.getAssistNumber() >= 9.9) {
+					doubleOfOneMatch++;
+				}
+				if (tempMatch.getBlockNumber() >= 9.9) {
+					doubleOfOneMatch++;
+				}
+				if (tempMatch.getStealNumber() >= 9.9) {
+					doubleOfOneMatch++;
+				}
+			}
+			if (doubleOfOneMatch == 2) {
+				doubleDouble++;
+			} else if (doubleOfOneMatch == 3) {
+				tripleDouble++;
 			}
 			for (int i = 0; i < TeamPerFormPoList.size(); i++) {
 				TeamPerformanceOfOneMatchPo selfTeam = TeamPerFormPoList.get(i)[0];
@@ -140,11 +168,8 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 				totalReboundOfCompetitor += opponentTeam.getTotalReboundNumber();
 				offensiveReboundOfCompetitor += opponentTeam.getOffensiveReboundNumber();
-				// hitNumOfCompetitor+=competitor.getTotalHitNumber();
 				shootNumOfCompetitor += opponentTeam.getTotalShootNumber();
-				// threePointHitOfCompetitor+=competitor.getThreePointHitNumber();
 				threePointShootOfCompetitor += opponentTeam.getThreePointShootNumber();
-
 			}
 			// 球队名称
 			resultVo.setNameOfTeam(nameOfTeam);
@@ -245,7 +270,17 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			resultVo.setUseRate(CalculationOfPlayerPerform.calUseRate(totalShootNumber, freePointShootNumber,
 					turnoverNumber, timeOfAllPlayer, playingTime, shootOfAllPlayer, freePointOfAllPlayer,
 					turnoverOfAllPlayer));
-
+			// 两双
+			resultVo.setDoubleDouble(doubleDouble);
+			// 三双
+			resultVo.setTripleDouble(tripleDouble);
+			// 得分篮板助攻比
+			int scoreReboundAssitRate = 0;// 得分篮板助攻比
+			scoreReboundAssitRate = scoreNumber + totalReboundNumber + assistNumber;
+			resultVo.setScoreReboundAssistRate(scoreReboundAssitRate);
+			int averageScoreReboundAssitRate = 0;// 平均得分篮板助攻比
+			averageScoreReboundAssitRate = scoreReboundAssitRate / numberOfMatch;
+			resultVo.setAveragescoreReboundAssistRate(averageScoreReboundAssitRate);
 			return resultVo;
 		}
 
@@ -395,6 +430,17 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		case UseRate:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.UseRate(), left, right - 1);
 			break;
+		case DoubleDouble:
+			SortOfPlayer.sortAscending(voList, new SortOfPlayer.DoubleDouble(), left, right - 1);
+			break;
+		case TripleDouble:
+			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TripleDouble(), left, right - 1);
+			break;
+		case AverageScoreReboundAssistRate:
+			SortOfPlayer.sortAscending(voList, new SortOfPlayer.AverageScoreReboundAssistRate(), left, right - 1);
+			break;
+		default:
+			break;
 		}
 	}// 根据某一项将所有球员某一赛季成绩升序排序
 
@@ -536,39 +582,55 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		case UseRate:
 			SortOfPlayer.sortDescending(voList, new SortOfPlayer.UseRate(), left, right - 1);
 			break;
+		case DoubleDouble:
+			SortOfPlayer.sortDescending(voList, new SortOfPlayer.DoubleDouble(), left, right - 1);
+			break;
+		case TripleDouble:
+			SortOfPlayer.sortDescending(voList, new SortOfPlayer.TripleDouble(), left, right - 1);
+			break;
+		case ScoreReboundAssistRate:
+			SortOfPlayer.sortDescending(voList, new SortOfPlayer.ScoreReboundAssistRate(), left, right - 1);
+			break;
+		case AverageScoreReboundAssistRate:
+			SortOfPlayer.sortDescending(voList, new SortOfPlayer.AverageScoreReboundAssistRate(), left, right - 1);
+			break;
+		default:
+			break;
 		}
 	}// 根据某一项将所有球员某一赛季成绩降序排序
 
-	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctPlayer(SelectionCondition condition, Season season) {
-		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonArray = getOneSeasonPerformOfAllPlayer(season);
-		ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformOfOneSeasonResult = getOneSeasonPerformOfAllPlayer(season);
-
-		PlayerPosition position = condition.getPosition();
-		Conference conference = condition.getConference();
-		Division division = condition.getDivision();
-		PerformanceOfPlayer performance = condition.getPerformance();
-		for (int i = 0; i < allPlayerPerformOfOneSeasonArray.size(); i++) {
-			OnePlayerPerformOfOneSeasonVo tempPlayer = allPlayerPerformOfOneSeasonArray.get(i);
-			GeneralInfoOfPlayerVo generalInfoOfPlayer = getGeneralInfoOfOnePlayer(tempPlayer.getNameOfPlayer());
-			if (!generalInfoOfPlayer.getPosition().equals(position)) {
-
-				allPlayerPerformOfOneSeasonResult.add(tempPlayer);
+	public ArrayList<OnePlayerPerformOfOneSeasonVo> selsctPlayer(ArrayList<OnePlayerPerformOfOneSeasonVo> voList,
+			SelectionCondition condition, Season season) {
+		ArrayList<OnePlayerPerformOfOneSeasonVo> tempVoList = new ArrayList<OnePlayerPerformOfOneSeasonVo>(64);
+		PlayerPosition position = condition.getPosition();// 位置
+		Conference conference = condition.getConference();// 赛区
+		Division division = condition.getDivision();// 联盟
+		PerformanceOfPlayer performance = condition.getPerformance();// 排序依据
+		for (int i = 0; i < voList.size(); i++) {
+			OnePlayerPerformOfOneSeasonVo tempPlayer = voList.get(i);
+			GeneralInfoOfPlayerVo infoOfPlayer = getGeneralInfoOfOnePlayer(tempPlayer.getNameOfPlayer());
+			GeneralInfoOfTeamVo infoOfTeam = null;
+			if (infoOfPlayer.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_VO)) {
+				continue;
 			} else {
-				GeneralInfoOfTeamPo generalInfoOfTeam = playerInfoData.getGeneralInfoOfOneTeam(
-						tempPlayer.getNameOfPlayer(), season);
-				if (!generalInfoOfTeam.getConference().equals(conference)
-						|| !generalInfoOfTeam.getDivision().equals(division)) {
-					allPlayerPerformOfOneSeasonResult.add(tempPlayer);
-
+				if (position != null && position != infoOfPlayer.getPosition()) {
+					continue;
+				} else {
+					infoOfTeam = new GeneralInfoOfTeamVo(playerInfoData.getGeneralInfoOfOneTeam(
+							tempPlayer.getNameOfPlayer(), season));
+					if (conference != null && infoOfTeam.getConference() != conference) {
+						continue;
+					} else {
+						if (division != null && infoOfTeam.getDivision() != division) {
+							continue;
+						} else {
+							tempVoList.add(tempPlayer);
+						}
+					}
 				}
 			}
-			// allPlayerPerformOfOneSeasonResult存放已经筛选的所有球员
-
-			/**
-			 * 排序
-			 */
-
 		}
-		return null;
+		this.descendingSort(tempVoList, performance);
+		return tempVoList;
 	}
 }
