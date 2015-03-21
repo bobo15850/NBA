@@ -119,4 +119,7 @@ public class DataPreparation {
 		OperationOfGeneralInfoDB dbOfGeaneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
 		dbOfGeaneralInfo.add("generalinfoofteam", TeamInfoPo.toDBString());
 	}// 将球队的基本信息写入数据库的一条记录
+	public static void main(String arg[]){
+		new DataPreparation();
+	}
 }

@@ -40,6 +40,7 @@ public class OneMatch {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
 			String temp;
 			String mainInfo = matchReader.readLine();
+			matchReader.readLine();
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分,时间
 			String firstTeam = matchReader.readLine().trim();
 			this.firstTeam = firstTeam;// 初始化第一个队名
