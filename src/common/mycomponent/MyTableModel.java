@@ -56,6 +56,11 @@ public class MyTableModel extends AbstractTableModel {
 			}
 		}
 	}
+	public void removeAllRows(){
+		for (int i = content.size()- 1; i >= 0; i--) {
+			content.remove(i);
+		}
+	}
 
 	public int getColumnCount() {
 		return title_name.length;

@@ -25,14 +25,14 @@ public class TeamAllShowPanel extends AllShowPanel {
 	private JButton hide, unfold;
 	private JTextField teamNameInput;
 	private JLabel teamNameInputLabel;
-	String headList[] = { "", "姓名", "得分", "篮板", "助攻", "抢断", "盖帽", "失误", "1", "2", "3", "4" };
-
+	String headList[] = {"得分", "篮板", "助攻", "抢断", "盖帽", "失误", "1", "2", "3", "4" };
+	String nameAndNum[] = { "", "姓名"};
 	public TeamAllShowPanel() {
-		super();
+		super(false);
 		this.createObjects();
 		this.setComponentsLocation();
 		this.setComponentsStyle();
-		this.initTable(headList);
+		this.initTable(headList, nameAndNum);
 		this.addListener();
 	}
 

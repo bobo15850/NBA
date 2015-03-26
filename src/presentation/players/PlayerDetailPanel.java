@@ -24,7 +24,12 @@ public class PlayerDetailPanel extends DetailPanel {
 	private JLabel portraitLabel, nameLabel, teamLabel, numLabel, positionLabel, ageLabel, heightLabel, weightLabel,
 			nameShowLabel, teamShowLabel, numShowLabel, positionShowLabel, ageShowLabel, heightShowLabel,
 			weightShowLabel;
-	private MyButton showAllInfo;
+	private MyLabel birthLabel;
+	private MyLabel birthShowLabel;
+	private MyLabel schoolLabel;
+	private MyLabel schoolShowLabel;
+	private MyLabel expLabel;
+	private MyLabel expShowLabel;
 
 	public PlayerDetailPanel() {
 		super();
@@ -43,6 +48,9 @@ public class PlayerDetailPanel extends DetailPanel {
 		ageLabel = new MyLabel("年龄：");
 		heightLabel = new MyLabel("身高：");
 		weightLabel = new MyLabel("体重：");
+		birthLabel=new MyLabel("生日：");
+		schoolLabel=new MyLabel("学校：");
+		expLabel=new MyLabel("经验：");
 		nameShowLabel = new MyLabel("D-Wade");
 		teamShowLabel = new MyLabel("MIA");
 		numShowLabel = new MyLabel("3");
@@ -50,7 +58,10 @@ public class PlayerDetailPanel extends DetailPanel {
 		ageShowLabel = new MyLabel("32");
 		heightShowLabel = new MyLabel("6'6");
 		weightShowLabel = new MyLabel("200 bl");
-		showAllInfo = new MyButton(Images.SHOW_ALL_INFO, (int) (NUMBER.px * 180), (int) (NUMBER.px * 45));
+		birthShowLabel=new MyLabel("JAN-14-1980");
+		schoolShowLabel=new MyLabel("MIA shool");
+		expShowLabel=new MyLabel("10");
+		
 	}
 
 	private void setComponentsLocation() {
@@ -59,33 +70,43 @@ public class PlayerDetailPanel extends DetailPanel {
 		nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
 				(int) (NUMBER.px * 270), labelWidth, labelHeight);
 		teamLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 320), labelWidth, labelHeight);
+				(int) (NUMBER.px * 310), labelWidth, labelHeight);
 		numLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 370), labelWidth, labelHeight);
+				(int) (NUMBER.px * 350), labelWidth, labelHeight);
 		positionLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 420), labelWidth, labelHeight);
+				(int) (NUMBER.px * 390), labelWidth, labelHeight);
 		ageLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 470), labelWidth, labelHeight);
+				(int) (NUMBER.px * 430), labelWidth, labelHeight);
 		heightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 520), labelWidth, labelHeight);
+				(int) (NUMBER.px * 470), labelWidth, labelHeight);
 		weightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 570), labelWidth, labelHeight);
+				(int) (NUMBER.px * 510), labelWidth, labelHeight);
+		birthLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
+				(int) (NUMBER.px * 550), labelWidth, labelHeight);
+		schoolLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
+				(int) (NUMBER.px * 590), labelWidth, labelHeight);
+		expLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
+				(int) (NUMBER.px * 630), labelWidth, labelHeight);
 		nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
 				(int) (NUMBER.px * 270), showlabelWidth, labelHeight);
 		teamShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 320), showlabelWidth, labelHeight);
+				(int) (NUMBER.px * 310), showlabelWidth, labelHeight);
 		numShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 370), showlabelWidth, labelHeight);
+				(int) (NUMBER.px * 350), showlabelWidth, labelHeight);
 		positionShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 420), showlabelWidth, labelHeight);
+				(int) (NUMBER.px * 390), showlabelWidth, labelHeight);
 		ageShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 470), showlabelWidth, labelHeight);
+				(int) (NUMBER.px * 430), showlabelWidth, labelHeight);
 		heightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 520), showlabelWidth, labelHeight);
+				(int) (NUMBER.px *470), showlabelWidth, labelHeight);
 		weightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-				(int) (NUMBER.px * 570), showlabelWidth, labelHeight);
-		showAllInfo.setLocation((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 195) / 2 + NUMBER.px * 20),
-				(int) (NUMBER.px * 630));
+				(int) (NUMBER.px * 510), showlabelWidth, labelHeight);
+		birthShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
+				(int) (NUMBER.px * 550), showlabelWidth, labelHeight);
+		schoolShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
+				(int) (NUMBER.px * 590), showlabelWidth, labelHeight);
+		expShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
+				(int) (NUMBER.px * 630), showlabelWidth, labelHeight);
 		this.add(portraitLabel);
 		this.add(nameLabel);
 		this.add(teamLabel);
@@ -94,6 +115,9 @@ public class PlayerDetailPanel extends DetailPanel {
 		this.add(ageLabel);
 		this.add(heightLabel);
 		this.add(weightLabel);
+		this.add(expLabel);
+		this.add(schoolLabel);
+		this.add(birthLabel);
 		this.add(nameShowLabel);
 		this.add(teamShowLabel);
 		this.add(numShowLabel);
@@ -101,7 +125,9 @@ public class PlayerDetailPanel extends DetailPanel {
 		this.add(ageShowLabel);
 		this.add(heightShowLabel);
 		this.add(weightShowLabel);
-		this.add(showAllInfo);
+		this.add(birthShowLabel);
+		this.add(expShowLabel);
+		this.add(schoolShowLabel);
 	}
 
 	private void setComponentsStyle() {
@@ -109,12 +135,7 @@ public class PlayerDetailPanel extends DetailPanel {
 	}
 
 	private void addListener() {
-		showAllInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				showAllInfo.setMyIcon(Images.SHOW_ALL_INFO_CLICK);
-			}
-		});
-
+		
 	}
 
 }

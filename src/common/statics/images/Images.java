@@ -10,6 +10,7 @@ public class Images {
 	// 图片常量全部大写并加下划线
 	public static final ImageIcon PLAYER_SCREENING = new ImageIcon("images/players/playerScreening.png");
 	public static final ImageIcon SORT = new ImageIcon("images/teams/teamSort.png");
+	public static final ImageIcon SORT_PLAYER = new ImageIcon("images/players/playerSort.png");
 	public static final ImageIcon CHOOSE = new ImageIcon("images/players/seasonChoose.png");
 	public static final ImageIcon TOTAL_OR_AVER = new ImageIcon("images/players/totalOrAver.png");
 	public static final ImageIcon SEARCH = new ImageIcon("images/players/searchButton.png");
