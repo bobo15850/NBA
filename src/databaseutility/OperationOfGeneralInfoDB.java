@@ -52,6 +52,16 @@ public class OperationOfGeneralInfoDB {
 		return conn;
 	} // 连接数据库
 
+	public ResultMessage createTable(String table, String standard) {
+		try {
+			this.statement.executeUpdate("CREATE TABLE `generalinfo`.`" + table + "` " + standard);
+			return ResultMessage.SUCCEED;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return ResultMessage.DB_FAULT;
+		}
+	}
+
 	public ResultMessage isTableExist(String table) {
 		ResultSet rs;
 		try {

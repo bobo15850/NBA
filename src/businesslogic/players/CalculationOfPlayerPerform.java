@@ -20,7 +20,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = (double)hitNum / (double)shootNum;
+			result = (double) hitNum / (double) shootNum;
 			return cutToTwo(result);
 		}
 	}
@@ -57,7 +57,7 @@ public class CalculationOfPlayerPerform {
 		if (numberOfMatch == 0) {
 			return 0;
 		} else {
-			double result = (score + rebound + assist + steal + block) - (shoot + hit)
+			double result = (score + rebound + assist + steal + block) - (shoot - hit)
 					- (freePointShoot - freePointHit) - turnover;
 			result = result / numberOfMatch;
 			return cutToTwo(result);
@@ -138,7 +138,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = score / (double)(2 * (shoot + 0.44 * freePointShoot));
+			result = score / (double) (2 * (shoot + 0.44 * freePointShoot));
 			return cutToTwo(result);
 		}
 	}
@@ -159,7 +159,7 @@ public class CalculationOfPlayerPerform {
 			return 0;
 		} else {
 			double result = 0;
-			result = (double)(hit + 0.5 * threePointHit) / (double)shoot;
+			result = ((double) (hit + 0.5 * threePointHit)) / (double) shoot;
 			return cutToTwo(result);
 		}
 	}
@@ -248,16 +248,16 @@ public class CalculationOfPlayerPerform {
 	 *            球队所有球员上场时间
 	 * @param timeOfOnePlayer
 	 *            球员上场时间
-	 * @param TwoPointNumOfCompetitor
+	 * @param twoPointShootNumOfCompetitor
 	 *            对手两分球出手次数
 	 * @return 盖帽率
 	 */
 	public static double calBlockRate(int block, double timeOfAllPlayer, double timeOfOnePlayer,
-			double TwoPointNumOfCompetitor) {
-		if (timeOfOnePlayer == 0 || TwoPointNumOfCompetitor == 0) {
+			double twoPointShootNumOfCompetitor) {
+		if (timeOfOnePlayer == 0 || twoPointShootNumOfCompetitor == 0) {
 			return 0;
 		} else {
-			double result = block * (timeOfAllPlayer / 5) / timeOfOnePlayer / TwoPointNumOfCompetitor;
+			double result = block * (timeOfAllPlayer / 5) / timeOfOnePlayer / twoPointShootNumOfCompetitor;
 			return cutToTwo(result);
 		}
 	}
@@ -265,20 +265,20 @@ public class CalculationOfPlayerPerform {
 	/**
 	 * 计算失误率
 	 * 
-	 * @param turnover
+	 * @param turnoverNum
 	 *            球员失误数
-	 * @param twoPointNumOfOnePlayer
+	 * @param twoPointShootNum
 	 *            球员两分球出手次数
-	 * @param freePoint
+	 * @param freePointShootNum
 	 *            球员罚球次数
 	 * @return 失误率
 	 */
-	public static double calTurnoverRate(int turnover, int twoPointNumOfOnePlayer, int freePoint) {
-		if (turnover == 0 && twoPointNumOfOnePlayer == 0 && freePoint == 0) {
+	public static double calTurnoverRate(int turnoverNum, int twoPointShootNum, int freePointShootNum) {
+		if (turnoverNum == 0 && twoPointShootNum == 0 && freePointShootNum == 0) {
 			return 0;
 		} else {
 			double result = 0;
-			result = (double)turnover / (double)(twoPointNumOfOnePlayer + 0.44 * freePoint + turnover);
+			result = (double) turnoverNum / (double) (twoPointShootNum + 0.44 * freePointShootNum + turnoverNum);
 			return cutToTwo(result);
 		}
 	}
@@ -286,11 +286,11 @@ public class CalculationOfPlayerPerform {
 	/**
 	 * 计算使用率
 	 * 
-	 * @param shoot
+	 * @param shootNum
 	 *            球员出手次数
-	 * @param freePoint
+	 * @param freePointShootNum
 	 *            球员罚球次数
-	 * @param turnover
+	 * @param turnoverNum
 	 *            球员失误次数
 	 * @param timeOfAllPlayer
 	 *            球队所有球员上场时间
@@ -298,19 +298,19 @@ public class CalculationOfPlayerPerform {
 	 *            球员上场时间
 	 * @param shootNumOfAllPlayer
 	 *            球队所有球员出手次数
-	 * @param freePointNumOfAllPlayer
+	 * @param freePointShootNumOfAllPlayer
 	 *            球队所有球员罚球次数
-	 * @param turnoverOfAllPlayer
+	 * @param turnoverNumOfAllPlayer
 	 *            球队所有球员失误次数
 	 * @return 使用率
 	 */
-	public static double calUseRate(int shoot, int freePoint, int turnover, double timeOfAllPlayer,
-			double timeOfOnePlayer, int shootNumOfAllPlayer, int freePointNumOfAllPlayer, int turnoverOfAllPlayer) {
-		double temp = shootNumOfAllPlayer + 0.44 * freePointNumOfAllPlayer + freePointNumOfAllPlayer;
+	public static double calUseRate(int shootNum, int freePointShootNum, int turnoverNum, double timeOfAllPlayer,
+			double timeOfOnePlayer, int shootNumOfAllPlayer, int freePointShootNumOfAllPlayer, int turnoverNumOfAllPlayer) {
+		double temp = shootNumOfAllPlayer + 0.44 * freePointShootNumOfAllPlayer + freePointShootNumOfAllPlayer;
 		if (temp == 0 || timeOfAllPlayer == 0 || timeOfOnePlayer == 0) {
 			return 0;
 		} else {
-			double result = (shoot + 0.44 * freePoint + turnover) * (timeOfAllPlayer / 5) / timeOfOnePlayer / temp;
+			double result = (shootNum + 0.44 * freePointShootNum + turnoverNum) * (timeOfAllPlayer / 5) / timeOfOnePlayer / temp;
 			return cutToTwo(result);
 		}
 	}

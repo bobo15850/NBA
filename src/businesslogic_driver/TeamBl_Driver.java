@@ -65,7 +65,7 @@ public class TeamBl_Driver {
 	public void testDescendingSort() {
 		Season season = new Season("2013-2014");
 		ArrayList<OneTeamPerformOfOneSeasonVo> voList = this.teamInfoBl.getOneSeasonPerformOfAllTeam(season);
-		this.teamInfoBl.descendingSort(voList, PerformanceOfTeam.winRate);
+		this.teamInfoBl.descendingSort(voList, PerformanceOfTeam.scoreNumber);
 		for (int i = 0; i < voList.size(); i++) {
 			String[] content = voList.get(i).toStringArray();
 			for (int j = 0; j < content.length; j++) {
@@ -75,5 +75,9 @@ public class TeamBl_Driver {
 			System.out.println();
 			System.out.println(i);
 		}
+	}
+
+	public static void main(String arg[]) {
+		new TeamBl_Driver().testDescendingSort();;
 	}
 }
