@@ -40,7 +40,7 @@ public class MainFrame extends MyFrame{
 		
 		navigationPanel =new navigationPanel();
 		playerDetailPanel=new PlayerDetailPanel();
-		playerAllShowPanel=new PlayerAllShowPanel();
+		playerAllShowPanel=new PlayerAllShowPanel(this);
 //		teamAllShowPanel =new TeamAllShowPanel();
 //		teamDetailPanel =new TeamDetailPanel();
 	}

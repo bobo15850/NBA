@@ -3,16 +3,26 @@ package presentation;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JViewport;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
+import vo.OnePlayerPerformOfOneSeasonVo;
+import vo.OneTeamPerformOfOneSeasonVo;
+import businesslogic.players.PlayerInfoBl;
+import businesslogicservice.players.PlayerInfoBlService;
 import common.mycomponent.MyTableModel;
+import common.mydatastructure.Season;
 import common.statics.NUMBER;
 
 public class AllShowPanel extends JPanel {
@@ -27,24 +37,106 @@ public class AllShowPanel extends JPanel {
 	protected int inputWidth = (int) (NUMBER.px * 200);
 	protected JScrollPane tableScrollPane;
 	protected JTable allTable;
+	protected JTable nameAndNumTable;
 	protected MyTableModel allTableModel;
-
-	public AllShowPanel() {
+	protected MyTableModel nameTableModel;
+	protected boolean isPlayer=true;
+	private PlayerInfoBlService playerInfoBl;
+	protected ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList;
+	private ArrayList<OneTeamPerformOfOneSeasonVo> allTeamList;
+	public AllShowPanel(boolean isPlayer) {
+		this.isPlayer=isPlayer;
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.repaint();
-		this.addListener();
 		this.setVisible(true);
 	}
 
-	protected void initTable(String headList[]) {
-		initScrollPane(headList);
+	protected void initTable(String headList[],String nameAndNum[]) {
+		initScrollPane(headList,nameAndNum);
 		initTableHeader();
-		setContent();
 		setRenderer();
-
 	}
+	private void initScrollPane(String headList[],String nameAndNum[]) {
+		allTableModel = new MyTableModel(headList);
+		nameTableModel=new MyTableModel(nameAndNum);
+		setContent();
+		allTable = new JTable(allTableModel);
+		allTable.getSelectionModel().addListSelectionListener(
+                new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent arg0) {
+                        checkSelection(false);
+                    }
+                });
+		allTable.setRowHeight((int)(38*NUMBER.px));// 设置行高
+		allTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		allTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 横向滚动
+		allTable.getTableHeader().setReorderingAllowed(false);// Can't move
+		allTable.getTableHeader().setResizingAllowed(false); 
+		allTable.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+		for (int i = 0; i <= 7; i++) {
+			allTable.getColumnModel().getColumn(i).setPreferredWidth((int)(100*NUMBER.px));
+		}// 设置列宽
+		for (int i = 8; i < allTable.getColumnCount(); i++) {
+			allTable.getColumnModel().getColumn(i).setPreferredWidth(0);
+			allTable.getColumnModel().getColumn(i).setMaxWidth(0);
+			allTable.getColumnModel().getColumn(i).setMinWidth(0);
+			allTable.getTableHeader().getColumnModel().getColumn(i).setMaxWidth(0);
+			allTable.getTableHeader().getColumnModel().getColumn(i).setMinWidth(0); // 隐藏数据
+		}
+		
+		nameAndNumTable=new JTable(nameTableModel);
+		nameAndNumTable.getColumnModel().getColumn(1).setPreferredWidth((int)(120*NUMBER.px));;
+		nameAndNumTable.getSelectionModel().addListSelectionListener(
+                new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent arg0) {
+                        checkSelection(true);
+                    }
+                });
+		nameAndNumTable.setRowHeight((int)(38*NUMBER.px));// 设置行高
+		nameAndNumTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		nameAndNumTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 横向滚动
+		nameAndNumTable.getTableHeader().setReorderingAllowed(false);// Can't move
+		nameAndNumTable.getTableHeader().setResizingAllowed(false); 
+		nameAndNumTable.setFont(new Font("微软雅黑", Font.PLAIN, 13));
+		nameAndNumTable.setOpaque(false);
+		
+		JViewport viewport = new JViewport();
+		viewport.setOpaque(false);
+	    viewport.setView(nameAndNumTable);
+	    viewport.setPreferredSize(nameAndNumTable.getPreferredSize());
+	    tableScrollPane = new JScrollPane(allTable);
+		tableScrollPane.setBounds((int) (NUMBER.px * 30), (int) (NUMBER.px * 101), (int) (NUMBER.px * 950),
+				(int) (NUMBER.px * 570));
+//		allTable.setBounds(0, 0, (int) (NUMBER.px * 950), (int) (NUMBER.px * 570));
+		
+		tableScrollPane.setRowHeaderView(viewport);
+		tableScrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, nameAndNumTable
+                .getTableHeader());
+		
+		this.add(tableScrollPane);
+		// playerTable.setShowVerticalLines(false);//VerticalLines are remove
+		// playerTable.setShowGrid(false);//all lines are remove
+		
+		tableScrollPane.getViewport().setOpaque(false);
+		tableScrollPane.setOpaque(false);
+		tableScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));// lines remove
+		
+	}
+	private void initTableHeader() {
 
+		// 设置头部
+		// 头部无法透明!!!
+		JTableHeader header = allTable.getTableHeader();
+		header.setBackground(new Color(51, 51, 51));// 设置表头颜色
+		header.setForeground(new Color(255, 255, 255));// 设置表头字体颜色
+		header.setFont(new Font("微软雅黑", Font.BOLD, 16));
+		
+		JTableHeader nameAndNumHeader = nameAndNumTable.getTableHeader();
+		nameAndNumHeader.setBackground(new Color(51, 51, 51));// 设置表头颜色
+		nameAndNumHeader.setForeground(new Color(255, 255, 255));// 设置表头字体颜色
+		nameAndNumHeader.setFont(new Font("微软雅黑", Font.BOLD, 16));
+	}
 	private void setRenderer() {
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
@@ -69,62 +161,41 @@ public class AllShowPanel extends JPanel {
 			}
 		};
 		allTable.setDefaultRenderer(Object.class, render);
-		allTable.setRowHeight(35);// 设置行高
-
-		tableScrollPane.getViewport().setOpaque(false);
-		tableScrollPane.setOpaque(false);
+		nameAndNumTable.setDefaultRenderer(Object.class, render);
 
 	}
 
 	private void setContent() {
-		for (int i = 1; i <= 7; i++) {
-			allTable.getColumnModel().getColumn(i).setPreferredWidth(120);
-		}// 设置列宽
-		for (int i = 8; i < allTable.getColumnCount(); i++) {
-			allTable.getColumnModel().getColumn(i).setPreferredWidth(0);
-			allTable.getColumnModel().getColumn(i).setMaxWidth(0);
-			allTable.getColumnModel().getColumn(i).setMinWidth(0);
-			allTable.getTableHeader().getColumnModel().getColumn(i).setMaxWidth(0);
-			allTable.getTableHeader().getColumnModel().getColumn(i).setMinWidth(0); // 隐藏数据
-		}
-		allTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 横向滚动
-		allTable.getTableHeader().setReorderingAllowed(false);// Can't move
-		allTable.setFont(new Font("微软雅黑", Font.PLAIN, 13));
-		tableScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));// lines remove
-
-	}
-
-	private void initTableHeader() {
-
-		// 设置头部
-		// 头部无法透明!!!
-		JTableHeader header = allTable.getTableHeader();
-		header.setBackground(new Color(51, 51, 51));// 设置表头颜色
-		header.setForeground(new Color(255, 255, 255));// 设置表头字体颜色
-		header.setFont(new Font("微软雅黑", Font.BOLD, 16));
-	}
-
-	private void initScrollPane(String headList[]) {
-		tableScrollPane = new JScrollPane();
-		allTableModel = new MyTableModel(headList);
-		for (int i = 0; i < 20; i++) {
-			String row1[] = { String.valueOf(i + 1), "D-Wade", "31.5", "6.7", "5.5", "2.2", "2.1", "2.2", "aaa", "sax",
-					"asx" };
+		if(isPlayer){
+		playerInfoBl=new PlayerInfoBl();
+		allPlayerList=playerInfoBl.getOneSeasonPerformOfAllPlayer(new Season(2013, 2014));
+		for (int i = 0; i < allPlayerList.size(); i++) {
+			String row1[] = allPlayerList.get(i).toAverStringArray();
+			String row2[] = {String.valueOf(i + 1),allPlayerList.get(i).getNameOfPlayer()}; 
 			allTableModel.addRow(row1);
+			nameTableModel.addRow(row2);
 		}
-		allTable = new JTable(allTableModel);
-		tableScrollPane.setBounds((int) (NUMBER.px * 30), (int) (NUMBER.px * 101), (int) (NUMBER.px * 950),
-				(int) (NUMBER.px * 570));
-		allTable.setBounds(0, 0, (int) (NUMBER.px * 950), (int) (NUMBER.px * 570));
-		tableScrollPane.getViewport().add(allTable);
-		this.add(tableScrollPane);
-		// playerTable.setShowVerticalLines(false);//VerticalLines are remove
-		// playerTable.setShowGrid(false);//all lines are remove
-
+		
+		}else{
+			System.out.print("Fuck");
+		}
 	}
 
-	private void addListener() {
-		// TODO Auto-generated method stub
+	
 
-	}
+	
+	 private void checkSelection(boolean isFixedTable) {
+	        int fixedSelectedIndex = nameAndNumTable.getSelectedRow();
+	        int selectedIndex = allTable.getSelectedRow();
+	        if (fixedSelectedIndex != selectedIndex) {
+	            if (isFixedTable) {
+	                allTable.setRowSelectionInterval(fixedSelectedIndex,
+	                        fixedSelectedIndex);
+	            } else {
+	                nameAndNumTable
+	                        .setRowSelectionInterval(selectedIndex, selectedIndex);
+	            }
+	        }
+	 
+	    }
 }

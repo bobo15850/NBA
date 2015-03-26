@@ -18,15 +18,15 @@ public class PlayerBl_Driver {
 		Season season = new Season("2013-2014");
 		ArrayList<OnePlayerPerformOfOneSeasonVo> volist = playerInfoBl.getOneSeasonPerformOfAllPlayer(season);
 		for (int i = 0; i < volist.size(); i++) {
-			OnePlayerPerformOfOneSeasonVo temp = volist.get(i);
-
-			String[] content = temp.toStringArray();
-			for (int j = 0; j < content.length; j++) {
-				System.out.print(content[j]);
-				System.out.print(";");
-			}
-			System.out.println();
-			System.out.println(i);
+//			OnePlayerPerformOfOneSeasonVo temp = volist.get(i);
+//
+//			String[] content = temp.toStringArray();
+//			for (int j = 0; j < content.length; j++) {
+//				System.out.print(content[j]);
+//				System.out.print(";");
+//			}
+//			System.out.println();
+//			System.out.println(i);
 		}
 	}
 
@@ -34,11 +34,11 @@ public class PlayerBl_Driver {
 		String nameOfPlayer = "Ty Lawson";
 		Season season = new Season("2013-2014");
 		OnePlayerPerformOfOneSeasonVo temp = playerInfoBl.getOnePlayerPerformOfOneSeason(nameOfPlayer, season);
-		String[] content = temp.toStringArray();
-		for (int j = 0; j < content.length; j++) {
-			System.out.print(content[j]);
-			System.out.print(";  ");
-		}
+//		String[] content = temp.toStringArray();
+//		for (int j = 0; j < content.length; j++) {
+//			System.out.print(content[j]);
+//			System.out.print(";  ");
+//		}
 		System.out.println();
 	}
 
@@ -58,12 +58,12 @@ public class PlayerBl_Driver {
 		this.playerInfoBl.ascendingSort(volist, PerformanceOfPlayer.AverageScoreNumber);
 		for (int i = 0; i < volist.size(); i++) {
 			OnePlayerPerformOfOneSeasonVo temp = volist.get(i);
-
-			String[] content = temp.toStringArray();
-			for (int j = 0; j < content.length; j++) {
-				System.out.print(content[j]);
-				System.out.print(";");
-			}
+//
+//			String[] content = temp.toStringArray();
+//			for (int j = 0; j < content.length; j++) {
+//				System.out.print(content[j]);
+//				System.out.print(";");
+//			}
 			System.out.println();
 			System.out.println(i);
 		}
@@ -76,11 +76,11 @@ public class PlayerBl_Driver {
 		for (int i = 0; i < volist.size(); i++) {
 			OnePlayerPerformOfOneSeasonVo temp = volist.get(i);
 
-			String[] content = temp.toStringArray();
-			for (int j = 0; j < content.length; j++) {
-				System.out.print(content[j]);
-				System.out.print(";");
-			}
+//			String[] content = temp.toStringArray();
+//			for (int j = 0; j < content.length; j++) {
+//				System.out.print(content[j]);
+//				System.out.print(";");
+//			}
 			System.out.println();
 			System.out.println(i);
 		}
@@ -92,16 +92,16 @@ public class PlayerBl_Driver {
 		SelectionCondition condition = new SelectionCondition(null, null, null, PerformanceOfPlayer.TripleDouble);
 		ArrayList<OnePlayerPerformOfOneSeasonVo> volistSelected = this.playerInfoBl.selsctPlayer(volist, condition,
 				season);
-		for (int i = 0; i < volistSelected.size(); i++) {
-			OnePlayerPerformOfOneSeasonVo temp = volistSelected.get(i);
-			String[] content = temp.toStringArray();
-			for (int j = 0; j < content.length; j++) {
-				System.out.print(content[j]);
-				System.out.print(";");
-			}
-			System.out.println();
-			System.out.println(i);
-		}
+//		for (int i = 0; i < volistSelected.size(); i++) {
+//			OnePlayerPerformOfOneSeasonVo temp = volistSelected.get(i);
+//			String[] content = temp.toStringArray();
+//			for (int j = 0; j < content.length; j++) {
+//				System.out.print(content[j]);
+//				System.out.print(";");
+//			}
+//			System.out.println();
+//			System.out.println(i);
+//		}
 	}
 
 	public static void main(String arg[]) {
