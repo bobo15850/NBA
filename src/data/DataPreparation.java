@@ -21,13 +21,17 @@ public class DataPreparation {
 	OperationOfGeneralInfoDB dbOfGeneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
 
 	public DataPreparation() {
-		// this.handleFileOfTeams();
-		// this.handleFileOfPlayers();
+//		this.handleFileOfTeams();
+//		this.handleFileOfPlayers();
 		this.handleFileOfMatches();
 	}// 初始化数据库系统
 
 	private void handleFileOfTeams() {
 		try {
+			String table = "generalinfoofteam";
+			String tableFormat = "(teamName varchar(255) NOT NULL ,teamNameForshort varchar(225) NOT NULL,location varchar(255) NOT NULL,"
+					+ "conference varchar(255) NOT NULL,division varchar(255) NOT NULL,homeField varchar(255) NOT NULL,establishYear int NOT NULL)";
+			dbOfGeneralInfo.createTable(table, tableFormat);
 			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO + "teams"));
 			teamReader.readLine();
 			String formatdetail;
@@ -42,6 +46,11 @@ public class DataPreparation {
 	}// 读取球队基本信息并写入数据库表格
 
 	private void handleFileOfPlayers() {
+		String table = "generalinfoofplayer";
+		String tableFormat = "(playerName varchar(255) NOT NULL ,playerNumber varchar(225) NOT NULL,position varchar(255) NOT NULL,"
+				+ "height varchar(255) NOT NULL,weight int NOT NULL,birthday varchar(255) NOT NULL,age int NOT NULL,"
+				+ "trainingYear int NOT NULL,school varchar(255) NOT NULL)";
+		dbOfGeneralInfo.createTable(table, tableFormat);
 		File playerFile = new File(PathOfFile.PLAYER_INFO);
 		String playerName[] = playerFile.list();
 		for (int i = 0; i < playerName.length; i++) {
@@ -119,7 +128,8 @@ public class DataPreparation {
 		OperationOfGeneralInfoDB dbOfGeaneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
 		dbOfGeaneralInfo.add("generalinfoofteam", TeamInfoPo.toDBString());
 	}// 将球队的基本信息写入数据库的一条记录
-	public static void main(String arg[]){
+
+	public static void main(String arg[]) {
 		new DataPreparation();
 	}
 }

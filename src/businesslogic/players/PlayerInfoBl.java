@@ -62,42 +62,22 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			String nameOfTeam = PlayerPerformPoList.get(0).getTeamName();// 球队名称
 			int numberOfMatch = PlayerPerformPoList.size();// 比赛场数
 			int numberOfFirst = 0;// 先发场数
-			// 总命中数
-			int totalHitNumber = 0;
-			// 总出手数
-			int totalShootNumber = 0;
-			// 三分命中数
-			int threePointHitNumber = 0;
-			// 三分出手数
-			int threePointShootNumber = 0;
-			// 罚球命中数
-			int freePointHitNumber = 0;
-			// 罚球出手数
-			int freePointShootNumber = 0;
-			// 球队所有球员上场时间
-			int timeOfAllPlayer = 0;
-			// 球队所有篮板数
-			int totalReboundOfTeam = 0;
-			// 对手所有篮板数
-			int totalReboundOfCompetitor = 0;
-			// 球队所有命中数
-			int hitOfAllPlayer = 0;
-			// 球队所有出手数
-			int shootOfAllPlayer = 0;
-			// 球队所有罚球数
-			int freePointOfAllPlayer = 0;
-			// 球队所有失误数
-			int turnoverOfAllPlayer = 0;
-			// 对手进攻数
-			int offensiveReboundOfCompetitor = 0;
-			// 对手总命中数
-			// int hitNumOfCompetitor=0;
-			// 对手总出手数
-			int shootNumOfCompetitor = 0;
-			// 对手三分命中数
-			// int threePointHitOfCompetitor=0;
-			// 对手三分出手数
-			int threePointShootOfCompetitor = 0;
+			int totalHitNumber = 0;// 总命中数s
+			int totalShootNumber = 0;// 总出手数
+			int threePointHitNumber = 0;// 三分命中数
+			int threePointShootNumber = 0;// 三分出手数
+			int freePointHitNumber = 0;// 罚球命中数
+			int freePointShootNumber = 0;// 罚球出手数
+			int timeOfAllPlayer = 0;// 球队所有球员上场时间
+			int totalReboundOfTeam = 0;// 球队所有篮板数
+			int totalReboundOfCompetitor = 0;// 对手所有篮板数
+			int hitOfAllPlayer = 0; // 球队所有命中数
+			int shootOfAllPlayer = 0;// 球队所有出手数
+			int freePointOfAllPlayer = 0;// 球队所有罚球数
+			int turnoverOfAllPlayer = 0;// 球队所有失误数
+			int offensiveReboundOfCompetitor = 0;// 对手进攻篮板数
+			int shootNumOfCompetitor = 0;// 对手总出手数
+			int threePointShootOfCompetitor = 0;// 对手三分出手数
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
 			double playingTime = 0;// 总上场时间
@@ -111,8 +91,6 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			PlayerPerformanceOfOneMatchPo tempMatch;
 			int doubleDouble = 0;// 两双数
 			int tripleDouble = 0;// 三双数
-
-			int doubleOfOneMatch = 0;
 			for (int i = 0; i < PlayerPerformPoList.size(); i++) {
 				tempMatch = PlayerPerformPoList.get(i);
 				if (tempMatch.getIsFirst()) {
@@ -134,7 +112,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				scoreNumber += tempMatch.getScoreNumber();
 				offensiveReboundNumber += tempMatch.getOffensiveReboundNumber();
 				defensiveReboundNumber += tempMatch.getDefensiveReboundNumber();
-
+				int doubleOfOneMatch = 0;// 一场比赛中上双的个数
 				if (tempMatch.getScoreNumber() >= 9.9) {
 					doubleOfOneMatch++;
 				}
@@ -150,137 +128,92 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				if (tempMatch.getStealNumber() >= 9.9) {
 					doubleOfOneMatch++;
 				}
-			}
-			if (doubleOfOneMatch == 2) {
-				doubleDouble++;
-			} else if (doubleOfOneMatch == 3) {
-				tripleDouble++;
+				if (doubleOfOneMatch == 2) {
+					doubleDouble++;
+				} else if (doubleOfOneMatch == 3) {
+					tripleDouble++;
+				}
 			}
 			for (int i = 0; i < TeamPerFormPoList.size(); i++) {
 				TeamPerformanceOfOneMatchPo selfTeam = TeamPerFormPoList.get(i)[0];
 				TeamPerformanceOfOneMatchPo opponentTeam = TeamPerFormPoList.get(i)[1];
-
 				timeOfAllPlayer += selfTeam.getPlayingTime();
 				totalReboundOfTeam += selfTeam.getTotalReboundNumber();
 				freePointOfAllPlayer += selfTeam.getFoulNumber();
 				turnoverOfAllPlayer += selfTeam.getTurnoverNumber();
 				hitOfAllPlayer += selfTeam.getTotalHitNumber();
-
 				totalReboundOfCompetitor += opponentTeam.getTotalReboundNumber();
 				offensiveReboundOfCompetitor += opponentTeam.getOffensiveReboundNumber();
 				shootNumOfCompetitor += opponentTeam.getTotalShootNumber();
 				threePointShootOfCompetitor += opponentTeam.getThreePointShootNumber();
 			}
-			// 球队名称
-			resultVo.setNameOfTeam(nameOfTeam);
-			// 球员名称
-			resultVo.setNameOfPlayer(nameOfPlayer);
-			// 比赛场数
-			resultVo.setNumberOfMatch(numberOfMatch);
-			// 先发场数
-			resultVo.setNumberOfFirst(numberOfFirst);
-			// 总篮板数
-			resultVo.setTotalReboundNumber(totalReboundNumber);
-			// 总助攻
-			resultVo.setAssistNumber(assistNumber);
-			// 总上场时间
-			resultVo.setPlayingTime(CalculationOfPlayerPerform.cutToTwo(playingTime));
-			// 总抢断数
-			resultVo.setStealNumber(stealNumber);
-			// 总盖帽数
-			resultVo.setBlockNumber(blockNumber);
-			// 总失误数
-			resultVo.setTurnoverNumber(turnoverNumber);
-			// 总犯规数
-			resultVo.setFoulNumber(foulNumber);
-			// 总得分
-			resultVo.setScoreNumber(scoreNumber);
-			// 进攻篮板数
-			resultVo.setOffensiveReboundNumber(offensiveReboundNumber);
-			// 防守篮板数
-			resultVo.setDefensiveReboundNumber(defensiveReboundNumber);
-			// 场均总篮板
-			resultVo.setAverageTotalReboundNumber(CalculationOfTeamPerform.average(totalReboundNumber, numberOfMatch));
-			// 场均助攻数
-			resultVo.setAverageAssistNumber(CalculationOfTeamPerform.average(assistNumber, numberOfMatch));
-			// 场均上场时间
-			resultVo.setAveragePlayingTime(CalculationOfTeamPerform.average(playingTime, numberOfMatch));
-			// 场均抢断数
-			resultVo.setAverageStealNumber(CalculationOfTeamPerform.average(stealNumber, numberOfMatch));
-			// 场均盖帽数
-			resultVo.setAverageBlockNumber(CalculationOfTeamPerform.average(blockNumber, numberOfMatch));
-			// 场均失误数
-			resultVo.setAverageTurnoverNumber(CalculationOfTeamPerform.average(turnoverNumber, numberOfMatch));
-			// 场均犯规数
-			resultVo.setAverageFoulNumber(CalculationOfTeamPerform.average(foulNumber, numberOfMatch));
-			// 场均得分数
-			resultVo.setAverageScoreNumber(CalculationOfTeamPerform.average(scoreNumber, numberOfMatch));
-			// 场均进攻篮板数
+			resultVo.setNameOfTeam(nameOfTeam);// 球队名称
+			resultVo.setNameOfPlayer(nameOfPlayer);// 球员名称
+			resultVo.setNumberOfMatch(numberOfMatch);// 比赛场数
+			resultVo.setNumberOfFirst(numberOfFirst);// 先发场数
+			resultVo.setTotalReboundNumber(totalReboundNumber); // 总篮板数
+			resultVo.setAssistNumber(assistNumber);// 总助攻
+			resultVo.setPlayingTime(CalculationOfPlayerPerform.cutToTwo(playingTime));// 总上场时间
+			resultVo.setStealNumber(stealNumber);// 总抢断数
+			resultVo.setBlockNumber(blockNumber);// 总盖帽数
+			resultVo.setTurnoverNumber(turnoverNumber);// 总失误数
+			resultVo.setFoulNumber(foulNumber);// 总犯规数
+			resultVo.setScoreNumber(scoreNumber);// 总得分
+			resultVo.setOffensiveReboundNumber(offensiveReboundNumber);// 进攻篮板数
+			resultVo.setDefensiveReboundNumber(defensiveReboundNumber);// 防守篮板数
+			resultVo.setAverageTotalReboundNumber(CalculationOfTeamPerform.average(totalReboundNumber, numberOfMatch));// 场均总篮板
+			resultVo.setAverageAssistNumber(CalculationOfTeamPerform.average(assistNumber, numberOfMatch));// 场均助攻数
+			resultVo.setAveragePlayingTime(CalculationOfTeamPerform.average(playingTime, numberOfMatch));// 场均上场时间
+			resultVo.setAverageStealNumber(CalculationOfTeamPerform.average(stealNumber, numberOfMatch));// 场均抢断数
+			resultVo.setAverageBlockNumber(CalculationOfTeamPerform.average(blockNumber, numberOfMatch));// 场均盖帽数
+			resultVo.setAverageTurnoverNumber(CalculationOfTeamPerform.average(turnoverNumber, numberOfMatch));// 场均失误数
+			resultVo.setAverageFoulNumber(CalculationOfTeamPerform.average(foulNumber, numberOfMatch)); // 场均犯规数
+			resultVo.setAverageScoreNumber(CalculationOfTeamPerform.average(scoreNumber, numberOfMatch)); // 场均得分数
 			resultVo.setAverageOffensiveReboundNumber(CalculationOfTeamPerform.average(offensiveReboundNumber,
-					numberOfMatch));
-			// 场均防守篮板数
+					numberOfMatch)); // 场均进攻篮板数
 			resultVo.setAverageDefensiveReboundNumber(CalculationOfTeamPerform.average(defensiveReboundNumber,
-					numberOfMatch));
-			// 投篮命中率
-			resultVo.setTotalHitRate(CalculationOfPlayerPerform.calHitRate(totalHitNumber, totalShootNumber));
-			// 三分命中率
+					numberOfMatch));// 场均防守篮板数
+			resultVo.setTotalHitRate(CalculationOfPlayerPerform.calHitRate(totalHitNumber, totalShootNumber));// 投篮命中率
 			resultVo.setThreePointHitRate(CalculationOfPlayerPerform.calHitRate(threePointHitNumber,
-					threePointShootNumber));
-			// 罚球命中率
+					threePointShootNumber)); // 三分命中率
 			resultVo.setFreePointHitRate(CalculationOfPlayerPerform
-					.calHitRate(freePointHitNumber, freePointShootNumber));
-			// 效率
+					.calHitRate(freePointHitNumber, freePointShootNumber));// 罚球命中率
 			resultVo.setCommonEfficiency(CalculationOfPlayerPerform.calCommonEfficiency(scoreNumber,
-					totalReboundNumber, assistNumber, assistNumber, blockNumber, totalShootNumber, totalHitNumber,
-					freePointShootNumber, freePointHitNumber, turnoverNumber, numberOfMatch));
-			// GmSc效率
+					totalReboundNumber, assistNumber, stealNumber, blockNumber, totalShootNumber, totalHitNumber,
+					freePointShootNumber, freePointHitNumber, turnoverNumber, numberOfMatch));// 效率
 			resultVo.setGmScEfficiency(CalculationOfPlayerPerform.calGmScEfficiency(scoreNumber, totalHitNumber,
 					totalShootNumber, freePointShootNumber, freePointHitNumber, offensiveReboundNumber,
 					defensiveReboundNumber, stealNumber, assistNumber, blockNumber, foulNumber, turnoverNumber,
-					numberOfMatch));
-			// 真实命中率
+					numberOfMatch));// GmSc效率
 			resultVo.setRealHitRate(CalculationOfPlayerPerform.calRealHitRate(scoreNumber, totalShootNumber,
-					freePointShootNumber));
-			// 投篮效率
+					freePointShootNumber));// 真实命中率
 			resultVo.setShootEfficiency(CalculationOfPlayerPerform.calShootEfficiency(totalHitNumber,
-					threePointHitNumber, totalShootNumber));
-			// 篮板效率
+					threePointHitNumber, totalShootNumber));// 投篮效率
 			resultVo.setReboundEfficiency(CalculationOfPlayerPerform.calReboundRate(totalReboundNumber,
-					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
-			// 进攻篮板率
+					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));// 篮板效率
 			resultVo.setOffensiveReboundRate(CalculationOfPlayerPerform.calReboundRate(offensiveReboundNumber,
-					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
-			// 防守篮板率
+					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));// 进攻篮板率
 			resultVo.setDefensiveReboundRate(CalculationOfPlayerPerform.calReboundRate(defensiveReboundNumber,
-					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));
-
-			// 助攻率
+					timeOfAllPlayer, playingTime, totalReboundOfTeam, totalReboundOfCompetitor));// 防守篮板率
 			resultVo.setAssistRate(CalculationOfPlayerPerform.calAssistRate(assistNumber, playingTime, timeOfAllPlayer,
-					hitOfAllPlayer, totalHitNumber));
-			// 抢断率
+					hitOfAllPlayer, totalHitNumber));// 助攻率
 			resultVo.setStealRate(CalculationOfPlayerPerform.calStealRate(stealNumber, timeOfAllPlayer, playingTime,
-					offensiveReboundOfCompetitor));
-			// 盖帽率
+					offensiveReboundOfCompetitor));// 抢断率
 			resultVo.setBlockRate(CalculationOfPlayerPerform.calBlockRate(blockNumber, timeOfAllPlayer, playingTime,
-					shootNumOfCompetitor - threePointShootOfCompetitor));
-			// 失误率
+					shootNumOfCompetitor - threePointShootOfCompetitor));// 盖帽率
 			resultVo.setTurnoverRate(CalculationOfPlayerPerform.calTurnoverRate(turnoverNumber, totalShootNumber
-					- threePointShootNumber, freePointShootNumber));
-			// 使用率
+					- threePointShootNumber, freePointShootNumber));// 失误率
 			resultVo.setUseRate(CalculationOfPlayerPerform.calUseRate(totalShootNumber, freePointShootNumber,
 					turnoverNumber, timeOfAllPlayer, playingTime, shootOfAllPlayer, freePointOfAllPlayer,
-					turnoverOfAllPlayer));
-			// 两双
-			resultVo.setDoubleDouble(doubleDouble);
-			// 三双
-			resultVo.setTripleDouble(tripleDouble);
-			// 得分篮板助攻比
+					turnoverOfAllPlayer));// 使用率
+			resultVo.setDoubleDouble(doubleDouble);// 两双
+			resultVo.setTripleDouble(tripleDouble);// 三双
 			int scoreReboundAssitRate = 0;// 得分篮板助攻比
 			scoreReboundAssitRate = scoreNumber + totalReboundNumber + assistNumber;
-			resultVo.setScoreReboundAssistRate(scoreReboundAssitRate);
+			resultVo.setScoreReboundAssistRate(scoreReboundAssitRate);// 得分篮板助攻比
 			int averageScoreReboundAssitRate = 0;// 平均得分篮板助攻比
 			averageScoreReboundAssitRate = scoreReboundAssitRate / numberOfMatch;
-			resultVo.setAveragescoreReboundAssistRate(averageScoreReboundAssitRate);
+			resultVo.setAveragescoreReboundAssistRate(averageScoreReboundAssitRate);// 平均得分篮板助攻比
 			return resultVo;
 		}
 

@@ -86,12 +86,39 @@ public class StringToEnum {
 			return 0;
 		}
 	}
-	
-	public static boolean ToBoolean(String str){
-		if(str.equals("true")){
+
+	public static boolean ToBoolean(String str) {
+		if (str.equals("true")) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
+	}
+
+	public static boolean isPlayerPositionEqual(PlayerPosition standPosition, PlayerPosition selectedPosition) {
+		if (standPosition == PlayerPosition.C) {
+			if (selectedPosition == PlayerPosition.C || selectedPosition == PlayerPosition.C_F
+					|| selectedPosition == PlayerPosition.F_C) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (standPosition == PlayerPosition.G) {
+			if (selectedPosition == PlayerPosition.G || selectedPosition == PlayerPosition.G_F
+					|| selectedPosition == PlayerPosition.F_G) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (standPosition == PlayerPosition.F) {
+			if (selectedPosition == PlayerPosition.F || selectedPosition == PlayerPosition.C_F
+					|| selectedPosition == PlayerPosition.F_C || selectedPosition == PlayerPosition.F_G
+					|| selectedPosition == PlayerPosition.G_F) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 }
