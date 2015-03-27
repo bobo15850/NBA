@@ -275,6 +275,9 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 		case TotalPlayingTime:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalPlayingTime(), left, right - 1);
 			break;
+		case TotalBlockNumber:
+			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalBlockNumber(), left, right - 1);
+			break;
 		case TotalStealNumber:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalStealNumber(), left, right - 1);
 			break;

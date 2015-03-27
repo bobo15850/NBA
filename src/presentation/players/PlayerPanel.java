@@ -19,6 +19,7 @@ import businesslogicservice.players.PlayerInfoBlService;
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
+import common.mycomponent.MyScrollPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mycomponent.MyTextField;
@@ -64,7 +65,7 @@ public class PlayerPanel extends MyPanel {
 				"场均防守篮板", "总防守篮板", "场均失误", "总失误", "场均犯规", "总犯规", "投篮命中率", "三分命中率", "罚球命中率", "使用率", "真实命中率", "投篮效率",
 				"助攻率", "篮板率", "盖帽率", "抢断率", "进攻篮板率", "防守篮板率", "失误率" };
 		private String rangeAndName[] = { "排名", "姓名" };
-		private JScrollPane scrollPane;
+		private MyScrollPanel scrollPane;
 		private MyTable performanceTable, rangeAndNameTable;// 表格
 		private MyTableModel performanceModel, rangeAndNameModel;// 表格的内容
 		private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformVoList;
@@ -110,7 +111,7 @@ public class PlayerPanel extends MyPanel {
 			this.add(playerNameInputLabel);
 		}
 
-		protected void setTableStyle() {
+		private void setTableStyle() {
 			performanceTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(false);
@@ -128,7 +129,7 @@ public class PlayerPanel extends MyPanel {
 			viewport.setView(rangeAndNameTable);
 			viewport.setPreferredSize(rangeAndNameTable.getPreferredSize());
 			//
-			scrollPane = new JScrollPane(performanceTable);
+			scrollPane = new MyScrollPanel(performanceTable);
 			scrollPane.setBounds((int) (NUMBER.px * 30), (int) (NUMBER.px * 101), (int) (NUMBER.px * 950),
 					(int) (NUMBER.px * 570));
 			scrollPane.setRowHeaderView(viewport);

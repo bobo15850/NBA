@@ -21,8 +21,8 @@ public class DataPreparation {
 	OperationOfGeneralInfoDB dbOfGeneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();
 
 	public DataPreparation() {
-//		this.handleFileOfTeams();
-//		this.handleFileOfPlayers();
+		this.handleFileOfTeams();
+		this.handleFileOfPlayers();
 		this.handleFileOfMatches();
 	}// 初始化数据库系统
 

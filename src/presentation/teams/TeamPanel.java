@@ -114,7 +114,7 @@ public class TeamPanel extends MyPanel {
 			this.add(teamNameInputLabel);
 		}
 
-		protected void setTableStyle() {
+		private void setTableStyle() {
 			performanceTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(false);
@@ -191,7 +191,6 @@ public class TeamPanel extends MyPanel {
 			} else if (e.getSource().equals(teamSearch)) {
 
 			}
-
 		}
 
 		public void mouseEntered(MouseEvent e) {
