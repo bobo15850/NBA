@@ -20,11 +20,6 @@ public class MyTableModel extends AbstractTableModel {
 		content = new Vector<Vector<String>>();
 	}
 
-	public MyTableModel(int count, String[] title_name) {
-		this.title_name = title_name;
-		content = new Vector<Vector<String>>(count);
-	}
-
 	public void addRow(String[] str) {
 		Vector<String> v = new Vector<String>(title_name.length);
 		for (int i = 0; i < str.length; i++) {
@@ -37,7 +32,7 @@ public class MyTableModel extends AbstractTableModel {
 		try {
 			content.remove(row);
 		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null, "未选择任何条目","错误", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "未选择任何条目", "错误", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -56,8 +51,9 @@ public class MyTableModel extends AbstractTableModel {
 			}
 		}
 	}
-	public void removeAllRows(){
-		for (int i = content.size()- 1; i >= 0; i--) {
+
+	public void removeAllRows() {
+		for (int i = content.size() - 1; i >= 0; i--) {
 			content.remove(i);
 		}
 	}
@@ -84,7 +80,7 @@ public class MyTableModel extends AbstractTableModel {
 		this.fireTableCellUpdated(row, col);
 	}
 
-	private ArrayList<String[]> getAllValue() {
+	public ArrayList<String[]> getAllValue() {
 		int rownumber = this.getRowCount();
 		int colnumber = this.getColumnCount();
 		if (rownumber == 0) {
@@ -101,6 +97,7 @@ public class MyTableModel extends AbstractTableModel {
 			return listvalue;
 		}
 	}
+
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		return false;
 	}

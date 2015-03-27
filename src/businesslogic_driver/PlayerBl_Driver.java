@@ -105,6 +105,6 @@ public class PlayerBl_Driver {
 	}
 
 	public static void main(String arg[]) {
-		new PlayerBl_Driver().testSelsctionOfPlayer();
+		new PlayerBl_Driver().testGetBaseInformationOfOnePlayer();;
 	}
 }
