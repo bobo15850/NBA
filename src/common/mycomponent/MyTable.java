@@ -26,6 +26,7 @@ public class MyTable extends JTable {
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(false);
 		header.setFont(MyFont.TABLE_HEADER_CHARACTER);
+		 
 		//
 		this.setRowHeight((int) (38 * NUMBER.px));// 设置行高
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// 设置只允许一次选择一行

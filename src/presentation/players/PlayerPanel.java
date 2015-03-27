@@ -1,5 +1,6 @@
 package presentation.players;
 
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -28,14 +29,14 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 import common.statics.ResultMessage;
 import common.statics.images.Images;
-
+import common.statics.StringToEnum;
 public class PlayerPanel extends MyPanel {
 
 	private static final long serialVersionUID = 1L;
 	private PlayerInfoBlService playerInfoBl;
 	private PlayerPerformShowPanel performShowPanel;
 	private PlayerGeneralInfoPanel generalInfoPanel;
-
+	public static ArrayList<OnePlayerPerformOfOneSeasonVo> currentPlayerVoList=null;
 	public PlayerPanel() {
 		playerInfoBl = new PlayerInfoBl();
 		performShowPanel = new PlayerPerformShowPanel();
@@ -69,6 +70,7 @@ public class PlayerPanel extends MyPanel {
 		private MyTable performanceTable, rangeAndNameTable;// 表格
 		private MyTableModel performanceModel, rangeAndNameModel;// 表格的内容
 		private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformVoList;
+		private boolean ascend=false;//设置当前默认为升序
 
 		public PlayerPerformShowPanel() {
 			this.createObjects();
@@ -92,6 +94,7 @@ public class PlayerPanel extends MyPanel {
 			rangeAndNameTable = new MyTable(rangeAndNameModel);
 			//
 			allPlayerPerformVoList = playerInfoBl.getOneSeasonPerformOfAllPlayer(season);
+			currentPlayerVoList=allPlayerPerformVoList;
 		}
 
 		private void setComponentsLocation() {
@@ -168,6 +171,31 @@ public class PlayerPanel extends MyPanel {
 			seasonChoose.addMouseListener(this);
 			playerSearch.addMouseListener(this);
 			playerSort.addMouseListener(this);
+			performanceTable.getTableHeader().addMouseListener(new MouseAdapter() {  
+	            public void mouseClicked(MouseEvent event) {
+	                if (event.getSource() == performanceTable.getTableHeader()) {  
+	                    int i = performanceTable.columnAtPoint(event.getPoint()); 
+	                    ArrayList<OnePlayerPerformOfOneSeasonVo> SortTableVoList=currentPlayerVoList;
+	                    if(ascend){
+	                    playerInfoBl.ascendingSort(SortTableVoList,StringToEnum.toPerformanceOfPlayer(performanceTable.getColumnName(i)));
+	                    }
+	                    else{
+	                    playerInfoBl.descendingSort(SortTableVoList,StringToEnum.toPerformanceOfPlayer(performanceTable.getColumnName(i)));
+	                    }
+	                    performanceModel.removeAllRows();
+	                	rangeAndNameModel.removeAllRows();
+	                    for(int j=0;j<SortTableVoList.size();j++){
+	                    	String row1[] = SortTableVoList.get(j).toStringArray();
+	            			String row2[] = {String.valueOf(j + 1),SortTableVoList.get(j).getNameOfPlayer()}; 
+	            			performanceModel.addRow(row1);
+	            			rangeAndNameModel.addRow(row2);
+	                    }
+	                    performanceTable.updateUI();
+	                    rangeAndNameTable.updateUI();
+	                    ascend=!ascend;
+	                }  
+	            	}
+	        });  
 		}
 
 		public void mouseClicked(MouseEvent e) {
@@ -267,7 +295,7 @@ public class PlayerPanel extends MyPanel {
 			weightLabel = new MyLabel("体重：");
 			birthLabel = new MyLabel("生日：");
 			schoolLabel = new MyLabel("学校：");
-			expLabel = new MyLabel("经验：");
+			expLabel = new MyLabel("球龄：");
 			nameShowLabel = new MyLabel();
 			numShowLabel = new MyLabel();
 			positionShowLabel = new MyLabel();

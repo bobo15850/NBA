@@ -1,5 +1,7 @@
 package common.mycomponent;
 
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -23,4 +25,13 @@ public class MyLabel extends JLabel {
 		this.setForeground(MyColor.MY_RED);
 		this.setIcon(background);
 	}
+	public void setMyIcon(ImageIcon icon)
+	   {
+		ImageIcon Icon=icon;
+	    Image p=Icon.getImage();
+		Image temp = p.getScaledInstance(this.getWidth(),  
+				this.getHeight(),Image.SCALE_REPLICATE);  
+	    Icon.setImage(temp);
+	    this.setIcon(Icon);
+	   }
 }
