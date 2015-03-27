@@ -221,8 +221,13 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 
 	public GeneralInfoOfPlayerVo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo po = this.playerInfoData.getGeneralInfoOfOnePlayer(nameOfPlayer);
-		GeneralInfoOfPlayerVo resultVo = new GeneralInfoOfPlayerVo(po);
-		return resultVo;
+		if (po.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_PO)) {
+			return ResultMessage.NOTEXIST_GENERAL_PLAYER_VO;
+		} else {
+			GeneralInfoOfPlayerVo resultVo = new GeneralInfoOfPlayerVo(po);
+			return resultVo;
+		}
+
 	}// 根据球员姓名查找某一球员具体基本自然信息
 
 	public void ascendingSort(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PerformanceOfPlayer dataKind) {
@@ -269,6 +274,9 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			break;
 		case TotalPlayingTime:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalPlayingTime(), left, right - 1);
+			break;
+		case TotalBlockNumber:
+			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalBlockNumber(), left, right - 1);
 			break;
 		case TotalStealNumber:
 			SortOfPlayer.sortAscending(voList, new SortOfPlayer.TotalStealNumber(), left, right - 1);

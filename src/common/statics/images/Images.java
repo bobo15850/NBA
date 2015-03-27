@@ -2,9 +2,6 @@ package common.statics.images;
 
 import javax.swing.ImageIcon;
 
-import common.mycomponent.MyButton;
-import common.mycomponent.MyImageLabel;
-
 public class Images {
 
 	// 图片常量全部大写并加下划线

@@ -8,6 +8,7 @@ public enum PerformanceOfPlayer {
 	TotalRebondNumber, //
 	TotalAssistNumber, //
 	TotalPlayingTime, //
+	TotalBlockNumber, //
 	TotalStealNumber, //
 	TotalTurnoverNumber, //
 	TotalFoulNumber, //
