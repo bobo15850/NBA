@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 
 import presentation.players.PlayerPanel;
 import presentation.teams.TeamPanel;
-
 import common.mycomponent.MyButton;
 import common.statics.MyColor;
 import common.statics.MyFont;
@@ -64,10 +63,12 @@ public class MainFrame extends JFrame {
 
 		public void showPlayerPanel() {
 			this.card.show(contentPanel, "playerPanel");
+			navigationPanel.addCurrentInfo("球员数据");
 		}
 
 		public void showTeamPanel() {
 			this.card.show(contentPanel, "teamPanel");
+			navigationPanel.addCurrentInfo("球队数据");
 		}
 	}
 
@@ -76,7 +77,7 @@ public class MainFrame extends JFrame {
 		 * 导航栏
 		 */
 		private static final long serialVersionUID = 1L;
-		private JLabel currntPanelLabel;
+		private JLabel currentPanelLabel;
 		private JButton quitSystem, playerPanelButton, teamPanelButton;
 
 		public NavigationPanel() {
@@ -90,15 +91,20 @@ public class MainFrame extends JFrame {
 
 		}
 
+		public void addCurrentInfo(String string) {
+			currentPanelLabel.setText(string);
+			
+		}
+
 		private void createObjects() {
-			currntPanelLabel = new JLabel("球员数据");
+			currentPanelLabel = new JLabel("球员数据");
 			quitSystem = new MyButton("退出系统");
 			playerPanelButton = new MyButton("球员数据");
 			teamPanelButton = new MyButton("球队数据");
 		}
 
 		private void setComponentsLocation() {
-			currntPanelLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2,
+			currentPanelLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2,
 					(NUMBER.NAVIGATION_PANEL_HEIGHT - (int) (NUMBER.px * 100)) / 2, (int) (NUMBER.px * 200),
 					(int) (NUMBER.px * 100));
 			teamPanelButton.setBounds((int) (NUMBER.px * 340), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160),
@@ -107,15 +113,15 @@ public class MainFrame extends JFrame {
 					(int) (NUMBER.px * 40));
 			quitSystem.setBounds((int) (NUMBER.px * 700), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160),
 					(int) (NUMBER.px * 40));
-			this.add(currntPanelLabel);
+			this.add(currentPanelLabel);
 			this.add(teamPanelButton);
 			this.add(playerPanelButton);
 			this.add(quitSystem);
 		}
 
 		private void setComponentsStyle() {
-			currntPanelLabel.setFont(MyFont.PANEL_LABEL);
-			currntPanelLabel.setForeground(MyColor.MY_WHITE);
+			currentPanelLabel.setFont(MyFont.PANEL_LABEL);
+			currentPanelLabel.setForeground(MyColor.MY_WHITE);
 		}
 
 		protected void paintComponent(Graphics g) {

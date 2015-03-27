@@ -104,6 +104,7 @@ public class SelectPlayerDialog extends JDialog implements MouseListener {
 					(Conference) playerConference.getSelectedItem(), (Division) playerDivision.getSelectedItem(),
 					(PerformanceOfPlayer) playerSort.getSelectedItem());
 			selectPlayerList = playerBl.selsctPlayer(allPlayerList, condition, season);
+			PlayerPanel.currentPlayerVoList=selectPlayerList;
 			selectTableModel.removeAllRows();
 			selectNameAndNumTableModel.removeAllRows();
 			for (int i = 0; i < selectPlayerList.size(); i++) {
