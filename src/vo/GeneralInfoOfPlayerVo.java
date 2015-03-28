@@ -1,27 +1,23 @@
 package vo;
 
-import javax.swing.ImageIcon;
+import po.GeneralInfoOfPlayerPo;
 
 import common.enums.PlayerPosition;
 import common.mydatastructure.Date;
 import common.mydatastructure.Height;
 import common.mydatastructure.Weight;
 
-import po.GeneralInfoOfPlayerPo;
-
 public class GeneralInfoOfPlayerVo {
 
-	private String playerName;// 姓名
-	private String playerNumber;// 球员号码
-	private ImageIcon portraitImageIcon;// 半身头像
-	private ImageIcon actionImageIcon;// 全身像
-	private PlayerPosition position;// 位置
-	private Height height;// 身高
-	private Weight weight;// 体重
-	private Date birthday;// 生日
-	private int age;
-	private int trainingYear;// 球龄
-	private String school;// 毕业学校
+	private String playerName = null;// 姓名
+	private String playerNumber = null;// 球员号码
+	private PlayerPosition position = null;// 位置
+	private Height height = null;// 身高
+	private Weight weight = null;// 体重
+	private Date birthday = null;// 生日
+	private int age = 0;
+	private int trainingYear = 0;// 球龄
+	private String school = null;// 毕业学校
 
 	public GeneralInfoOfPlayerVo() {
 		// 无参构造函数
@@ -30,8 +26,6 @@ public class GeneralInfoOfPlayerVo {
 	public GeneralInfoOfPlayerVo(GeneralInfoOfPlayerPo po) {
 		this.playerName = po.getName();
 		this.playerNumber = po.getNumber();
-		this.portraitImageIcon = po.getPortraitImageIcon();
-		this.actionImageIcon = po.getActionImageIcon();
 		this.position = po.getPosition();
 		this.height = po.getHeight();
 		this.weight = po.getWeight();
@@ -41,14 +35,6 @@ public class GeneralInfoOfPlayerVo {
 		this.trainingYear = po.getTrainingYear();
 		this.school = po.getShool();
 	}// 以po为参数的构造方法
-
-	public void setPortraitImageIcon(ImageIcon portraitImageIcon) {
-		this.portraitImageIcon = portraitImageIcon;
-	}// 设置球员头像
-
-	public void setActionImageIcon(ImageIcon actionImageIcon) {
-		this.actionImageIcon = actionImageIcon;
-	}// 设置全身像
 
 	public void setName(String playerName) {
 		this.playerName = playerName;
@@ -85,15 +71,6 @@ public class GeneralInfoOfPlayerVo {
 	public void setShool(String school) {
 		this.school = school;
 	}// 设置球员的毕业学校
-		// //////////////////////////////////////////////////////////////
-
-	public ImageIcon getPortraitImageIcon() {
-		return this.portraitImageIcon;
-	}// 得到球员头像
-
-	public ImageIcon getActionImageIcon() {
-		return this.actionImageIcon;
-	}// 得到全身像
 
 	public String getName() {
 		return this.playerName;
@@ -130,4 +107,16 @@ public class GeneralInfoOfPlayerVo {
 	public String getShool() {
 		return this.school;
 	}// 得到球员的毕业学校
+
+	public String[] toStringArray() {
+		return new String[] { playerName,// 姓名
+				playerNumber,// 球员号码
+				position.toString(),// 位置
+				height.getFeetAndInchAsStringOfHeight(),// 身高
+				String.valueOf(weight.getPoundOfWeight()),// 体重
+				birthday.getFormatString(),// 生日
+				String.valueOf(age), String.valueOf(trainingYear),// 球龄
+				school,// 毕业学校
+		};
+	}
 }

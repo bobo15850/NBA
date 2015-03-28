@@ -1,7 +1,7 @@
 package vo;
 
 public class OneTeamPerformOfOneSeasonVo {
-	private String teamName;// 球队名称
+	private String teamNameForShort;// 球队名称
 	private int numberOfMatch;// 比赛场数
 	//
 	private int totalHitNumber;// 总命中数
@@ -19,24 +19,24 @@ public class OneTeamPerformOfOneSeasonVo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
-	private int offensiveNumber;// 进攻回合数
+	private double offensiveNumber;// 进攻回合数
 	//
-	private int averageTotalHitNumber;// 场均命中数
-	private int averageTotalShootNumber;// 场均总出手数
-	private int averageThreePointHitNumber;// 场均三分命中数
-	private int averageThreePointShootNumber;// 场均三分出手数
-	private int averageFreePointHitNumber;// 场均罚球命中数
-	private int averageFreePointShootNumber;// 场均罚球出手数
-	private int averageOffensiveReboundNumber;// 场均进攻篮板数
-	private int averageDefensiveReboundNumber;// 场均防守篮板
-	private int averageTotalReboundNumber;// 场均总篮板
-	private int averageAssistNumber;// 场均助攻数
-	private int averageStealNumber;// 场均抢断数
-	private int averageBlockNumber;// 场均盖帽数
-	private int averageTurnoverNumber;// 场均失误数
-	private int averageFoulNumber;// 场均犯规数
-	private int averageScoreNumber;// 场均得分数
-	private int averageOffensiveNumber;// 场均进攻回合数
+	private double averageTotalHitNumber;// 场均命中数
+	private double averageTotalShootNumber;// 场均总出手数
+	private double averageThreePointHitNumber;// 场均三分命中数
+	private double averageThreePointShootNumber;// 场均三分出手数
+	private double averageFreePointHitNumber;// 场均罚球命中数
+	private double averageFreePointShootNumber;// 场均罚球出手数
+	private double averageOffensiveReboundNumber;// 场均进攻篮板数
+	private double averageDefensiveReboundNumber;// 场均防守篮板
+	private double averageTotalReboundNumber;// 场均总篮板
+	private double averageAssistNumber;// 场均助攻数
+	private double averageStealNumber;// 场均抢断数
+	private double averageBlockNumber;// 场均盖帽数
+	private double averageTurnoverNumber;// 场均失误数
+	private double averageFoulNumber;// 场均犯规数
+	private double averageScoreNumber;// 场均得分数
+	private double averageOffensiveNumber;// 场均进攻回合数
 	//
 	private double totalHitRate;// 投篮命中率
 	private double threePointHitRate;// 三分命中率
@@ -49,11 +49,11 @@ public class OneTeamPerformOfOneSeasonVo {
 	private double assistEfficiency;// 助攻率
 
 	public String getTeamName() {
-		return teamName;
+		return teamNameForShort;
 	}
 
 	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+		this.teamNameForShort = teamName;
 	}
 
 	public int getNumberOfMatch() {
@@ -184,139 +184,139 @@ public class OneTeamPerformOfOneSeasonVo {
 		this.scoreNumber = scoreNumber;
 	}
 
-	public int getOffensiveNumber() {
+	public double getOffensiveNumber() {
 		return offensiveNumber;
 	}
 
-	public void setOffensiveNumber(int offensiveNumber) {
-		this.offensiveNumber = offensiveNumber;
+	public void setOffensiveNumber(double offensiveNumber2) {
+		this.offensiveNumber = offensiveNumber2;
 	}
 
-	public int getAverageTotalHitNumber() {
+	public double getAverageTotalHitNumber() {
 		return averageTotalHitNumber;
 	}
 
-	public void setAverageTotalHitNumber(int averageTotalHitNumber) {
+	public void setAverageTotalHitNumber(double averageTotalHitNumber) {
 		this.averageTotalHitNumber = averageTotalHitNumber;
 	}
 
-	public int getAverageTotalShootNumber() {
+	public double getAverageTotalShootNumber() {
 		return averageTotalShootNumber;
 	}
 
-	public void setAverageTotalShootNumber(int averageTotalShootNumber) {
+	public void setAverageTotalShootNumber(double averageTotalShootNumber) {
 		this.averageTotalShootNumber = averageTotalShootNumber;
 	}
 
-	public int getAverageThreePointHitNumber() {
+	public double getAverageThreePointHitNumber() {
 		return averageThreePointHitNumber;
 	}
 
-	public void setAverageThreePointHitNumber(int averageThreePointHitNumber) {
+	public void setAverageThreePointHitNumber(double averageThreePointHitNumber) {
 		this.averageThreePointHitNumber = averageThreePointHitNumber;
 	}
 
-	public int getAverageThreePointShootNumber() {
+	public double getAverageThreePointShootNumber() {
 		return averageThreePointShootNumber;
 	}
 
-	public void setAverageThreePointShootNumber(int averageThreePointShootNumber) {
+	public void setAverageThreePointShootNumber(double averageThreePointShootNumber) {
 		this.averageThreePointShootNumber = averageThreePointShootNumber;
 	}
 
-	public int getAverageFreePointHitNumber() {
+	public double getAverageFreePointHitNumber() {
 		return averageFreePointHitNumber;
 	}
 
-	public void setAverageFreePointHitNumber(int averageFreePointHitNumber) {
+	public void setAverageFreePointHitNumber(double averageFreePointHitNumber) {
 		this.averageFreePointHitNumber = averageFreePointHitNumber;
 	}
 
-	public int getAverageFreePointShootNumber() {
+	public double getAverageFreePointShootNumber() {
 		return averageFreePointShootNumber;
 	}
 
-	public void setAverageFreePointShootNumber(int averageFreePointShootNumber) {
+	public void setAverageFreePointShootNumber(double averageFreePointShootNumber) {
 		this.averageFreePointShootNumber = averageFreePointShootNumber;
 	}
 
-	public int getAverageOffensiveReboundNumber() {
+	public double getAverageOffensiveReboundNumber() {
 		return averageOffensiveReboundNumber;
 	}
 
-	public void setAverageOffensiveReboundNumber(int averageOffensiveReboundNumber) {
+	public void setAverageOffensiveReboundNumber(double averageOffensiveReboundNumber) {
 		this.averageOffensiveReboundNumber = averageOffensiveReboundNumber;
 	}
 
-	public int getAverageDefensiveReboundNumber() {
+	public double getAverageDefensiveReboundNumber() {
 		return averageDefensiveReboundNumber;
 	}
 
-	public void setAverageDefensiveReboundNumber(int averageDefensiveReboundNumber) {
+	public void setAverageDefensiveReboundNumber(double averageDefensiveReboundNumber) {
 		this.averageDefensiveReboundNumber = averageDefensiveReboundNumber;
 	}
 
-	public int getAverageTotalReboundNumber() {
+	public double getAverageTotalReboundNumber() {
 		return averageTotalReboundNumber;
 	}
 
-	public void setAverageTotalReboundNumber(int averageTotalReboundNumber) {
+	public void setAverageTotalReboundNumber(double averageTotalReboundNumber) {
 		this.averageTotalReboundNumber = averageTotalReboundNumber;
 	}
 
-	public int getAverageAssistNumber() {
+	public double getAverageAssistNumber() {
 		return averageAssistNumber;
 	}
 
-	public void setAverageAssistNumber(int averageAssistNumber) {
+	public void setAverageAssistNumber(double averageAssistNumber) {
 		this.averageAssistNumber = averageAssistNumber;
 	}
 
-	public int getAverageStealNumber() {
+	public double getAverageStealNumber() {
 		return averageStealNumber;
 	}
 
-	public void setAverageStealNumber(int averageStealNumber) {
+	public void setAverageStealNumber(double averageStealNumber) {
 		this.averageStealNumber = averageStealNumber;
 	}
 
-	public int getAverageBlockNumber() {
+	public double getAverageBlockNumber() {
 		return averageBlockNumber;
 	}
 
-	public void setAverageBlockNumber(int averageBlockNumber) {
+	public void setAverageBlockNumber(double averageBlockNumber) {
 		this.averageBlockNumber = averageBlockNumber;
 	}
 
-	public int getAverageTurnoverNumber() {
+	public double getAverageTurnoverNumber() {
 		return averageTurnoverNumber;
 	}
 
-	public void setAverageTurnoverNumber(int averageTurnoverNumber) {
+	public void setAverageTurnoverNumber(double averageTurnoverNumber) {
 		this.averageTurnoverNumber = averageTurnoverNumber;
 	}
 
-	public int getAverageFoulNumber() {
+	public double getAverageFoulNumber() {
 		return averageFoulNumber;
 	}
 
-	public void setAverageFoulNumber(int averageFoulNumber) {
+	public void setAverageFoulNumber(double averageFoulNumber) {
 		this.averageFoulNumber = averageFoulNumber;
 	}
 
-	public int getAverageScoreNumber() {
+	public double getAverageScoreNumber() {
 		return averageScoreNumber;
 	}
 
-	public void setAverageScoreNumber(int averageScoreNumber) {
+	public void setAverageScoreNumber(double averageScoreNumber) {
 		this.averageScoreNumber = averageScoreNumber;
 	}
 
-	public int getAverageOffensiveNumber() {
+	public double getAverageOffensiveNumber() {
 		return averageOffensiveNumber;
 	}
 
-	public void setAverageOffensiveNumber(int averageOffensiveNumber) {
+	public void setAverageOffensiveNumber(double averageOffensiveNumber) {
 		this.averageOffensiveNumber = averageOffensiveNumber;
 	}
 
@@ -392,4 +392,50 @@ public class OneTeamPerformOfOneSeasonVo {
 		this.assistEfficiency = assistEfficiency;
 	}
 
+	public String[] toStringArray() {
+		return new String[] { 
+				String.valueOf(numberOfMatch),// 比赛场数
+				String.valueOf(winRate),// 胜率
+				String.valueOf(averageScoreNumber),// 场均得分数
+				String.valueOf(scoreNumber),// 得分数
+				String.valueOf(averageTotalHitNumber),// 场均命中数
+				String.valueOf(totalHitNumber),// 总命中数
+				String.valueOf(averageTotalShootNumber),// 场均总出手数
+				String.valueOf(totalShootNumber),// 总出手数
+				String.valueOf(totalHitRate),// 投篮命中率
+				String.valueOf(averageThreePointHitNumber),// 场均三分命中数
+				String.valueOf(threePointHitNumber),// 三分命中数
+				String.valueOf(averageThreePointShootNumber),// 场均三分出手数
+				String.valueOf(threePointShootNumber),// 三分出手数
+				String.valueOf(threePointHitRate),// 三分命中率
+				String.valueOf(averageFreePointHitNumber),// 场均罚球命中数
+				String.valueOf(freePointHitNumber),// 罚球命中数
+				String.valueOf(averageFreePointShootNumber),// 场均罚球出手数
+				String.valueOf(freePointShootNumber),// 罚球出手数
+				String.valueOf(freePointHitRate),// 罚球命中率
+				String.valueOf(averageOffensiveReboundNumber),// 场均进攻篮板数
+				String.valueOf(offensiveReboundNumber),// 进攻篮板数
+				String.valueOf(averageDefensiveReboundNumber),// 场均防守篮板
+				String.valueOf(defensiveReboundNumber),// 防守篮板
+				String.valueOf(averageTotalReboundNumber),// 场均总篮板
+				String.valueOf(totalReboundNumber),// 总篮板
+				String.valueOf(averageAssistNumber),// 场均助攻数
+				String.valueOf(assistNumber),// 总助攻
+				String.valueOf(averageStealNumber),// 场均抢断数
+				String.valueOf(stealNumber),// 抢断数
+				String.valueOf(averageBlockNumber),// 场均盖帽数
+				String.valueOf(blockNumber),// 盖帽数
+				String.valueOf(averageTurnoverNumber),// 场均失误数
+				String.valueOf(turnoverNumber),// 失误数
+				String.valueOf(averageFoulNumber),// 场均犯规数
+				String.valueOf(foulNumber),// 犯规数
+				String.valueOf(averageOffensiveNumber),// 场均进攻回合数///////////////
+				String.valueOf(offensiveNumber),// 进攻回合数
+				String.valueOf(offensiveEfficiency),// 进攻效率
+				String.valueOf(defensiveEfficiency),// 防守效率
+				String.valueOf(reboundEfficiency),// 篮板效率
+				String.valueOf(stealEfficiency),// 抢断率
+				String.valueOf(assistEfficiency),// 助攻率
+		};
+	}
 }

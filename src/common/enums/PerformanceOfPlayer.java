@@ -1,20 +1,50 @@
 package common.enums;
 
 public enum PerformanceOfPlayer {
-	totalHitNumber,// 总命中数
-	totalShootNumber,// 总出手数
-	threePointHitNumber,// 三分命中数
-	threePointShootNumber,// 三分出手数
-	freePointHitNumber,// 罚球命中数
-	freePointShootNumber,// 罚球出手数
-	offensiveReboundNumber,// 进攻篮板
-	defensiveReboundNumber,// 防守篮板
-	totalReboundNumber,// 总篮板
-	assistNumber,// 助攻
-	stealNumber,// 抢断数
-	blockNumber,// 盖帽数
-	turnoverNumber,// 失误数
-	foulNumber,// 犯规数
-	scoreNumber,// 得分数
-	
+	PlayerName, //
+	TeamName, //
+	MatchNumber, //
+	FirstNumber, //
+	TotalRebondNumber, //
+	TotalAssistNumber, //
+	TotalPlayingTime, //
+	TotalBlockNumber, //
+	TotalStealNumber, //
+	TotalTurnoverNumber, //
+	TotalFoulNumber, //
+	ScoreNumber, //
+	OffensiveRebondNumber, //
+	DeffensiveRebondNumber, //
+	AverageTotalReboundNumber, //
+	AverageAssistNumber, //
+	AveragePlayingTime, //
+	AverageStealNumber, //
+	AverageBlockNumber, //
+	AverageTurnoverNumber, //
+	AverageFoulNumber, //
+	AverageScoreNumber, //
+	AverageOffensiveReboundNumber, //
+	AverageDefensiveReboundNumber, //
+	AverageScoreReboundAssistRate, // 平均得分篮板助攻比
+	//
+	TotalHitRate, //
+	ThreePointHitRate, //
+	FreePointHitRate, //
+	CommonEfficiency, //
+	GmScEfficiency, //
+	RealHitRate, //
+	ShootEfficiency, //
+	ReboundEfficiency, //
+	OffensiveReboundRate, //
+	DefensiveReboundRate, //
+	AssistRate, //
+	StealRate, //
+	BlockRate, //
+	TurnoverRate, //
+	UseRate, //
+	//
+	DoubleDouble, // 两双
+	TripleDouble, // 三双
+	ScoreReboundAssistRate, // 得分篮板助攻比
+
 }

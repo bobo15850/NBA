@@ -1,11 +1,10 @@
 package start;
 
-import common.mycomponent.MyFrame;
+import presentation.MainFrame;
 
 public class Main {
-	public static MyFrame mainFrame;
 
 	public static void main(String arg[]) {
-		mainFrame = new MyFrame();
+		new MainFrame();
 	}
 }

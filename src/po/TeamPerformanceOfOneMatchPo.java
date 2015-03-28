@@ -3,11 +3,13 @@ package po;
 import java.util.ArrayList;
 
 import common.mydatastructure.Date;
+import common.mydatastructure.Season;
 
 public class TeamPerformanceOfOneMatchPo {
-	private String teamName;// 球队名称
+	private String TeamNameForShort;// 球队名称
 	private Date date;// 比赛时间
-	private String opponentTeamName;// 对手名称
+	private Season season;// 赛季
+	private String opponentTeamNameForShort;// 对手名称
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -23,11 +25,14 @@ public class TeamPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
+	private double playingTime;// 球员上场时间之和
 
-	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
-		this.teamName = teamName;
-		this.opponentTeamName = opponentTeamName;
+	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, Season season,
+			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
+		this.TeamNameForShort = teamName;
+		this.opponentTeamNameForShort = opponentTeamName;
 		this.date = date;
+		this.season = season;
 		PlayerPerformanceOfOneMatchPo temp;
 		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
 			temp = listOfPlayerPerformanceOfOneMatch.get(i);
@@ -46,23 +51,20 @@ public class TeamPerformanceOfOneMatchPo {
 			this.turnoverNumber += temp.getTurnoverNumber();
 			this.foulNumber += temp.getFoulNumber();
 			this.scoreNumber += temp.getScoreNumber();
+			this.playingTime += temp.getPlayingTime();
 		}
 	}
 
-	@SuppressWarnings("null")
-	public String getFormatString() {
-		StringBuffer result = null;
-		String tag = ";";
-		result.append(this.teamName).append(tag).append(this.date.getFormatString()).append(tag).append(this.opponentTeamName).append(tag).append(this.totalHitNumber).append(tag).append(this.totalShootNumber).append(tag).append(this.threePointHitNumber).append(tag).append(this.threePointShootNumber).append(tag).append(this.freePointHitNumber).append(tag).append(this.freePointShootNumber).append(tag).append(this.offensiveReboundNumber).append(tag).append(this.defensiveReboundNumber).append(tag).append(this.totalReboundNumber).append(tag).append(this.assistNumber).append(tag).append(this.stealNumber).append(tag).append(this.blockNumber).append(tag).append(this.turnoverNumber).append(tag).append(this.foulNumber).append(tag).append(this.scoreNumber).append(tag);
-		return result.toString();
+	public TeamPerformanceOfOneMatchPo() {
+		// 无参构造函数
 	}
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setTeamNameForShort(String teamName) {
+		this.TeamNameForShort = teamName;
 	}// 设置球队名称
 
-	public void setOpponentTeamName(String opponentTeamName) {
-		this.opponentTeamName = opponentTeamName;
+	public void setOpponentTeamName(String opponentTeamNameForShort) {
+		this.opponentTeamNameForShort = opponentTeamNameForShort;
 	}// 设置对手名称
 
 	public void setDate(Date date) {
@@ -130,12 +132,12 @@ public class TeamPerformanceOfOneMatchPo {
 	}// 设置得分数
 		// //////////////////////////
 
-	public String getTeamName() {
-		return this.teamName;
+	public String getTeamNameForShort() {
+		return this.TeamNameForShort;
 	}// 得到球队名称
 
-	public String getOpponentTeamName() {
-		return this.opponentTeamName;
+	public String getOpponentTeamNameForShort() {
+		return this.opponentTeamNameForShort;
 	}// 得到对手名称
 
 	public Date getDate() {
@@ -201,4 +203,78 @@ public class TeamPerformanceOfOneMatchPo {
 	public int getScoreNumber() {
 		return this.scoreNumber;
 	}// 得到得分数
+
+	public String toDBString() {
+		String resultString = "(`teamNameForShort`, `date`, `season`, `opponentTeamName`, `playingTime`,"
+				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
+				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
+				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`," + " `assistNumber`, `stealNumber`, `blockNumber`,"
+				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + " VALUES ('"
+				+ this.getTeamNameForShort()
+				+ "','"
+				+ this.getDate().getFormatString()
+				+ "','"
+				+ this.getSeason().getFormatStyleOfSeason()
+				+ "','"
+				+ this.getOpponentTeamNameForShort()
+				+ "','"
+				+ this.getPlayingTime()
+				+ "','"
+				+ this.getTotalHitNumber()
+				+ "','"
+				+ this.getTotalShootNumber()
+				+ "','"
+				+ this.getThreePointHitNumber()
+				+ "','"
+				+ this.getThreePointShootNumber()
+				+ "','"
+				+ this.getFreePointHitNumber()
+				+ "','"
+				+ this.getFreePointShootNumber()
+				+ "','"
+				+ this.getOffensiveReboundNumber()
+				+ "','"
+				+ this.getDefensiveReboundNumber()
+				+ "','"
+				+ this.getTotalReboundNumber()
+				+ "','"
+				+ this.getAssistNumber()
+				+ "','"
+				+ this.getStealNumber()
+				+ "','"
+				+ this.getBlockNumber()
+				+ "','"
+				+ this.getTurnoverNumber()
+				+ "','"
+				+ this.getFoulNumber()
+				+ "','"
+				+ this.getScoreNumber() + "')";
+		return resultString;
+	}
+
+	public double getPlayingTime() {
+		if (this.playingTime <= 240 + 1) {
+			return 240;
+		} else {
+			for (int i = 1; i < 10; i++) {
+				if (this.playingTime <= 241 + 25 * i) {
+					return 240 + 25 * i;
+				}
+			}
+		}
+
+		return playingTime;
+	}
+
+	public void setPlayingTime(double playingTime) {
+		this.playingTime = playingTime;
+	}
+
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
 }

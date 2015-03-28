@@ -8,7 +8,7 @@ public class OnePlayerPerformOfOneSeasonVo {
 	//
 	private int totalReboundNumber;// 总篮板
 	private int assistNumber;// 总助攻
-	private int playingTime;// 总上场时间
+	private double playingTime;// 总上场时间
 	private int stealNumber;// 总抢断数
 	private int blockNumber;// 总 盖帽数
 	private int turnoverNumber;// 总失误数
@@ -16,17 +16,19 @@ public class OnePlayerPerformOfOneSeasonVo {
 	private int scoreNumber;// 总得分数
 	private int offensiveReboundNumber;// 进攻篮板数
 	private int defensiveReboundNumber;// 防守篮板数
+	private int scoreReboundAssistRate;// 得分篮板助攻比
 	//
-	private int averageTotalReboundNumber;// 场均篮板
-	private int averageAssistNumber;// 场均助攻
-	private int averagePlayingTime;// 场均上场时间
-	private int averageStealNumber;// 场均抢断数
-	private int averageBlockNumber;// 场均盖帽数
-	private int averageTurnoverNumber;// 场均失误数
-	private int averageFoulNumber;// 场均犯规数
-	private int averageScoreNumber;// 场均得分数
-	private int averageOffensiveReboundNumber;// 场均进攻篮板数
-	private int averageDefensiveReboundNumber;// 场均防守篮板数
+	private double averageTotalReboundNumber;// 场均篮板
+	private double averageAssistNumber;// 场均助攻
+	private double averagePlayingTime;// 场均上场时间
+	private double averageStealNumber;// 场均抢断数
+	private double averageBlockNumber;// 场均盖帽数
+	private double averageTurnoverNumber;// 场均失误数
+	private double averageFoulNumber;// 场均犯规数
+	private double averageScoreNumber;// 场均得分数
+	private double averageOffensiveReboundNumber;// 场均进攻篮板数
+	private double averageDefensiveReboundNumber;// 场均防守篮板数
+	private double averagescoreReboundAssistRate;// 场均得分篮板助攻比
 	//
 	private double totalHitRate;// 投篮命中率
 	private double threePointHitRate;// 三分命中率
@@ -43,6 +45,9 @@ public class OnePlayerPerformOfOneSeasonVo {
 	private double blockRate;// 盖帽率
 	private double turnoverRate;// 失误率
 	private double useRate;// 使用率
+	//
+	private int doubleDouble;// 两双
+	private int tripleDouble;// 三双
 
 	public String getNameOfPlayer() {
 		return nameOfPlayer;
@@ -76,11 +81,11 @@ public class OnePlayerPerformOfOneSeasonVo {
 		this.numberOfFirst = numberOfFirst;
 	}
 
-	public int getPlayingTime() {
+	public double getPlayingTime() {
 		return playingTime;
 	}
 
-	public void setPlayingTime(int playingTime) {
+	public void setPlayingTime(double playingTime) {
 		this.playingTime = playingTime;
 	}
 
@@ -276,83 +281,159 @@ public class OnePlayerPerformOfOneSeasonVo {
 		this.shootEfficiency = shootEfficiency;
 	}
 
-	public int getAverageTotalReboundNumber() {
+	public double getAverageTotalReboundNumber() {
 		return averageTotalReboundNumber;
 	}
 
-	public void setAverageTotalReboundNumber(int averageTotalReboundNumber) {
+	public void setAverageTotalReboundNumber(double averageTotalReboundNumber) {
 		this.averageTotalReboundNumber = averageTotalReboundNumber;
 	}
 
-	public int getAverageAssistNumber() {
+	public double getAverageAssistNumber() {
 		return averageAssistNumber;
 	}
 
-	public void setAverageAssistNumber(int averageAssistNumber) {
+	public void setAverageAssistNumber(double averageAssistNumber) {
 		this.averageAssistNumber = averageAssistNumber;
 	}
 
-	public int getAveragePlayingTime() {
+	public double getAveragePlayingTime() {
 		return averagePlayingTime;
 	}
 
-	public void setAveragePlayingTime(int averagePlayingTime) {
+	public void setAveragePlayingTime(double averagePlayingTime) {
 		this.averagePlayingTime = averagePlayingTime;
 	}
 
-	public int getAverageStealNumber() {
+	public double getAverageStealNumber() {
 		return averageStealNumber;
 	}
 
-	public void setAverageStealNumber(int averageStealNumber) {
+	public void setAverageStealNumber(double averageStealNumber) {
 		this.averageStealNumber = averageStealNumber;
 	}
 
-	public int getAverageBlockNumber() {
+	public double getAverageBlockNumber() {
 		return averageBlockNumber;
 	}
 
-	public void setAverageBlockNumber(int averageBlockNumber) {
+	public void setAverageBlockNumber(double averageBlockNumber) {
 		this.averageBlockNumber = averageBlockNumber;
 	}
 
-	public int getAverageTurnoverNumber() {
+	public double getAverageTurnoverNumber() {
 		return averageTurnoverNumber;
 	}
 
-	public void setAverageTurnoverNumber(int averageTurnoverNumber) {
+	public void setAverageTurnoverNumber(double averageTurnoverNumber) {
 		this.averageTurnoverNumber = averageTurnoverNumber;
 	}
 
-	public int getAverageFoulNumber() {
+	public double getAverageFoulNumber() {
 		return averageFoulNumber;
 	}
 
-	public void setAverageFoulNumber(int averageFoulNumber) {
+	public void setAverageFoulNumber(double averageFoulNumber) {
 		this.averageFoulNumber = averageFoulNumber;
 	}
 
-	public int getAverageScoreNumber() {
+	public double getAverageScoreNumber() {
 		return averageScoreNumber;
 	}
 
-	public void setAverageScoreNumber(int averageScoreNumber) {
+	public void setAverageScoreNumber(double averageScoreNumber) {
 		this.averageScoreNumber = averageScoreNumber;
 	}
 
-	public int getAverageOffensiveReboundNumber() {
+	public double getAverageOffensiveReboundNumber() {
 		return averageOffensiveReboundNumber;
 	}
 
-	public void setAverageOffensiveReboundNumber(int averageOffensiveReboundNumber) {
+	public void setAverageOffensiveReboundNumber(double averageOffensiveReboundNumber) {
 		this.averageOffensiveReboundNumber = averageOffensiveReboundNumber;
 	}
 
-	public int getAverageDefensiveReboundNumber() {
+	public double getAverageDefensiveReboundNumber() {
 		return averageDefensiveReboundNumber;
 	}
 
-	public void setAverageDefensiveReboundNumber(int averageDefensiveReboundNumber) {
+	public void setAverageDefensiveReboundNumber(double averageDefensiveReboundNumber) {
 		this.averageDefensiveReboundNumber = averageDefensiveReboundNumber;
+	}
+
+	public int getDoubleDouble() {
+		return doubleDouble;
+	}
+
+	public void setDoubleDouble(int doubleDouble) {
+		this.doubleDouble = doubleDouble;
+	}
+
+	public int getTripleDouble() {
+		return tripleDouble;
+	}
+
+	public void setTripleDouble(int tripleDouble) {
+		this.tripleDouble = tripleDouble;
+	}
+
+	public int getScoreReboundAssistRate() {
+		return scoreReboundAssistRate;
+	}
+
+	public void setScoreReboundAssistRate(int scoreReboundAssistRate) {
+		this.scoreReboundAssistRate = scoreReboundAssistRate;
+	}
+
+	public String[] toStringArray() {
+		return new String[] { nameOfTeam,// 所属球队
+				String.valueOf(numberOfMatch),// 比赛场数
+				String.valueOf(numberOfFirst),// 先发场数
+				String.valueOf(averagePlayingTime),// 场均上场时间
+				String.valueOf(playingTime),// 总上场时间
+				String.valueOf(commonEfficiency),// 效率
+				String.valueOf(GmScEfficiency),// GmSc效率
+				String.valueOf(averageScoreNumber),// 场均得分数
+				String.valueOf(scoreNumber),// 总得分数
+				String.valueOf(averageTotalReboundNumber),// 场均篮板
+				String.valueOf(totalReboundNumber),// 总篮板
+				String.valueOf(averageAssistNumber),// 场均助攻
+				String.valueOf(assistNumber),// 总助攻
+				String.valueOf(averageStealNumber),// 场均抢断数
+				String.valueOf(stealNumber),// 总抢断数
+				String.valueOf(averageBlockNumber),// 场均盖帽数
+				String.valueOf(blockNumber),// 总盖帽数
+				String.valueOf(doubleDouble),// 两双个数
+				String.valueOf(tripleDouble),// 三双个数
+				String.valueOf(averageOffensiveReboundNumber),// 场均进攻篮板数
+				String.valueOf(offensiveReboundNumber),// 进攻篮板数
+				String.valueOf(averageDefensiveReboundNumber),// 场均防守篮板数
+				String.valueOf(defensiveReboundNumber),// 防守篮板数
+				String.valueOf(averageTurnoverNumber),// 场均失误数
+				String.valueOf(turnoverNumber),// 总失误数
+				String.valueOf(averageFoulNumber),// 场均犯规数
+				String.valueOf(foulNumber),// 总犯规数
+				String.valueOf(totalHitRate),// 投篮命中率
+				String.valueOf(threePointHitRate),// 三分命中率
+				String.valueOf(freePointHitRate),// 罚球命中率
+				String.valueOf(useRate),// 使用率
+				String.valueOf(realHitRate),// 真实命中率
+				String.valueOf(shootEfficiency),// 投篮效率
+				String.valueOf(assistRate),// 助攻率
+				String.valueOf(reboundEfficiency),// 篮板效率
+				String.valueOf(stealRate),// 抢断率
+				String.valueOf(blockRate),// 盖帽率
+				String.valueOf(offensiveReboundRate),// 进攻篮板率
+				String.valueOf(defensiveReboundRate),// 防守篮板率
+				String.valueOf(turnoverRate),// 失误率
+		};
+	}
+
+	public double getAveragescoreReboundAssistRate() {
+		return averagescoreReboundAssistRate;
+	}
+
+	public void setAveragescoreReboundAssistRate(double averagescoreReboundAssistRate) {
+		this.averagescoreReboundAssistRate = averagescoreReboundAssistRate;
 	}
 }
