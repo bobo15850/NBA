@@ -204,12 +204,11 @@ public class PlayerPerformanceOfOneMatchPo {
 	}
 
 	public String toDBString() {
-		String resultString = "(`playerName`, `date`,`season`, `teamNameForShort`, "
-				+ "`isFirst`, `playingTime`, `totalHitNumber`, "
+		String resultString = "(`playerName`, `date`,`season`, `teamNameForShort`, " + "`isFirst`, `playingTime`, `totalHitNumber`, "
 				+ "`totalShootNumber`, `threePointHitNumber`, `threePointShootNumber`,"
 				+ " `freePointHitNumber`, `freePointShootNumber`, `offensiveReboundNumber`, "
-				+ "`defensiveReboundNumber`, `totalReboundNumber`, `assistNumber`, "
-				+ "`stealNumber`, `blockNumber`, `turnoverNumber`," + " `foulNumber`, `scoreNumber`) " + " VALUES ('"
+				+ "`defensiveReboundNumber`, `totalReboundNumber`, `assistNumber`, " + "`stealNumber`, `blockNumber`, `turnoverNumber`,"
+				+ " `foulNumber`, `scoreNumber`) " + " VALUES ('"
 				+ this.getNameOfPlayer()
 				+ "','"
 				+ this.getDate().getFormatString()
@@ -246,8 +245,11 @@ public class PlayerPerformanceOfOneMatchPo {
 				+ "','"
 				+ this.getBlockNumber()
 				+ "','"
-				+ this.getTurnoverNumber() + "','" + this.getFoulNumber() + "','" + this.getScoreNumber() + "')";
+				+ this.getTurnoverNumber()
+				+ "','"
+				+ this.getFoulNumber()
+				+ "','"
+				+ this.getScoreNumber() + "')";
 		return resultString;
 	}
-
 }

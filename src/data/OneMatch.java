@@ -40,6 +40,7 @@ public class OneMatch {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
 			String temp;
 			String mainInfo = matchReader.readLine();
+			matchReader.readLine();
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分,时间
 			String firstTeam = matchReader.readLine().trim();
 			this.firstTeam = firstTeam;// 初始化第一个队名
@@ -114,8 +115,8 @@ public class OneMatch {
 		resultPo.setAssistNumber(this.toInt(part[12]));
 		resultPo.setStealNumber(this.toInt(part[13]));
 		resultPo.setBlockNumber(this.toInt(part[14]));
-		resultPo.setFoulNumber(this.toInt(part[15]));
-		resultPo.setTurnoverNumber(this.toInt(part[16]));
+		resultPo.setTurnoverNumber(this.toInt(part[15]));
+		resultPo.setFoulNumber(this.toInt(part[16]));
 		resultPo.setScoreNumber(this.toInt(part[17]));
 		return resultPo;
 	}// 第一队首发
@@ -156,7 +157,7 @@ public class OneMatch {
 		System.out.println(this.nameOfFile);
 		if (this.isDataCorrect) {
 			PlayerPerformanceOfOneMatchPo playerPo;
-			for (int i = 0; i < 1; i++) {
+			for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
 				playerPo = listOfFirstTeamPlayerPerformance.get(i);
 				this.writeDetailInfoOfPlayerPerform(playerPo);
 			}
@@ -169,7 +170,6 @@ public class OneMatch {
 	}// 初始化比赛信息数据库
 
 	private void writeDetailInfoOfTeamPerform() {
-		System.out.println("writeDetailInfoOfTeamPerform");
 		if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.EXIST)) {
 			dbOfTeam.add(firstTeam, firstTeamPerformance.toDBString());
 		} else if (dbOfTeam.isTableExist(firstTeam).equals(ResultMessage.NOT_EXIST)) {
@@ -185,7 +185,6 @@ public class OneMatch {
 	}// 写入一个球队一场比赛的数据到数据库
 
 	private void writeDetailInfoOfPlayerPerform(PlayerPerformanceOfOneMatchPo playerPo) {
-		System.out.println("writeDetailInfoOfPlayerPerform");
 		String nameOfPlayer = playerPo.getNameOfPlayer();
 		if (dbOfPlayer.isTableExist(nameOfPlayer).equals(ResultMessage.EXIST)) {
 			dbOfPlayer.add(nameOfPlayer, playerPo.toDBString());
