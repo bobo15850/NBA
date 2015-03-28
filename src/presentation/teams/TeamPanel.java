@@ -89,8 +89,8 @@ public class TeamPanel extends MyPanel {
 		}
 
 		private void createObjects() {
-			seasonChoose = new MyButton(Images.CHOOSE, buttonWidth, buttonHeight);
-			teamSearch = new MyButton(Images.SEARCH, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
+			seasonChoose = new MyButton(Images.SEASON_CHOOSE_BUTTON, buttonWidth, buttonHeight);
+			teamSearch = new MyButton(Images.SEARCH_BUTTON, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
 			teamNameInput = new MyTextField();
 			teamNameInputLabel = new MyLabel(Images.NAME_INPUT);
 			//
@@ -118,12 +118,12 @@ public class TeamPanel extends MyPanel {
 
 		private void setTableStyle() {
 			performanceTable.setAllTableColumnWidth(160);
+			rangeAndNameTable.setTableColumnWidth(1, 150);
 			performanceTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(false);
 				}
 			});
-			rangeAndNameTable.getColumnModel().getColumn(1).setPreferredWidth((int) (120 * NUMBER.px));
 			rangeAndNameTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(true);
@@ -258,7 +258,7 @@ public class TeamPanel extends MyPanel {
 		public void updateInfo(String teamNameForShort) {
 			String notClear = "不清楚";
 			GeneralInfoOfTeamVo generalInfoOfTeamVo = teamInfoBl.getGeneralInfoOfOneTeam(teamNameForShort);
-			logoLabel.setMyIcon(new ImageIcon(PathOfFile.TEAM_IMAGE + teamNameForShort + ".png"));
+			logoLabel.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + teamNameForShort + ".png"));
 			if (generalInfoOfTeamVo.equals(ResultMessage.NOTEXIST_GENERAL_TEAM_VO)) {
 				nameShowLabel.setTextAndStyle(notClear);
 				nameForShortShowLabel.setTextAndStyle(notClear);

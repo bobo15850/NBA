@@ -25,13 +25,13 @@ public class MyTable extends JTable {
 		header.setForeground(MyColor.MY_WHITE);// 设置表头字体颜色
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(false);
-		header.setFont(MyFont.TABLE_HEADER_CHARACTER);
+		header.setFont(MyFont.LARGE_BOLD);
 
 		//
 		this.setRowHeight((int) (38 * NUMBER.px));// 设置行高
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// 设置只允许一次选择一行
 		this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 横向滚动
-		this.setFont(MyFont.TABLE_BODY_CHARACTER);// 设置内容字体
+		this.setFont(MyFont.SMALL_PLAIN);// 设置内容字体
 		//
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;

@@ -120,7 +120,7 @@ public class MainFrame extends JFrame {
 		}
 
 		private void setComponentsStyle() {
-			currentPanelLabel.setFont(MyFont.PANEL_LABEL);
+			currentPanelLabel.setFont(MyFont.LARGEST_BOLD);
 			currentPanelLabel.setForeground(MyColor.MY_WHITE);
 		}
 

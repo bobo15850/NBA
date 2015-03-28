@@ -4,10 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JTable;
 
 import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.players.PlayerInfoBl;
@@ -16,36 +13,43 @@ import common.enums.Conference;
 import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
 import common.enums.PlayerPosition;
+import common.mycomponent.MyButton;
+import common.mycomponent.MyDialog;
+import common.mycomponent.MyLabel;
+import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
+import common.statics.MyColor;
+import common.statics.MyFont;
 import common.statics.NUMBER;
+import common.statics.images.Images;
 
-public class SelectPlayerDialog extends JDialog implements MouseListener {
+public class SelectPlayerDialog extends MyDialog implements MouseListener {
 	private static final long serialVersionUID = 1L;
+	private final int buttonWidth = (int) (NUMBER.px * 100);
+	private final int buttonHeight = (int) (NUMBER.px * 40);
+	private final int width = (int) (NUMBER.px * 200);
+	private final int height = (int) (NUMBER.px * 40);
 	private JComboBox<PlayerPosition> playerPosition;
 	private JComboBox<Conference> playerConference;
 	private JComboBox<Division> playerDivision;
 	private JComboBox<PerformanceOfPlayer> playerSort;
-	private JButton sure, cancle;
+	private MyLabel playerPositionLabel, playerConferenceLabel, playerDivisionLabel, playerSortLabel, tipLabel;
+	private MyButton sureButton, cancleButton;
 	private PlayerInfoBlService playerBl;
-	private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList;
-	private ArrayList<OnePlayerPerformOfOneSeasonVo> selectPlayerList;
-	private MyTableModel selectTableModel;
-	private MyTableModel selectNameAndNumTableModel;
-	private JTable selectTable;
-	private JTable selectNameTable;
+	private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList, selectPlayerList;
+	private MyTableModel selectTableModel, selectNameAndNumTableModel;
+	private MyTable selectTable, selectNameTable;
 	private Season season;
 
-	public SelectPlayerDialog(Season season, ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList,
-			MyTableModel allTableModel, MyTableModel nameAndNumTableModel, JTable allTable, JTable nameTable) {
+	public SelectPlayerDialog(Season season, ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList, MyTableModel allTableModel, MyTableModel nameAndNumTableModel, MyTable allTable, MyTable nameTable) {
 		this.selectTableModel = allTableModel;
 		this.selectTable = allTable;
 		this.selectNameTable = nameTable;
 		this.selectNameAndNumTableModel = nameAndNumTableModel;
 		this.allPlayerList = allPlayerList;
 		this.season = season;
-		this.setLayout(null);
 		this.createObjects();
 		this.setComponentsLocation();
 		this.setComponentsStyle();
@@ -54,57 +58,76 @@ public class SelectPlayerDialog extends JDialog implements MouseListener {
 	}
 
 	private void createObjects() {
-		PlayerPosition playerPositionStr[] = { null, PlayerPosition.C, PlayerPosition.C_F, PlayerPosition.C_G,
-				PlayerPosition.F, PlayerPosition.F_C, PlayerPosition.F_G, PlayerPosition.G, PlayerPosition.G_C,
-				PlayerPosition.G_F };
+		PlayerPosition playerPositionStr[] = { null, PlayerPosition.C, PlayerPosition.C_F, PlayerPosition.C_G, PlayerPosition.F, PlayerPosition.F_C, PlayerPosition.F_G, PlayerPosition.G, PlayerPosition.G_C, PlayerPosition.G_F };
 		Conference playerConferenceStr[] = { null, Conference.EASTERN, Conference.WESTERN };
-		Division playerDivisionStr[] = { null, Division.Atlantic, Division.Central, Division.Northwest,
-				Division.Pacific, Division.Southeast, Division.Southwest };
+		Division playerDivisionStr[] = { null, Division.Atlantic, Division.Central, Division.Northwest, Division.Pacific, Division.Southeast, Division.Southwest };
 		PerformanceOfPlayer playerSortStr[] = PerformanceOfPlayer.values();
 		playerBl = new PlayerInfoBl();
 		playerPosition = new JComboBox<PlayerPosition>(playerPositionStr);
 		playerDivision = new JComboBox<Division>(playerDivisionStr);
 		playerConference = new JComboBox<Conference>(playerConferenceStr);
 		playerSort = new JComboBox<PerformanceOfPlayer>(playerSortStr);
-		sure = new JButton("确认");
-		cancle = new JButton("取消");
+		playerPositionLabel = new MyLabel("球员位置");
+		playerConferenceLabel = new MyLabel("球员联盟");
+		playerDivisionLabel = new MyLabel("球员分区");
+		playerSortLabel = new MyLabel("筛选依据");
+		tipLabel = new MyLabel();
+		sureButton = new MyButton(Images.SURE_BUTTON, buttonWidth, buttonHeight);
+		cancleButton = new MyButton(Images.CANCLE_BUTTON, buttonWidth, buttonHeight);
 	}
 
 	private void setComponentsLocation() {
-		playerPosition.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 50), (int) (NUMBER.px * 200),
-				(int) (NUMBER.px * 40));
-		playerConference.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 150), (int) (NUMBER.px * 200),
-				(int) (NUMBER.px * 40));
-		playerDivision.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 250), (int) (NUMBER.px * 200),
-				(int) (NUMBER.px * 40));
-		playerSort.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 350), (int) (NUMBER.px * 200),
-				(int) (NUMBER.px * 40));
-		sure.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 450), (int) (NUMBER.px * 200),
-				(int) (NUMBER.px * 40));
+		playerPosition.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 130), width, height);
+		playerConference.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 230), width, height);
+		playerDivision.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 330), width, height);
+		playerSort.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 430), width, height);
+		sureButton.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
+		cancleButton.setBounds((int) (NUMBER.px * 350), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
+		playerPositionLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 130), width, height);
+		playerConferenceLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 230), width, height);
+		playerDivisionLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 330), width, height);
+		playerSortLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 430), width, height);
+		tipLabel.setBounds(0, 0, (int) (NUMBER.px * 600), (int) (NUMBER.px * 100));
 		this.add(playerPosition);
 		this.add(playerSort);
 		this.add(playerDivision);
 		this.add(playerConference);
-		this.add(sure);
-		this.add(cancle);
+		this.add(playerPositionLabel);
+		this.add(playerConferenceLabel);
+		this.add(playerDivisionLabel);
+		this.add(playerSortLabel);
+		this.add(tipLabel);
+		this.add(sureButton);
+		this.add(cancleButton);
 	}
 
 	private void setComponentsStyle() {
-
+		playerPosition.setOpaque(false);
+		playerSort.setOpaque(false);
+		playerDivision.setOpaque(false);
+		playerConference.setOpaque(false);
+		this.setDialogTitleStyle();
+	}
+	private void setDialogTitleStyle(){
+		tipLabel.setOpaque(true);
+		tipLabel.setText("筛选球员");
+		tipLabel.setHorizontalAlignment(MyLabel.CENTER);
+		tipLabel.setBackground(MyColor.MIDDLE_COLOR);
+		tipLabel.setFont(MyFont.LARGE_BOLD);
+		tipLabel.setForeground(MyColor.MY_WHITE);
 	}
 
 	private void addListener() {
-		sure.addMouseListener(this);
-		sure.addMouseListener(this);
+		sureButton.addMouseListener(this);
+		sureButton.addMouseListener(this);
+		cancleButton.addMouseListener(this);
+		cancleButton.addMouseListener(this);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource().equals(sure)) {
-			SelectionCondition condition = new SelectionCondition((PlayerPosition) playerPosition.getSelectedItem(),
-					(Conference) playerConference.getSelectedItem(), (Division) playerDivision.getSelectedItem(),
-					(PerformanceOfPlayer) playerSort.getSelectedItem());
+		if (e.getSource().equals(sureButton)) {
+			SelectionCondition condition = new SelectionCondition((PlayerPosition) playerPosition.getSelectedItem(), (Conference) playerConference.getSelectedItem(), (Division) playerDivision.getSelectedItem(), (PerformanceOfPlayer) playerSort.getSelectedItem());
 			selectPlayerList = playerBl.selsctPlayer(allPlayerList, condition, season);
-			PlayerPanel.currentPlayerVoList=selectPlayerList;
 			selectTableModel.removeAllRows();
 			selectNameAndNumTableModel.removeAllRows();
 			for (int i = 0; i < selectPlayerList.size(); i++) {
@@ -116,7 +139,7 @@ public class SelectPlayerDialog extends JDialog implements MouseListener {
 			selectTable.updateUI();
 			selectNameTable.updateUI();
 			this.dispose();
-		} else if (e.getSource().equals(cancle)) {
+		} else if (e.getSource().equals(cancleButton)) {
 			this.dispose();
 		}
 

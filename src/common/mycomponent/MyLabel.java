@@ -16,12 +16,12 @@ public class MyLabel extends JLabel {
 
 	public MyLabel(String str) {
 		super(str);
-		this.setFont(MyFont.LABEL_CHARACTER);
+		this.setFont(MyFont.MIDDLE_BOLD);
 		this.setForeground(MyColor.DEEP_COLOR);
 	}
 
 	public MyLabel(ImageIcon background) {
-		this.setFont(MyFont.LABEL_CHARACTER);
+		this.setFont(MyFont.MIDDLE_BOLD);
 		this.setForeground(MyColor.MY_RED);
 		this.setIcon(background);
 	}
@@ -36,7 +36,7 @@ public class MyLabel extends JLabel {
 
 	public void setTextAndStyle(String str) {
 		this.setText(str);
-		this.setFont(MyFont.LABEL_SHOW_CHARACTER);
+		this.setFont(MyFont.SMALL_BOLD);
 		this.setForeground(MyColor.DEEP_COLOR);
 	}
 }
