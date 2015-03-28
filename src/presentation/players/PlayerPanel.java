@@ -82,9 +82,9 @@ public class PlayerPanel extends MyPanel {
 		}
 
 		private void createObjects() {
-			playerSelection = new MyButton(Images.PLAYER_SELECTION, buttonWidth, buttonHeight);
-			seasonChoose = new MyButton(Images.CHOOSE, buttonWidth, buttonHeight);
-			playerSearch = new MyButton(Images.SEARCH, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
+			playerSelection = new MyButton(Images.PLAYER_SELECTION_BUTTON, buttonWidth, buttonHeight);
+			seasonChoose = new MyButton(Images.SEASON_CHOOSE_BUTTON, buttonWidth, buttonHeight);
+			playerSearch = new MyButton(Images.SEARCH_BUTTON, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
 			playerNameInput = new MyTextField();
 			playerNameInputLabel = new MyLabel(Images.NAME_INPUT);
 			//
@@ -113,12 +113,12 @@ public class PlayerPanel extends MyPanel {
 
 		private void setTableStyle() {
 			performanceTable.setAllTableColumnWidth(160);
+			rangeAndNameTable.setTableColumnWidth(1, 150);
 			performanceTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(false);
 				}
 			});
-			rangeAndNameTable.getColumnModel().getColumn(1).setPreferredWidth((int) (120 * NUMBER.px));
 			rangeAndNameTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(true);
