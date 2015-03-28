@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import vo.OneTeamPerformOfOneSeasonVo;
 
 public class SortOfTeam {
-	public static void sortAscending(ArrayList<OneTeamPerformOfOneSeasonVo> voList, TeamPerformance perform, int left,
-			int right) {
+	public static void sortAscending(ArrayList<OneTeamPerformOfOneSeasonVo> voList, TeamPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OneTeamPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -24,10 +23,9 @@ public class SortOfTeam {
 			sortAscending(voList, perform, left, i - 1);
 			sortAscending(voList, perform, i + 1, right);
 		}
-	}
+	}// 升序排序算法//快排
 
-	public static void sortDescending(ArrayList<OneTeamPerformOfOneSeasonVo> voList, TeamPerformance perform, int left,
-			int right) {
+	public static void sortDescending(ArrayList<OneTeamPerformOfOneSeasonVo> voList, TeamPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OneTeamPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -45,7 +43,7 @@ public class SortOfTeam {
 			sortDescending(voList, perform, left, i - 1);
 			sortDescending(voList, perform, i + 1, right);
 		}
-	}
+	}// 降序排序算法//快排
 
 	public interface TeamPerformance {
 		public double getPerformance(OneTeamPerformOfOneSeasonVo team);

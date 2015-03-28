@@ -246,13 +246,15 @@ public class TeamPanel extends MyPanel {
 	public class TeamGeneralInfoPanel extends DetailPanel {
 
 		private static final long serialVersionUID = 1L;
-		private MyLabel logoLabel, nameLabel, nameForShortLabel, placeLabel, zoneLabel, partitionZoneLabel, homeCourtLabel, setUpTimeLabel,
-				nameShowLabel, nameForShortShowLabel, placeShowLabel, zoneShowLabel, partitionZoneShowLabel, homeCourtShowLabel, setUpTimeShowLabel;
+		private MyLabel logoLabel, nameLabel, nameForShortLabel, locationLabel, conferenceLabel, divisionLabel, homeFieldLabel, establishTimeLabel,
+				nameShowLabel, nameForShortShowLabel, locationShowLabel, conferenceShowLabel, divisionShowLabel, homeFieldShowLabel,
+				establishTimeShowLabel;
 
 		public TeamGeneralInfoPanel() {
 			super();
 			this.createObjects();
 			this.setComponentsLocation();
+			logoLabel.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + "SAS.png"));
 		}
 
 		public void updateInfo(String teamNameForShort) {
@@ -262,19 +264,19 @@ public class TeamPanel extends MyPanel {
 			if (generalInfoOfTeamVo.equals(ResultMessage.NOTEXIST_GENERAL_TEAM_VO)) {
 				nameShowLabel.setTextAndStyle(notClear);
 				nameForShortShowLabel.setTextAndStyle(notClear);
-				placeShowLabel.setTextAndStyle(notClear);
-				zoneShowLabel.setTextAndStyle(notClear);
-				partitionZoneShowLabel.setTextAndStyle(notClear);
-				homeCourtShowLabel.setTextAndStyle(notClear);
-				setUpTimeShowLabel.setTextAndStyle(notClear);
+				locationShowLabel.setTextAndStyle(notClear);
+				conferenceShowLabel.setTextAndStyle(notClear);
+				divisionShowLabel.setTextAndStyle(notClear);
+				homeFieldShowLabel.setTextAndStyle(notClear);
+				establishTimeShowLabel.setTextAndStyle(notClear);
 			} else {
 				nameShowLabel.setTextAndStyle(generalInfoOfTeamVo.getTeamName());
 				nameForShortShowLabel.setTextAndStyle(generalInfoOfTeamVo.getTeamNameForShort());
-				placeShowLabel.setTextAndStyle(generalInfoOfTeamVo.getLocation());
-				zoneShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getConference()));
-				partitionZoneShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getDivision()));
-				homeCourtShowLabel.setTextAndStyle(generalInfoOfTeamVo.getHomeField());
-				setUpTimeShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getEstablishYear()));
+				locationShowLabel.setTextAndStyle(generalInfoOfTeamVo.getLocation());
+				conferenceShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getConference()));
+				divisionShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getDivision()));
+				homeFieldShowLabel.setTextAndStyle(generalInfoOfTeamVo.getHomeField());
+				establishTimeShowLabel.setTextAndStyle(String.valueOf(generalInfoOfTeamVo.getEstablishYear()));
 			}
 		}
 
@@ -282,68 +284,67 @@ public class TeamPanel extends MyPanel {
 			logoLabel = new MyLabel();
 			nameLabel = new MyLabel("球队全名：");
 			nameForShortLabel = new MyLabel("缩写：");
-			placeLabel = new MyLabel("所在地：");
-			zoneLabel = new MyLabel("赛区：");
-			partitionZoneLabel = new MyLabel("分区：");
-			homeCourtLabel = new MyLabel("主场：");
-			setUpTimeLabel = new MyLabel("建立时间：");
-			nameShowLabel = new MyLabel();
-			nameForShortShowLabel = new MyLabel();
-			placeShowLabel = new MyLabel();
-			zoneShowLabel = new MyLabel();
-			partitionZoneShowLabel = new MyLabel();
-			homeCourtShowLabel = new MyLabel();
-			setUpTimeShowLabel = new MyLabel();
+			locationLabel = new MyLabel("所在地：");
+			conferenceLabel = new MyLabel("赛区：");
+			divisionLabel = new MyLabel("分区：");
+			homeFieldLabel = new MyLabel("主场：");
+			establishTimeLabel = new MyLabel("建立时间：");
+			nameShowLabel = new MyLabel("Spurs");
+			nameForShortShowLabel = new MyLabel("SAS");
+			locationShowLabel = new MyLabel("San Antonio");
+			conferenceShowLabel = new MyLabel("WESTERN");
+			divisionShowLabel = new MyLabel("Southwest");
+			homeFieldShowLabel = new MyLabel("AT&T Center");
+			establishTimeShowLabel = new MyLabel("1976");
 		}
 
 		private void setComponentsLocation() {
 			logoLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2, (int) (NUMBER.px * 36), (int) (NUMBER.px * 220),
 					(int) (NUMBER.px * 220));
-			//
 			nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 270), labelWidth,
 					labelHeight);
 			nameForShortLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 320),
 					labelWidth, labelHeight);
-			placeLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 370), labelWidth,
+			locationLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 370), labelWidth,
 					labelHeight);
-			zoneLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 420), labelWidth,
-					labelHeight);
-			partitionZoneLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 470),
+			conferenceLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 420),
 					labelWidth, labelHeight);
-			homeCourtLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 520), labelWidth,
+			divisionLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 470), labelWidth,
 					labelHeight);
-			setUpTimeLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 570), labelWidth,
+			homeFieldLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 520), labelWidth,
 					labelHeight);
+			establishTimeLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 570),
+					labelWidth, labelHeight);
 			//
 			nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 160) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 270), labelWidth,
 					labelHeight);
 			nameForShortShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 320),
 					labelWidth, labelHeight);
-			placeShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 180) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 370), labelWidth,
-					labelHeight);
-			zoneShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 420), labelWidth,
-					labelHeight);
-			partitionZoneShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 470),
+			locationShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 180) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 370),
 					labelWidth, labelHeight);
-			homeCourtShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 520),
+			conferenceShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 420),
 					labelWidth, labelHeight);
-			setUpTimeShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 160) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 570),
+			divisionShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 470),
+					labelWidth, labelHeight);
+			homeFieldShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 520),
+					labelWidth, labelHeight);
+			establishTimeShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 160) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 570),
 					labelWidth, labelHeight);
 			this.add(logoLabel);
 			this.add(nameLabel);
 			this.add(nameForShortLabel);
-			this.add(placeLabel);
-			this.add(zoneLabel);
-			this.add(partitionZoneLabel);
-			this.add(homeCourtLabel);
-			this.add(setUpTimeLabel);
+			this.add(locationLabel);
+			this.add(conferenceLabel);
+			this.add(divisionLabel);
+			this.add(homeFieldLabel);
+			this.add(establishTimeLabel);
 			this.add(nameShowLabel);
 			this.add(nameForShortShowLabel);
-			this.add(placeShowLabel);
-			this.add(zoneShowLabel);
-			this.add(partitionZoneShowLabel);
-			this.add(homeCourtShowLabel);
-			this.add(setUpTimeShowLabel);
+			this.add(locationShowLabel);
+			this.add(conferenceShowLabel);
+			this.add(divisionShowLabel);
+			this.add(homeFieldShowLabel);
+			this.add(establishTimeShowLabel);
 		}
 	}
 }

@@ -10,7 +10,6 @@ import vo.GeneralInfoOfTeamVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.teams.CalculationOfTeamPerform;
 import businesslogicservice.players.PlayerInfoBlService;
-
 import common.enums.Conference;
 import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
@@ -18,7 +17,7 @@ import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
 import common.statics.ResultMessage;
-
+import common.statics.StringToEnum;
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -545,7 +544,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			if (infoOfPlayer.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_VO)) {
 				continue;
 			} else {
-				if (position != null && position != infoOfPlayer.getPosition()) {
+				if (position != null && !StringToEnum.isPlayerPositionEqual(position, infoOfPlayer.getPosition())) {
 					continue;
 				} else {
 					infoOfTeam = new GeneralInfoOfTeamVo(playerInfoData.getGeneralInfoOfOneTeam(tempPlayer.getNameOfPlayer(), season));

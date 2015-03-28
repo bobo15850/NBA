@@ -33,7 +33,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer, Season season) {
 		ArrayList<PlayerPerformanceOfOneMatchPo> poList = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
 		String sql = "where season = '" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(nameOfPlayer, sql);
+		ResultSet rs = this.playerDB.findAllColumn(nameOfPlayer, sql);
 		try {
 			if (!rs.next()) {
 				return poList;
@@ -80,7 +80,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public GeneralInfoOfPlayerPo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo generalInfoOfPlayer = new GeneralInfoOfPlayerPo();
 		String sql = " where " + "`playerName` = '" + nameOfPlayer + "'";
-		ResultSet resultSet = this.generalInfoDB.find("generalinfoofplayer", sql);
+		ResultSet resultSet = this.generalInfoDB.findAllColumn("generalinfoofplayer", sql);
 		try {
 			if (!resultSet.next()) {
 				return ResultMessage.NOTEXIST_GENERAL_PLAYER_PO;
@@ -116,7 +116,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
 		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(playerName, sql);
+		ResultSet rs = this.playerDB.findAllColumn(playerName, sql);
 		try {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");
@@ -130,7 +130,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public GeneralInfoOfTeamPo getGeneralInfoOfOneTeam(String playerName, Season season) {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(playerName, sql);
+		ResultSet rs = this.playerDB.findAllColumn(playerName, sql);
 		try {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");

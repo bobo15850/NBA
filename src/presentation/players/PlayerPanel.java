@@ -60,12 +60,12 @@ public class PlayerPanel extends MyPanel {
 		private final int inter = (int) (NUMBER.px * 30);
 		private final int inputWidth = (int) (NUMBER.px * 200);
 		private Season season = new Season("2013-2014");
-		private MyButton playerSelection, seasonChoose, playerSearch;// 按钮
+		private MyButton playerSelection, seasonChoose, showAll;// 按钮
 		private MyTextField playerNameInput;// 搜索输入框
 		private MyLabel playerNameInputLabel;// 搜索提示标签
 		private String performance[] = { "所属球队", "参赛场数", "先发场数", "场均在场时间", "总在场时间", "效率值", "Gmsc效率值", "场均得分", "总得分", "场均篮板", "总篮板", "场均助攻", "总助攻",
 				"场均抢断", "总抢断", "场均盖帽", "总盖帽", "两双次数", "三双次数", "场均进攻篮板", "总进攻篮板", "场均防守篮板", "总防守篮板", "场均失误", "总失误", "场均犯规", "总犯规", "投篮命中率", "三分命中率",
-				"罚球命中率", "使用率", "真实命中率", "投篮效率", "助攻率", "篮板率", "盖帽率", "抢断率", "进攻篮板率", "防守篮板率", "失误率" };
+				"罚球命中率", "使用率", "真实命中率", "投篮效率", "助攻率", "篮板率", "抢断率", "盖帽率", "进攻篮板率", "防守篮板率", "失误率" };
 		private String rangeAndName[] = { "排名", "姓名" };
 		private MyScrollPanel scrollPane;
 		private MyTable performanceTable, rangeAndNameTable;// 表格
@@ -84,7 +84,7 @@ public class PlayerPanel extends MyPanel {
 		private void createObjects() {
 			playerSelection = new MyButton(Images.PLAYER_SELECTION_BUTTON, buttonWidth, buttonHeight);
 			seasonChoose = new MyButton(Images.SEASON_CHOOSE_BUTTON, buttonWidth, buttonHeight);
-			playerSearch = new MyButton(Images.SEARCH_BUTTON, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
+			showAll = new MyButton(Images.SHOW_ALL_BUTTON, buttonWidth, buttonHeight);
 			playerNameInput = new MyTextField();
 			playerNameInputLabel = new MyLabel(Images.NAME_INPUT);
 			//
@@ -100,13 +100,13 @@ public class PlayerPanel extends MyPanel {
 		private void setComponentsLocation() {
 			seasonChoose.setLocation((int) (NUMBER.px * 30), (int) (NUMBER.px * 36));
 			playerSelection.setLocation((int) (NUMBER.px * 30 + inter + buttonWidth), (int) (NUMBER.px * 36));
-			playerSearch.setLocation((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4 + NUMBER.px * 170), (int) (NUMBER.px * 36));
+			showAll.setLocation((int) (NUMBER.px * 30 + inter * 2 + buttonWidth * 2), (int) (NUMBER.px * 36));
 			playerNameInputLabel.setBounds((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4), (int) (NUMBER.px * 42), inputWidth * 3 / 2,
 					buttonHeight * 4 / 5);
 			playerNameInput.setBounds(10, 0, inputWidth * 3 / 2, buttonHeight * 4 / 5);
 			this.add(seasonChoose);
 			this.add(playerSelection);
-			this.add(playerSearch);
+			this.add(showAll);
 			this.playerNameInputLabel.add(playerNameInput);
 			this.add(playerNameInputLabel);
 		}
@@ -140,15 +140,6 @@ public class PlayerPanel extends MyPanel {
 			this.add(scrollPane);
 		}
 
-		private void initTable() {
-			for (int i = 0; i < allPlayerPerformVoList.size(); i++) {
-				String performRow[] = allPlayerPerformVoList.get(i).toStringArray();
-				String infoRow[] = { String.valueOf(i + 1), allPlayerPerformVoList.get(i).getNameOfPlayer() };
-				performanceModel.addRow(performRow);
-				rangeAndNameModel.addRow(infoRow);
-			}
-		}
-
 		private void checkSelection(boolean isFixedTable) {
 			int fixedSelectedIndex = rangeAndNameTable.getSelectedRow();
 			int selectedIndex = performanceTable.getSelectedRow();
@@ -161,12 +152,32 @@ public class PlayerPanel extends MyPanel {
 			}
 		}
 
+		private void initTable() {
+			this.fillTable(allPlayerPerformVoList);
+		}
+
+		private void fillTable(ArrayList<OnePlayerPerformOfOneSeasonVo> voList) {
+			for (int i = 0; i < voList.size(); i++) {
+				String performRow[] = voList.get(i).toStringArray();
+				String infoRow[] = { String.valueOf(i + 1), voList.get(i).getNameOfPlayer() };
+				performanceModel.addRow(performRow);
+				rangeAndNameModel.addRow(infoRow);
+			}
+			performanceTable.updateUI();
+			rangeAndNameTable.updateUI();
+		}
+
+		private void clearTable() {
+			performanceModel.removeAllRows();
+			rangeAndNameModel.removeAllRows();
+		}
+
 		private void addListener() {
 			performanceTable.addMouseListener(this);
 			rangeAndNameTable.addMouseListener(this);
 			playerSelection.addMouseListener(this);
 			seasonChoose.addMouseListener(this);
-			playerSearch.addMouseListener(this);
+			showAll.addMouseListener(this);
 			performanceTable.getTableHeader().addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent event) {
 					if (event.getSource() == performanceTable.getTableHeader()) {
@@ -191,16 +202,8 @@ public class PlayerPanel extends MyPanel {
 			} else {
 				playerInfoBl.descendingSort(currentPlayerVoList, StringToEnum.toPerformanceOfPlayer(table.getColumnName(column)));
 			}
-			performanceModel.removeAllRows();
-			rangeAndNameModel.removeAllRows();
-			for (int j = 0; j < currentPlayerVoList.size(); j++) {
-				String row1[] = currentPlayerVoList.get(j).toStringArray();
-				String row2[] = { String.valueOf(j + 1), currentPlayerVoList.get(j).getNameOfPlayer() };
-				performanceModel.addRow(row1);
-				rangeAndNameModel.addRow(row2);
-			}
-			performanceTable.updateUI();
-			rangeAndNameTable.updateUI();
+			this.clearTable();
+			this.fillTable(currentPlayerVoList);
 			ascend = !ascend;
 		}
 
@@ -220,29 +223,48 @@ public class PlayerPanel extends MyPanel {
 			} else if (e.getSource().equals(playerSelection)) {
 				SelectPlayerDialog selectPlayerDialog = new SelectPlayerDialog(season, allPlayerPerformVoList, performanceModel, rangeAndNameModel,
 						performanceTable, rangeAndNameTable);
-				selectPlayerDialog.setBounds((int) (NUMBER.px * 450), (int) (NUMBER.px * 200), (int) (NUMBER.px * 600), (int) (NUMBER.px * 600));
+				selectPlayerDialog.setBounds((NUMBER.SCREEN_WIDTH - (int) (NUMBER.px * 500)) / 2,
+						(NUMBER.SCREEN_HEIGHT - (int) (NUMBER.px * 600)) / 2, (int) (NUMBER.px * 500), (int) (NUMBER.px * 600));
 				selectPlayerDialog.setModal(false);
+			} else if (e.getSource().equals(showAll)) {
+				PlayerPanel.currentPlayerVoList = this.allPlayerPerformVoList;
+				this.clearTable();
+				this.fillTable(allPlayerPerformVoList);
 			} else if (e.getSource().equals(seasonChoose)) {
-
-			} else if (e.getSource().equals(playerSearch)) {
 
 			}
 		}
 
 		public void mouseEntered(MouseEvent e) {
-
+			if (e.getSource().equals(playerSelection)) {
+				playerSelection.setMyIcon(Images.PLAYER_SELECTION_ENTER_BUTTON);
+			} else if (e.getSource().equals(showAll)) {
+				showAll.setMyIcon(Images.SHOW_ALL_ENTER_BUTTON);
+			}
 		}
 
 		public void mouseExited(MouseEvent e) {
-
+			if (e.getSource().equals(playerSelection)) {
+				playerSelection.setMyIcon(Images.PLAYER_SELECTION_BUTTON);
+			} else if (e.getSource().equals(showAll)) {
+				showAll.setMyIcon(Images.SHOW_ALL_BUTTON);
+			}
 		}
 
 		public void mousePressed(MouseEvent e) {
-
+			if (e.getSource().equals(playerSelection)) {
+				playerSelection.setMyIcon(Images.PLAYER_SELECTION_CLICK_BUTTON);
+			} else if (e.getSource().equals(showAll)) {
+				showAll.setMyIcon(Images.SHOW_ALL_CLICK_BUTTON);
+			}
 		}
 
 		public void mouseReleased(MouseEvent e) {
-
+			if (e.getSource().equals(playerSelection)) {
+				playerSelection.setMyIcon(Images.PLAYER_SELECTION_BUTTON);
+			} else if (e.getSource().equals(showAll)) {
+				showAll.setMyIcon(Images.SHOW_ALL_BUTTON);
+			}
 		}
 	}
 
@@ -262,8 +284,8 @@ public class PlayerPanel extends MyPanel {
 			GeneralInfoOfPlayerVo generalInfoOfPlayerVo = playerInfoBl.getGeneralInfoOfOnePlayer(playerName);
 			this.nameShowLabel.setTextAndStyle(playerName);
 			this.portraitLabel.setIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + playerName + ".png"));
+			String notClear = "不清楚";
 			if (generalInfoOfPlayerVo.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_VO)) {
-				String notClear = "不清楚";
 				this.numShowLabel.setTextAndStyle(notClear);
 				this.positionShowLabel.setTextAndStyle(notClear);
 				this.ageShowLabel.setTextAndStyle(notClear);
@@ -281,13 +303,18 @@ public class PlayerPanel extends MyPanel {
 				this.weightShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getWeight().getPoundOfWeight()));
 				this.birthShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getBirthday().getFormatString());
 				this.schoolShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getShool());
-				this.expShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getTrainingYear()));
+				if (generalInfoOfPlayerVo.getTrainingYear() == -1) {
+					this.expShowLabel.setTextAndStyle(notClear);
+				} else {
+					this.expShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getTrainingYear()));
+				}
+
 				this.repaint();
 			}
 		}
 
 		private void createObjects() {
-			portraitLabel = new MyLabel();
+			portraitLabel = new MyLabel(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + "kobe bryant.png"));
 			nameLabel = new MyLabel("姓名：");
 			numLabel = new MyLabel("号码：");
 			positionLabel = new MyLabel("位置：");
@@ -297,15 +324,15 @@ public class PlayerPanel extends MyPanel {
 			birthLabel = new MyLabel("生日：");
 			schoolLabel = new MyLabel("学校：");
 			expLabel = new MyLabel("球龄：");
-			nameShowLabel = new MyLabel();
-			numShowLabel = new MyLabel();
-			positionShowLabel = new MyLabel();
-			ageShowLabel = new MyLabel();
-			heightShowLabel = new MyLabel();
-			weightShowLabel = new MyLabel();
-			birthShowLabel = new MyLabel();
-			schoolShowLabel = new MyLabel();
-			expShowLabel = new MyLabel();
+			nameShowLabel = new MyLabel("kobe bryant");
+			numShowLabel = new MyLabel("24");
+			positionShowLabel = new MyLabel("G");
+			ageShowLabel = new MyLabel("35");
+			heightShowLabel = new MyLabel("6-6");
+			weightShowLabel = new MyLabel("205");
+			birthShowLabel = new MyLabel("1978-8-23");
+			schoolShowLabel = new MyLabel("Lower Merion HS PA");
+			expShowLabel = new MyLabel("17");
 		}
 
 		private void setComponentsLocation() {

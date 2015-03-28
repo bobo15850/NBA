@@ -14,6 +14,6 @@ public class MyTextField extends JTextField {
 		this.setOpaque(false);
 		this.setBorder(new EmptyBorder(0, 0, 0, 0));
 		this.setForeground(MyColor.MY_WHITE);
-		this.setFont(MyFont.SMALL_PLAIN);
+		this.setFont(MyFont.SMALLEST_PLAIN);
 	}
 }

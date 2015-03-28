@@ -24,4 +24,8 @@ public class Images {
 	public static final ImageIcon PLAYER_SELECTION_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "playerSelection.png");
 	public static final ImageIcon PLAYER_SELECTION_CLICK_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "playerSelection_click.png");
 	public static final ImageIcon PLAYER_SELECTION_ENTER_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "playerSelection_enter.png");
+	//
+	public static final ImageIcon SHOW_ALL_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "showAll.png");
+	public static final ImageIcon SHOW_ALL_CLICK_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "showAll_click.png");
+	public static final ImageIcon SHOW_ALL_ENTER_BUTTON = new ImageIcon(PathOfFile.PLAYER_IMAGE + "showAll_enter.png");
 }

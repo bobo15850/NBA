@@ -1,14 +1,18 @@
 package presentation.players;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
+
 import common.enums.Conference;
 import common.enums.Division;
 import common.enums.PerformanceOfPlayer;
@@ -38,12 +42,13 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 	private MyLabel playerPositionLabel, playerConferenceLabel, playerDivisionLabel, playerSortLabel, tipLabel;
 	private MyButton sureButton, cancleButton;
 	private PlayerInfoBlService playerBl;
-	private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList, selectPlayerList;
+	private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList;
 	private MyTableModel selectTableModel, selectNameAndNumTableModel;
 	private MyTable selectTable, selectNameTable;
 	private Season season;
 
-	public SelectPlayerDialog(Season season, ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList, MyTableModel allTableModel, MyTableModel nameAndNumTableModel, MyTable allTable, MyTable nameTable) {
+	public SelectPlayerDialog(Season season, ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerList, MyTableModel allTableModel,
+			MyTableModel nameAndNumTableModel, MyTable allTable, MyTable nameTable) {
 		this.selectTableModel = allTableModel;
 		this.selectTable = allTable;
 		this.selectNameTable = nameTable;
@@ -58,9 +63,10 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 	}
 
 	private void createObjects() {
-		PlayerPosition playerPositionStr[] = { null, PlayerPosition.C, PlayerPosition.C_F, PlayerPosition.C_G, PlayerPosition.F, PlayerPosition.F_C, PlayerPosition.F_G, PlayerPosition.G, PlayerPosition.G_C, PlayerPosition.G_F };
+		PlayerPosition playerPositionStr[] = { null, PlayerPosition.C, PlayerPosition.F, PlayerPosition.G };
 		Conference playerConferenceStr[] = { null, Conference.EASTERN, Conference.WESTERN };
-		Division playerDivisionStr[] = { null, Division.Atlantic, Division.Central, Division.Northwest, Division.Pacific, Division.Southeast, Division.Southwest };
+		Division playerDivisionStr[] = { null, Division.Atlantic, Division.Central, Division.Northwest, Division.Pacific, Division.Southeast,
+				Division.Southwest };
 		PerformanceOfPlayer playerSortStr[] = PerformanceOfPlayer.values();
 		playerBl = new PlayerInfoBl();
 		playerPosition = new JComboBox<PlayerPosition>(playerPositionStr);
@@ -77,17 +83,17 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 	}
 
 	private void setComponentsLocation() {
-		playerPosition.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 130), width, height);
-		playerConference.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 230), width, height);
-		playerDivision.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 330), width, height);
-		playerSort.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 430), width, height);
-		sureButton.setBounds((int) (NUMBER.px * 150), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
-		cancleButton.setBounds((int) (NUMBER.px * 350), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
-		playerPositionLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 130), width, height);
-		playerConferenceLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 230), width, height);
-		playerDivisionLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 330), width, height);
-		playerSortLabel.setBounds((int) (NUMBER.px * 130), (int) (NUMBER.px * 430), width, height);
-		tipLabel.setBounds(0, 0, (int) (NUMBER.px * 600), (int) (NUMBER.px * 100));
+		playerPosition.setBounds((int) (NUMBER.px * 250), (int) (NUMBER.px * 130), width, height);
+		playerConference.setBounds((int) (NUMBER.px * 250), (int) (NUMBER.px * 230), width, height);
+		playerDivision.setBounds((int) (NUMBER.px * 250), (int) (NUMBER.px * 330), width, height);
+		playerSort.setBounds((int) (NUMBER.px * 250), (int) (NUMBER.px * 430), width, height);
+		sureButton.setBounds((int) (NUMBER.px * 100), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
+		cancleButton.setBounds((int) (NUMBER.px * 300), (int) (NUMBER.px * 530), buttonWidth, buttonHeight);
+		playerPositionLabel.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 130), width, height);
+		playerConferenceLabel.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 230), width, height);
+		playerDivisionLabel.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 330), width, height);
+		playerSortLabel.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 430), width, height);
+		tipLabel.setBounds(0, 0, (int) (NUMBER.px * 500), (int) (NUMBER.px * 80));
 		this.add(playerPosition);
 		this.add(playerSort);
 		this.add(playerDivision);
@@ -108,7 +114,8 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 		playerConference.setOpaque(false);
 		this.setDialogTitleStyle();
 	}
-	private void setDialogTitleStyle(){
+
+	private void setDialogTitleStyle() {
 		tipLabel.setOpaque(true);
 		tipLabel.setText("筛选球员");
 		tipLabel.setHorizontalAlignment(MyLabel.CENTER);
@@ -122,19 +129,43 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 		sureButton.addMouseListener(this);
 		cancleButton.addMouseListener(this);
 		cancleButton.addMouseListener(this);
+		playerConference.addItemListener(new ItemListener() {
+
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getSource().equals(playerConference)) {
+					Division allStr[] = { null, Division.Atlantic, Division.Central, Division.Northwest, Division.Pacific, Division.Southeast,
+							Division.Southwest };
+					Division eastStr[] = { null, Division.Atlantic, Division.Central, Division.Southeast };
+					Division westStr[] = { null, Division.Northwest, Division.Pacific, Division.Southwest };
+					DefaultComboBoxModel<Division> west = new DefaultComboBoxModel<Division>(westStr);
+					DefaultComboBoxModel<Division> east = new DefaultComboBoxModel<Division>(eastStr);
+					DefaultComboBoxModel<Division> all = new DefaultComboBoxModel<Division>(allStr);
+					if (playerConference.getSelectedItem() == Conference.EASTERN) {
+						playerDivision.setModel(east);
+					} else if (playerConference.getSelectedItem() == Conference.WESTERN) {
+						playerDivision.setModel(west);
+					} else {
+						playerDivision.setModel(all);
+					}
+				}
+
+			}
+		});
 	}
 
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource().equals(sureButton)) {
-			SelectionCondition condition = new SelectionCondition((PlayerPosition) playerPosition.getSelectedItem(), (Conference) playerConference.getSelectedItem(), (Division) playerDivision.getSelectedItem(), (PerformanceOfPlayer) playerSort.getSelectedItem());
-			selectPlayerList = playerBl.selsctPlayer(allPlayerList, condition, season);
+			SelectionCondition condition = new SelectionCondition((PlayerPosition) playerPosition.getSelectedItem(),
+					(Conference) playerConference.getSelectedItem(), (Division) playerDivision.getSelectedItem(),
+					(PerformanceOfPlayer) playerSort.getSelectedItem());
+			PlayerPanel.currentPlayerVoList = playerBl.selsctPlayer(allPlayerList, condition, season);
 			selectTableModel.removeAllRows();
 			selectNameAndNumTableModel.removeAllRows();
-			for (int i = 0; i < selectPlayerList.size(); i++) {
-				String row1[] = selectPlayerList.get(i).toStringArray();
-				String row2[] = { String.valueOf(i + 1), selectPlayerList.get(i).getNameOfPlayer() };
-				selectTableModel.addRow(row1);
-				selectNameAndNumTableModel.addRow(row2);
+			for (int i = 0; i < PlayerPanel.currentPlayerVoList.size(); i++) {
+				String performanceArray[] = PlayerPanel.currentPlayerVoList.get(i).toStringArray();
+				String nameInfo[] = { String.valueOf(i + 1), PlayerPanel.currentPlayerVoList.get(i).getNameOfPlayer() };
+				selectTableModel.addRow(performanceArray);
+				selectNameAndNumTableModel.addRow(nameInfo);
 			}
 			selectTable.updateUI();
 			selectNameTable.updateUI();
@@ -146,18 +177,34 @@ public class SelectPlayerDialog extends MyDialog implements MouseListener {
 	}
 
 	public void mouseEntered(MouseEvent e) {
-
+		if (e.getSource().equals(sureButton)) {
+			sureButton.setMyIcon(Images.SURE_ENTER_BUTTON);
+		} else if (e.getSource().equals(cancleButton)) {
+			cancleButton.setMyIcon(Images.CANCLE_ENTER_BUTTON);
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {
-
+		if (e.getSource().equals(sureButton)) {
+			sureButton.setMyIcon(Images.SURE_BUTTON);
+		} else if (e.getSource().equals(cancleButton)) {
+			cancleButton.setMyIcon(Images.CANCLE_BUTTON);
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {
-
+		if (e.getSource().equals(sureButton)) {
+			sureButton.setMyIcon(Images.SURE_CLICK_BUTTON);
+		} else if (e.getSource().equals(cancleButton)) {
+			cancleButton.setMyIcon(Images.CANCLE_CLICK_BUTTON);
+		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
-
+		if (e.getSource().equals(sureButton)) {
+			sureButton.setMyIcon(Images.SURE_BUTTON);
+		} else if (e.getSource().equals(cancleButton)) {
+			cancleButton.setMyIcon(Images.CANCLE_BUTTON);
+		}
 	}
 }

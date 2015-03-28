@@ -32,13 +32,13 @@ public class MyButton extends JButton {
 		this.setBorderPainted(false);
 		this.setContentAreaFilled(false);
 		this.setForeground(MyColor.MY_WHITE);
-		this.setFont(MyFont.BIG_BOLD);
+		this.setFont(MyFont.SMALL_BOLD);
 	}
 
 	public void setMyIcon(ImageIcon icon) {
 		ImageIcon Icon = icon;
-		Image p = Icon.getImage();
-		Image temp = p.getScaledInstance(width, height, Image.SCALE_REPLICATE);
+		Image image = Icon.getImage();
+		Image temp = image.getScaledInstance(width, height, Image.SCALE_REPLICATE);
 		Icon.setImage(temp);
 		this.setIcon(Icon);
 	}

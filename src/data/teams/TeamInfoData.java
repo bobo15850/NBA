@@ -21,7 +21,7 @@ public class TeamInfoData implements TeamInfoDataService {
 	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String teamNameForShort, Season season) {
 		ArrayList<TeamPerformanceOfOneMatchPo[]> listOfArrayPo = new ArrayList<TeamPerformanceOfOneMatchPo[]>(128);
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.teamPerformDB.find(teamNameForShort, sql);
+		ResultSet rs = this.teamPerformDB.findAllColumn(teamNameForShort, sql);
 		try {
 			if (!rs.next()) {
 				return null;
@@ -40,7 +40,7 @@ public class TeamInfoData implements TeamInfoDataService {
 					String date = listOfArrayPo.get(i)[0].getDate().getFormatString();
 					String seasonString = listOfArrayPo.get(i)[0].getSeason().getFormatStyleOfSeason();
 					String sqlOfSecondTeam = "where season='" + seasonString + "' and date='" + date + "'";
-					ResultSet rsOfSecondTeam = this.teamPerformDB.find(opponentTeam, sqlOfSecondTeam);
+					ResultSet rsOfSecondTeam = this.teamPerformDB.findAllColumn(opponentTeam, sqlOfSecondTeam);
 					rsOfSecondTeam.first();
 					listOfArrayPo.get(i)[1] = this.createTeamPerformPo(rsOfSecondTeam);
 				}
@@ -80,7 +80,7 @@ public class TeamInfoData implements TeamInfoDataService {
 	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(String teamNameForShort) {
 		GeneralInfoOfTeamPo generalInfoOfTeam = new GeneralInfoOfTeamPo();
 		String sql = "where teamNameForShort = '" + teamNameForShort + "'";
-		ResultSet rs = this.generalInfoDB.find("generalinfoofteam", sql);
+		ResultSet rs = this.generalInfoDB.findAllColumn("generalinfoofteam", sql);
 		try {
 			if (!rs.next()) {
 				return ResultMessage.NOTEXIST_GENERAL_TEAM_PO;

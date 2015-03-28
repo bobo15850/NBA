@@ -54,7 +54,7 @@ public class OperationOfGeneralInfoDB {
 
 	public ResultMessage createTable(String table, String standard) {
 		try {
-			this.statement.executeUpdate("CREATE TABLE `generalinfo`.`" + table + "` " + standard);
+			this.statement.executeUpdate("CREATE TABLE `" + table + "` " + standard);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -79,7 +79,7 @@ public class OperationOfGeneralInfoDB {
 
 	public ResultMessage add(String table, String sql) {
 		try {
-			this.statement.executeUpdate("INSERT INTO `generalinfo`.`" + table + "` " + sql);
+			this.statement.executeUpdate("INSERT INTO `" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			System.out.println(sql);
@@ -90,7 +90,7 @@ public class OperationOfGeneralInfoDB {
 
 	public ResultMessage updata(String table, String sql) {
 		try {
-			this.statement.executeUpdate("UPDATE `generalinfo`.`" + table + "` " + sql);
+			this.statement.executeUpdate("UPDATE `" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,7 +100,7 @@ public class OperationOfGeneralInfoDB {
 
 	public ResultMessage delete(String table, String sql) {
 		try {
-			this.statement.executeUpdate("DELETE FROM `generalinfo`.`" + table + "` " + sql);
+			this.statement.executeUpdate("DELETE FROM `" + table + "` " + sql);
 			return ResultMessage.SUCCEED;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,9 +108,20 @@ public class OperationOfGeneralInfoDB {
 		}
 	}// 删除记录
 
-	public ResultSet find(String table, String sql) {
+	public ResultSet findAllColumn(String table, String sql) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `generalinfo`.`" + table + "` " + sql);
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `" + table + "` " + sql);
+			return result;// 得到符合条件的集合
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "数据库连接失败!请重新启动服务器", "错误", JOptionPane.ERROR_MESSAGE);
+			return null;// 数据库连接错误
+		}// 根据表格名称和语句查找
+	}
+
+	public ResultSet find(String sql) {
+		try {
+			ResultSet result = this.statement.executeQuery(sql);
 			return result;// 得到符合条件的集合
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,7 +132,7 @@ public class OperationOfGeneralInfoDB {
 
 	public ResultSet find_all(String table) {
 		try {
-			ResultSet result = this.statement.executeQuery("SELECT * FROM `generalinfo`.`" + table + "` ");
+			ResultSet result = this.statement.executeQuery("SELECT * FROM `" + table + "` ");
 			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();

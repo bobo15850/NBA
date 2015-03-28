@@ -29,8 +29,8 @@ public class MainFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setBackground(MyColor.LIGHT_COLOR);
-		this.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2,
-				(NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT);
+		this.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
+				NUMBER.FRAME_HEIGHT);
 		navigationPanel = new NavigationPanel();
 		navigationPanel.setBounds(0, 0, NUMBER.NAVIGATION_PANEL_WIDTH, NUMBER.NAVIGATION_PANEL_HEIGHT);
 		this.add(navigationPanel);
@@ -93,7 +93,6 @@ public class MainFrame extends JFrame {
 
 		public void addCurrentInfo(String string) {
 			currentPanelLabel.setText(string);
-			
 		}
 
 		private void createObjects() {
@@ -105,14 +104,10 @@ public class MainFrame extends JFrame {
 
 		private void setComponentsLocation() {
 			currentPanelLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2,
-					(NUMBER.NAVIGATION_PANEL_HEIGHT - (int) (NUMBER.px * 100)) / 2, (int) (NUMBER.px * 200),
-					(int) (NUMBER.px * 100));
-			teamPanelButton.setBounds((int) (NUMBER.px * 340), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160),
-					(int) (NUMBER.px * 40));
-			playerPanelButton.setBounds((int) (NUMBER.px * 520), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160),
-					(int) (NUMBER.px * 40));
-			quitSystem.setBounds((int) (NUMBER.px * 700), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160),
-					(int) (NUMBER.px * 40));
+					(NUMBER.NAVIGATION_PANEL_HEIGHT - (int) (NUMBER.px * 100)) / 2, (int) (NUMBER.px * 200), (int) (NUMBER.px * 100));
+			teamPanelButton.setBounds((int) (NUMBER.px * 340), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160), (int) (NUMBER.px * 40));
+			playerPanelButton.setBounds((int) (NUMBER.px * 520), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160), (int) (NUMBER.px * 40));
+			quitSystem.setBounds((int) (NUMBER.px * 700), (int) (NUMBER.px * 29), (int) (NUMBER.px * 160), (int) (NUMBER.px * 40));
 			this.add(currentPanelLabel);
 			this.add(teamPanelButton);
 			this.add(playerPanelButton);
@@ -141,6 +136,7 @@ public class MainFrame extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if (e.getSource().equals(quitSystem)) {
 				frame.dispose();
+				System.exit(0);
 			} else if (e.getSource().equals(playerPanelButton)) {
 				contentPanel.showPlayerPanel();
 			} else if (e.getSource().equals(teamPanelButton)) {
