@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setBackground(MyColor.DEEP_COLOR);
+		this.setBackground(MyColor.LIGHT_COLOR);
 		this.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2,
 				(NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT);
 		navigationPanel = new NavigationPanel();

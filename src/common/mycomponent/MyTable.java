@@ -21,12 +21,12 @@ public class MyTable extends JTable {
 	public MyTable(MyTableModel model) {
 		super(model);
 		JTableHeader header = this.getTableHeader();
-		header.setBackground(MyColor.LIGHT_COLOR);// 设置表头颜色
-		header.setForeground(MyColor.MY_BLACK);// 设置表头字体颜色
+		header.setBackground(MyColor.DEEP_COLOR);// 设置表头颜色
+		header.setForeground(MyColor.MY_WHITE);// 设置表头字体颜色
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(false);
 		header.setFont(MyFont.TABLE_HEADER_CHARACTER);
-		 
+
 		//
 		this.setRowHeight((int) (38 * NUMBER.px));// 设置行高
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// 设置只允许一次选择一行
@@ -36,13 +36,12 @@ public class MyTable extends JTable {
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
 
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int column) {
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 				setHorizontalAlignment(JLabel.CENTER);// 居中显示
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 				setForeground(MyColor.MY_WHITE);
 				if (row % 2 == 0) {
-					setBackground(MyColor.LIGHT_COLOR);// 偶数行
+					setBackground(MyColor.DEEP_COLOR);// 偶数行
 				} else {
 					setBackground(MyColor.MIDDLE_COLOR);// 奇数行
 				}
@@ -55,5 +54,15 @@ public class MyTable extends JTable {
 			}
 		};
 		this.setDefaultRenderer(Object.class, render);
+	}
+
+	public void setTableColumnWidth(int number, int width) {
+		this.getColumnModel().getColumn(number).setPreferredWidth((int) (width * NUMBER.px));
+	}
+
+	public void setAllTableColumnWidth(int width) {
+		for (int i = 0; i < this.getColumnCount(); i++) {
+			this.setTableColumnWidth(i, width);
+		}
 	}
 }

@@ -208,9 +208,8 @@ public class TeamPerformanceOfOneMatchPo {
 		String resultString = "(`teamNameForShort`, `date`, `season`, `opponentTeamName`, `playingTime`,"
 				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
 				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
-				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
-				+ " `assistNumber`, `stealNumber`, `blockNumber`," + " `turnoverNumber`, `foulNumber`, `scoreNumber`)"
-				+ " VALUES ('"
+				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`," + " `assistNumber`, `stealNumber`, `blockNumber`,"
+				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + " VALUES ('"
 				+ this.getTeamNameForShort()
 				+ "','"
 				+ this.getDate().getFormatString()

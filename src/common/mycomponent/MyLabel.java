@@ -17,7 +17,7 @@ public class MyLabel extends JLabel {
 	public MyLabel(String str) {
 		super(str);
 		this.setFont(MyFont.LABEL_CHARACTER);
-		this.setForeground(MyColor.LIGHT_COLOR);
+		this.setForeground(MyColor.DEEP_COLOR);
 	}
 
 	public MyLabel(ImageIcon background) {
@@ -25,13 +25,18 @@ public class MyLabel extends JLabel {
 		this.setForeground(MyColor.MY_RED);
 		this.setIcon(background);
 	}
-	public void setMyIcon(ImageIcon icon)
-	   {
-		ImageIcon Icon=icon;
-	    Image p=Icon.getImage();
-		Image temp = p.getScaledInstance(this.getWidth(),  
-				this.getHeight(),Image.SCALE_REPLICATE);  
-	    Icon.setImage(temp);
-	    this.setIcon(Icon);
-	   }
+
+	public void setMyIcon(ImageIcon icon) {
+		ImageIcon Icon = icon;
+		Image p = Icon.getImage();
+		Image temp = p.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_REPLICATE);
+		Icon.setImage(temp);
+		this.setIcon(Icon);
+	}
+
+	public void setTextAndStyle(String str) {
+		this.setText(str);
+		this.setFont(MyFont.LABEL_SHOW_CHARACTER);
+		this.setForeground(MyColor.DEEP_COLOR);
+	}
 }

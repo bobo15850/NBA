@@ -97,11 +97,10 @@ public class GeneralInfoOfPlayerPo {
 
 	public String toDBString() {
 		String resultString = "(`playerName`, `playerNumber`, `position`," + " `height`, `weight`, `birthday`,"
-				+ " `age`, `trainingYear`, `school`) " + " VALUES ('" + this.getName() + "','" + this.getNumber()
-				+ "','" + this.getPosition().toString() + "','" + this.getHeight().getFeetAndInchAsStringOfHeight()
-				+ "','" + String.valueOf(this.getWeight().getPoundOfWeight()) + "','"
-				+ this.getBirthday().getFormatString() + "','" + this.getAge() + "','" + this.getTrainingYear() + "','"
-				+ this.getShool() + "')";
+				+ " `age`, `trainingYear`, `school`) " + " VALUES ('" + this.getName() + "','" + this.getNumber() + "','"
+				+ this.getPosition().toString() + "','" + this.getHeight().getFeetAndInchAsStringOfHeight() + "','"
+				+ String.valueOf(this.getWeight().getPoundOfWeight()) + "','" + this.getBirthday().getFormatString() + "','" + this.getAge() + "','"
+				+ this.getTrainingYear() + "','" + this.getShool() + "')";
 		return resultString;
 	}
 }

@@ -30,13 +30,15 @@ import common.statics.PathOfFile;
 import common.statics.ResultMessage;
 import common.statics.images.Images;
 import common.statics.StringToEnum;
+
 public class PlayerPanel extends MyPanel {
 
 	private static final long serialVersionUID = 1L;
 	private PlayerInfoBlService playerInfoBl;
 	private PlayerPerformShowPanel performShowPanel;
 	private PlayerGeneralInfoPanel generalInfoPanel;
-	public static ArrayList<OnePlayerPerformOfOneSeasonVo> currentPlayerVoList=null;
+	public static ArrayList<OnePlayerPerformOfOneSeasonVo> currentPlayerVoList;
+
 	public PlayerPanel() {
 		playerInfoBl = new PlayerInfoBl();
 		performShowPanel = new PlayerPerformShowPanel();
@@ -58,19 +60,18 @@ public class PlayerPanel extends MyPanel {
 		private final int inter = (int) (NUMBER.px * 30);
 		private final int inputWidth = (int) (NUMBER.px * 200);
 		private Season season = new Season("2013-2014");
-		private MyButton playerSelection, playerSort, seasonChoose, playerSearch;// 按钮
+		private MyButton playerSelection, seasonChoose, playerSearch;// 按钮
 		private MyTextField playerNameInput;// 搜索输入框
 		private MyLabel playerNameInputLabel;// 搜索提示标签
-		private String performance[] = { "所属球队", "参赛场数", "先发场数", "场均在场时间", "总在场时间", "效率值", "Gmsc效率值", "场均得分", "总得分",
-				"场均篮板", "总篮板", "场均助攻", "总助攻", "场均抢断", "总抢断", "场均盖帽", "总盖帽", "两双次数", "三双次数", "场均进攻篮板", "总进攻篮板",
-				"场均防守篮板", "总防守篮板", "场均失误", "总失误", "场均犯规", "总犯规", "投篮命中率", "三分命中率", "罚球命中率", "使用率", "真实命中率", "投篮效率",
-				"助攻率", "篮板率", "盖帽率", "抢断率", "进攻篮板率", "防守篮板率", "失误率" };
+		private String performance[] = { "所属球队", "参赛场数", "先发场数", "场均在场时间", "总在场时间", "效率值", "Gmsc效率值", "场均得分", "总得分", "场均篮板", "总篮板", "场均助攻", "总助攻",
+				"场均抢断", "总抢断", "场均盖帽", "总盖帽", "两双次数", "三双次数", "场均进攻篮板", "总进攻篮板", "场均防守篮板", "总防守篮板", "场均失误", "总失误", "场均犯规", "总犯规", "投篮命中率", "三分命中率",
+				"罚球命中率", "使用率", "真实命中率", "投篮效率", "助攻率", "篮板率", "盖帽率", "抢断率", "进攻篮板率", "防守篮板率", "失误率" };
 		private String rangeAndName[] = { "排名", "姓名" };
 		private MyScrollPanel scrollPane;
 		private MyTable performanceTable, rangeAndNameTable;// 表格
 		private MyTableModel performanceModel, rangeAndNameModel;// 表格的内容
 		private ArrayList<OnePlayerPerformOfOneSeasonVo> allPlayerPerformVoList;
-		private boolean ascend=false;//设置当前默认为升序
+		private boolean ascend = false;// 设置当前默认为升序
 
 		public PlayerPerformShowPanel() {
 			this.createObjects();
@@ -81,8 +82,7 @@ public class PlayerPanel extends MyPanel {
 		}
 
 		private void createObjects() {
-			playerSelection = new MyButton(Images.PLAYER_SCREENING, buttonWidth, buttonHeight);
-			playerSort = new MyButton(Images.SORT_PLAYER, buttonWidth, buttonHeight);
+			playerSelection = new MyButton(Images.PLAYER_SELECTION, buttonWidth, buttonHeight);
 			seasonChoose = new MyButton(Images.CHOOSE, buttonWidth, buttonHeight);
 			playerSearch = new MyButton(Images.SEARCH, (int) (NUMBER.px * 22), (int) (NUMBER.px * 22));
 			playerNameInput = new MyTextField();
@@ -94,27 +94,25 @@ public class PlayerPanel extends MyPanel {
 			rangeAndNameTable = new MyTable(rangeAndNameModel);
 			//
 			allPlayerPerformVoList = playerInfoBl.getOneSeasonPerformOfAllPlayer(season);
-			currentPlayerVoList=allPlayerPerformVoList;
+			currentPlayerVoList = allPlayerPerformVoList;
 		}
 
 		private void setComponentsLocation() {
 			seasonChoose.setLocation((int) (NUMBER.px * 30), (int) (NUMBER.px * 36));
-			playerSort.setLocation((int) (NUMBER.px * 30 + inter * 2 + buttonWidth * 2), (int) (NUMBER.px * 36));
-			playerSelection.setLocation((int) (NUMBER.px * 30 + inter * 3 + buttonWidth * 3), (int) (NUMBER.px * 36));
-			playerSearch.setLocation((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4 + NUMBER.px * 170),
-					(int) (NUMBER.px * 36));
-			playerNameInputLabel.setBounds((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4),
-					(int) (NUMBER.px * 36), inputWidth, buttonHeight);
-			playerNameInput.setBounds(10, 0, (int) (NUMBER.px * 150), buttonHeight);
+			playerSelection.setLocation((int) (NUMBER.px * 30 + inter + buttonWidth), (int) (NUMBER.px * 36));
+			playerSearch.setLocation((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4 + NUMBER.px * 170), (int) (NUMBER.px * 36));
+			playerNameInputLabel.setBounds((int) (NUMBER.px * 30 + inter * 4 + buttonWidth * 4), (int) (NUMBER.px * 42), inputWidth * 3 / 2,
+					buttonHeight * 4 / 5);
+			playerNameInput.setBounds(10, 0, inputWidth * 3 / 2, buttonHeight * 4 / 5);
 			this.add(seasonChoose);
 			this.add(playerSelection);
 			this.add(playerSearch);
-			this.add(playerSort);
 			this.playerNameInputLabel.add(playerNameInput);
 			this.add(playerNameInputLabel);
 		}
 
 		private void setTableStyle() {
+			performanceTable.setAllTableColumnWidth(160);
 			performanceTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					checkSelection(false);
@@ -133,8 +131,7 @@ public class PlayerPanel extends MyPanel {
 			viewport.setPreferredSize(rangeAndNameTable.getPreferredSize());
 			//
 			scrollPane = new MyScrollPanel(performanceTable);
-			scrollPane.setBounds((int) (NUMBER.px * 30), (int) (NUMBER.px * 101), (int) (NUMBER.px * 950),
-					(int) (NUMBER.px * 570));
+			scrollPane.setBounds((int) (NUMBER.px * 30), (int) (NUMBER.px * 101), (int) (NUMBER.px * 950), (int) (NUMBER.px * 570));
 			scrollPane.setRowHeaderView(viewport);
 			scrollPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rangeAndNameTable.getTableHeader());
 			scrollPane.getViewport().setOpaque(false);
@@ -170,60 +167,64 @@ public class PlayerPanel extends MyPanel {
 			playerSelection.addMouseListener(this);
 			seasonChoose.addMouseListener(this);
 			playerSearch.addMouseListener(this);
-			playerSort.addMouseListener(this);
-			performanceTable.getTableHeader().addMouseListener(new MouseAdapter() {  
-	            public void mouseClicked(MouseEvent event) {
-	                if (event.getSource() == performanceTable.getTableHeader()) {  
-	                    int i = performanceTable.columnAtPoint(event.getPoint()); 
-	                    ArrayList<OnePlayerPerformOfOneSeasonVo> SortTableVoList=currentPlayerVoList;
-	                    if(ascend){
-	                    playerInfoBl.ascendingSort(SortTableVoList,StringToEnum.toPerformanceOfPlayer(performanceTable.getColumnName(i)));
-	                    }
-	                    else{
-	                    playerInfoBl.descendingSort(SortTableVoList,StringToEnum.toPerformanceOfPlayer(performanceTable.getColumnName(i)));
-	                    }
-	                    performanceModel.removeAllRows();
-	                	rangeAndNameModel.removeAllRows();
-	                    for(int j=0;j<SortTableVoList.size();j++){
-	                    	String row1[] = SortTableVoList.get(j).toStringArray();
-	            			String row2[] = {String.valueOf(j + 1),SortTableVoList.get(j).getNameOfPlayer()}; 
-	            			performanceModel.addRow(row1);
-	            			rangeAndNameModel.addRow(row2);
-	                    }
-	                    performanceTable.updateUI();
-	                    rangeAndNameTable.updateUI();
-	                    ascend=!ascend;
-	                }  
-	            	}
-	        });  
+			performanceTable.getTableHeader().addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent event) {
+					if (event.getSource() == performanceTable.getTableHeader()) {
+						int column = performanceTable.columnAtPoint(event.getPoint());
+						sort(performanceTable, column);
+					}
+				}
+			});
+			rangeAndNameTable.getTableHeader().addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent event) {
+					if (event.getSource() == rangeAndNameTable.getTableHeader()) {
+						int column = rangeAndNameTable.columnAtPoint(event.getPoint());
+						sort(rangeAndNameTable, column);
+					}
+				}
+			});
+		}
+
+		private void sort(MyTable table, int column) {
+			if (ascend) {
+				playerInfoBl.ascendingSort(currentPlayerVoList, StringToEnum.toPerformanceOfPlayer(table.getColumnName(column)));
+			} else {
+				playerInfoBl.descendingSort(currentPlayerVoList, StringToEnum.toPerformanceOfPlayer(table.getColumnName(column)));
+			}
+			performanceModel.removeAllRows();
+			rangeAndNameModel.removeAllRows();
+			for (int j = 0; j < currentPlayerVoList.size(); j++) {
+				String row1[] = currentPlayerVoList.get(j).toStringArray();
+				String row2[] = { String.valueOf(j + 1), currentPlayerVoList.get(j).getNameOfPlayer() };
+				performanceModel.addRow(row1);
+				rangeAndNameModel.addRow(row2);
+			}
+			performanceTable.updateUI();
+			rangeAndNameTable.updateUI();
+			ascend = !ascend;
 		}
 
 		public void mouseClicked(MouseEvent e) {
 			if (e.getSource().equals(performanceTable)) {
-				if (performanceTable.getSelectedRow() >= 0
-						&& performanceTable.getSelectedRow() < performanceTable.getRowCount()) {
+				if (performanceTable.getSelectedRow() >= 0 && performanceTable.getSelectedRow() < performanceTable.getRowCount()) {
 					int row = performanceTable.getSelectedRow();
 					String playerName = (String) rangeAndNameTable.getValueAt(row, 1);
 					generalInfoPanel.updateInfo(playerName);
 				}
 			} else if (e.getSource().equals(rangeAndNameTable)) {
-				if (rangeAndNameTable.getSelectedRow() >= 0
-						&& rangeAndNameTable.getSelectedRow() < rangeAndNameTable.getRowCount()) {
+				if (rangeAndNameTable.getSelectedRow() >= 0 && rangeAndNameTable.getSelectedRow() < rangeAndNameTable.getRowCount()) {
 					int row = rangeAndNameTable.getSelectedRow();
 					String playerName = (String) rangeAndNameTable.getValueAt(row, 1);
 					generalInfoPanel.updateInfo(playerName);
 				}
 			} else if (e.getSource().equals(playerSelection)) {
-				SelectPlayerDialog selectPlayerDialog = new SelectPlayerDialog(season, allPlayerPerformVoList,
-						performanceModel, rangeAndNameModel, performanceTable, rangeAndNameTable);
-				selectPlayerDialog.setBounds((int) (NUMBER.px * 450), (int) (NUMBER.px * 200), (int) (NUMBER.px * 600),
-						(int) (NUMBER.px * 600));
+				SelectPlayerDialog selectPlayerDialog = new SelectPlayerDialog(season, allPlayerPerformVoList, performanceModel, rangeAndNameModel,
+						performanceTable, rangeAndNameTable);
+				selectPlayerDialog.setBounds((int) (NUMBER.px * 450), (int) (NUMBER.px * 200), (int) (NUMBER.px * 600), (int) (NUMBER.px * 600));
 				selectPlayerDialog.setModal(false);
 			} else if (e.getSource().equals(seasonChoose)) {
 
 			} else if (e.getSource().equals(playerSearch)) {
-
-			} else if (e.getSource().equals(playerSort)) {
 
 			}
 		}
@@ -248,9 +249,9 @@ public class PlayerPanel extends MyPanel {
 	class PlayerGeneralInfoPanel extends DetailPanel {
 
 		private static final long serialVersionUID = 1L;
-		private MyLabel portraitLabel, nameLabel, numLabel, positionLabel, ageLabel, heightLabel, weightLabel,
-				birthLabel, schoolLabel, expLabel, nameShowLabel, numShowLabel, positionShowLabel, ageShowLabel,
-				heightShowLabel, weightShowLabel, birthShowLabel, schoolShowLabel, expShowLabel;
+		private MyLabel portraitLabel, nameLabel, numLabel, positionLabel, ageLabel, heightLabel, weightLabel, birthLabel, schoolLabel, expLabel,
+				nameShowLabel, numShowLabel, positionShowLabel, ageShowLabel, heightShowLabel, weightShowLabel, birthShowLabel, schoolShowLabel,
+				expShowLabel;
 
 		public PlayerGeneralInfoPanel() {
 			this.createObjects();
@@ -259,28 +260,28 @@ public class PlayerPanel extends MyPanel {
 
 		public void updateInfo(String playerName) {
 			GeneralInfoOfPlayerVo generalInfoOfPlayerVo = playerInfoBl.getGeneralInfoOfOnePlayer(playerName);
-			this.nameShowLabel.setText(playerName);
+			this.nameShowLabel.setTextAndStyle(playerName);
 			this.portraitLabel.setIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + playerName + ".png"));
 			if (generalInfoOfPlayerVo.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_VO)) {
 				String notClear = "不清楚";
-				this.numShowLabel.setText(notClear);
-				this.positionShowLabel.setText(notClear);
-				this.ageShowLabel.setText(notClear);
-				this.heightShowLabel.setText(notClear);
-				this.weightShowLabel.setText(notClear);
-				this.birthShowLabel.setText(notClear);
-				this.schoolShowLabel.setText(notClear);
-				this.expShowLabel.setText(notClear);
+				this.numShowLabel.setTextAndStyle(notClear);
+				this.positionShowLabel.setTextAndStyle(notClear);
+				this.ageShowLabel.setTextAndStyle(notClear);
+				this.heightShowLabel.setTextAndStyle(notClear);
+				this.weightShowLabel.setTextAndStyle(notClear);
+				this.birthShowLabel.setTextAndStyle(notClear);
+				this.schoolShowLabel.setTextAndStyle(notClear);
+				this.expShowLabel.setTextAndStyle(notClear);
 				this.repaint();
 			} else {
-				this.numShowLabel.setText(generalInfoOfPlayerVo.getNumber());
-				this.positionShowLabel.setText(String.valueOf(generalInfoOfPlayerVo.getPosition()));
-				this.ageShowLabel.setText(String.valueOf(generalInfoOfPlayerVo.getAge()));
-				this.heightShowLabel.setText(generalInfoOfPlayerVo.getHeight().getFeetAndInchAsStringOfHeight());
-				this.weightShowLabel.setText(String.valueOf(generalInfoOfPlayerVo.getWeight().getPoundOfWeight()));
-				this.birthShowLabel.setText(generalInfoOfPlayerVo.getBirthday().getFormatString());
-				this.schoolShowLabel.setText(generalInfoOfPlayerVo.getShool());
-				this.expShowLabel.setText(String.valueOf(generalInfoOfPlayerVo.getTrainingYear()));
+				this.numShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getNumber());
+				this.positionShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getPosition()));
+				this.ageShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getAge()));
+				this.heightShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getHeight().getFeetAndInchAsStringOfHeight());
+				this.weightShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getWeight().getPoundOfWeight()));
+				this.birthShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getBirthday().getFormatString());
+				this.schoolShowLabel.setTextAndStyle(generalInfoOfPlayerVo.getShool());
+				this.expShowLabel.setTextAndStyle(String.valueOf(generalInfoOfPlayerVo.getTrainingYear()));
 				this.repaint();
 			}
 		}
@@ -308,44 +309,44 @@ public class PlayerPanel extends MyPanel {
 		}
 
 		private void setComponentsLocation() {
-			portraitLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2, (int) (NUMBER.px * 76),
-					(int) (NUMBER.px * 220), (int) (NUMBER.px * 220));
-			nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 310), labelWidth, labelHeight);
-			numLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 350), labelWidth, labelHeight);
-			positionLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 390), labelWidth, labelHeight);
-			ageLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 430), labelWidth, labelHeight);
-			heightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 470), labelWidth, labelHeight);
-			weightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 510), labelWidth, labelHeight);
-			birthLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 550), labelWidth, labelHeight);
-			schoolLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 590), labelWidth, labelHeight);
-			expLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20),
-					(int) (NUMBER.px * 630), labelWidth, labelHeight);
-			nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 310), showlabelWidth, labelHeight);
-			numShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 350), showlabelWidth, labelHeight);
-			positionShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 390), showlabelWidth, labelHeight);
-			ageShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 430), showlabelWidth, labelHeight);
-			heightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 470), showlabelWidth, labelHeight);
-			weightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 510), showlabelWidth, labelHeight);
-			birthShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 550), showlabelWidth, labelHeight);
-			schoolShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 590), showlabelWidth, labelHeight);
-			expShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90),
-					(int) (NUMBER.px * 630), showlabelWidth, labelHeight);
+			portraitLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2, (int) (NUMBER.px * 46), (int) (NUMBER.px * 220),
+					(int) (NUMBER.px * 220));
+			nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 280), labelWidth,
+					labelHeight);
+			numLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 320), labelWidth,
+					labelHeight);
+			positionLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 360), labelWidth,
+					labelHeight);
+			ageLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 400), labelWidth,
+					labelHeight);
+			heightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 440), labelWidth,
+					labelHeight);
+			weightLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 480), labelWidth,
+					labelHeight);
+			birthLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 520), labelWidth,
+					labelHeight);
+			schoolLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 560), labelWidth,
+					labelHeight);
+			expLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 600), labelWidth,
+					labelHeight);
+			nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 280),
+					showlabelWidth, labelHeight);
+			numShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 320),
+					showlabelWidth, labelHeight);
+			positionShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 360),
+					showlabelWidth, labelHeight);
+			ageShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 400),
+					showlabelWidth, labelHeight);
+			heightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 440),
+					showlabelWidth, labelHeight);
+			weightShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 480),
+					showlabelWidth, labelHeight);
+			birthShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 520),
+					showlabelWidth, labelHeight);
+			schoolShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 560),
+					showlabelWidth, labelHeight);
+			expShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 600),
+					showlabelWidth, labelHeight);
 			this.add(portraitLabel);
 			this.add(nameLabel);
 			this.add(numLabel);
@@ -367,5 +368,4 @@ public class PlayerPanel extends MyPanel {
 			this.add(schoolShowLabel);
 		}
 	}
-
 }
