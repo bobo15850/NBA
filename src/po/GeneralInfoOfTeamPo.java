@@ -7,8 +7,8 @@ import common.enums.Division;
  * 该类定义球队的自然信息
  */
 public class GeneralInfoOfTeamPo {
-	private String teamName;// 球队名称
 	private String teamNameForShort;// 队名缩写
+	private String teamName;// 球队名称
 	private String location;// 球队所在地
 	private Conference conference;// 赛区
 	private Division division;// 分区
@@ -72,8 +72,8 @@ public class GeneralInfoOfTeamPo {
 	}// 得到建立时间
 
 	public String toDBString() {
-		String resultString = "(`teamName`, `teamNameForShort`, `location`," + " `conference`, `division`, `homeField`," + " `establishYear`) "
-				+ " VALUES ('" + this.getTeamName() + "','" + this.getTeamNameForShort() + "','" + this.getLocation() + "','"
+		String resultString = "(`teamNameForShort`,`teamName`,  `location`," + " `conference`, `division`, `homeField`," + " `establishYear`) "
+				+ " VALUES ('" + this.getTeamNameForShort() + "','" + this.getTeamName() + "','" + this.getLocation() + "','"
 				+ this.getConference().toString() + "','" + this.getDivision().toString() + "','" + this.getHomeField() + "','"
 				+ this.getEstablishYear() + "')";
 		return resultString;

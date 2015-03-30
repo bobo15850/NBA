@@ -6,7 +6,7 @@ import common.enums.PerformanceOfPlayer;
 import common.enums.PerformanceOfTeam;
 import common.enums.PlayerPosition;
 
-public class StringToEnum {
+public class EnumMethod {
 	public static Conference toConference(String str) {
 		if (str.equals("E") || str.equals("EASTERN")) {
 			return Conference.EASTERN;

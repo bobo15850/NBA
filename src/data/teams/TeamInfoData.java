@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 import po.GeneralInfoOfTeamPo;
 import po.TeamPerformanceOfOneMatchPo;
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Season;
+import common.mydatastructure.MyTime;
 import common.statics.ResultMessage;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 import databaseutility.OperationOfGeneralInfoDB;
 import databaseutility.OperationOfTeamsDB;
 import dataservice.teams.TeamInfoDataService;
@@ -55,10 +56,11 @@ public class TeamInfoData implements TeamInfoDataService {
 	private TeamPerformanceOfOneMatchPo createTeamPerformPo(ResultSet rs) throws SQLException {
 		TeamPerformanceOfOneMatchPo resultPo = new TeamPerformanceOfOneMatchPo();
 		resultPo.setTeamNameForShort(rs.getString("teamNameForShort"));
-		resultPo.setDate(new Date(rs.getString("date")));
+		resultPo.setDate(new MyDate(rs.getString("date")));
 		resultPo.setSeason(new Season(rs.getString("season")));
 		resultPo.setOpponentTeamName(rs.getString("opponentTeamName"));
-		resultPo.setPlayingTime(rs.getDouble("playingTime"));
+		MyTime playingTime = new MyTime(rs.getString("playingTime"));
+		resultPo.setPlayingTime(playingTime);
 		resultPo.setTotalHitNumber(rs.getInt("totalHitNumber"));
 		resultPo.setTotalShootNumber(rs.getInt("totalShootNumber"));
 		resultPo.setThreePointHitNumber(rs.getInt("threePointHitNumber"));
@@ -96,11 +98,11 @@ public class TeamInfoData implements TeamInfoDataService {
 
 	private GeneralInfoOfTeamPo createTeamGeneralInfoPo(ResultSet rs) throws SQLException {
 		GeneralInfoOfTeamPo teamPo = new GeneralInfoOfTeamPo();
-		teamPo.setTeamName(rs.getString("teamName"));
 		teamPo.setTeamNameForShort(rs.getString("teamNameForShort"));
+		teamPo.setTeamName(rs.getString("teamName"));
 		teamPo.setLocation(rs.getString("location"));
-		teamPo.setConference(StringToEnum.toConference(rs.getString("conference")));
-		teamPo.setDivision(StringToEnum.toDivision(rs.getString("division")));
+		teamPo.setConference(EnumMethod.toConference(rs.getString("conference")));
+		teamPo.setDivision(EnumMethod.toDivision(rs.getString("division")));
 		teamPo.setHomeField(rs.getString("homeField"));
 		teamPo.setEstablishYear(rs.getInt("establishYear"));
 		return teamPo;

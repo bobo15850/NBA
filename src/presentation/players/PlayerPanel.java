@@ -29,7 +29,7 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 import common.statics.ResultMessage;
 import common.statics.images.Images;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 
 public class PlayerPanel extends MyPanel {
 
@@ -198,9 +198,9 @@ public class PlayerPanel extends MyPanel {
 
 		private void sort(MyTable table, int column) {
 			if (ascend) {
-				playerInfoBl.ascendingSort(currentPlayerVoList, StringToEnum.toPerformanceOfPlayer(table.getColumnName(column)));
+				playerInfoBl.ascendingSort(currentPlayerVoList, EnumMethod.toPerformanceOfPlayer(table.getColumnName(column)));
 			} else {
-				playerInfoBl.descendingSort(currentPlayerVoList, StringToEnum.toPerformanceOfPlayer(table.getColumnName(column)));
+				playerInfoBl.descendingSort(currentPlayerVoList, EnumMethod.toPerformanceOfPlayer(table.getColumnName(column)));
 			}
 			this.clearTable();
 			this.fillTable(currentPlayerVoList);

@@ -16,8 +16,9 @@ import common.enums.PerformanceOfPlayer;
 import common.enums.PlayerPosition;
 import common.mydatastructure.Season;
 import common.mydatastructure.SelectionCondition;
+import common.mydatastructure.MyTime;
 import common.statics.ResultMessage;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -65,7 +66,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			int threePointShootNumber = 0;// 三分出手数
 			int freePointHitNumber = 0;// 罚球命中数
 			int freePointShootNumber = 0;// 罚球出手数
-			int timeOfAllPlayer = 0;// 球队所有球员上场时间
+			MyTime timeOfAllPlayer = new MyTime();// 球队所有球员上场时间
 			int totalReboundOfTeam = 0;// 球队所有篮板数
 			int totalReboundOfCompetitor = 0;// 对手所有篮板数
 			int hitOfAllPlayer = 0; // 球队所有命中数
@@ -77,7 +78,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			int threePointShootOfCompetitor = 0;// 对手三分出手数
 			int totalReboundNumber = 0;// 总篮板
 			int assistNumber = 0;// 总助攻
-			double playingTime = 0;// 总上场时间
+			MyTime playingTime = new MyTime();// 总上场时间
 			int stealNumber = 0;// 总抢断数
 			int blockNumber = 0;// 总 盖帽数
 			int turnoverNumber = 0;// 总失误数
@@ -101,7 +102,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 				freePointShootNumber += tempMatch.getFreePointShootNumber();
 				totalReboundNumber += tempMatch.getTotalReboundNumber();
 				assistNumber += tempMatch.getAssistNumber();
-				playingTime += tempMatch.getPlayingTime();
+				playingTime.plus(tempMatch.getPlayingTime());
 				stealNumber += tempMatch.getStealNumber();
 				blockNumber += tempMatch.getBlockNumber();
 				turnoverNumber += tempMatch.getTurnoverNumber();
@@ -134,7 +135,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			for (int i = 0; i < TeamPerFormPoList.size(); i++) {
 				TeamPerformanceOfOneMatchPo selfTeam = TeamPerFormPoList.get(i)[0];
 				TeamPerformanceOfOneMatchPo opponentTeam = TeamPerFormPoList.get(i)[1];
-				timeOfAllPlayer += selfTeam.getPlayingTime();
+				timeOfAllPlayer.plus(selfTeam.getPlayingTime());
 				totalReboundOfTeam += selfTeam.getTotalReboundNumber();
 				freePointOfAllPlayer += selfTeam.getFoulNumber();
 				turnoverOfAllPlayer += selfTeam.getTurnoverNumber();
@@ -150,7 +151,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			resultVo.setNumberOfFirst(numberOfFirst);// 先发场数
 			resultVo.setTotalReboundNumber(totalReboundNumber); // 总篮板数
 			resultVo.setAssistNumber(assistNumber);// 总助攻
-			resultVo.setPlayingTime(CalculationOfPlayerPerform.cutToTwo(playingTime));// 总上场时间
+			resultVo.setPlayingTime(playingTime);// 总上场时间
 			resultVo.setStealNumber(stealNumber);// 总抢断数
 			resultVo.setBlockNumber(blockNumber);// 总盖帽数
 			resultVo.setTurnoverNumber(turnoverNumber);// 总失误数
@@ -160,7 +161,10 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			resultVo.setDefensiveReboundNumber(defensiveReboundNumber);// 防守篮板数
 			resultVo.setAverageTotalReboundNumber(CalculationOfTeamPerform.average(totalReboundNumber, numberOfMatch));// 场均总篮板
 			resultVo.setAverageAssistNumber(CalculationOfTeamPerform.average(assistNumber, numberOfMatch));// 场均助攻数
-			resultVo.setAveragePlayingTime(CalculationOfTeamPerform.average(playingTime, numberOfMatch));// 场均上场时间
+			MyTime tempTime=new MyTime();
+			tempTime.setTime(playingTime);
+			tempTime.divide(numberOfMatch);
+			resultVo.setAveragePlayingTime(tempTime);// 场均上场时间
 			resultVo.setAverageStealNumber(CalculationOfTeamPerform.average(stealNumber, numberOfMatch));// 场均抢断数
 			resultVo.setAverageBlockNumber(CalculationOfTeamPerform.average(blockNumber, numberOfMatch));// 场均盖帽数
 			resultVo.setAverageTurnoverNumber(CalculationOfTeamPerform.average(turnoverNumber, numberOfMatch));// 场均失误数
@@ -544,7 +548,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 			if (infoOfPlayer.equals(ResultMessage.NOTEXIST_GENERAL_PLAYER_VO)) {
 				continue;
 			} else {
-				if (position != null && !StringToEnum.isPlayerPositionEqual(position, infoOfPlayer.getPosition())) {
+				if (position != null && !EnumMethod.isPlayerPositionEqual(position, infoOfPlayer.getPosition())) {
 					continue;
 				} else {
 					infoOfTeam = new GeneralInfoOfTeamVo(playerInfoData.getGeneralInfoOfOneTeam(tempPlayer.getNameOfPlayer(), season));

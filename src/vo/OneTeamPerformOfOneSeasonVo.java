@@ -1,7 +1,7 @@
 package vo;
 
 public class OneTeamPerformOfOneSeasonVo {
-	private String teamNameForShort;// 球队名称
+	private String teamNameForShort;// 球队名称缩写
 	private int numberOfMatch;// 比赛场数
 	//
 	private int totalHitNumber;// 总命中数
@@ -393,8 +393,7 @@ public class OneTeamPerformOfOneSeasonVo {
 	}
 
 	public String[] toStringArray() {
-		return new String[] { 
-				String.valueOf(numberOfMatch),// 比赛场数
+		return new String[] { String.valueOf(numberOfMatch),// 比赛场数
 				String.valueOf(winRate),// 胜率
 				String.valueOf(averageScoreNumber),// 场均得分数
 				String.valueOf(scoreNumber),// 得分数
