@@ -127,7 +127,7 @@ public class OneMatch {
 		resultPo.setBlockNumber(this.toInt(part[14]));
 		resultPo.setTurnoverNumber(this.toInt(part[15]));
 		resultPo.setFoulNumber(this.toInt(part[16]));
-		resultPo.setScoreNumber(this.toIntForCorrect(part[17]));
+		resultPo.setScoreNumber(this.toInt(part[17]));
 		return resultPo;
 	}// 第一队首发
 
