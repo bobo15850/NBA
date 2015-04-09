@@ -8,12 +8,12 @@ import java.io.IOException;
 import po.GeneralInfoOfPlayerPo;
 import po.GeneralInfoOfTeamPo;
 
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Height;
 import common.mydatastructure.Weight;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 
 import databaseutility.OperationOfGeneralInfoDB;
 
@@ -29,8 +29,8 @@ public class DataPreparation {
 	private void handleFileOfTeams() {
 		try {
 			String table = "generalinfoofteam";
-			String tableFormat = "(teamName varchar(255) NOT NULL ,teamNameForshort varchar(225) NOT NULL,location varchar(255) NOT NULL,"
-					+ "conference varchar(255) NOT NULL,division varchar(255) NOT NULL,homeField varchar(255) NOT NULL,establishYear int NOT NULL)";
+			String tableFormat = "(teamNameForshort varchar(16) NOT NULL,teamName varchar(64) NOT NULL ,location varchar(64) NOT NULL,"
+					+ "conference varchar(64) NOT NULL,division varchar(64) NOT NULL,homeField varchar(64) NOT NULL,establishYear int NOT NULL, PRIMARY KEY (teamNameForshort))";
 			dbOfGeneralInfo.createTable(table, tableFormat);
 			BufferedReader teamReader = new BufferedReader(new FileReader(PathOfFile.TEAM_INFO + "teams"));
 			teamReader.readLine();
@@ -47,9 +47,9 @@ public class DataPreparation {
 
 	private void handleFileOfPlayers() {
 		String table = "generalinfoofplayer";
-		String tableFormat = "(playerName varchar(255) NOT NULL ,playerNumber varchar(225) NOT NULL,position varchar(255) NOT NULL,"
-				+ "height varchar(255) NOT NULL,weight int NOT NULL,birthday varchar(255) NOT NULL,age int NOT NULL,"
-				+ "trainingYear int NOT NULL,school varchar(255) NOT NULL)";
+		String tableFormat = "(playerName varchar(64) NOT NULL ,playerNumber varchar(8) NOT NULL,position varchar(4) NOT NULL,"
+				+ "height varchar(8) NOT NULL,weight int NOT NULL,birthday varchar(16) NOT NULL,age int NOT NULL,"
+				+ "trainingYear int NOT NULL,school varchar(64) NOT NULL, PRIMARY KEY (playerName))";
 		dbOfGeneralInfo.createTable(table, tableFormat);
 		File playerFile = new File(PathOfFile.PLAYER_INFO);
 		String playerName[] = playerFile.list();
@@ -89,14 +89,14 @@ public class DataPreparation {
 			GeneralInfoOfPlayerPo playerInfoPo = new GeneralInfoOfPlayerPo();
 			playerInfoPo.setName(element[0]);
 			playerInfoPo.setNumber(element[1]);
-			playerInfoPo.setPosition(StringToEnum.toPosition(element[2]));
+			playerInfoPo.setPosition(EnumMethod.toPosition(element[2]));
 			playerInfoPo.setHeight(new Height(element[3]));
 			playerInfoPo.setWeight(new Weight(toInt(element[4])));
-			int month = StringToEnum.toMonthInt(element[5].substring(0, 3));
+			int month = EnumMethod.toMonthInt(element[5].substring(0, 3));
 			String[] dates = element[5].split(",");
 			int year = toInt(dates[1].trim());
 			int day = toInt(dates[0].substring(4).trim());
-			playerInfoPo.setBirthday(new Date(year, month, day));
+			playerInfoPo.setBirthday(new MyDate(year, month, day));
 			playerInfoPo.setAge(toInt(element[6]));
 			playerInfoPo.setTrainingYear(toInt(element[7]));
 			playerInfoPo.setShool(element[8]);
@@ -121,8 +121,8 @@ public class DataPreparation {
 		TeamInfoPo.setTeamName(part[0].trim().substring(1));
 		TeamInfoPo.setTeamNameForShort(part[1].trim());
 		TeamInfoPo.setLocation(part[2].trim());
-		TeamInfoPo.setConference(StringToEnum.toConference(part[3].trim()));
-		TeamInfoPo.setDivision(StringToEnum.toDivision(part[4].trim()));
+		TeamInfoPo.setConference(EnumMethod.toConference(part[3].trim()));
+		TeamInfoPo.setDivision(EnumMethod.toDivision(part[4].trim()));
 		TeamInfoPo.setHomeField(part[5].trim());
 		TeamInfoPo.setEstablishYear(toInt(part[6].trim().substring(0, 4)));
 		OperationOfGeneralInfoDB dbOfGeaneralInfo = OperationOfGeneralInfoDB.getGeneralInfo();

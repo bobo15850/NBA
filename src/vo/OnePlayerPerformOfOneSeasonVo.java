@@ -1,5 +1,7 @@
 package vo;
 
+import common.mydatastructure.MyTime;
+
 public class OnePlayerPerformOfOneSeasonVo {
 	private String nameOfPlayer;// 球员姓名
 	private String nameOfTeam;// 球队名称
@@ -8,7 +10,7 @@ public class OnePlayerPerformOfOneSeasonVo {
 	//
 	private int totalReboundNumber;// 总篮板
 	private int assistNumber;// 总助攻
-	private double playingTime;// 总上场时间
+	private MyTime playingTime;// 总上场时间
 	private int stealNumber;// 总抢断数
 	private int blockNumber;// 总 盖帽数
 	private int turnoverNumber;// 总失误数
@@ -20,7 +22,7 @@ public class OnePlayerPerformOfOneSeasonVo {
 	//
 	private double averageTotalReboundNumber;// 场均篮板
 	private double averageAssistNumber;// 场均助攻
-	private double averagePlayingTime;// 场均上场时间
+	private MyTime averagePlayingTime;// 场均上场时间
 	private double averageStealNumber;// 场均抢断数
 	private double averageBlockNumber;// 场均盖帽数
 	private double averageTurnoverNumber;// 场均失误数
@@ -81,11 +83,11 @@ public class OnePlayerPerformOfOneSeasonVo {
 		this.numberOfFirst = numberOfFirst;
 	}
 
-	public double getPlayingTime() {
+	public MyTime getPlayingTime() {
 		return playingTime;
 	}
 
-	public void setPlayingTime(double playingTime) {
+	public void setPlayingTime(MyTime playingTime) {
 		this.playingTime = playingTime;
 	}
 
@@ -297,11 +299,11 @@ public class OnePlayerPerformOfOneSeasonVo {
 		this.averageAssistNumber = averageAssistNumber;
 	}
 
-	public double getAveragePlayingTime() {
+	public MyTime getAveragePlayingTime() {
 		return averagePlayingTime;
 	}
 
-	public void setAveragePlayingTime(double averagePlayingTime) {
+	public void setAveragePlayingTime(MyTime averagePlayingTime) {
 		this.averagePlayingTime = averagePlayingTime;
 	}
 
@@ -389,8 +391,8 @@ public class OnePlayerPerformOfOneSeasonVo {
 		return new String[] { nameOfTeam,// 所属球队
 				String.valueOf(numberOfMatch),// 比赛场数
 				String.valueOf(numberOfFirst),// 先发场数
-				String.valueOf(averagePlayingTime),// 场均上场时间
-				String.valueOf(playingTime),// 总上场时间
+				averagePlayingTime.getTimeFormatString(),// 场均上场时间
+				playingTime.getTimeFormatString(),// 总上场时间
 				String.valueOf(commonEfficiency),// 效率
 				String.valueOf(GmScEfficiency),// GmSc效率
 				String.valueOf(averageScoreNumber),// 场均得分数

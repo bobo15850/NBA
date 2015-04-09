@@ -1,15 +1,16 @@
 package po;
 
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Season;
+import common.mydatastructure.MyTime;
 
 public class PlayerPerformanceOfOneMatchPo {
 	private String playerName;// 球员姓名
 	private String teamName;// 效力球队
 	private Season season;// 赛季
-	private Date date;// 比赛时间
+	private MyDate date;// 比赛时间
 	private boolean isFirst;// 是否先发
-	private double playingTime;// 上场时间
+	private MyTime playingTime;// 上场时间
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
 	private int threePointHitNumber;// 三分命中数
@@ -34,7 +35,7 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.isFirst = isFirst;
 	}// 是否先发
 
-	public void setPlayingTime(double playingTime) {
+	public void setPlayingTime(MyTime playingTime) {
 		this.playingTime = playingTime;
 	}// 设置上场时间
 
@@ -107,7 +108,7 @@ public class PlayerPerformanceOfOneMatchPo {
 		return this.isFirst;
 	}// 是否先发
 
-	public double getPlayingTime() {
+	public MyTime getPlayingTime() {
 		return this.playingTime;
 	}// 得到上场时间
 
@@ -187,11 +188,11 @@ public class PlayerPerformanceOfOneMatchPo {
 		}// 防止有特殊字符
 	}
 
-	public Date getDate() {
+	public MyDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(MyDate date) {
 		this.date = date;
 	}
 
@@ -219,7 +220,7 @@ public class PlayerPerformanceOfOneMatchPo {
 				+ "','"
 				+ String.valueOf(this.getIsFirst())
 				+ "','"
-				+ this.getPlayingTime()
+				+ this.getPlayingTime().getTimeFormatString()
 				+ "','"
 				+ this.getTotalHitNumber()
 				+ "','"

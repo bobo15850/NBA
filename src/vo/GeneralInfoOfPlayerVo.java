@@ -3,7 +3,7 @@ package vo;
 import po.GeneralInfoOfPlayerPo;
 
 import common.enums.PlayerPosition;
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Height;
 import common.mydatastructure.Weight;
 
@@ -14,7 +14,7 @@ public class GeneralInfoOfPlayerVo {
 	private PlayerPosition position = null;// 位置
 	private Height height = null;// 身高
 	private Weight weight = null;// 体重
-	private Date birthday = null;// 生日
+	private MyDate birthday = null;// 生日
 	private int age = 0;
 	private int trainingYear = 0;// 球龄
 	private String school = null;// 毕业学校
@@ -56,7 +56,7 @@ public class GeneralInfoOfPlayerVo {
 		this.weight = weight;
 	}// 设置球员的体重
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(MyDate birthday) {
 		this.birthday = birthday;
 	}// 设置球员的生日
 
@@ -92,7 +92,7 @@ public class GeneralInfoOfPlayerVo {
 		return this.weight;
 	}// 得到球员的体重
 
-	public Date getBirthday() {
+	public MyDate getBirthday() {
 		return this.birthday;
 	}// 得到球员的生日
 

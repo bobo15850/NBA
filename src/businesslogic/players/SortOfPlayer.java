@@ -8,8 +8,7 @@ import vo.OnePlayerPerformOfOneSeasonVo;
  */
 public class SortOfPlayer {
 
-	public static void sortAscending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform,
-			int left, int right) {
+	public static void sortAscending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OnePlayerPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -29,8 +28,7 @@ public class SortOfPlayer {
 		}
 	}
 
-	public static void sortDescending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform,
-			int left, int right) {
+	public static void sortDescending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OnePlayerPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -80,7 +78,7 @@ public class SortOfPlayer {
 
 	static class TotalPlayingTime implements PlayerPerformance {
 		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
-			return player.getPlayingTime();
+			return player.getPlayingTime().getTimeAsSecond();
 		}
 	}// 总上场时间
 
@@ -140,7 +138,7 @@ public class SortOfPlayer {
 
 	static class AveragePlayingTime implements PlayerPerformance {
 		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
-			return player.getAveragePlayingTime();
+			return player.getAveragePlayingTime().getTimeAsSecond();
 		}
 	}// 场均上场时间
 

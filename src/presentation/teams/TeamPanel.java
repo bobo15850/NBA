@@ -29,7 +29,7 @@ import common.statics.MyColor;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 import common.statics.ResultMessage;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 import common.statics.images.Images;
 
 public class TeamPanel extends MyPanel {
@@ -177,9 +177,9 @@ public class TeamPanel extends MyPanel {
 
 		private void sort(MyTable table, int column) {
 			if (ascend) {
-				teamInfoBl.ascendingSort(currentTeamVoList, StringToEnum.toPerformanceOfTeam(table.getColumnName(column)));
+				teamInfoBl.ascendingSort(currentTeamVoList, EnumMethod.toPerformanceOfTeam(table.getColumnName(column)));
 			} else {
-				teamInfoBl.descendingSort(currentTeamVoList, StringToEnum.toPerformanceOfTeam(table.getColumnName(column)));
+				teamInfoBl.descendingSort(currentTeamVoList, EnumMethod.toPerformanceOfTeam(table.getColumnName(column)));
 			}
 			performanceModel.removeAllRows();
 			rangeAndNameModel.removeAllRows();
@@ -301,10 +301,10 @@ public class TeamPanel extends MyPanel {
 		private void setComponentsLocation() {
 			logoLabel.setBounds((int) (NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 200) / 2, (int) (NUMBER.px * 36), (int) (NUMBER.px * 220),
 					(int) (NUMBER.px * 220));
-			nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 270), labelWidth,
-					labelHeight);
-			nameForShortLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 320),
+			nameForShortLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 270),
 					labelWidth, labelHeight);
+			nameLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 320), labelWidth,
+					labelHeight);
 			locationLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 370), labelWidth,
 					labelHeight);
 			conferenceLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 420),
@@ -316,10 +316,10 @@ public class TeamPanel extends MyPanel {
 			establishTimeLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 20), (int) (NUMBER.px * 570),
 					labelWidth, labelHeight);
 			//
-			nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 160) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 270), labelWidth,
-					labelHeight);
-			nameForShortShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 320),
+			nameForShortShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 270),
 					labelWidth, labelHeight);
+			nameShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 160) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 320), labelWidth,
+					labelHeight);
 			locationShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 180) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 370),
 					labelWidth, labelHeight);
 			conferenceShowLabel.setBounds((int) ((NUMBER.DETAIL_PANEL_WIDTH - NUMBER.px * 220) / 2 + NUMBER.px * 90), (int) (NUMBER.px * 420),

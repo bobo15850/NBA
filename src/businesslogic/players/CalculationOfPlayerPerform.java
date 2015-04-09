@@ -2,6 +2,8 @@ package businesslogic.players;
 
 import java.math.BigDecimal;
 
+import common.mydatastructure.MyTime;
+
 /*
  * 用以计算xx率
  */
@@ -65,40 +67,40 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算投篮效率
 
-	public static double calReboundRate(int rebound, double timeOfAllPlayer, double timeOfOnePlayer, int totalReboundOfTeam,
+	public static double calReboundRate(int rebound, MyTime timeOfAllPlayer, MyTime playingTime, int totalReboundOfTeam,
 			int totalReboundOfCompetitor) {
 		int total = totalReboundOfTeam + totalReboundOfCompetitor;
-		if (timeOfOnePlayer == 0 || total == 0) {
+		if (!playingTime .isCorrectRead() || total == 0) {
 			return 0;
 		} else {
-			double result = rebound * (timeOfAllPlayer / 5) / timeOfOnePlayer / total;
+			double result = timeOfAllPlayer.divide(playingTime)/ 5 * rebound / total;
 			return cutToFour(result);
 		}
 	}// 计算篮板率
 
-	public static double calAssistRate(int assist, double timeOfOnePlayer, double timeOfAllPlayer, int hitOfAllPlayer, int hitOfOnePlayer) {
-		if (timeOfOnePlayer == 0 || timeOfAllPlayer == 0) {
+	public static double calAssistRate(int assist, MyTime playingTime, MyTime timeOfAllPlayer, int hitOfAllPlayer, int hitOfOnePlayer) {
+		if (!playingTime.isCorrectRead() || !timeOfAllPlayer.isCorrectRead()) {
 			return 0;
 		} else {
-			double result = assist / (timeOfOnePlayer / (timeOfAllPlayer / 5) * hitOfAllPlayer - hitOfOnePlayer);
+			double result = assist / (playingTime .divide(timeOfAllPlayer)*5 * hitOfAllPlayer - hitOfOnePlayer);
 			return cutToFour(result);
 		}
 	}// 计算助攻率
 
-	public static double calStealRate(int steal, double timeOfAllPlayer, double timeOfOnePlayer, int offensiveNumOfCompetitor) {
-		if (timeOfOnePlayer == 0 || offensiveNumOfCompetitor == 0) {
+	public static double calStealRate(int steal, MyTime timeOfAllPlayer, MyTime playingTime, int offensiveNumOfCompetitor) {
+		if (!playingTime.isCorrectRead() || offensiveNumOfCompetitor == 0) {
 			return 0;
 		} else {
-			double result = steal * (timeOfAllPlayer / 5) / timeOfOnePlayer / offensiveNumOfCompetitor;
+			double result = steal * timeOfAllPlayer.divide(playingTime)/ 5 / offensiveNumOfCompetitor;
 			return cutToFour(result);
 		}
 	}// 计算抢断率
 
-	public static double calBlockRate(int block, double timeOfAllPlayer, double timeOfOnePlayer, double twoPointShootNumOfCompetitor) {
-		if (timeOfOnePlayer == 0 || twoPointShootNumOfCompetitor == 0) {
+	public static double calBlockRate(int block, MyTime timeOfAllPlayer, MyTime playingTime, double twoPointShootNumOfCompetitor) {
+		if (!playingTime.isCorrectRead()|| twoPointShootNumOfCompetitor == 0) {
 			return 0;
 		} else {
-			double result = block * (timeOfAllPlayer / 5) / timeOfOnePlayer / twoPointShootNumOfCompetitor;
+			double result = block * timeOfAllPlayer.divide(playingTime)/ 5/ twoPointShootNumOfCompetitor;
 			return cutToFour(result);
 		}
 	}// 计算该盖帽率
@@ -113,13 +115,13 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算失误率
 
-	public static double calUseRate(int shootNum, int freePointShootNum, int turnoverNum, double timeOfAllPlayer, double timeOfOnePlayer,
+	public static double calUseRate(int shootNum, int freePointShootNum, int turnoverNum, MyTime timeOfAllPlayer, MyTime playingTime,
 			int shootNumOfAllPlayer, int freePointShootNumOfAllPlayer, int turnoverNumOfAllPlayer) {
 		double temp = shootNumOfAllPlayer + 0.44 * freePointShootNumOfAllPlayer + freePointShootNumOfAllPlayer;
-		if (temp == 0 || timeOfAllPlayer == 0 || timeOfOnePlayer == 0) {
+		if (temp == 0 || !timeOfAllPlayer .isCorrectRead() ||! playingTime.isCorrectRead()) {
 			return 0;
 		} else {
-			double result = (shootNum + 0.44 * freePointShootNum + turnoverNum) * (timeOfAllPlayer / 5) / timeOfOnePlayer / temp;
+			double result = (shootNum + 0.44 * freePointShootNum + turnoverNum) * timeOfAllPlayer.divide(playingTime)/ 5 / temp;
 			return cutToFour(result);
 		}
 	}// 计算使用率
