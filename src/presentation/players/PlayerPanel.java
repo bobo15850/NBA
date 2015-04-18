@@ -13,8 +13,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import presentation.DetailPanel;
-import vo.GeneralInfoOfPlayerVo;
-import vo.OnePlayerPerformOfOneSeasonVo;
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
 import common.mycomponent.MyButton;
@@ -24,12 +22,10 @@ import common.mycomponent.MyScrollPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mycomponent.MyTextField;
-import common.mydatastructure.Season;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 import common.statics.ResultMessage;
 import common.statics.images.Images;
-import common.statics.EnumMethod;
 
 public class PlayerPanel extends MyPanel {
 

@@ -1,29 +1,18 @@
 package businesslogicservice.teams;
 
-import java.util.ArrayList;
+import test.data.TeamHighInfo;
+import test.data.TeamHotInfo;
+import test.data.TeamNormalInfo;
 
-import vo.GeneralInfoOfTeamVo;
-import vo.OneTeamPerformOfOneSeasonVo;
-
-import common.enums.PerformanceOfTeam;
-import common.mydatastructure.Season;
+import common.mydatastructure.SortCell;
 
 public interface TeamInfoBlService {
-	// 获取某一个赛季所有球队的比赛信息
-	public ArrayList<OneTeamPerformOfOneSeasonVo> getOneSeasonPerformOfAllTeam(Season season);
+	public TeamHotInfo[] getTeamHot(int number, String field);
 
-	// 根据某一球队名称查找其所有赛季比赛信息
-	public ArrayList<OneTeamPerformOfOneSeasonVo> getOneTeamPerformOfAllSeason(String teamName);
+	public TeamHighInfo[] getTeamHigh(int number, SortCell[] sortcell);
 
-	// 查找某一球队在某一赛季的比赛信息
-	public OneTeamPerformOfOneSeasonVo getOneTeamPerformOfOneSeason(String teamName, Season season);
+	public TeamNormalInfo[] getTeamNormal_avg(int number, SortCell[] sortcell);
 
-	// 根据球队姓名查找某一球队具体基本自然信息
-	public GeneralInfoOfTeamVo getGeneralInfoOfOneTeam(String teamName);
+	public TeamNormalInfo[] getTeamNormal_tot(int number, SortCell[] sortcell);
 
-	// 根据某一项将所有球队某一赛季成绩升序排序
-	public void ascendingSort(ArrayList<OneTeamPerformOfOneSeasonVo> voList, PerformanceOfTeam dataKind);
-
-	// 根据某一项将所有球队某一赛季成绩降序排序
-	public void descendingSort(ArrayList<OneTeamPerformOfOneSeasonVo> voList, PerformanceOfTeam dataKind);
 }

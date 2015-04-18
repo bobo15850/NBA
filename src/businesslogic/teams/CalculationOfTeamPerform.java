@@ -9,18 +9,30 @@ public class CalculationOfTeamPerform {
 	public static double average(double num, int time) {
 		if (time == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = num / time;
 			return cutToTwo(result);
 		}
 	}// 计算平均数
 
-	public static double calWinRate(int winNum, int loseNum) {
-		double total = winNum + loseNum;
-		if (total == 0) {
+	public static double calHitRate(int hitNum, int shootNum) {
+		if (shootNum == 0) {
 			return 0;
-		} else {
-			double result = (double) winNum / (double) total;
+		}
+		else {
+			double result = 0;
+			result = (double) hitNum / (double) shootNum;
+			return cutToTwo(result);
+		}
+	}// 计算命中率
+
+	public static double calWinRate(int winNum, int totalNum) {
+		if (totalNum == 0) {
+			return 0;
+		}
+		else {
+			double result = (double) winNum / (double) totalNum;
 			return cutToTwo(result);
 		}
 	}// 计算胜率
@@ -29,7 +41,8 @@ public class CalculationOfTeamPerform {
 		int totalNumber = offensiveRebound + defensiveReboundOfCompetitor;
 		if (totalNumber == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = 0;
 			result = shoot + 0.4 * foul - (1.07 * ((double) offensiveRebound / (double) (offensiveRebound + defensiveReboundOfCompetitor) * miss))
 					+ (1.07 * turnover);
@@ -42,7 +55,8 @@ public class CalculationOfTeamPerform {
 		double offensiveNum = calOffensiveNum(shoot, foul, offensiveRebound, defensiveReboundOfCompetitor, miss, turnover);
 		if (offensiveNum == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = 0;
 			result = (double) score * 100 / (double) offensiveNum;
 			return cutToFour(result);
@@ -55,7 +69,8 @@ public class CalculationOfTeamPerform {
 				turnoverOfCompetitor);
 		if (offensiveNum == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = (double) scoreOfCompetitor * 100 / (double) offensiveNum;
 			return cutToFour(result);
 		}
@@ -65,7 +80,8 @@ public class CalculationOfTeamPerform {
 		int total = reboundBefore + reboundBehindOfCompetitor;
 		if (total == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = (double) reboundBefore / (double) total;
 			return cutToFour(result);
 		}
@@ -75,7 +91,8 @@ public class CalculationOfTeamPerform {
 		double total = reboundBehind + reboundBeforeOfCompetitor;
 		if (total == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = (double) reboundBehind / (double) total;
 			return cutToFour(result);
 		}
@@ -87,7 +104,8 @@ public class CalculationOfTeamPerform {
 				turnoverOfCompetitor);
 		if (OffensiveNum == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = (double) steal * 100 / (double) OffensiveNum;
 			return cutToFour(result);
 		}
@@ -97,7 +115,8 @@ public class CalculationOfTeamPerform {
 		double offensiveNum = calOffensiveNum(shoot, foul, offensiveRebound, defensiveReboundOfCompetitor, miss, turnover);
 		if (offensiveNum == 0) {
 			return 0;
-		} else {
+		}
+		else {
 			double result = (double) assist * 100 / (double) offensiveNum;
 			return cutToFour(result);
 		}

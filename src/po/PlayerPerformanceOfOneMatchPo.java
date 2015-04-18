@@ -1,15 +1,13 @@
 package po;
 
 import common.mydatastructure.MyDate;
-import common.mydatastructure.Season;
 import common.mydatastructure.MyTime;
 
 public class PlayerPerformanceOfOneMatchPo {
 	private String playerName;// 球员姓名
-	private String teamName;// 效力球队
-	private Season season;// 赛季
+	private String teamNameForShort;// 效力球队
 	private MyDate date;// 比赛时间
-	private boolean isFirst;// 是否先发
+	private int start;// 是否首发
 	private MyTime playingTime;// 上场时间
 	private int totalHitNumber;// 总命中数
 	private int totalShootNumber;// 总出手数
@@ -23,17 +21,13 @@ public class PlayerPerformanceOfOneMatchPo {
 	private int assistNumber;// 助攻
 	private int stealNumber;// 抢断数
 	private int blockNumber;// 盖帽数
-	private int turnoverNumber;// 失误数
+	private int faultNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
+	public void setTeamNameForShort(String teamName) {
+		this.teamNameForShort = teamName;
 	}// 设置效力球队
-
-	public void setIsFirst(boolean isFirst) {
-		this.isFirst = isFirst;
-	}// 是否先发
 
 	public void setPlayingTime(MyTime playingTime) {
 		this.playingTime = playingTime;
@@ -87,8 +81,8 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.blockNumber = blockNumber;
 	}// 设置盖帽数
 
-	public void setTurnoverNumber(int turnoverNumber) {
-		this.turnoverNumber = turnoverNumber;
+	public void setFaultNumber(int faultNumber) {
+		this.faultNumber = faultNumber;
 	}// 设置失误数
 
 	public void setFoulNumber(int foulNumber) {
@@ -98,15 +92,10 @@ public class PlayerPerformanceOfOneMatchPo {
 	public void setScoreNumber(int scoreNumber) {
 		this.scoreNumber = scoreNumber;
 	}// 设置得分数
-		// ///////////////////////////////////////////////////////////////////////////
 
-	public String getTeamName() {
-		return this.teamName;
+	public String getTeamNameForShort() {
+		return this.teamNameForShort;
 	}// 得到效力球队
-
-	public boolean getIsFirst() {
-		return this.isFirst;
-	}// 是否先发
 
 	public MyTime getPlayingTime() {
 		return this.playingTime;
@@ -160,8 +149,8 @@ public class PlayerPerformanceOfOneMatchPo {
 		return this.blockNumber;
 	}// 得到盖帽数
 
-	public int getTurnoverNumber() {
-		return this.turnoverNumber;
+	public int getFaultNumber() {
+		return this.faultNumber;
 	}// 得到失误数
 
 	public int getFoulNumber() {
@@ -177,15 +166,7 @@ public class PlayerPerformanceOfOneMatchPo {
 	}
 
 	public void setNameOfPlayer(String nameOfPlayer) {
-		if (nameOfPlayer.contains("'")) {
-			String part[] = nameOfPlayer.split("'");
-			this.playerName = part[0];
-			for (int i = 1; i < part.length; i++) {
-				this.playerName = this.playerName + " " + part[i];
-			}
-		} else {
-			this.playerName = nameOfPlayer;
-		}// 防止有特殊字符
+		this.playerName = nameOfPlayer;
 	}
 
 	public MyDate getDate() {
@@ -196,61 +177,21 @@ public class PlayerPerformanceOfOneMatchPo {
 		this.date = date;
 	}
 
-	public Season getSeason() {
-		return season;
+	public String toString() {
+		return "姓名：" + this.getNameOfPlayer() + "---比赛时间：" + this.getDate().getFormatString() + "---效力球队：" + this.getTeamNameForShort() + "---上场时间："
+				+ this.getPlayingTime().getTimeFormatString() + "---总命中数：" + this.getTotalHitNumber() + "---总出手数：" + this.getTotalShootNumber()
+				+ "---三分命中数：" + this.getThreePointHitNumber() + "---三分出手数：" + this.getThreePointShootNumber() + "---罚球命中数："
+				+ this.getFreePointHitNumber() + "---罚球出手数：" + this.getFreePointShootNumber() + "---进攻篮板数：" + this.getOffensiveReboundNumber()
+				+ "---防守篮板数：" + this.getDefensiveReboundNumber() + "---总篮板数：" + this.getTotalReboundNumber() + "---助攻数：" + this.getAssistNumber()
+				+ "---抢断数：" + this.getStealNumber() + "---盖帽数：" + this.getBlockNumber() + "---失误数：" + this.getFaultNumber() + "---犯规数："
+				+ this.getFoulNumber() + "---得分数：" + this.getScoreNumber();
 	}
 
-	public void setSeason(Season season) {
-		this.season = season;
+	public int getStart() {
+		return start;
 	}
 
-	public String toDBString() {
-		String resultString = "(`playerName`, `date`,`season`, `teamNameForShort`, " + "`isFirst`, `playingTime`, `totalHitNumber`, "
-				+ "`totalShootNumber`, `threePointHitNumber`, `threePointShootNumber`,"
-				+ " `freePointHitNumber`, `freePointShootNumber`, `offensiveReboundNumber`, "
-				+ "`defensiveReboundNumber`, `totalReboundNumber`, `assistNumber`, " + "`stealNumber`, `blockNumber`, `turnoverNumber`,"
-				+ " `foulNumber`, `scoreNumber`) " + " VALUES ('"
-				+ this.getNameOfPlayer()
-				+ "','"
-				+ this.getDate().getFormatString()
-				+ "','"
-				+ this.getSeason().getFormatStyleOfSeason()
-				+ "','"
-				+ this.getTeamName()
-				+ "','"
-				+ String.valueOf(this.getIsFirst())
-				+ "','"
-				+ this.getPlayingTime().getTimeFormatString()
-				+ "','"
-				+ this.getTotalHitNumber()
-				+ "','"
-				+ this.getTotalShootNumber()
-				+ "','"
-				+ this.getThreePointHitNumber()
-				+ "','"
-				+ this.getThreePointShootNumber()
-				+ "','"
-				+ this.getFreePointHitNumber()
-				+ "','"
-				+ this.getFreePointShootNumber()
-				+ "','"
-				+ this.getOffensiveReboundNumber()
-				+ "','"
-				+ this.getDefensiveReboundNumber()
-				+ "','"
-				+ this.getTotalReboundNumber()
-				+ "','"
-				+ this.getAssistNumber()
-				+ "','"
-				+ this.getStealNumber()
-				+ "','"
-				+ this.getBlockNumber()
-				+ "','"
-				+ this.getTurnoverNumber()
-				+ "','"
-				+ this.getFoulNumber()
-				+ "','"
-				+ this.getScoreNumber() + "')";
-		return resultString;
+	public void setStart(int start) {
+		this.start = start;
 	}
 }

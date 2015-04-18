@@ -1,115 +1,55 @@
 package data.teams;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
-import po.GeneralInfoOfTeamPo;
 import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.MyDate;
-import common.mydatastructure.Season;
-import common.mydatastructure.MyTime;
-import common.statics.ResultMessage;
-import common.statics.EnumMethod;
-import databaseutility.OperationOfGeneralInfoDB;
-import databaseutility.OperationOfTeamsDB;
+import databaseutility.MEM;
 import dataservice.teams.TeamInfoDataService;
 
 public class TeamInfoData implements TeamInfoDataService {
-	private OperationOfTeamsDB teamPerformDB = OperationOfTeamsDB.getTeamDB();
-	private OperationOfGeneralInfoDB generalInfoDB = OperationOfGeneralInfoDB.getGeneralInfo();
+	private static TeamInfoData teamInfoData = null;
 
-	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String teamNameForShort, Season season) {
-		ArrayList<TeamPerformanceOfOneMatchPo[]> listOfArrayPo = new ArrayList<TeamPerformanceOfOneMatchPo[]>(128);
-		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.teamPerformDB.findAllColumn(teamNameForShort, sql);
-		try {
-			if (!rs.next()) {
-				return null;
-			} else {
-				rs.first();
-				TeamPerformanceOfOneMatchPo[] oneMatch = new TeamPerformanceOfOneMatchPo[2];
-				oneMatch[0] = this.createTeamPerformPo(rs);
-				listOfArrayPo.add(oneMatch);
-				while (rs.next()) {
-					TeamPerformanceOfOneMatchPo[] tempMatch = new TeamPerformanceOfOneMatchPo[2];
-					tempMatch[0] = this.createTeamPerformPo(rs);
-					listOfArrayPo.add(tempMatch);
-				}
-				for (int i = 0; i < listOfArrayPo.size(); i++) {
-					String opponentTeam = listOfArrayPo.get(i)[0].getOpponentTeamNameForShort();
-					String date = listOfArrayPo.get(i)[0].getDate().getFormatString();
-					String seasonString = listOfArrayPo.get(i)[0].getSeason().getFormatStyleOfSeason();
-					String sqlOfSecondTeam = "where season='" + seasonString + "' and date='" + date + "'";
-					ResultSet rsOfSecondTeam = this.teamPerformDB.findAllColumn(opponentTeam, sqlOfSecondTeam);
-					rsOfSecondTeam.first();
-					listOfArrayPo.get(i)[1] = this.createTeamPerformPo(rsOfSecondTeam);
-				}
-				return listOfArrayPo;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+	private TeamInfoData() {
+	}
+
+	public static TeamInfoData getInstance() {
+		if (teamInfoData == null) {
+			teamInfoData = new TeamInfoData();
 		}
+		return teamInfoData;
 	}
 
-	private TeamPerformanceOfOneMatchPo createTeamPerformPo(ResultSet rs) throws SQLException {
-		TeamPerformanceOfOneMatchPo resultPo = new TeamPerformanceOfOneMatchPo();
-		resultPo.setTeamNameForShort(rs.getString("teamNameForShort"));
-		resultPo.setDate(new MyDate(rs.getString("date")));
-		resultPo.setSeason(new Season(rs.getString("season")));
-		resultPo.setOpponentTeamName(rs.getString("opponentTeamName"));
-		MyTime playingTime = new MyTime(rs.getString("playingTime"));
-		resultPo.setPlayingTime(playingTime);
-		resultPo.setTotalHitNumber(rs.getInt("totalHitNumber"));
-		resultPo.setTotalShootNumber(rs.getInt("totalShootNumber"));
-		resultPo.setThreePointHitNumber(rs.getInt("threePointHitNumber"));
-		resultPo.setThreePointShootNumber(rs.getInt("threePointShootNumber"));
-		resultPo.setFreePointHitNumber(rs.getInt("freePointHitNumber"));
-		resultPo.setFreePointShootNumber(rs.getInt("freePointShootNumber"));
-		resultPo.setOffensiveReboundNumber(rs.getInt("offensiveReboundNumber"));
-		resultPo.setDefensiveReboundNumber(rs.getInt("defensiveReboundNumber"));
-		resultPo.setTotalReboundNumber(rs.getInt("totalReboundNumber"));
-		resultPo.setAssistNumber(rs.getInt("assistNumber"));
-		resultPo.setStealNumber(rs.getInt("stealNumber"));
-		resultPo.setBlockNumber(rs.getInt("blockNumber"));
-		resultPo.setTurnoverNumber(rs.getInt("turnoverNumber"));
-		resultPo.setFoulNumber(rs.getInt("foulNumber"));
-		resultPo.setScoreNumber(rs.getInt("scoreNumber"));
-		return resultPo;
-	}
-
-	public GeneralInfoOfTeamPo getBaseInformationOfOneTeam(String teamNameForShort) {
-		GeneralInfoOfTeamPo generalInfoOfTeam = new GeneralInfoOfTeamPo();
-		String sql = "where teamNameForShort = '" + teamNameForShort + "'";
-		ResultSet rs = this.generalInfoDB.findAllColumn("generalinfoofteam", sql);
-		try {
-			if (!rs.next()) {
-				return ResultMessage.NOTEXIST_GENERAL_TEAM_PO;
-			} else {
-				rs.first();
-				return this.createTeamGeneralInfoPo(rs);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String teamName) {
+		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>(128);
+		Map<MyDate, TeamPerformanceOfOneMatchPo> oneTeamPerform = MEM.TEAM_PERFORM.get(teamName);
+		Set<MyDate> dateSet = oneTeamPerform.keySet();
+		for (MyDate date : dateSet) {
+			TeamPerformanceOfOneMatchPo selfTeamPo = oneTeamPerform.get(date);
+			String opponentTeam = selfTeamPo.getOpponentTeamNameForShort();
+			TeamPerformanceOfOneMatchPo opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeam).get(date);
+			resultList.add(new TeamPerformanceOfOneMatchPo[] { selfTeamPo, opponentTeamPo });
 		}
-		return generalInfoOfTeam;
-	}
-
-	private GeneralInfoOfTeamPo createTeamGeneralInfoPo(ResultSet rs) throws SQLException {
-		GeneralInfoOfTeamPo teamPo = new GeneralInfoOfTeamPo();
-		teamPo.setTeamNameForShort(rs.getString("teamNameForShort"));
-		teamPo.setTeamName(rs.getString("teamName"));
-		teamPo.setLocation(rs.getString("location"));
-		teamPo.setConference(EnumMethod.toConference(rs.getString("conference")));
-		teamPo.setDivision(EnumMethod.toDivision(rs.getString("division")));
-		teamPo.setHomeField(rs.getString("homeField"));
-		teamPo.setEstablishYear(rs.getInt("establishYear"));
-		return teamPo;
+		return resultList;
 	}
 
 	public ArrayList<String> getNamesForShortOfAllTeam() {
-		return this.teamPerformDB.findAllTableName();
-	}// 查找所有球队的名字
+		Set<String> teamNameSet = MEM.TEAM_PERFORM.keySet();
+		ArrayList<String> resultList = new ArrayList<String>(32);
+		for (String name : teamNameSet) {
+			resultList.add(name);
+		}
+		return resultList;
+	}
 
+	public String getLeagueOfTeam(String teamNameForShort) {
+		if (MEM.TEAM_LEAGUE.containsKey(teamNameForShort)) {
+			return MEM.TEAM_LEAGUE.get(teamNameForShort);
+		}
+		else {
+			return null;
+		}
+	}
 }

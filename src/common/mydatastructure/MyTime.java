@@ -1,5 +1,7 @@
 package common.mydatastructure;
 
+import businesslogic.players.CalculationOfPlayerPerform;
+
 public class MyTime implements Comparable<MyTime> {
 	private int minute;
 	private int second;
@@ -50,7 +52,8 @@ public class MyTime implements Comparable<MyTime> {
 					}
 					this.second -= time.second;
 					this.minute -= time.minute;
-				} else {
+				}
+				else {
 					int tempMinute = time.minute;
 					int tempSecond = time.second;
 					if (time.second < this.second) {
@@ -86,13 +89,15 @@ public class MyTime implements Comparable<MyTime> {
 				secondString = "0" + secondString;
 			}
 			return minuteString + ":" + secondString;
-		} else {
+		}
+		else {
 			return null;
 		}
 	}// 得到xx:xx的形式
 
 	public double getTimeAsMinute() {
-		return (double) this.minute + (double) this.second / 60.0;
+		double result = (double) this.minute + (double) this.second / 60.0;
+		return CalculationOfPlayerPerform.cutToTwo(result);
 	}// 得到以分钟为单位的时间表示形式
 
 	public int getTimeAsSecond() {
@@ -108,15 +113,19 @@ public class MyTime implements Comparable<MyTime> {
 	public int compareTo(MyTime time) {
 		if (this.minute > time.minute) {
 			return 1;
-		} else if (this.minute == time.minute) {
+		}
+		else if (this.minute == time.minute) {
 			if (this.second > time.second) {
 				return 1;
-			} else if (this.minute == time.minute) {
+			}
+			else if (this.minute == time.minute) {
 				return 0;
-			} else {
+			}
+			else {
 				return -1;
 			}
-		} else {
+		}
+		else {
 			return -1;
 		}
 	}// 两个时间比较
