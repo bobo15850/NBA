@@ -1,11 +1,11 @@
 package businesslogic.teams;
 
+import java.util.ArrayList;
+
 import test.data.TeamHighInfo;
-import test.data.TeamNormalInfo;
-
 import common.mydatastructure.GeneralInfoOfTeam;
+import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
-
 import businesslogicservice.teams.OneTeamInfoBlService;
 
 public class OneTeamInfoBl implements OneTeamInfoBlService {
@@ -17,7 +17,7 @@ public class OneTeamInfoBl implements OneTeamInfoBlService {
 	}
 
 	@Override
-	public TeamNormalInfo getOneTeamNormalInfo(String teamName) {
+	public TeamNormalInfo_Expand getOneTeamNormalInfo(String teamName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,7 +29,7 @@ public class OneTeamInfoBl implements OneTeamInfoBlService {
 	}
 
 	@Override
-	public TeamPerformOfOneMatch[] getTeamPerform(String teamName) {
+	public ArrayList<TeamPerformOfOneMatch> getTeamPerform(String teamName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

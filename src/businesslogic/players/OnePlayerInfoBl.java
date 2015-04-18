@@ -1,14 +1,15 @@
 package businesslogic.players;
 
+import java.util.ArrayList;
+
 import test.data.PlayerHighInfo;
-import test.data.PlayerNormalInfo;
-
-import common.mydatastructure.GeneralInfoOfPlayer;
-import common.mydatastructure.PlayerPerformOfOneMatch;
-
 import businesslogicservice.players.OnePlayerInfoBlService;
 
-public class OnePlayerInfoBl implements OnePlayerInfoBlService{
+import common.mydatastructure.GeneralInfoOfPlayer;
+import common.mydatastructure.PlayerNormalInfo_Expand;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+
+public class OnePlayerInfoBl implements OnePlayerInfoBlService {
 
 	@Override
 	public GeneralInfoOfPlayer getPlayerGeneralInfo(String playerName) {
@@ -17,13 +18,13 @@ public class OnePlayerInfoBl implements OnePlayerInfoBlService{
 	}
 
 	@Override
-	public PlayerNormalInfo getPlayerNormalInfo_avg(String playerName) {
+	public PlayerNormalInfo_Expand getPlayerNormalInfo_avg(String playerName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public PlayerNormalInfo getPlayerNormalInfo_tot(String playerName) {
+	public PlayerNormalInfo_Expand getPlayerNormalInfo_tot(String playerName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,7 +36,7 @@ public class OnePlayerInfoBl implements OnePlayerInfoBlService{
 	}
 
 	@Override
-	public PlayerPerformOfOneMatch[] getPlayerPerform(String playerName) {
+	public ArrayList<PlayerPerformOfOneMatch> getPlayerPerform(String playerName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
