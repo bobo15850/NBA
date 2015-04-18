@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import common.mydatastructure.GeneralInfoOfPlayer;
+import common.mydatastructure.GeneralInfoOfTeam;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
@@ -24,7 +25,9 @@ public class MEM {
 	public static Map<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
 	// 球队数据存储
 	public static Map<String, String> TEAM_LEAGUE = new HashMap<String, String>();
-	// 球队基本信息存储
+	// 球队联盟信息存储
+	public static Map<String, GeneralInfoOfTeam> TEAM_GENERALINFO = new HashMap<String, GeneralInfoOfTeam>();
+	// 球队的基本信息存储
 	static {
 		MEM.handleFileOfMatches();
 		MEM.handleFileOfPlayers();
