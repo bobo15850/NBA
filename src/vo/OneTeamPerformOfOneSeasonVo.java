@@ -1,7 +1,7 @@
 package vo;
 
 public class OneTeamPerformOfOneSeasonVo {
-	private String teamNameForShort;// 球队名称
+	private String teamNameForShort;// 球队名称缩写
 	private int numberOfMatch;// 比赛场数
 	//
 	private int totalHitNumber;// 总命中数
@@ -393,47 +393,43 @@ public class OneTeamPerformOfOneSeasonVo {
 	}
 
 	public String[] toStringArray() {
-		return new String[] { teamNameForShort,// 球队名称
-				String.valueOf(numberOfMatch),// 比赛场数
-				//
-				String.valueOf(totalHitNumber),// 总命中数
-				String.valueOf(totalShootNumber),// 总出手数
-				String.valueOf(threePointHitNumber),// 三分命中数
-				String.valueOf(threePointShootNumber),// 三分出手数
-				String.valueOf(freePointHitNumber),// 罚球命中数
-				String.valueOf(freePointShootNumber),// 罚球出手数
-				String.valueOf(offensiveReboundNumber),// 进攻篮板数
-				String.valueOf(defensiveReboundNumber),// 防守篮板
-				String.valueOf(totalReboundNumber),// 总篮板
-				String.valueOf(assistNumber),// 总助攻
-				String.valueOf(stealNumber),// 抢断数
-				String.valueOf(blockNumber),// 盖帽数
-				String.valueOf(turnoverNumber),// 失误数
-				String.valueOf(foulNumber),// 犯规数
-				String.valueOf(scoreNumber),// 得分数
-				String.valueOf(offensiveNumber),// 进攻回合数
-				//
-				String.valueOf(averageTotalHitNumber),// 场均命中数
-				String.valueOf(averageTotalShootNumber),// 场均总出手数
-				String.valueOf(averageThreePointHitNumber),// 场均三分命中数
-				String.valueOf(averageThreePointShootNumber),// 场均三分出手数
-				String.valueOf(averageFreePointHitNumber),// 场均罚球命中数
-				String.valueOf(averageFreePointShootNumber),// 场均罚球出手数
-				String.valueOf(averageOffensiveReboundNumber),// 场均进攻篮板数
-				String.valueOf(averageDefensiveReboundNumber),// 场均防守篮板
-				String.valueOf(averageTotalReboundNumber),// 场均总篮板
-				String.valueOf(averageAssistNumber),// 场均助攻数
-				String.valueOf(averageStealNumber),// 场均抢断数
-				String.valueOf(averageBlockNumber),// 场均盖帽数
-				String.valueOf(averageTurnoverNumber),// 场均失误数
-				String.valueOf(averageFoulNumber),// 场均犯规数
-				String.valueOf(averageScoreNumber),// 场均得分数
-				String.valueOf(averageOffensiveNumber),// 场均进攻回合数///////////////
-				//
-				String.valueOf(totalHitRate),// 投篮命中率
-				String.valueOf(threePointHitRate),// 三分命中率
-				String.valueOf(freePointHitRate),// 罚球命中率
+		return new String[] { String.valueOf(numberOfMatch),// 比赛场数
 				String.valueOf(winRate),// 胜率
+				String.valueOf(averageScoreNumber),// 场均得分数
+				String.valueOf(scoreNumber),// 得分数
+				String.valueOf(averageTotalHitNumber),// 场均命中数
+				String.valueOf(totalHitNumber),// 总命中数
+				String.valueOf(averageTotalShootNumber),// 场均总出手数
+				String.valueOf(totalShootNumber),// 总出手数
+				String.valueOf(totalHitRate),// 投篮命中率
+				String.valueOf(averageThreePointHitNumber),// 场均三分命中数
+				String.valueOf(threePointHitNumber),// 三分命中数
+				String.valueOf(averageThreePointShootNumber),// 场均三分出手数
+				String.valueOf(threePointShootNumber),// 三分出手数
+				String.valueOf(threePointHitRate),// 三分命中率
+				String.valueOf(averageFreePointHitNumber),// 场均罚球命中数
+				String.valueOf(freePointHitNumber),// 罚球命中数
+				String.valueOf(averageFreePointShootNumber),// 场均罚球出手数
+				String.valueOf(freePointShootNumber),// 罚球出手数
+				String.valueOf(freePointHitRate),// 罚球命中率
+				String.valueOf(averageOffensiveReboundNumber),// 场均进攻篮板数
+				String.valueOf(offensiveReboundNumber),// 进攻篮板数
+				String.valueOf(averageDefensiveReboundNumber),// 场均防守篮板
+				String.valueOf(defensiveReboundNumber),// 防守篮板
+				String.valueOf(averageTotalReboundNumber),// 场均总篮板
+				String.valueOf(totalReboundNumber),// 总篮板
+				String.valueOf(averageAssistNumber),// 场均助攻数
+				String.valueOf(assistNumber),// 总助攻
+				String.valueOf(averageStealNumber),// 场均抢断数
+				String.valueOf(stealNumber),// 抢断数
+				String.valueOf(averageBlockNumber),// 场均盖帽数
+				String.valueOf(blockNumber),// 盖帽数
+				String.valueOf(averageTurnoverNumber),// 场均失误数
+				String.valueOf(turnoverNumber),// 失误数
+				String.valueOf(averageFoulNumber),// 场均犯规数
+				String.valueOf(foulNumber),// 犯规数
+				String.valueOf(averageOffensiveNumber),// 场均进攻回合数///////////////
+				String.valueOf(offensiveNumber),// 进攻回合数
 				String.valueOf(offensiveEfficiency),// 进攻效率
 				String.valueOf(defensiveEfficiency),// 防守效率
 				String.valueOf(reboundEfficiency),// 篮板效率

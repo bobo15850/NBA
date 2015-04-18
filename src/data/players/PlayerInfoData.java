@@ -8,12 +8,13 @@ import po.GeneralInfoOfPlayerPo;
 import po.GeneralInfoOfTeamPo;
 import po.PlayerPerformanceOfOneMatchPo;
 import po.TeamPerformanceOfOneMatchPo;
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Height;
 import common.mydatastructure.Season;
+import common.mydatastructure.MyTime;
 import common.mydatastructure.Weight;
 import common.statics.ResultMessage;
-import common.statics.StringToEnum;
+import common.statics.EnumMethod;
 import data.teams.TeamInfoData;
 import databaseutility.OperationOfGeneralInfoDB;
 import databaseutility.OperationOfPlayersDB;
@@ -33,7 +34,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer, Season season) {
 		ArrayList<PlayerPerformanceOfOneMatchPo> poList = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
 		String sql = "where season = '" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(nameOfPlayer, sql);
+		ResultSet rs = this.playerDB.findAllColumn(nameOfPlayer, sql);
 		try {
 			if (!rs.next()) {
 				return poList;
@@ -54,11 +55,12 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	private PlayerPerformanceOfOneMatchPo createPlayerPerformPo(ResultSet rs) throws SQLException {
 		PlayerPerformanceOfOneMatchPo resultPo = new PlayerPerformanceOfOneMatchPo();
 		resultPo.setNameOfPlayer(rs.getString("playerName"));
-		resultPo.setDate(new Date(rs.getString("date")));
+		resultPo.setDate(new MyDate(rs.getString("date")));
 		resultPo.setSeason(new Season(rs.getString("season")));
 		resultPo.setTeamName(rs.getString("teamNameForShort"));
-		resultPo.setIsFirst(StringToEnum.ToBoolean(rs.getString("isFirst")));
-		resultPo.setPlayingTime(rs.getDouble("playingTime"));
+		resultPo.setIsFirst(EnumMethod.ToBoolean(rs.getString("isFirst")));
+		MyTime playingTime=new MyTime(rs.getString("playingTime"));
+		resultPo.setPlayingTime(playingTime);
 		resultPo.setTotalHitNumber(rs.getInt("totalHitNumber"));
 		resultPo.setTotalShootNumber(rs.getInt("totalShootNumber"));
 		resultPo.setThreePointHitNumber(rs.getInt("threePointHitNumber"));
@@ -80,7 +82,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public GeneralInfoOfPlayerPo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
 		GeneralInfoOfPlayerPo generalInfoOfPlayer = new GeneralInfoOfPlayerPo();
 		String sql = " where " + "`playerName` = '" + nameOfPlayer + "'";
-		ResultSet resultSet = this.generalInfoDB.find("generalinfoofplayer", sql);
+		ResultSet resultSet = this.generalInfoDB.findAllColumn("generalinfoofplayer", sql);
 		try {
 			if (!resultSet.next()) {
 				return ResultMessage.NOTEXIST_GENERAL_PLAYER_PO;
@@ -98,10 +100,10 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		GeneralInfoOfPlayerPo resultPo = new GeneralInfoOfPlayerPo();
 		resultPo.setName(rs.getString("playerName"));
 		resultPo.setNumber(rs.getString("playerNumber"));
-		resultPo.setPosition(StringToEnum.toPosition(rs.getString("position")));
+		resultPo.setPosition(EnumMethod.toPosition(rs.getString("position")));
 		resultPo.setHeight(new Height(rs.getString("height")));
 		resultPo.setWeight(new Weight(rs.getInt("weight")));
-		resultPo.setBirthday(new Date(rs.getString("birthday")));
+		resultPo.setBirthday(new MyDate(rs.getString("birthday")));
 		resultPo.setAge(rs.getInt("age"));
 		resultPo.setTrainingYear(rs.getInt("trainingYear"));
 		resultPo.setShool(rs.getString("school"));
@@ -116,7 +118,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
 		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(playerName, sql);
+		ResultSet rs = this.playerDB.findAllColumn(playerName, sql);
 		try {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");
@@ -130,7 +132,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	public GeneralInfoOfTeamPo getGeneralInfoOfOneTeam(String playerName, Season season) {
 		TeamInfoDataService teamPerformData = new TeamInfoData();
 		String sql = "where season='" + season.getFormatStyleOfSeason() + "'";
-		ResultSet rs = this.playerDB.find(playerName, sql);
+		ResultSet rs = this.playerDB.findAllColumn(playerName, sql);
 		try {
 			rs.first();
 			String teamNameForShort = rs.getString("teamNameForShort");

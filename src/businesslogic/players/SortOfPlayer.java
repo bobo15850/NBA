@@ -8,8 +8,7 @@ import vo.OnePlayerPerformOfOneSeasonVo;
  */
 public class SortOfPlayer {
 
-	public static void sortAscending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform,
-			int left, int right) {
+	public static void sortAscending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OnePlayerPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -29,8 +28,7 @@ public class SortOfPlayer {
 		}
 	}
 
-	public static void sortDescending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform,
-			int left, int right) {
+	public static void sortDescending(ArrayList<OnePlayerPerformOfOneSeasonVo> voList, PlayerPerformance perform, int left, int right) {
 		if (left < right) {
 			int i = left, j = right;
 			OnePlayerPerformOfOneSeasonVo tempVo = voList.get(left);
@@ -80,7 +78,7 @@ public class SortOfPlayer {
 
 	static class TotalPlayingTime implements PlayerPerformance {
 		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
-			return player.getPlayingTime();
+			return player.getPlayingTime().getTimeAsSecond();
 		}
 	}// 总上场时间
 
@@ -140,7 +138,7 @@ public class SortOfPlayer {
 
 	static class AveragePlayingTime implements PlayerPerformance {
 		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
-			return player.getAveragePlayingTime();
+			return player.getAveragePlayingTime().getTimeAsSecond();
 		}
 	}// 场均上场时间
 
@@ -276,4 +274,27 @@ public class SortOfPlayer {
 		}
 	}// 使用率
 
+	static class DoubleDouble implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getDoubleDouble();
+		}
+	}// 两双
+
+	static class TripleDouble implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getTripleDouble();
+		}
+	}// 三双
+
+	static class ScoreReboundAssistRate implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getScoreReboundAssistRate();
+		}
+	}// 得分篮板助攻比
+
+	static class AverageScoreReboundAssistRate implements PlayerPerformance {
+		public double getPerformance(OnePlayerPerformOfOneSeasonVo player) {
+			return player.getAveragescoreReboundAssistRate();
+		}
+	}// 场均得分篮板助攻比
 }

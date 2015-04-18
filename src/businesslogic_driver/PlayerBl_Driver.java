@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import vo.GeneralInfoOfPlayerVo;
 import vo.OnePlayerPerformOfOneSeasonVo;
-import common.enums.PerformanceOfPlayer;
-import common.mydatastructure.Season;
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
+
+import common.enums.PerformanceOfPlayer;
+import common.mydatastructure.Season;
+import common.mydatastructure.SelectionCondition;
 
 public class PlayerBl_Driver {
 	PlayerInfoBlService playerInfoBl = new PlayerInfoBl();
@@ -29,7 +31,7 @@ public class PlayerBl_Driver {
 	}
 
 	public void testGetOnePlayerPerformOfOneSeason() {
-		String nameOfPlayer = "Kevin Durant";
+		String nameOfPlayer = "Ty Lawson";
 		Season season = new Season("2013-2014");
 		OnePlayerPerformOfOneSeasonVo temp = playerInfoBl.getOnePlayerPerformOfOneSeason(nameOfPlayer, season);
 		String[] content = temp.toStringArray();
@@ -85,6 +87,24 @@ public class PlayerBl_Driver {
 	}
 
 	public void testSelsctionOfPlayer() {
+		Season season = new Season("2013-2014");
+		ArrayList<OnePlayerPerformOfOneSeasonVo> volist = playerInfoBl.getOneSeasonPerformOfAllPlayer(season);
+		SelectionCondition condition = new SelectionCondition(null, null, null, PerformanceOfPlayer.TripleDouble);
+		ArrayList<OnePlayerPerformOfOneSeasonVo> volistSelected = this.playerInfoBl.selsctPlayer(volist, condition,
+				season);
+		for (int i = 0; i < volistSelected.size(); i++) {
+			OnePlayerPerformOfOneSeasonVo temp = volistSelected.get(i);
+			String[] content = temp.toStringArray();
+			for (int j = 0; j < content.length; j++) {
+				System.out.print(content[j]);
+				System.out.print(";");
+			}
+			System.out.println();
+			System.out.println(i);
+		}
+	}
 
+	public static void main(String arg[]) {
+		new PlayerBl_Driver().testGetBaseInformationOfOnePlayer();
 	}
 }

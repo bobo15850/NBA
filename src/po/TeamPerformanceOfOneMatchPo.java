@@ -2,12 +2,13 @@ package po;
 
 import java.util.ArrayList;
 
-import common.mydatastructure.Date;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.Season;
+import common.mydatastructure.MyTime;
 
 public class TeamPerformanceOfOneMatchPo {
 	private String TeamNameForShort;// 球队名称
-	private Date date;// 比赛时间
+	private MyDate date;// 比赛时间
 	private Season season;// 赛季
 	private String opponentTeamNameForShort;// 对手名称
 	private int totalHitNumber;// 总命中数
@@ -25,9 +26,9 @@ public class TeamPerformanceOfOneMatchPo {
 	private int turnoverNumber;// 失误数
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
-	private double playingTime;// 球员上场时间之和
+	private MyTime playingTime=new MyTime();// 球员上场时间之和
 
-	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, Date date, Season season,
+	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, MyDate date, Season season,
 			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
 		this.TeamNameForShort = teamName;
 		this.opponentTeamNameForShort = opponentTeamName;
@@ -51,8 +52,9 @@ public class TeamPerformanceOfOneMatchPo {
 			this.turnoverNumber += temp.getTurnoverNumber();
 			this.foulNumber += temp.getFoulNumber();
 			this.scoreNumber += temp.getScoreNumber();
-			this.playingTime += temp.getPlayingTime();
+			this.playingTime.plus(temp.getPlayingTime());
 		}
+
 	}
 
 	public TeamPerformanceOfOneMatchPo() {
@@ -67,7 +69,7 @@ public class TeamPerformanceOfOneMatchPo {
 		this.opponentTeamNameForShort = opponentTeamNameForShort;
 	}// 设置对手名称
 
-	public void setDate(Date date) {
+	public void setDate(MyDate date) {
 		this.date = date;
 	}// 设置比赛时间
 
@@ -140,7 +142,7 @@ public class TeamPerformanceOfOneMatchPo {
 		return this.opponentTeamNameForShort;
 	}// 得到对手名称
 
-	public Date getDate() {
+	public MyDate getDate() {
 		return this.date;
 	}// 得到比赛时间
 
@@ -208,9 +210,8 @@ public class TeamPerformanceOfOneMatchPo {
 		String resultString = "(`teamNameForShort`, `date`, `season`, `opponentTeamName`, `playingTime`,"
 				+ "`totalHitNumber`, `totalShootNumber`, `threePointHitNumber`, "
 				+ "`threePointShootNumber`, `freePointHitNumber`, `freePointShootNumber`,"
-				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`,"
-				+ " `assistNumber`, `stealNumber`, `blockNumber`," + " `turnoverNumber`, `foulNumber`, `scoreNumber`)"
-				+ " VALUES ('"
+				+ " `offensiveReboundNumber`, `defensiveReboundNumber`, `totalReboundNumber`," + " `assistNumber`, `stealNumber`, `blockNumber`,"
+				+ " `turnoverNumber`, `foulNumber`, `scoreNumber`)" + " VALUES ('"
 				+ this.getTeamNameForShort()
 				+ "','"
 				+ this.getDate().getFormatString()
@@ -219,7 +220,7 @@ public class TeamPerformanceOfOneMatchPo {
 				+ "','"
 				+ this.getOpponentTeamNameForShort()
 				+ "','"
-				+ this.getPlayingTime()
+				+ this.getPlayingTime().getTimeFormatString()
 				+ "','"
 				+ this.getTotalHitNumber()
 				+ "','"
@@ -253,21 +254,11 @@ public class TeamPerformanceOfOneMatchPo {
 		return resultString;
 	}
 
-	public double getPlayingTime() {
-		if (this.playingTime <= 240 + 1) {
-			return 240;
-		} else {
-			for (int i = 1; i < 10; i++) {
-				if (this.playingTime <= 241 + 25 * i) {
-					return 240 + 25 * i;
-				}
-			}
-		}
-
+	public MyTime getPlayingTime() {
 		return playingTime;
 	}
 
-	public void setPlayingTime(double playingTime) {
+	public void setPlayingTime(MyTime playingTime) {
 		this.playingTime = playingTime;
 	}
 
