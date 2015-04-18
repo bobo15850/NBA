@@ -1,9 +1,7 @@
-package po;
+package common.mydatastructure;
 
-import common.mydatastructure.MyDate;
-import common.mydatastructure.MyTime;
 
-public class PlayerPerformanceOfOneMatchPo {
+public class PlayerPerformOfOneMatch {
 	private String playerName;// 球员姓名
 	private String teamNameForShort;// 效力球队
 	private MyDate date;// 比赛时间

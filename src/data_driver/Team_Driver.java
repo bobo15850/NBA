@@ -2,7 +2,8 @@ package data_driver;
 
 import java.util.ArrayList;
 
-import po.TeamPerformanceOfOneMatchPo;
+import common.mydatastructure.TeamPerformOfOneMatch;
+
 import data.teams.TeamInfoData;
 import dataservice.teams.TeamInfoDataService;
 
@@ -23,7 +24,7 @@ public class Team_Driver {
 
 	public void testOneTeamPerformOfOneSeason() {
 		String teamName = "CLE";
-		ArrayList<TeamPerformanceOfOneMatchPo[]> teamPerformPoList = this.teamInfodata.getOneTeamPerformOfOneSeason(teamName);
+		ArrayList<TeamPerformOfOneMatch[]> teamPerformPoList = this.teamInfodata.getOneTeamPerformOfOneSeason(teamName);
 		for (int i = 0; i < 1; i++) {
 			System.out.println(i);
 			System.out.println(teamPerformPoList.get(i)[0]);

@@ -1,6 +1,6 @@
-package po;
+package common.mydatastructure;
 
-public class GeneralInfoOfPlayerPo {
+public class GeneralInfoOfPlayer {
 	private String playerName;// 姓名
 	private String position;// 位置
 	private int age;// 年龄

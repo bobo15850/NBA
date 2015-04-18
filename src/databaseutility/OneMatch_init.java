@@ -2,10 +2,9 @@ package databaseutility;
 
 import java.util.TreeMap;
 
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
-
 import common.mydatastructure.MyDate;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 
 public class OneMatch_init extends OneMatch {
 
@@ -16,7 +15,7 @@ public class OneMatch_init extends OneMatch {
 	public void writeDetailInfoOfPlayerAndTeamToMEN() {
 		System.out.println(nameOfFile);
 		if (isDataCorrect) {
-			PlayerPerformanceOfOneMatchPo playerPo;
+			PlayerPerformOfOneMatch playerPo;
 			for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
 				playerPo = listOfFirstTeamPlayerPerformance.get(i);
 				writeDetailInfoOfPlayerPerform(playerPo);
@@ -30,29 +29,29 @@ public class OneMatch_init extends OneMatch {
 		}
 	}
 
-	private void writeDetailInfoOfTeamPerform(TeamPerformanceOfOneMatchPo teamPo) {
+	private void writeDetailInfoOfTeamPerform(TeamPerformOfOneMatch teamPo) {
 		String teamNameForShort = teamPo.getTeamNameForShort();
-		TreeMap<MyDate, TeamPerformanceOfOneMatchPo> oneTeamPerform;
+		TreeMap<MyDate, TeamPerformOfOneMatch> oneTeamPerform;
 		if (MEM.TEAM_PERFORM.containsKey(teamNameForShort)) {
 			oneTeamPerform = MEM.TEAM_PERFORM.get(teamNameForShort);
 			oneTeamPerform.put(date, teamPo);
 		}
 		else {
-			oneTeamPerform = new TreeMap<MyDate, TeamPerformanceOfOneMatchPo>();
+			oneTeamPerform = new TreeMap<MyDate, TeamPerformOfOneMatch>();
 			oneTeamPerform.put(date, teamPo);
 			MEM.TEAM_PERFORM.put(teamNameForShort, oneTeamPerform);
 		}
 	}
 
-	private void writeDetailInfoOfPlayerPerform(PlayerPerformanceOfOneMatchPo playerPo) {
+	private void writeDetailInfoOfPlayerPerform(PlayerPerformOfOneMatch playerPo) {
 		String playerName = playerPo.getNameOfPlayer();
-		TreeMap<MyDate, PlayerPerformanceOfOneMatchPo> onePlayerPerform;
+		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerPerform;
 		if (MEM.PLAYERS_PERFORM.containsKey(playerName)) {
 			onePlayerPerform = MEM.PLAYERS_PERFORM.get(playerName);
 			onePlayerPerform.put(date, playerPo);
 		}
 		else {
-			onePlayerPerform = new TreeMap<MyDate, PlayerPerformanceOfOneMatchPo>();
+			onePlayerPerform = new TreeMap<MyDate, PlayerPerformOfOneMatch>();
 			onePlayerPerform.put(date, playerPo);
 			MEM.PLAYERS_PERFORM.put(playerName, onePlayerPerform);
 		}

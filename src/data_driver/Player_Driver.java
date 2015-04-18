@@ -2,9 +2,10 @@ package data_driver;
 
 import java.util.ArrayList;
 
-import po.GeneralInfoOfPlayerPo;
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
+import common.mydatastructure.GeneralInfoOfPlayer;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
+
 import data.players.PlayerInfoData;
 import dataservice.players.PlayerInfoDataService;
 
@@ -12,7 +13,7 @@ public class Player_Driver {
 	PlayerInfoDataService plData = PlayerInfoData.getInstance();
 
 	public void testGeneralInfoPo() {
-		GeneralInfoOfPlayerPo playerPo = plData.getGeneralInfoOfOnePlayer("Al Harrington");
+		GeneralInfoOfPlayer playerPo = plData.getGeneralInfoOfOnePlayer("Al Harrington");
 		System.out.println(playerPo);
 	}
 
@@ -26,7 +27,7 @@ public class Player_Driver {
 
 	public void testOnePlayerPerformOfOneSeason() {
 		String playerName = "Al Harrington";
-		ArrayList<PlayerPerformanceOfOneMatchPo> playerPerformPoList = this.plData.getOnePlayerPerformOfOneSeasonPo(playerName);
+		ArrayList<PlayerPerformOfOneMatch> playerPerformPoList = this.plData.getOnePlayerPerformOfOneSeasonPo(playerName);
 		for (int i = 0; i < playerPerformPoList.size(); i++) {
 			System.out.println(playerPerformPoList.get(i));
 		}
@@ -34,7 +35,7 @@ public class Player_Driver {
 
 	public void testOneTeamPerformOfOneSeason() {
 		String playerName = "Al Harrington";
-		ArrayList<TeamPerformanceOfOneMatchPo[]> teamPerformPoList = this.plData.getOneTeamPerformOfOneSeason(playerName);
+		ArrayList<TeamPerformOfOneMatch[]> teamPerformPoList = this.plData.getOneTeamPerformOfOneSeason(playerName);
 		for (int i = 0; i < teamPerformPoList.size(); i++) {
 			System.out.println(i);
 			System.out.println(teamPerformPoList.get(i)[0]);

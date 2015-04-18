@@ -1,15 +1,15 @@
-package presentation.players;
+package presentation.match;
 
 import common.mycomponent.MyPanel;
 
-public class PlayerPanel extends MyPanel {
+public class MatchPanel extends MyPanel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	class SelectionPanel {
+	public MatchPanel() {
 
 	}
 }

@@ -5,13 +5,13 @@ import java.util.TreeMap;
 
 import businesslogic.CACHE;
 import businesslogic.teams.CalculationOfTeamPerform;
-import po.GeneralInfoOfPlayerPo;
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
 import test.data.PlayerHighInfo;
 import test.data.PlayerNormalInfo;
+import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.MyTime;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.League;
 import common.statics.NUMBER;
 import common.statics.Position;
@@ -19,7 +19,7 @@ import databaseutility.MEM;
 
 public class PlayerInfoInit {
 	public static void initPlayerCache() {
-		for (Entry<String, TreeMap<MyDate, PlayerPerformanceOfOneMatchPo>> temp : MEM.PLAYERS_PERFORM.entrySet()) {
+		for (Entry<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> temp : MEM.PLAYERS_PERFORM.entrySet()) {
 			PlayerNormalInfo playerNormal = new PlayerNormalInfo();
 			PlayerHighInfo playerHigh = new PlayerHighInfo();
 			//
@@ -28,14 +28,14 @@ public class PlayerInfoInit {
 			int age = NUMBER.UNKNOWN_AGE;// 年龄
 			String league = League.Unknown;// 联盟
 			//
-			TreeMap<MyDate, PlayerPerformanceOfOneMatchPo> oneplayer = temp.getValue();
-			PlayerPerformanceOfOneMatchPo latestMatchPo = oneplayer.lastEntry().getValue();// 最后一场比赛
+			TreeMap<MyDate, PlayerPerformOfOneMatch> oneplayer = temp.getValue();
+			PlayerPerformOfOneMatch latestMatchPo = oneplayer.lastEntry().getValue();// 最后一场比赛
 			String teamName = latestMatchPo.getTeamNameForShort();// 得到所属球队
 			if (MEM.TEAM_LEAGUE.containsKey(teamName)) {
 				league = MEM.TEAM_LEAGUE.get(teamName);
 			}// 得到联盟
 			if (MEM.PLAYER_GENERALINFO.containsKey(playerName)) {
-				GeneralInfoOfPlayerPo playerGeneralInfo = MEM.PLAYER_GENERALINFO.get(latestMatchPo.getNameOfPlayer());
+				GeneralInfoOfPlayer playerGeneralInfo = MEM.PLAYER_GENERALINFO.get(latestMatchPo.getNameOfPlayer());
 				age = playerGeneralInfo.getAge();
 				position = playerGeneralInfo.getPosition();
 			}// 得到年龄
@@ -76,8 +76,8 @@ public class PlayerInfoInit {
 			int offendReboundOfCompetior = 0;// 对手进攻篮板数
 			int defendReboundOfCompetitor = 0;// 对手防守篮板数
 			//
-			for (Entry<MyDate, PlayerPerformanceOfOneMatchPo> onematch : oneplayer.entrySet()) {
-				PlayerPerformanceOfOneMatchPo tempMatch = onematch.getValue();
+			for (Entry<MyDate, PlayerPerformOfOneMatch> onematch : oneplayer.entrySet()) {
+				PlayerPerformOfOneMatch tempMatch = onematch.getValue();
 				MyDate tempDate = onematch.getKey();
 				//
 				start += tempMatch.getStart();
@@ -99,8 +99,8 @@ public class PlayerInfoInit {
 				defendReboundNumber += tempMatch.getDefensiveReboundNumber();
 				//
 				String tempTeam = tempMatch.getTeamNameForShort();// 球队名称
-				TeamPerformanceOfOneMatchPo selfTeam = MEM.TEAM_PERFORM.get(tempTeam).get(tempDate);// 所属球队战绩
-				TeamPerformanceOfOneMatchPo opponentTeam = MEM.TEAM_PERFORM.get(selfTeam.getOpponentTeamNameForShort()).get(tempDate);// 对手球队战绩
+				TeamPerformOfOneMatch selfTeam = MEM.TEAM_PERFORM.get(tempTeam).get(tempDate);// 所属球队战绩
+				TeamPerformOfOneMatch opponentTeam = MEM.TEAM_PERFORM.get(selfTeam.getOpponentTeamNameForShort()).get(tempDate);// 对手球队战绩
 				//
 				timeOfAllPlayer.plus(selfTeam.getPlayingTime());
 				totalReboundOfTeam += selfTeam.getTotalReboundNumber();

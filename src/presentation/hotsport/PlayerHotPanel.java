@@ -1,15 +1,12 @@
-package presentation.players;
+package presentation.hotsport;
 
 import common.mycomponent.MyPanel;
 
-public class PlayerPanel extends MyPanel {
+public class PlayerHotPanel extends MyPanel{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	class SelectionPanel {
-
-	}
 }
