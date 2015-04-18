@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
-import po.GeneralInfoOfPlayerPo;
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
+import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.ResultMessage;
 import databaseutility.MEM;
 import dataservice.players.PlayerInfoDataService;
@@ -25,9 +25,9 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		return playerInfoData;
 	}
 
-	public ArrayList<PlayerPerformanceOfOneMatchPo> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer) {
-		ArrayList<PlayerPerformanceOfOneMatchPo> resultList = new ArrayList<PlayerPerformanceOfOneMatchPo>(128);
-		Map<MyDate, PlayerPerformanceOfOneMatchPo> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
+	public ArrayList<PlayerPerformOfOneMatch> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer) {
+		ArrayList<PlayerPerformOfOneMatch> resultList = new ArrayList<PlayerPerformOfOneMatch>(128);
+		Map<MyDate, PlayerPerformOfOneMatch> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
 		Set<MyDate> dateSet = onePlayerPerform.keySet();
 		for (MyDate date : dateSet) {
 			resultList.add(onePlayerPerform.get(date));
@@ -44,8 +44,8 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		return resultList;
 	}
 
-	public GeneralInfoOfPlayerPo getGeneralInfoOfOnePlayer(String nameOfPlayer) {
-		GeneralInfoOfPlayerPo resultPo;
+	public GeneralInfoOfPlayer getGeneralInfoOfOnePlayer(String nameOfPlayer) {
+		GeneralInfoOfPlayer resultPo;
 		if (MEM.PLAYER_GENERALINFO.containsKey(nameOfPlayer)) {
 			resultPo = MEM.PLAYER_GENERALINFO.get(nameOfPlayer);
 		}
@@ -55,20 +55,20 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		return resultPo;
 	}
 
-	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String playerName) {
-		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>();
-		Map<MyDate, PlayerPerformanceOfOneMatchPo> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
+	public ArrayList<TeamPerformOfOneMatch[]> getOneTeamPerformOfOneSeason(String playerName) {
+		ArrayList<TeamPerformOfOneMatch[]> resultList = new ArrayList<TeamPerformOfOneMatch[]>();
+		Map<MyDate, PlayerPerformOfOneMatch> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
 		Set<MyDate> dateSet = onePlayerOfOneSeason.keySet();
-		PlayerPerformanceOfOneMatchPo temp;
-		TeamPerformanceOfOneMatchPo selfTeamPo;
-		TeamPerformanceOfOneMatchPo opponentTeamPo;
+		PlayerPerformOfOneMatch temp;
+		TeamPerformOfOneMatch selfTeamPo;
+		TeamPerformOfOneMatch opponentTeamPo;
 		for (MyDate date : dateSet) {
 			temp = onePlayerOfOneSeason.get(date);
 			String teamNameForShort = temp.getTeamNameForShort();
 			selfTeamPo = MEM.TEAM_PERFORM.get(teamNameForShort).get(date);
 			String opponentTeamNameForShort = selfTeamPo.getOpponentTeamNameForShort();
 			opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeamNameForShort).get(date);
-			resultList.add(new TeamPerformanceOfOneMatchPo[] { selfTeamPo, opponentTeamPo });
+			resultList.add(new TeamPerformOfOneMatch[] { selfTeamPo, opponentTeamPo });
 		}
 		return resultList;
 	}

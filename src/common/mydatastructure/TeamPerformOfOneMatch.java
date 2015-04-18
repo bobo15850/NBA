@@ -1,11 +1,8 @@
-package po;
+package common.mydatastructure;
 
 import java.util.ArrayList;
 
-import common.mydatastructure.MyDate;
-import common.mydatastructure.MyTime;
-
-public class TeamPerformanceOfOneMatchPo {
+public class TeamPerformOfOneMatch {
 	private String TeamNameForShort;// 球队名称缩写
 	private MyDate date;// 比赛时间
 	private MyTime playingTime = new MyTime();// 球员上场时间之和
@@ -27,13 +24,13 @@ public class TeamPerformanceOfOneMatchPo {
 	private int foulNumber;// 犯规数
 	private int scoreNumber;// 得分数
 
-	public TeamPerformanceOfOneMatchPo(String teamName, String opponentTeamName, MyDate date, int win,
-			ArrayList<PlayerPerformanceOfOneMatchPo> listOfPlayerPerformanceOfOneMatch) {
+	public TeamPerformOfOneMatch(String teamName, String opponentTeamName, MyDate date, int win,
+			ArrayList<PlayerPerformOfOneMatch> listOfPlayerPerformanceOfOneMatch) {
 		this.TeamNameForShort = teamName;
 		this.opponentTeamNameForShort = opponentTeamName;
 		this.date = date;
 		this.win = win;
-		PlayerPerformanceOfOneMatchPo temp;
+		PlayerPerformOfOneMatch temp;
 		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
 			temp = listOfPlayerPerformanceOfOneMatch.get(i);
 			this.totalHitNumber += temp.getTotalHitNumber();
@@ -55,7 +52,7 @@ public class TeamPerformanceOfOneMatchPo {
 		}
 	}
 
-	public TeamPerformanceOfOneMatchPo() {
+	public TeamPerformOfOneMatch() {
 		// 无参构造函数
 	}
 

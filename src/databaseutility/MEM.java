@@ -8,20 +8,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import po.GeneralInfoOfPlayerPo;
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
+import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.League;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class MEM {
-	public static Map<String, TreeMap<MyDate, PlayerPerformanceOfOneMatchPo>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformanceOfOneMatchPo>>();
+	public static Map<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>>();
 	// 球员数据存储
-	public static Map<String, GeneralInfoOfPlayerPo> PLAYER_GENERALINFO = new HashMap<String, GeneralInfoOfPlayerPo>();
+	public static Map<String, GeneralInfoOfPlayer> PLAYER_GENERALINFO = new HashMap<String, GeneralInfoOfPlayer>();
 	// 求援基本信息存储
-	public static Map<String, TreeMap<MyDate, TeamPerformanceOfOneMatchPo>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformanceOfOneMatchPo>>();
+	public static Map<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
 	// 球队数据存储
 	public static Map<String, String> TEAM_LEAGUE = new HashMap<String, String>();
 	// 球队基本信息存储
@@ -86,7 +86,7 @@ public class MEM {
 			}
 			playerReader.readLine();
 		}
-		GeneralInfoOfPlayerPo playerInfoPo = new GeneralInfoOfPlayerPo();
+		GeneralInfoOfPlayer playerInfoPo = new GeneralInfoOfPlayer();
 		playerInfoPo.setName(element[0]);
 		playerInfoPo.setPosition(element[2]);
 		playerInfoPo.setAge(toInt(element[6]));

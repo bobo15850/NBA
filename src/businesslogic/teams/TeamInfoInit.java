@@ -4,18 +4,18 @@ import java.util.TreeMap;
 import java.util.Map.Entry;
 
 import businesslogic.CACHE;
-import po.TeamPerformanceOfOneMatchPo;
 import test.data.TeamHighInfo;
 import test.data.TeamNormalInfo;
 import common.mydatastructure.MyDate;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import databaseutility.MEM;
 
 public class TeamInfoInit {
 	public static void initTeamCache() {
-		for (Entry<String, TreeMap<MyDate, TeamPerformanceOfOneMatchPo>> temp : MEM.TEAM_PERFORM.entrySet()) {
+		for (Entry<String, TreeMap<MyDate, TeamPerformOfOneMatch>> temp : MEM.TEAM_PERFORM.entrySet()) {
 			TeamNormalInfo teamNormal = new TeamNormalInfo();
 			TeamHighInfo teamHigh = new TeamHighInfo();
-			TreeMap<MyDate, TeamPerformanceOfOneMatchPo> oneTeam = temp.getValue();
+			TreeMap<MyDate, TeamPerformOfOneMatch> oneTeam = temp.getValue();
 			String teamName = temp.getKey();
 			int numOfGame = oneTeam.size();
 			int numOfWin = 0;
@@ -45,8 +45,8 @@ public class TeamInfoInit {
 			int foulOfCompetitor = 0;
 			int faultOfCompetitor = 0;
 			//
-			for (Entry<MyDate, TeamPerformanceOfOneMatchPo> oneMatch : oneTeam.entrySet()) {
-				TeamPerformanceOfOneMatchPo tempMatch = oneMatch.getValue();
+			for (Entry<MyDate, TeamPerformOfOneMatch> oneMatch : oneTeam.entrySet()) {
+				TeamPerformOfOneMatch tempMatch = oneMatch.getValue();
 				MyDate tempDate = oneMatch.getKey();
 				numOfWin += tempMatch.getWin();
 				totalHitNumber += tempMatch.getTotalHitNumber();// 总命中数
@@ -66,7 +66,7 @@ public class TeamInfoInit {
 				faultNumber += tempMatch.getFaultNumber();// 总失误数
 				foulNumber += tempMatch.getFoulNumber();// 总犯规数
 				//
-				TeamPerformanceOfOneMatchPo opponentTeam = MEM.TEAM_PERFORM.get(tempMatch.getOpponentTeamNameForShort()).get(tempDate);
+				TeamPerformOfOneMatch opponentTeam = MEM.TEAM_PERFORM.get(tempMatch.getOpponentTeamNameForShort()).get(tempDate);
 				offendReboundOfCompetitor += opponentTeam.getOffendReboundNumber();
 				defendReboundOfCompetitor += opponentTeam.getDefendReboundNumber();
 				pointOfCompetitor += opponentTeam.getScoreNumber();

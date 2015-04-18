@@ -1,6 +1,7 @@
 package databaseutility;
 
-import po.TeamPerformanceOfOneMatchPo;
+import common.mydatastructure.TeamPerformOfOneMatch;
+
 import businesslogic.CACHE;
 import businesslogic.players.CalculationOfPlayerPerform;
 import test.data.TeamNormalInfo;
@@ -29,7 +30,7 @@ public class OneMatch_add extends OneMatch_init {
 		isTeamNormalRefresh = true;
 	}// 更新cache中的球队普通信息
 
-	private void addTeamNormalToCACHE(TeamPerformanceOfOneMatchPo teamPerformPo) {
+	private void addTeamNormalToCACHE(TeamPerformOfOneMatch teamPerformPo) {
 		TeamNormalInfo teamInfo = new TeamNormalInfo();
 		String teamNameForShort = teamPerformPo.getTeamNameForShort();
 		teamInfo.setTeamName(teamNameForShort);
@@ -49,7 +50,7 @@ public class OneMatch_add extends OneMatch_init {
 		CACHE.TEAM_NORMAL.put(teamNameForShort, teamInfo);
 	}
 
-	private void RefreshTeamNormalToCACHE(TeamPerformanceOfOneMatchPo teamPerformPo) {
+	private void RefreshTeamNormalToCACHE(TeamPerformOfOneMatch teamPerformPo) {
 		String teamNameForShort = teamPerformPo.getTeamNameForShort();
 		TeamNormalInfo teamInfo = CACHE.TEAM_NORMAL.get(teamNameForShort);
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
-import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.MyDate;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import databaseutility.MEM;
 import dataservice.teams.TeamInfoDataService;
 
@@ -22,15 +22,15 @@ public class TeamInfoData implements TeamInfoDataService {
 		return teamInfoData;
 	}
 
-	public ArrayList<TeamPerformanceOfOneMatchPo[]> getOneTeamPerformOfOneSeason(String teamName) {
-		ArrayList<TeamPerformanceOfOneMatchPo[]> resultList = new ArrayList<TeamPerformanceOfOneMatchPo[]>(128);
-		Map<MyDate, TeamPerformanceOfOneMatchPo> oneTeamPerform = MEM.TEAM_PERFORM.get(teamName);
+	public ArrayList<TeamPerformOfOneMatch[]> getOneTeamPerformOfOneSeason(String teamName) {
+		ArrayList<TeamPerformOfOneMatch[]> resultList = new ArrayList<TeamPerformOfOneMatch[]>(128);
+		Map<MyDate, TeamPerformOfOneMatch> oneTeamPerform = MEM.TEAM_PERFORM.get(teamName);
 		Set<MyDate> dateSet = oneTeamPerform.keySet();
 		for (MyDate date : dateSet) {
-			TeamPerformanceOfOneMatchPo selfTeamPo = oneTeamPerform.get(date);
+			TeamPerformOfOneMatch selfTeamPo = oneTeamPerform.get(date);
 			String opponentTeam = selfTeamPo.getOpponentTeamNameForShort();
-			TeamPerformanceOfOneMatchPo opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeam).get(date);
-			resultList.add(new TeamPerformanceOfOneMatchPo[] { selfTeamPo, opponentTeamPo });
+			TeamPerformOfOneMatch opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeam).get(date);
+			resultList.add(new TeamPerformOfOneMatch[] { selfTeamPo, opponentTeamPo });
 		}
 		return resultList;
 	}

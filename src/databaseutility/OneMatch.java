@@ -5,10 +5,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import po.PlayerPerformanceOfOneMatchPo;
-import po.TeamPerformanceOfOneMatchPo;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.MyTime;
+import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
@@ -20,15 +20,15 @@ class OneMatch {
 	protected int firstTeamSocre;// 第一支球队得分
 	protected int secondTeamScore;// 第二支球队得分
 	protected boolean isDataCorrect;// 判断数据是否为脏数据
-	protected ArrayList<PlayerPerformanceOfOneMatchPo> listOfFirstTeamPlayerPerformance;// 第一支球队每个队员各项成绩
-	protected ArrayList<PlayerPerformanceOfOneMatchPo> listOfSecondTeamPlayerPerformance;// 第二支球每个球员各项成绩
-	protected TeamPerformanceOfOneMatchPo firstTeamPerformance;// 第一支球队总成绩
-	protected TeamPerformanceOfOneMatchPo secondTeamPerformance;// 第二支球队总成绩
+	protected ArrayList<PlayerPerformOfOneMatch> listOfFirstTeamPlayerPerformance;// 第一支球队每个队员各项成绩
+	protected ArrayList<PlayerPerformOfOneMatch> listOfSecondTeamPlayerPerformance;// 第二支球每个球员各项成绩
+	protected TeamPerformOfOneMatch firstTeamPerformance;// 第一支球队总成绩
+	protected TeamPerformOfOneMatch secondTeamPerformance;// 第二支球队总成绩
 
 	public OneMatch(String nameOfFile) {
 		this.nameOfFile = nameOfFile;
-		this.listOfFirstTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
-		this.listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformanceOfOneMatchPo>(15);
+		this.listOfFirstTeamPlayerPerformance = new ArrayList<PlayerPerformOfOneMatch>(15);
+		this.listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformOfOneMatch>(15);
 		try {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
 			String temp;
@@ -55,9 +55,9 @@ class OneMatch {
 			}
 
 			matchReader.close();
-			this.firstTeamPerformance = new TeamPerformanceOfOneMatchPo(this.firstTeam, this.secondTeam, this.date, isFirstWin(),
+			this.firstTeamPerformance = new TeamPerformOfOneMatch(this.firstTeam, this.secondTeam, this.date, isFirstWin(),
 					this.listOfFirstTeamPlayerPerformance);
-			this.secondTeamPerformance = new TeamPerformanceOfOneMatchPo(this.secondTeam, this.firstTeam, this.date, 1 - isFirstWin(),
+			this.secondTeamPerformance = new TeamPerformOfOneMatch(this.secondTeam, this.firstTeam, this.date, 1 - isFirstWin(),
 					this.listOfSecondTeamPlayerPerformance);
 			this.isDataCorrect = this.isDataCorrect();
 		} catch (IOException e) {
@@ -95,8 +95,8 @@ class OneMatch {
 		this.date = new MyDate(year, month, day);
 	}// 根据第一行文本得到比赛主要信息
 
-	private PlayerPerformanceOfOneMatchPo getFirstTeamFirstPlayerPo(String temp) {
-		PlayerPerformanceOfOneMatchPo resultPo = new PlayerPerformanceOfOneMatchPo();
+	private PlayerPerformOfOneMatch getFirstTeamFirstPlayerPo(String temp) {
+		PlayerPerformOfOneMatch resultPo = new PlayerPerformOfOneMatch();
 		String part[] = temp.split(";");
 		resultPo.setTeamNameForShort(firstTeam);
 		resultPo.setDate(date);
@@ -121,20 +121,20 @@ class OneMatch {
 		return resultPo;
 	}// 第一队首发
 
-	private PlayerPerformanceOfOneMatchPo getFirstTeamReplacePlayerPo(String temp) {
-		PlayerPerformanceOfOneMatchPo resultPo = this.getFirstTeamFirstPlayerPo(temp);
+	private PlayerPerformOfOneMatch getFirstTeamReplacePlayerPo(String temp) {
+		PlayerPerformOfOneMatch resultPo = this.getFirstTeamFirstPlayerPo(temp);
 		resultPo.setStart(0);
 		return resultPo;
 	}// 第一队替补
 
-	private PlayerPerformanceOfOneMatchPo getSecondTeamFirstPlayerPo(String temp) {
-		PlayerPerformanceOfOneMatchPo resultPo = this.getFirstTeamFirstPlayerPo(temp);
+	private PlayerPerformOfOneMatch getSecondTeamFirstPlayerPo(String temp) {
+		PlayerPerformOfOneMatch resultPo = this.getFirstTeamFirstPlayerPo(temp);
 		resultPo.setTeamNameForShort(secondTeam);
 		return resultPo;
 	}// 第二队首发
 
-	private PlayerPerformanceOfOneMatchPo getSecondTeamReplacePlayerPo(String temp) {
-		PlayerPerformanceOfOneMatchPo resultPo = this.getFirstTeamFirstPlayerPo(temp);
+	private PlayerPerformOfOneMatch getSecondTeamReplacePlayerPo(String temp) {
+		PlayerPerformOfOneMatch resultPo = this.getFirstTeamFirstPlayerPo(temp);
 		resultPo.setTeamNameForShort(secondTeam);
 		resultPo.setStart(0);
 		return resultPo;
