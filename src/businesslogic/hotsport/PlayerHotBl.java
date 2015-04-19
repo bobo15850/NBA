@@ -11,7 +11,6 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 import test.data.PlayerHotInfo;
 import test.data.PlayerKingInfo;
 import businesslogic.CACHE;
-import businesslogic.MySort;
 import businesslogic.players.CalculationOfPlayerPerform;
 import businesslogicservice.hotsport.PlayerHotBlSrevice;
 import common.mydatastructure.PlayerNormalInfo_Expand;
@@ -149,14 +148,60 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 		return resultList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<PlayerKingInfo> getPlayerKingOfDaily(int number, String field) {
-		return null;
+		ArrayList<PlayerPerformOfOneMatch> playerPerformOneDay = new ArrayList<PlayerPerformOfOneMatch>();
+		for (Entry<String, PlayerPerformOfOneMatch> playerPerformOfOneMatch : CACHE.PLAYER_TODAY.entrySet()) {
+			playerPerformOneDay.add(playerPerformOfOneMatch.getValue());
+		}
+		ArrayList<BeanComparator> sortFields = new ArrayList<BeanComparator>();// 声明要排序的对象的属性，并指明所使用的排序规则，如果不指明，则用默认排序
+		sortFields.add(new BeanComparator(field));
+		ComparatorChain comChain = new ComparatorChain(sortFields);// 创建一个排序链
+		Collections.sort(playerPerformOneDay, comChain);// 开始真正的排序，按照先主，后副的规则
+		if (number > playerPerformOneDay.size()) {
+			number = playerPerformOneDay.size();
+		}
+		ArrayList<PlayerKingInfo> resultList = new ArrayList<PlayerKingInfo>(number);
+		for (int i = playerPerformOneDay.size() - 1; i > playerPerformOneDay.size() - number - 1; i--) {
+			PlayerKingInfo tempKing = new PlayerKingInfo();
+			PlayerPerformOfOneMatch tempPerformOfOneMatch = playerPerformOneDay.get(i);
+			tempKing.setField(field);
+			tempKing.setName(tempPerformOfOneMatch.getNameOfPlayer());
+			tempKing.setTeamName(tempPerformOfOneMatch.getTeamNameForShort());
+			tempKing.setPosition(this.playerData.getGeneralInfoOfOnePlayer(tempPerformOfOneMatch.getNameOfPlayer()).getName());
+			double value = 0;
+			if (field.equals(Field.point)) {
+				value = tempPerformOfOneMatch.getScoreNumber();
+			}
+			else if (field.equals(Field.rebound)) {
+				value = tempPerformOfOneMatch.getTotalReboundNumber();
+			}
+			else if (field.equals(Field.assist)) {
+				value = tempPerformOfOneMatch.getAssistNumber();
+			}
+			else if (field.equals(Field.steal)) {
+				value = tempPerformOfOneMatch.getStealNumber();
+			}
+			else if (field.equals(Field.blockShot)) {
+				value = tempPerformOfOneMatch.getBlockNumber();
+			}
+			else if (field.equals(Field.shot)) {
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getTotalHitNumber() / tempPerformOfOneMatch.getTotalShootNumber());
+			}
+			else if (field.equals(Field.three)) {
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getThreePointHitNumber()
+						/ tempPerformOfOneMatch.getThreePointShootNumber());
+			}
+			else if (field.equals(Field.penalty)) {
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getFreePointHitNumber()
+						/ tempPerformOfOneMatch.getFreePointShootNumber());
+			}
+			tempKing.setValue(value);
+			resultList.add(tempKing);
+		}
+		return resultList;
 	}
 
-	//
-	//
-	//
-	//
 	private ArrayList<Double> getPerform(ArrayList<PlayerPerformOfOneMatch> playerPerformList, PlayerPerform perform) {
 		ArrayList<Double> dataList = new ArrayList<Double>(128);
 		for (int i = 0; i < playerPerformList.size(); i++) {

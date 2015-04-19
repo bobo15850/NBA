@@ -1,12 +1,13 @@
 package businesslogic.players;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import test.data.PlayerHighInfo;
 import businesslogic.CACHE;
 import businesslogic.teams.CalculationOfTeamPerform;
-
+import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.MyTime;
@@ -16,8 +17,11 @@ import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.League;
 import common.statics.NUMBER;
 import common.statics.Position;
-
+import data.matches.MatchInfoData;
+import data.players.PlayerInfoData;
 import databaseutility.MEM;
+import dataservice.matches.MatchInfoDataService;
+import dataservice.players.PlayerInfoDataService;
 
 public class PlayerInfoInit {
 	public static void initPlayerCache() {
@@ -209,6 +213,21 @@ public class PlayerInfoInit {
 	}
 
 	public static void initPlayerTodayCache() {
-
+		MatchInfoDataService matchInfoData = MatchInfoData.getInstance();
+		PlayerInfoDataService playerInfoData = PlayerInfoData.getInstance();
+		ArrayList<GeneralInfoOfOneMatch> todayMatchList = matchInfoData.getLatestMatches();
+		for (int i = 0; i < todayMatchList.size(); i++) {
+			GeneralInfoOfOneMatch oneMatch = todayMatchList.get(i);
+			ArrayList<String> firstTeamPlayer = oneMatch.getFirstTeamPlayer();
+			for (int j = 0; j < firstTeamPlayer.size(); j++) {
+				PlayerPerformOfOneMatch playerPerform = playerInfoData.getOnePlayerOneMatchPerform(firstTeamPlayer.get(j), oneMatch.getDate());
+				CACHE.PLAYER_TODAY.put(firstTeamPlayer.get(j), playerPerform);
+			}
+			ArrayList<String> secondTeamPlayer = oneMatch.getSecondTeamPlayer();
+			for (int j = 0; j < secondTeamPlayer.size(); j++) {
+				PlayerPerformOfOneMatch playerPerform = playerInfoData.getOnePlayerOneMatchPerform(secondTeamPlayer.get(j), oneMatch.getDate());
+				CACHE.PLAYER_TODAY.put(secondTeamPlayer.get(j), playerPerform);
+			}
+		}
 	}
 }

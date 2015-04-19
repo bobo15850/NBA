@@ -4,16 +4,19 @@ import java.util.ArrayList;
 
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.MyDate;
+import data.matches.MatchInfoData;
+import dataservice.matches.MatchInfoDataService;
 import businesslogicservice.matches.MatchInfoBlService;
 
 public class MatchInfoBl implements MatchInfoBlService {
+	MatchInfoDataService matchInfoData = MatchInfoData.getInstance();
 
 	public ArrayList<GeneralInfoOfOneMatch> getLatestMatches() {
-		return null;
+		return matchInfoData.getLatestMatches();
 	}
 
 	public ArrayList<GeneralInfoOfOneMatch> getTodayMatches(MyDate nowDate) {
-		return null;
+		return matchInfoData.getTodayMatches(nowDate);
 	}
 
 }

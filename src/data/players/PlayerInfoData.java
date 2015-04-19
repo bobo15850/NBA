@@ -87,4 +87,13 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		}
 		return league;
 	}
+
+	public PlayerPerformOfOneMatch getOnePlayerOneMatchPerform(String playerName, MyDate date) {
+		if (MEM.PLAYERS_PERFORM.containsKey(playerName)) {
+			if (MEM.PLAYERS_PERFORM.get(playerName).containsKey(date)) {
+				return MEM.PLAYERS_PERFORM.get(playerName).get(date);
+			}
+		}
+		return null;
+	}
 }

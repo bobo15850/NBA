@@ -19,6 +19,7 @@ class OneMatch {
 	protected MyDate date;// 比赛时间
 	protected int firstTeamSocre;// 第一支球队得分
 	protected int secondTeamScore;// 第二支球队得分
+	protected String quarterPoint;
 	protected boolean isDataCorrect;// 判断数据是否为脏数据
 	protected ArrayList<PlayerPerformOfOneMatch> listOfFirstTeamPlayerPerformance;// 第一支球队每个队员各项成绩
 	protected ArrayList<PlayerPerformOfOneMatch> listOfSecondTeamPlayerPerformance;// 第二支球每个球员各项成绩
@@ -33,7 +34,7 @@ class OneMatch {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
 			String temp;
 			String mainInfo = matchReader.readLine();
-			matchReader.readLine();
+			this.quarterPoint = matchReader.readLine();
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分,时间
 			this.firstTeam = matchReader.readLine().trim();// 初始化第一个队名
 
@@ -140,7 +141,7 @@ class OneMatch {
 		return resultPo;
 	}// 第二队替补
 
-	private int toInt(String str) {
+	protected int toInt(String str) {
 		try {
 			return Integer.parseInt(str);
 		} catch (NumberFormatException e) {

@@ -1,5 +1,7 @@
 package common.mydatastructure;
 
+import java.util.ArrayList;
+
 public class GeneralInfoOfOneMatch {
 	private MyDate date;
 	private String firstTeamName;
@@ -8,6 +10,8 @@ public class GeneralInfoOfOneMatch {
 	private int SecondTeamScore;
 	private int[] firstTeamQuarterScore;
 	private int[] secondTeamQuarterScore;
+	private ArrayList<String> firstTeamPlayer;
+	private ArrayList<String> secondTeamPlayer;
 
 	public MyDate getDate() {
 		return date;
@@ -63,5 +67,21 @@ public class GeneralInfoOfOneMatch {
 
 	public void setSecondTeamQuarterScore(int[] secondTeamQuarterScore) {
 		this.secondTeamQuarterScore = secondTeamQuarterScore;
+	}
+
+	public ArrayList<String> getFirstTeamPlayer() {
+		return firstTeamPlayer;
+	}
+
+	public void setFirstTeamPlayer(ArrayList<String> firstTeamPlayer) {
+		this.firstTeamPlayer = firstTeamPlayer;
+	}
+
+	public ArrayList<String> getSecondTeamPlayer() {
+		return secondTeamPlayer;
+	}
+
+	public void setSecondTeamPlayer(ArrayList<String> secondTeamPlayer) {
+		this.secondTeamPlayer = secondTeamPlayer;
 	}
 }

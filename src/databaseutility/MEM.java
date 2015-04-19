@@ -5,9 +5,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.TreeMap;
 
+import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.GeneralInfoOfTeam;
 import common.mydatastructure.MyDate;
@@ -18,16 +19,20 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class MEM {
-	public static Map<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>>();
+	public static HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>>();
 	// 球员数据存储
-	public static Map<String, GeneralInfoOfPlayer> PLAYER_GENERALINFO = new HashMap<String, GeneralInfoOfPlayer>();
+	public static HashMap<String, GeneralInfoOfPlayer> PLAYER_GENERALINFO = new HashMap<String, GeneralInfoOfPlayer>();
 	// 求援基本信息存储
-	public static Map<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
+	public static HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
 	// 球队数据存储
-	public static Map<String, String> TEAM_LEAGUE = new HashMap<String, String>();
+	public static HashMap<String, String> TEAM_LEAGUE = new HashMap<String, String>();
 	// 球队联盟信息存储
-	public static Map<String, GeneralInfoOfTeam> TEAM_GENERALINFO = new HashMap<String, GeneralInfoOfTeam>();
+	public static HashMap<String, GeneralInfoOfTeam> TEAM_GENERALINFO = new HashMap<String, GeneralInfoOfTeam>();
 	// 球队的基本信息存储
+
+	public static HashMap<String, HashSet<String>> PLAYER_IN_TEAM = new HashMap<String, HashSet<String>>();// 每支球队里的队员集合
+
+	public static TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>> GENERAL_MATCH = new TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>>();// 每天的比赛集合
 	static {
 		MEM.handleFileOfMatches();
 		MEM.handleFileOfPlayers();
@@ -40,6 +45,7 @@ public class MEM {
 		for (int i = 0; i < matchName.length; i++) {
 			OneMatch_init match = new OneMatch_init(matchName[i]);
 			match.writeDetailInfoOfPlayerAndTeamToMEN();
+			match.writeGeneralMatchInfo();
 		}
 	}// 读取每场比赛信息，并分析后写入数据库
 
@@ -89,11 +95,17 @@ public class MEM {
 			}
 			playerReader.readLine();
 		}
+		playerReader.close();
 		GeneralInfoOfPlayer playerInfoPo = new GeneralInfoOfPlayer();
 		playerInfoPo.setName(element[0]);
+		playerInfoPo.setPlayerNumber(element[1]);
 		playerInfoPo.setPosition(element[2]);
+		playerInfoPo.setHeight(element[3]);
+		playerInfoPo.setWeight(element[4]);
+		playerInfoPo.setBirthday(element[5]);
 		playerInfoPo.setAge(toInt(element[6]));
-		playerReader.close();
+		playerInfoPo.setTrainingYear(toInt(element[7]));
+		playerInfoPo.setSchool(element[8]);
 		MEM.PLAYER_GENERALINFO.put(playerName, playerInfoPo);
 	}
 
@@ -106,6 +118,16 @@ public class MEM {
 		else if (league.equals("W")) {
 			MEM.TEAM_LEAGUE.put(part[1].trim(), League.West);
 		}
+		//
+		GeneralInfoOfTeam generalTeamInfo = new GeneralInfoOfTeam();
+		generalTeamInfo.setTeamName(part[0].trim().substring(1));
+		generalTeamInfo.setTeamNameForShort(part[1].trim());
+		generalTeamInfo.setLocation(part[2].trim());
+		generalTeamInfo.setConference(part[3].trim());
+		generalTeamInfo.setDivision(part[4].trim());
+		generalTeamInfo.setHomeField(part[5].trim());
+		generalTeamInfo.setEstablishYear(toInt(part[6].trim().substring(0, 4)));
+		MEM.TEAM_GENERALINFO.put(generalTeamInfo.getTeamName(), generalTeamInfo);
 	}
 
 	private static int toInt(String str) {
