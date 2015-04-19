@@ -11,7 +11,6 @@ import test.data.TeamHighInfo;
 import businesslogic.CACHE;
 import businesslogic.MySort;
 import businesslogicservice.teams.TeamInfoBlService;
-
 import common.mydatastructure.SortCell;
 import common.mydatastructure.TeamNormalInfo_Expand;
 
@@ -40,12 +39,49 @@ public class TeamInfoBl implements TeamInfoBlService {
 		return resultList;
 	}
 
-	public ArrayList<TeamNormalInfo_Expand> getTeamNormal_avg(int number, SortCell[] sortcell) {
-		return null;
+	@SuppressWarnings("unchecked")
+	public ArrayList<TeamNormalInfo_Expand> getTeamNormal_avg(int number, SortCell[] sortCells) {
+		ArrayList<TeamNormalInfo_Expand> teamNormalList = new ArrayList<TeamNormalInfo_Expand>();
+		for (Entry<String, TeamNormalInfo_Expand> temp : CACHE.TEAM_NORMAL.entrySet()) {
+			TeamNormalInfo_Expand tempNormalInfo = temp.getValue().getTeamNormal_avg();
+			teamNormalList.add(tempNormalInfo);
+		}
+		ArrayList<BeanComparator> sortFields = new ArrayList<BeanComparator>();// 声明要排序的对象的属性，并指明所使用的排序规则，如果不指明，则用默认排序
+		for (int i = 0; i < sortCells.length; i++) {
+			sortFields.add(MySort.getBeanComparator(sortCells[i]));
+		}
+		ComparatorChain comChain = new ComparatorChain(sortFields);// 创建一个排序链
+		Collections.sort(teamNormalList, comChain);// 开始真正的排序，按照先主，后副的规则
+		if (number > teamNormalList.size()) {
+			number = teamNormalList.size();
+		}
+		ArrayList<TeamNormalInfo_Expand> resultList = new ArrayList<TeamNormalInfo_Expand>(number);
+		for (int i = 0; i < number; i++) {
+			resultList.add(teamNormalList.get(i));
+		}
+		return resultList;
 	}
 
-	public ArrayList<TeamNormalInfo_Expand> getTeamNormal_tot(int number, SortCell[] sortcell) {
-		return null;
+	@SuppressWarnings("unchecked")
+	public ArrayList<TeamNormalInfo_Expand> getTeamNormal_tot(int number, SortCell[] sortCells) {
+		ArrayList<TeamNormalInfo_Expand> teamNormalList = new ArrayList<TeamNormalInfo_Expand>();
+		for (Entry<String, TeamNormalInfo_Expand> temp : CACHE.TEAM_NORMAL.entrySet()) {
+			TeamNormalInfo_Expand tempNormalInfo = temp.getValue();
+			teamNormalList.add(tempNormalInfo);
+		}
+		ArrayList<BeanComparator> sortFields = new ArrayList<BeanComparator>();// 声明要排序的对象的属性，并指明所使用的排序规则，如果不指明，则用默认排序
+		for (int i = 0; i < sortCells.length; i++) {
+			sortFields.add(MySort.getBeanComparator(sortCells[i]));
+		}
+		ComparatorChain comChain = new ComparatorChain(sortFields);// 创建一个排序链
+		Collections.sort(teamNormalList, comChain);// 开始真正的排序，按照先主，后副的规则
+		if (number > teamNormalList.size()) {
+			number = teamNormalList.size();
+		}
+		ArrayList<TeamNormalInfo_Expand> resultList = new ArrayList<TeamNormalInfo_Expand>(number);
+		for (int i = 0; i < number; i++) {
+			resultList.add(teamNormalList.get(i));
+		}
+		return resultList;
 	}
-
 }
