@@ -3,42 +3,49 @@ package businesslogic.players;
 import java.util.ArrayList;
 
 import test.data.PlayerHighInfo;
+import businesslogic.CACHE;
 import businesslogicservice.players.OnePlayerInfoBlService;
-
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.PlayerNormalInfo_Expand;
 import common.mydatastructure.PlayerPerformOfOneMatch;
+import data.players.PlayerInfoData;
+import dataservice.players.PlayerInfoDataService;
 
 public class OnePlayerInfoBl implements OnePlayerInfoBlService {
+	PlayerInfoDataService playerInfoData = PlayerInfoData.getInstance();
 
-	@Override
 	public GeneralInfoOfPlayer getPlayerGeneralInfo(String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.playerInfoData.getGeneralInfoOfOnePlayer(playerName);
 	}
 
-	@Override
 	public PlayerNormalInfo_Expand getPlayerNormalInfo_avg(String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (CACHE.PLAYER_NORMAL.containsKey(playerName)) {
+			return CACHE.PLAYER_NORMAL.get(playerName).getPlayerNormal_avg();
+		}
+		else {
+			return null;
+		}
 	}
 
-	@Override
 	public PlayerNormalInfo_Expand getPlayerNormalInfo_tot(String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (CACHE.PLAYER_NORMAL.containsKey(playerName)) {
+			return CACHE.PLAYER_NORMAL.get(playerName);
+		}
+		else {
+			return null;
+		}
 	}
 
-	@Override
 	public PlayerHighInfo getPlayerHighInfo(String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (CACHE.PLAYER_HIGH.containsKey(playerName)) {
+			return CACHE.PLAYER_HIGH.get(playerName);
+		}
+		else {
+			return null;
+		}
 	}
 
-	@Override
 	public ArrayList<PlayerPerformOfOneMatch> getPlayerPerform(String playerName) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.playerInfoData.getOnePlayerPerformOfOneSeasonPo(playerName);
 	}
-
 }

@@ -8,7 +8,9 @@ import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
-import common.statics.ResultMessage;
+import common.statics.League;
+import common.statics.NUMBER;
+import common.statics.Position;
 import databaseutility.MEM;
 import dataservice.players.PlayerInfoDataService;
 
@@ -50,7 +52,10 @@ public class PlayerInfoData implements PlayerInfoDataService {
 			resultPo = MEM.PLAYER_GENERALINFO.get(nameOfPlayer);
 		}
 		else {
-			resultPo = ResultMessage.NOTEXIST_GENERAL_PLAYER_PO;
+			resultPo = new GeneralInfoOfPlayer();
+			resultPo.setName(nameOfPlayer);
+			resultPo.setAge(NUMBER.UNKNOWN_AGE);
+			resultPo.setPosition(Position.UNKUOWN_POSITION);
 		}
 		return resultPo;
 	}
@@ -74,6 +79,12 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	}
 
 	public String getLeague(String playerName) {
-		return null;
+		PlayerPerformOfOneMatch lastMatch = MEM.PLAYERS_PERFORM.get(playerName).lastEntry().getValue();
+		String team = lastMatch.getTeamNameForShort();
+		String league = League.UNKNOWN_LEAGUE;
+		if (MEM.TEAM_LEAGUE.containsKey(team)) {
+			league = MEM.TEAM_LEAGUE.get(team);
+		}
+		return league;
 	}
 }

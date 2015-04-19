@@ -26,9 +26,9 @@ public class PlayerInfoInit {
 			PlayerHighInfo playerHigh = new PlayerHighInfo();
 			//
 			String playerName = temp.getKey();// 球员姓名
-			String position = Position.Unknown;// 位置
+			String position = Position.UNKUOWN_POSITION;// 位置
 			int age = NUMBER.UNKNOWN_AGE;// 年龄
-			String league = League.Unknown;// 联盟
+			String league = League.UNKNOWN_LEAGUE;// 联盟
 			//
 			TreeMap<MyDate, PlayerPerformOfOneMatch> oneplayer = temp.getValue();
 			PlayerPerformOfOneMatch latestMatchPo = oneplayer.lastEntry().getValue();// 最后一场比赛
