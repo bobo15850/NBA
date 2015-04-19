@@ -11,7 +11,9 @@ import common.mydatastructure.TeamPerformOfOneMatch;
 public interface OneTeamInfoBlService {
 	public String[] getPlayerNameOfTeam(String teamName);// 根据球队名称得到球队所有球员姓名
 
-	public TeamNormalInfo_Expand getOneTeamNormalInfo(String teamName);// 根据球队名称得到球队普通数据
+	public TeamNormalInfo_Expand getTeamNormalInfo_tot(String teamName);// 根据球队名称得到球队普通数据
+
+	public TeamNormalInfo_Expand getTeamNormalInfo_avg(String teamName);
 
 	public TeamHighInfo getOneTeamHighInfo(String teamName);// 根据球队名称得到球队高级数据
 

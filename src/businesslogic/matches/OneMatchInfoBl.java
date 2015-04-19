@@ -8,9 +8,7 @@ import businesslogicservice.matches.OneMatchInfoBlService;
 
 public class OneMatchInfoBl implements OneMatchInfoBlService {
 
-	@Override
 	public ArrayList<PlayerPerformOfOneMatch> getPlayersPerformOfOneMatch(String teamName, MyDate date) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

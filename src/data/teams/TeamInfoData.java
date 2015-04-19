@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+import common.mydatastructure.GeneralInfoOfTeam;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.TeamPerformOfOneMatch;
 import databaseutility.MEM;
@@ -51,5 +52,16 @@ public class TeamInfoData implements TeamInfoDataService {
 		else {
 			return null;
 		}
+	}
+
+	public GeneralInfoOfTeam getGeneralInfoOfTeam(String teamName) {
+		GeneralInfoOfTeam result = new GeneralInfoOfTeam();
+		if (MEM.TEAM_GENERALINFO.containsKey(teamName)) {
+			result = MEM.TEAM_GENERALINFO.get(teamName);
+		}
+		else {
+			result = null;
+		}
+		return result;
 	}
 }

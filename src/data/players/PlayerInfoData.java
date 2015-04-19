@@ -1,8 +1,8 @@
 package data.players;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
@@ -29,7 +29,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public ArrayList<PlayerPerformOfOneMatch> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer) {
 		ArrayList<PlayerPerformOfOneMatch> resultList = new ArrayList<PlayerPerformOfOneMatch>(128);
-		Map<MyDate, PlayerPerformOfOneMatch> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
+		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
 		Set<MyDate> dateSet = onePlayerPerform.keySet();
 		for (MyDate date : dateSet) {
 			resultList.add(onePlayerPerform.get(date));
@@ -62,7 +62,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public ArrayList<TeamPerformOfOneMatch[]> getOneTeamPerformOfOneSeason(String playerName) {
 		ArrayList<TeamPerformOfOneMatch[]> resultList = new ArrayList<TeamPerformOfOneMatch[]>();
-		Map<MyDate, PlayerPerformOfOneMatch> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
+		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
 		Set<MyDate> dateSet = onePlayerOfOneSeason.keySet();
 		PlayerPerformOfOneMatch temp;
 		TeamPerformOfOneMatch selfTeamPo;

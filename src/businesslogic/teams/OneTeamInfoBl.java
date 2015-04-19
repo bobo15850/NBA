@@ -6,38 +6,56 @@ import test.data.TeamHighInfo;
 import common.mydatastructure.GeneralInfoOfTeam;
 import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
+import data.teams.TeamInfoData;
+import dataservice.teams.TeamInfoDataService;
+import businesslogic.CACHE;
 import businesslogicservice.teams.OneTeamInfoBlService;
 
 public class OneTeamInfoBl implements OneTeamInfoBlService {
+	private TeamInfoDataService teamInfoData = TeamInfoData.getInstance();
 
-	@Override
 	public String[] getPlayerNameOfTeam(String teamName) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public TeamNormalInfo_Expand getOneTeamNormalInfo(String teamName) {
-		// TODO Auto-generated method stub
-		return null;
+	public TeamNormalInfo_Expand getTeamNormalInfo_tot(String teamName) {
+		if (CACHE.TEAM_NORMAL.containsKey(teamName)) {
+			return CACHE.TEAM_NORMAL.get(teamName);
+		}
+		else {
+			return null;
+		}
 	}
 
-	@Override
+	public TeamNormalInfo_Expand getTeamNormalInfo_avg(String teamName) {
+		if (CACHE.TEAM_NORMAL.containsKey(teamName)) {
+			return CACHE.TEAM_NORMAL.get(teamName).getTeamNormal_avg();
+		}
+		else {
+			return null;
+		}
+	}
+
 	public TeamHighInfo getOneTeamHighInfo(String teamName) {
-		// TODO Auto-generated method stub
-		return null;
+		if (CACHE.TEAM_HIGH.containsKey(teamName)) {
+			return CACHE.TEAM_HIGH.get(teamName);
+		}
+		else {
+			return null;
+		}
 	}
 
-	@Override
 	public ArrayList<TeamPerformOfOneMatch> getTeamPerform(String teamName) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<TeamPerformOfOneMatch[]> teamPerform = this.teamInfoData.getOneTeamPerformOfOneSeason(teamName);
+		ArrayList<TeamPerformOfOneMatch> resultList = new ArrayList<TeamPerformOfOneMatch>(128);
+		for (int i = 0; i < teamPerform.size(); i++) {
+			resultList.add(teamPerform.get(i)[0]);
+		}
+		return resultList;
 	}
 
-	@Override
 	public GeneralInfoOfTeam getTeamGeneralInfo(String teamName) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.teamInfoData.getGeneralInfoOfTeam(teamName);
 	}
 
 }
