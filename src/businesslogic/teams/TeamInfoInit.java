@@ -5,15 +5,15 @@ import java.util.Map.Entry;
 
 import businesslogic.CACHE;
 import test.data.TeamHighInfo;
-import test.data.TeamNormalInfo;
 import common.mydatastructure.MyDate;
+import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
 import databaseutility.MEM;
 
 public class TeamInfoInit {
 	public static void initTeamCache() {
 		for (Entry<String, TreeMap<MyDate, TeamPerformOfOneMatch>> temp : MEM.TEAM_PERFORM.entrySet()) {
-			TeamNormalInfo teamNormal = new TeamNormalInfo();
+			TeamNormalInfo_Expand teamNormal = new TeamNormalInfo_Expand();
 			TeamHighInfo teamHigh = new TeamHighInfo();
 			TreeMap<MyDate, TeamPerformOfOneMatch> oneTeam = temp.getValue();
 			String teamName = temp.getKey();
@@ -21,9 +21,9 @@ public class TeamInfoInit {
 			int numOfWin = 0;
 			//
 			int totalHitNumber = 0;// 总命中数
-			int totalShootNumber = 0;// 总出手数
+			int totalShotNumber = 0;// 总出手数
 			int threePointHitNumber = 0;// 三分命中数
-			int threePointShootNumber = 0;// 三分出手数
+			int threePointShotNumber = 0;// 三分出手数
 			int freePointHitNumber = 0;// 罚球命中数
 			int freePointShootNumber = 0;// 罚球出手数
 			//
@@ -50,9 +50,9 @@ public class TeamInfoInit {
 				MyDate tempDate = oneMatch.getKey();
 				numOfWin += tempMatch.getWin();
 				totalHitNumber += tempMatch.getTotalHitNumber();// 总命中数
-				totalShootNumber += tempMatch.getTotalShootNumber();// 总出手数
+				totalShotNumber += tempMatch.getTotalShootNumber();// 总出手数
 				threePointHitNumber += tempMatch.getThreePointHitNumber();// 三分命中数
-				threePointShootNumber += tempMatch.getThreePointShootNumber();// 三分出手数
+				threePointShotNumber += tempMatch.getThreePointShootNumber();// 三分出手数
 				freePointHitNumber += tempMatch.getFreePointHitNumber();// 罚球命中数
 				freePointShootNumber += tempMatch.getFreePointShootNumber();// 罚球出手数
 				//
@@ -86,22 +86,29 @@ public class TeamInfoInit {
 			teamNormal.setBlockShot(blockShotNumber);
 			teamNormal.setFault(faultNumber);
 			teamNormal.setFoul(foulNumber);
-			teamNormal.setShot(CalculationOfTeamPerform.calHitRate(totalHitNumber, totalShootNumber));
-			teamNormal.setThree(CalculationOfTeamPerform.calHitRate(threePointHitNumber, threePointShootNumber));
+			teamNormal.setTotalHit(totalHitNumber);
+			teamNormal.setTotalShot(totalShotNumber);
+			teamNormal.setThreeHit(threePointHitNumber);
+			teamNormal.setThreeShot(threePointShotNumber);
+			teamNormal.setFreeHit(freePointHitNumber);
+			teamNormal.setFreeShot(freePointShootNumber);
+			teamNormal.setShot(CalculationOfTeamPerform.calHitRate(totalHitNumber, totalShotNumber));
+			teamNormal.setThree(CalculationOfTeamPerform.calHitRate(threePointHitNumber, threePointShotNumber));
 			teamNormal.setPenalty(CalculationOfTeamPerform.calHitRate(freePointHitNumber, freePointShootNumber));
+
 			//
 			teamHigh.setTeamName(teamName);
 			teamHigh.setWinRate(CalculationOfTeamPerform.calWinRate(numOfWin, numOfGame));
-			teamHigh.setOffendRound(CalculationOfTeamPerform.calOffensiveNum(totalShootNumber, foulNumber, offendReboundNumber,
-					defendReboundOfCompetitor, totalShootNumber - totalHitNumber, faultNumber));
-			teamHigh.setOffendEfficient(CalculationOfTeamPerform.calOffensiveEfficiency(point, totalShootNumber, foulNumber, offendReboundNumber,
-					defendReboundOfCompetitor, totalShootNumber - totalHitNumber, faultNumber));
+			teamHigh.setOffendRound(CalculationOfTeamPerform.calOffensiveNum(totalShotNumber, foulNumber, offendReboundNumber,
+					defendReboundOfCompetitor, totalShotNumber - totalHitNumber, faultNumber));
+			teamHigh.setOffendEfficient(CalculationOfTeamPerform.calOffensiveEfficiency(point, totalShotNumber, foulNumber, offendReboundNumber,
+					defendReboundOfCompetitor, totalShotNumber - totalHitNumber, faultNumber));
 			teamHigh.setDefendEfficient(CalculationOfTeamPerform.calDefensiveEfficiency(pointOfCompetitor, shotOfCompetitor, foulOfCompetitor,
 					offendReboundOfCompetitor, defendReboundNumber, shotOfCompetitor - hitOfCompetitor, faultOfCompetitor));
 			teamHigh.setOffendReboundEfficient(CalculationOfTeamPerform.calOffensiveReboundEfficiency(offendReboundNumber, defendReboundOfCompetitor));
 			teamHigh.setDefendReboundEfficient(CalculationOfTeamPerform.calDefensiveReboundEfficiency(defendReboundNumber, offendReboundOfCompetitor));
-			teamHigh.setAssistEfficient(CalculationOfTeamPerform.calAssistRate(assistNumber, totalShootNumber, foulNumber, offendReboundNumber,
-					defendReboundOfCompetitor, totalShootNumber - totalHitNumber, faultNumber));
+			teamHigh.setAssistEfficient(CalculationOfTeamPerform.calAssistRate(assistNumber, totalShotNumber, foulNumber, offendReboundNumber,
+					defendReboundOfCompetitor, totalShotNumber - totalHitNumber, faultNumber));
 			teamHigh.setStealEfficient(CalculationOfTeamPerform.calStealEfficiency(stealNumber, shotOfCompetitor, foulOfCompetitor,
 					offendReboundOfCompetitor, defendReboundNumber, shotOfCompetitor - hitOfCompetitor, faultOfCompetitor));
 			CACHE.TEAM_NORMAL.put(teamName, teamNormal);

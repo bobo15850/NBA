@@ -1,14 +1,16 @@
 package data.players;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
-import common.statics.ResultMessage;
+import common.statics.League;
+import common.statics.NUMBER;
+import common.statics.Position;
 import databaseutility.MEM;
 import dataservice.players.PlayerInfoDataService;
 
@@ -27,7 +29,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public ArrayList<PlayerPerformOfOneMatch> getOnePlayerPerformOfOneSeasonPo(String nameOfPlayer) {
 		ArrayList<PlayerPerformOfOneMatch> resultList = new ArrayList<PlayerPerformOfOneMatch>(128);
-		Map<MyDate, PlayerPerformOfOneMatch> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
+		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerPerform = MEM.PLAYERS_PERFORM.get(nameOfPlayer);
 		Set<MyDate> dateSet = onePlayerPerform.keySet();
 		for (MyDate date : dateSet) {
 			resultList.add(onePlayerPerform.get(date));
@@ -50,14 +52,17 @@ public class PlayerInfoData implements PlayerInfoDataService {
 			resultPo = MEM.PLAYER_GENERALINFO.get(nameOfPlayer);
 		}
 		else {
-			resultPo = ResultMessage.NOTEXIST_GENERAL_PLAYER_PO;
+			resultPo = new GeneralInfoOfPlayer();
+			resultPo.setName(nameOfPlayer);
+			resultPo.setAge(NUMBER.UNKNOWN_AGE);
+			resultPo.setPosition(Position.UNKUOWN_POSITION);
 		}
 		return resultPo;
 	}
 
 	public ArrayList<TeamPerformOfOneMatch[]> getOneTeamPerformOfOneSeason(String playerName) {
 		ArrayList<TeamPerformOfOneMatch[]> resultList = new ArrayList<TeamPerformOfOneMatch[]>();
-		Map<MyDate, PlayerPerformOfOneMatch> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
+		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerOfOneSeason = MEM.PLAYERS_PERFORM.get(playerName);
 		Set<MyDate> dateSet = onePlayerOfOneSeason.keySet();
 		PlayerPerformOfOneMatch temp;
 		TeamPerformOfOneMatch selfTeamPo;
@@ -74,6 +79,12 @@ public class PlayerInfoData implements PlayerInfoDataService {
 	}
 
 	public String getLeague(String playerName) {
-		return null;
+		PlayerPerformOfOneMatch lastMatch = MEM.PLAYERS_PERFORM.get(playerName).lastEntry().getValue();
+		String team = lastMatch.getTeamNameForShort();
+		String league = League.UNKNOWN_LEAGUE;
+		if (MEM.TEAM_LEAGUE.containsKey(team)) {
+			league = MEM.TEAM_LEAGUE.get(team);
+		}
+		return league;
 	}
 }

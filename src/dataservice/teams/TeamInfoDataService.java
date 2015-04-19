@@ -2,6 +2,7 @@ package dataservice.teams;
 
 import java.util.ArrayList;
 
+import common.mydatastructure.GeneralInfoOfTeam;
 import common.mydatastructure.TeamPerformOfOneMatch;
 
 public interface TeamInfoDataService {
@@ -13,4 +14,6 @@ public interface TeamInfoDataService {
 
 	// 查找出所有的球队的名称
 	public ArrayList<String> getNamesForShortOfAllTeam();
+
+	public GeneralInfoOfTeam getGeneralInfoOfTeam(String teamName);
 }
