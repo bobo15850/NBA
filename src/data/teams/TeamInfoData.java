@@ -29,7 +29,7 @@ public class TeamInfoData implements TeamInfoDataService {
 		Set<MyDate> dateSet = oneTeamPerform.keySet();
 		for (MyDate date : dateSet) {
 			TeamPerformOfOneMatch selfTeamPo = oneTeamPerform.get(date);
-			String opponentTeam = selfTeamPo.getOpponentTeamNameForShort();
+			String opponentTeam = selfTeamPo.getOpponentTeamName();
 			TeamPerformOfOneMatch opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeam).get(date);
 			resultList.add(new TeamPerformOfOneMatch[] { selfTeamPo, opponentTeamPo });
 		}
@@ -55,20 +55,27 @@ public class TeamInfoData implements TeamInfoDataService {
 	}
 
 	public GeneralInfoOfTeam getGeneralInfoOfTeam(String teamName) {
-		GeneralInfoOfTeam result = new GeneralInfoOfTeam();
 		if (MEM.TEAM_GENERALINFO.containsKey(teamName)) {
+			GeneralInfoOfTeam result = new GeneralInfoOfTeam();
 			result = MEM.TEAM_GENERALINFO.get(teamName);
+			return result;
 		}
 		else {
-			result = null;
+			return null;
 		}
-		return result;
 	}
 
 	public String[] getNameOfAllPlayer(String teamName) {
 		if (MEM.PLAYER_IN_TEAM.containsKey(teamName)) {
 			Set<String> playerSet = MEM.PLAYER_IN_TEAM.get(teamName);
-			return (String[]) playerSet.toArray();
+			int number = playerSet.size();
+			String[] playerNameArray = new String[number];
+			int i = 0;
+			for (String string : playerSet) {
+				playerNameArray[i] = string;
+				i++;
+			}
+			return playerNameArray;
 		}
 		else {
 			return null;

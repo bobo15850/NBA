@@ -32,21 +32,21 @@ public class OneMatch_add extends OneMatch_init {
 
 	private void addTeamNormalToCACHE(TeamPerformOfOneMatch teamPerformPo) {
 		TeamNormalInfo_Expand teamInfo = new TeamNormalInfo_Expand();
-		String teamNameForShort = teamPerformPo.getTeamNameForShort();
+		String teamNameForShort = teamPerformPo.getTeamName();
 		teamInfo.setTeamName(teamNameForShort);
 		teamInfo.setNumOfGame(1);
-		teamInfo.setPoint(teamPerformPo.getScoreNumber());
-		teamInfo.setRebound(teamPerformPo.getTotalReboundNumber());
-		teamInfo.setOffendRebound(teamPerformPo.getOffendReboundNumber());
-		teamInfo.setDefendRebound(teamPerformPo.getDefendReboundNumber());
-		teamInfo.setAssist(teamPerformPo.getAssistNumber());
-		teamInfo.setSteal(teamPerformPo.getStealNumber());
-		teamInfo.setBlockShot(teamPerformPo.getBlockNumber());
-		teamInfo.setFault(teamPerformPo.getFaultNumber());
-		teamInfo.setFoul(teamPerformPo.getFoulNumber());
-		teamInfo.setShot(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getTotalHitNumber(), teamPerformPo.getTotalShootNumber()));
-		teamInfo.setThree(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getThreePointHitNumber(), teamPerformPo.getThreePointShootNumber()));
-		teamInfo.setPenalty(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getFreePointHitNumber(), teamPerformPo.getFreePointShootNumber()));
+		teamInfo.setPoint(teamPerformPo.getPoint());
+		teamInfo.setRebound(teamPerformPo.getRebound());
+		teamInfo.setOffendRebound(teamPerformPo.getOffendRebound());
+		teamInfo.setDefendRebound(teamPerformPo.getDefendRebound());
+		teamInfo.setAssist(teamPerformPo.getAssist());
+		teamInfo.setSteal(teamPerformPo.getSteal());
+		teamInfo.setBlockShot(teamPerformPo.getBlock());
+		teamInfo.setFault(teamPerformPo.getFault());
+		teamInfo.setFoul(teamPerformPo.getFoul());
+		teamInfo.setShot(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getTotalHit(), teamPerformPo.getTotalShot()));
+		teamInfo.setThree(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getThreeHit(), teamPerformPo.getThreeShot()));
+		teamInfo.setPenalty(CalculationOfPlayerPerform.calHitRate(teamPerformPo.getFreeHit(), teamPerformPo.getFreeShot()));
 		CACHE.TEAM_NORMAL.put(teamNameForShort, teamInfo);
 	}
 

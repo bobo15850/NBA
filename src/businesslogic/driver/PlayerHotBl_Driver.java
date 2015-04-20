@@ -24,10 +24,18 @@ public class PlayerHotBl_Driver {
 		}
 	}
 
+	private void testGetPlayerKingOfDaily() {
+		ArrayList<PlayerKingInfo> playerKingList = this.playerHot.getPlayerKingOfDaily(5, "rebound");
+		for (int i = 0; i < playerKingList.size(); i++) {
+			System.out.println(playerKingList.get(i).toString());
+		}
+	}
+
 	public static void main(String arg[]) {
 		PlayerHotBl_Driver driver = new PlayerHotBl_Driver();
-		// driver.testGetPlayerHot();
+		driver.testGetPlayerHot();
 		driver.testGetPlayerKingOfSeason();
+		driver.testGetPlayerKingOfDaily();
 	}
 
 }

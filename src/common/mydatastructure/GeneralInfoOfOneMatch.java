@@ -84,4 +84,9 @@ public class GeneralInfoOfOneMatch {
 	public void setSecondTeamPlayer(ArrayList<String> secondTeamPlayer) {
 		this.secondTeamPlayer = secondTeamPlayer;
 	}
+
+	public String toString() {
+		String result = firstTeamName + "-" + secondTeamName + "  " + firstTeamScore + "-" + SecondTeamScore;
+		return result;
+	}
 }

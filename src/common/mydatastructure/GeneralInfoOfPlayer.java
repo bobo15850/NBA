@@ -36,7 +36,8 @@ public class GeneralInfoOfPlayer {
 	}// 得到球员年龄
 
 	public String toString() {
-		return "姓名：" + playerName + "---位置：" + position + "---年龄：" + age;
+		return "姓名：" + playerName + "---位置：" + position + "---年龄：" + age + "---号码：" + playerNumber + "---身高：" + height + "---体重：" + weight + "---生日："
+				+ birthday + "---球龄：" + trainingYear + "---毕业学校：" + school;
 	}
 
 	public String getPlayerNumber() {

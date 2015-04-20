@@ -11,8 +11,8 @@ public abstract class DataCorrection {
 			TeamPerformOfOneMatch teamPerformance) {
 		for (int i = 0; i < 5; i++) {
 			MyTime std = new MyTime(String.valueOf(241 + 25 * i) + ":00");
-			if (teamPerformance.getPlayingTime().compareTo(std) < 0) {
-				teamPerformance.setPlayingTime(new MyTime(String
+			if (teamPerformance.getMinute().compareTo(std) < 0) {
+				teamPerformance.setMinute(new MyTime(String
 						.valueOf(24 + 25 * i) + ":00"));
 			}
 		}
@@ -24,7 +24,7 @@ public abstract class DataCorrection {
 			int firstTeamSocre) {
 		int flag = 0;
 		for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
-			if (listOfFirstTeamPlayerPerformance.get(i).getScoreNumber() == 9999) {
+			if (listOfFirstTeamPlayerPerformance.get(i).getPoint() == 9999) {
 				flag = i;
 				System.out.println(flag);
 			}

@@ -19,4 +19,7 @@ public class MatchInfoBl implements MatchInfoBlService {
 		return matchInfoData.getTodayMatches(nowDate);
 	}
 
+	public MyDate getLatestDate() {
+		return matchInfoData.getLatestDate();
+	}
 }
