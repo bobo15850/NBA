@@ -25,7 +25,7 @@ public class MyTable extends JTable {
 		header.setForeground(MyColor.MY_WHITE);// 设置表头字体颜色
 		header.setReorderingAllowed(false);
 		header.setResizingAllowed(false);
-		header.setFont(MyFont.MIDDLE_BOLD);
+		header.setFont(MyFont.SMALL_PLAIN);
 
 		//
 		this.setRowHeight((int) (38 * NUMBER.px));// 设置行高

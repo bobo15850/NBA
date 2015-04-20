@@ -33,6 +33,7 @@ public class MyButton extends JButton {
 		this.setContentAreaFilled(false);
 		this.setForeground(MyColor.MY_WHITE);
 		this.setFont(MyFont.SMALL_BOLD);
+		this.setBackground(MyColor.DEEP_COLOR);
 	}
 
 	public void setMyIcon(ImageIcon icon) {
