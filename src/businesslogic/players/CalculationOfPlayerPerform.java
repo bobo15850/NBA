@@ -2,26 +2,24 @@ package businesslogic.players;
 
 import java.math.BigDecimal;
 
-import common.mydatastructure.MyTime;
-
 /*
  * 用以计算xx率
  */
 public class CalculationOfPlayerPerform {
 
-	public static double calHitRate(int hitNum, int shootNum) {
+	public static double calHitRate(double hitNum, double shootNum) {
 		if (shootNum == 0) {
 			return 0;
 		}
 		else {
 			double result = 0;
-			result = (double) hitNum / (double) shootNum;
+			result = hitNum / shootNum;
 			return cutToFour(result);
 		}
 	}// 计算命中率
 
-	public static double calEfficiency(double score, double rebound, double assist, double steal, double block, int shoot, int hit,
-			int freePointShoot, int freePointHit, int turnover, int numberOfMatch) {
+	public static double calEfficiency(double score, double rebound, double assist, double steal, double block, double shoot, double hit,
+			double freePointShoot, double freePointHit, double turnover, double numberOfMatch) {
 		if (numberOfMatch == 0) {
 			return 0;
 		}
@@ -37,20 +35,19 @@ public class CalculationOfPlayerPerform {
 		return cutToFour(result);
 	}// 计算提升率
 
-	public static double calGmSc(double score, int hit, int shoot, int freePointShoot, int freePointHit, int reboundBefore, int reboundAfter,
-			int steal, int assist, int block, int foul, int turnover, int numberOfMatch) {
+	public static double calGmSc(double score, double d, double e, double f, double g, double h, double i, double j, double k, double l, double m,
+			double n, int numberOfMatch) {
 		if (numberOfMatch == 0) {
 			return 0;
 		}
 		else {
-			double result = score + 0.4 * hit - 0.7 * shoot - 0.4 * (freePointShoot - freePointHit) + 0.7 * reboundBefore + 0.3 * reboundAfter
-					+ steal + 0.7 * assist + 0.7 * block - 0.4 * foul - turnover;
+			double result = score + 0.4 * d - 0.7 * e - 0.4 * (f - g) + 0.7 * h + 0.3 * i + j + 0.7 * k + 0.7 * l - 0.4 * m - n;
 			result = result / numberOfMatch;
 			return cutToFour(result);
 		}
 	}// 计算GMSC效率
 
-	public static double calRealShot(double score, int shoot, int freePointShoot) {
+	public static double calRealShot(double score, double shoot, double freePointShoot) {
 		if (shoot == 0 && freePointShoot == 0) {
 			return 0;
 		}
@@ -61,7 +58,7 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算真实命中率
 
-	public static double calShotEfficiency(int hit, int threePointHit, int shoot) {
+	public static double calShotEfficiency(double hit, double threePointHit, double shoot) {
 		if (shoot == 0) {
 			return 0;
 		}
@@ -72,49 +69,49 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算投篮效率
 
-	public static double calReboundEfficient(int rebound, MyTime timeOfAllPlayer, MyTime playingTime, int totalReboundOfTeam,
-			int totalReboundOfCompetitor) {
-		int total = totalReboundOfTeam + totalReboundOfCompetitor;
-		if (!playingTime.isCorrectRead() || total == 0) {
+	public static double calReboundEfficient(double rebound, double timeOfAllPlayer, double playingTime, double totalReboundOfTeam,
+			double totalReboundOfCompetitor) {
+		double total = totalReboundOfTeam + totalReboundOfCompetitor;
+		if (playingTime == 0 || total == 0) {
 			return 0;
 		}
 		else {
-			double result = timeOfAllPlayer.divide(playingTime) / 5 * rebound / total;
+			double result = (timeOfAllPlayer / playingTime) / 5 * rebound / total;
 			return cutToFour(result);
 		}
 	}// 计算篮板率
 
-	public static double calAssistEfficient(int assist, MyTime playingTime, MyTime timeOfAllPlayer, int hitOfAllPlayer, int hitOfOnePlayer) {
-		if (!playingTime.isCorrectRead() || !timeOfAllPlayer.isCorrectRead()) {
+	public static double calAssistEfficient(double assist, double playingTime, double timeOfAllPlayer, double hitOfAllPlayer, double hitOfOnePlayer) {
+		if (playingTime == 0 || timeOfAllPlayer == 0) {
 			return 0;
 		}
 		else {
-			double result = assist / (playingTime.divide(timeOfAllPlayer) * 5 * hitOfAllPlayer - hitOfOnePlayer);
+			double result = assist / ((playingTime / timeOfAllPlayer) * 5 * hitOfAllPlayer - hitOfOnePlayer);
 			return cutToFour(result);
 		}
 	}// 计算助攻率
 
-	public static double calStealEfficient(int steal, MyTime timeOfAllPlayer, MyTime playingTime, int offensiveNumOfCompetitor) {
-		if (!playingTime.isCorrectRead() || offensiveNumOfCompetitor == 0) {
+	public static double calStealEfficient(double steal, double timeOfAllPlayer, double playingTime, double offensiveNumOfCompetitor) {
+		if (playingTime == 0 || offensiveNumOfCompetitor == 0) {
 			return 0;
 		}
 		else {
-			double result = steal * timeOfAllPlayer.divide(playingTime) / 5 / offensiveNumOfCompetitor;
+			double result = steal * (timeOfAllPlayer / playingTime) / 5 / offensiveNumOfCompetitor;
 			return cutToFour(result);
 		}
 	}// 计算抢断率
 
-	public static double calBlockShotEfficient(int block, MyTime timeOfAllPlayer, MyTime playingTime, double twoPointShootNumOfCompetitor) {
-		if (!playingTime.isCorrectRead() || twoPointShootNumOfCompetitor == 0) {
+	public static double calBlockShotEfficient(double block, double timeOfAllPlayer, double playingTime, double twoPointShootNumOfCompetitor) {
+		if (playingTime == 0 || twoPointShootNumOfCompetitor == 0) {
 			return 0;
 		}
 		else {
-			double result = block * timeOfAllPlayer.divide(playingTime) / 5 / twoPointShootNumOfCompetitor;
+			double result = block * (timeOfAllPlayer / playingTime) / 5 / twoPointShootNumOfCompetitor;
 			return cutToFour(result);
 		}
 	}// 计算该盖帽率
 
-	public static double calFaultEfficient(int faultNum, int twoPointShootNum, int freePointShootNum) {
+	public static double calFaultEfficient(double faultNum, double twoPointShootNum, double freePointShootNum) {
 		if (faultNum == 0 && twoPointShootNum == 0 && freePointShootNum == 0) {
 			return 0;
 		}
@@ -125,14 +122,14 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算失误率
 
-	public static double calFrequency(int shootNum, int freePointShootNum, int faultNum, MyTime timeOfAllPlayer, MyTime playingTime,
-			int shootNumOfAllPlayer, int freePointShootNumOfAllPlayer, int faultNumOfAllPlayer) {
+	public static double calFrequency(double shootNum, double freePointShootNum, double faultNum, double timeOfAllPlayer, double playingTime,
+			double shootNumOfAllPlayer, double freePointShootNumOfAllPlayer, double faultNumOfAllPlayer) {
 		double temp = shootNumOfAllPlayer + 0.44 * freePointShootNumOfAllPlayer + faultNumOfAllPlayer;
-		if (temp == 0 || !timeOfAllPlayer.isCorrectRead() || !playingTime.isCorrectRead()) {
+		if (temp == 0 || timeOfAllPlayer == 0 || playingTime == 0) {
 			return 0;
 		}
 		else {
-			double result = (shootNum + 0.44 * freePointShootNum + faultNum) * timeOfAllPlayer.divide(playingTime) / 5 / temp;
+			double result = (shootNum + 0.44 * freePointShootNum + faultNum) * (timeOfAllPlayer / playingTime) / 5 / temp;
 			return cutToFour(result);
 		}
 	}// 计算使用率

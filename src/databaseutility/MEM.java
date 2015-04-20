@@ -19,20 +19,24 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class MEM {
-	public static HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>>();
-	// 球员数据存储
+
 	public static HashMap<String, GeneralInfoOfPlayer> PLAYER_GENERALINFO = new HashMap<String, GeneralInfoOfPlayer>();
 	// 求援基本信息存储
-	public static HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
-	// 球队数据存储
 	public static HashMap<String, String> TEAM_LEAGUE = new HashMap<String, String>();
 	// 球队联盟信息存储
 	public static HashMap<String, GeneralInfoOfTeam> TEAM_GENERALINFO = new HashMap<String, GeneralInfoOfTeam>();
 	// 球队的基本信息存储
-
-	public static HashMap<String, HashSet<String>> PLAYER_IN_TEAM = new HashMap<String, HashSet<String>>();// 每支球队里的队员集合
-
-	public static TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>> GENERAL_MATCH = new TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>>();// 每天的比赛集合
+	/*
+	 * 以上信息只要初始化，以下信息需要更新
+	 */
+	public static HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>> PLAYERS_PERFORM = new HashMap<String, TreeMap<MyDate, PlayerPerformOfOneMatch>>();
+	// 球员数据存储
+	public static HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>> TEAM_PERFORM = new HashMap<String, TreeMap<MyDate, TeamPerformOfOneMatch>>();
+	// 球队数据存储
+	public static HashMap<String, HashSet<String>> PLAYER_IN_TEAM = new HashMap<String, HashSet<String>>();
+	// 每支球队里的队员集合
+	public static TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>> GENERAL_MATCH = new TreeMap<MyDate, HashSet<GeneralInfoOfOneMatch>>();
+	// 每天的比赛集合
 	static {
 		MEM.handleFileOfMatches();
 		MEM.handleFileOfPlayers();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class TeamPerformOfOneMatch {
 	private String teamName;// 球队名称缩写
 	private MyDate date;// 比赛时间
-	private MyTime minute = new MyTime();// 球员上场时间之和
+	private double minute = 0;// 球员上场时间之和
 	private String opponentTeamName;// 对手名称
 	private int win;// 是否赢球
 	private int totalHit;// 总命中数
@@ -48,7 +48,7 @@ public class TeamPerformOfOneMatch {
 			this.fault += temp.getFault();
 			this.foul += temp.getFoul();
 			this.point += temp.getPoint();
-			this.minute.plus(temp.getMinute());
+			this.minute += temp.getMinute();
 		}
 	}
 
@@ -200,29 +200,28 @@ public class TeamPerformOfOneMatch {
 		return this.point;
 	}// 得到得分数
 
-	public MyTime getMinute() {
+	public double getMinute() {
 		return minute;
 	}
 
-	public void setMinute(MyTime playingTime) {
+	public void setMinute(double playingTime) {
 		this.minute = playingTime;
 	}
 
 	public String toString() {
-		return "队名：" + this.getTeamName() + "---比赛日期：" + this.getDate().getFormatString() + "---对手：" + this.getOpponentTeamName()
-				+ "---比赛时间：" + this.getMinute().getTimeFormatString() + "---总命中数：" + this.getTotalHit() + "---总出手数："
-				+ this.getTotalShot() + "---三分总命中数：" + this.getThreeHit() + "---三分总命中数：" + this.getThreeShot()
-				+ "---罚球总出手数：" + this.getFreeHit() + "---罚球总命中数：" + this.getFreeShot() + "---进攻篮板数："
-				+ this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound() + "---总篮板数：" + this.getRebound() + "---助攻数："
-				+ this.getAssist() + "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlock() + "---失误数：" + this.getFault()
-				+ "---犯规数：" + this.getFoul() + "---得分数：" + this.getPoint();
+		return "队名：" + this.getTeamName() + "---比赛日期：" + this.getDate().getFormatString() + "---对手：" + this.getOpponentTeamName() + "---比赛时间："
+				+ this.getMinute() + "---总命中数：" + this.getTotalHit() + "---总出手数：" + this.getTotalShot() + "---三分总命中数：" + this.getThreeHit()
+				+ "---三分总命中数：" + this.getThreeShot() + "---罚球总出手数：" + this.getFreeHit() + "---罚球总命中数：" + this.getFreeShot() + "---进攻篮板数："
+				+ this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound() + "---总篮板数：" + this.getRebound() + "---助攻数：" + this.getAssist()
+				+ "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlock() + "---失误数：" + this.getFault() + "---犯规数：" + this.getFoul() + "---得分数："
+				+ this.getPoint();
 	}
 
-	public int getWinRate() {
+	public int getWin() {
 		return win;
 	}
 
-	public void setWinRate(int win) {
+	public void setWin(int win) {
 		this.win = win;
 	}
 }

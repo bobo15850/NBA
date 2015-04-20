@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import common.mydatastructure.MyDate;
-import common.mydatastructure.MyTime;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.NUMBER;
@@ -103,7 +102,7 @@ class OneMatch {
 		resultPo.setDate(date);
 		resultPo.setStart(1);
 		resultPo.setName(part[0]);
-		resultPo.setMinute(new MyTime(part[2]));
+		resultPo.setMinute(toMinute(part[2]));
 		resultPo.setTotalHit(this.toInt(part[3]));
 		resultPo.setTotalShot(this.toInt(part[4]));
 		resultPo.setThreeHit(this.toInt(part[5]));
@@ -145,6 +144,18 @@ class OneMatch {
 		try {
 			return Integer.parseInt(str);
 		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+
+	protected double toMinute(String str) {
+		double result = 0;
+		try {
+			String part[] = str.split(":");
+			result = Double.parseDouble(part[0]) + Double.parseDouble(part[1]) / 60;
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}

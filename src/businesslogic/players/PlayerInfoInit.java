@@ -10,7 +10,6 @@ import businesslogic.teams.CalculationOfTeamPerform;
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.GeneralInfoOfPlayer;
 import common.mydatastructure.MyDate;
-import common.mydatastructure.MyTime;
 import common.mydatastructure.PlayerNormalInfo_Expand;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
@@ -61,13 +60,13 @@ public class PlayerInfoInit {
 			int offendReboundNumber = 0;// 进攻篮板数
 			int defendReboundNumber = 0;// 防守篮板数
 			int assistNumber = 0;// 总助攻
-			MyTime playingTime = new MyTime();// 总上场时间
+			double playingTime = 0;// 总上场时间
 			int stealNumber = 0;// 总抢断数
 			int blockShotNumber = 0;// 总 盖帽数
 			int faultNumber = 0;// 总失误数
 			int foulNumber = 0;// 总犯规数
 			//
-			MyTime timeOfAllPlayer = new MyTime();// 球队所有球员上场时间
+			double timeOfAllPlayer = 0;// 球队所有球员上场时间
 			int totalReboundOfTeam = 0;// 球队所有篮板数
 			int offendReboundOfTeam = 0;
 			int defendReboundOfTeam = 0;
@@ -97,7 +96,7 @@ public class PlayerInfoInit {
 				freePointShotNumber += tempMatch.getFreeShot();
 				totalReboundNumber += tempMatch.getRebound();
 				assistNumber += tempMatch.getAssist();
-				playingTime.plus(tempMatch.getMinute());
+				playingTime += tempMatch.getMinute();
 				stealNumber += tempMatch.getSteal();
 				blockShotNumber += tempMatch.getBlock();
 				faultNumber += tempMatch.getFault();
@@ -110,7 +109,7 @@ public class PlayerInfoInit {
 				TeamPerformOfOneMatch selfTeam = MEM.TEAM_PERFORM.get(tempTeam).get(tempDate);// 所属球队战绩
 				TeamPerformOfOneMatch opponentTeam = MEM.TEAM_PERFORM.get(selfTeam.getOpponentTeamName()).get(tempDate);// 对手球队战绩
 				//
-				timeOfAllPlayer.plus(selfTeam.getMinute());
+				timeOfAllPlayer += selfTeam.getMinute();
 				totalReboundOfTeam += selfTeam.getRebound();
 				offendReboundOfTeam += selfTeam.getOffendRebound();
 				defendReboundOfTeam += selfTeam.getDefendRebound();
@@ -123,8 +122,8 @@ public class PlayerInfoInit {
 				offendReboundOfCompetior += opponentTeam.getOffendRebound();
 				defendReboundOfCompetitor += opponentTeam.getDefendRebound();
 				offendNumberOfCompetitor += CalculationOfTeamPerform.calOffensiveNum(selfTeam.getTotalShot(), selfTeam.getFoul(),
-						selfTeam.getOffendRebound(), opponentTeam.getDefendRebound(),
-						selfTeam.getTotalShot() - selfTeam.getTotalHit(), selfTeam.getFault());
+						selfTeam.getOffendRebound(), opponentTeam.getDefendRebound(), selfTeam.getTotalShot() - selfTeam.getTotalHit(),
+						selfTeam.getFault());
 				shootNumOfCompetitor += opponentTeam.getTotalShot();
 				threePointShootOfCompetitor += opponentTeam.getThreeShot();
 				int doubleOfOneMatch = 0;// 一场比赛中上双的个数
@@ -164,7 +163,7 @@ public class PlayerInfoInit {
 			playerNormal.setBlockShot(blockShotNumber);
 			playerNormal.setFoul(foulNumber);
 			playerNormal.setFault(faultNumber);
-			playerNormal.setMinute(playingTime.getTimeAsMinute());
+			playerNormal.setMinute(playingTime);
 			playerNormal.setTotalHit(totalHitNumber);
 			playerNormal.setTotalShot(totalShotNumber);
 			playerNormal.setThreeHit(threePointHitNumber);

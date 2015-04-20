@@ -48,7 +48,7 @@ public class TeamInfoInit {
 			for (Entry<MyDate, TeamPerformOfOneMatch> oneMatch : oneTeam.entrySet()) {
 				TeamPerformOfOneMatch tempMatch = oneMatch.getValue();
 				MyDate tempDate = oneMatch.getKey();
-				numOfWin += tempMatch.getWinRate();
+				numOfWin += tempMatch.getWin();
 				totalHitNumber += tempMatch.getTotalHit();// 总命中数
 				totalShotNumber += tempMatch.getTotalShot();// 总出手数
 				threePointHitNumber += tempMatch.getThreeHit();// 三分命中数
@@ -77,6 +77,7 @@ public class TeamInfoInit {
 			}
 			teamNormal.setTeamName(teamName);
 			teamNormal.setNumOfGame(numOfGame);
+			teamNormal.setNumOfWin(numOfWin);
 			teamNormal.setPoint(point);
 			teamNormal.setRebound(totalReboundNumber);
 			teamNormal.setOffendRebound(offendReboundNumber);

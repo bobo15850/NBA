@@ -8,12 +8,14 @@ public class TeamNormalInfo_Expand extends TeamNormalInfo {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private double totalHit;// 总命中数
-	private double totalShot;// 总出手数
-	private double threeHit;// 三分命中数
-	private double threeShot;// 三分出手数
-	private double freeHit;// 罚球命中数
-	private double freeShot;// 罚球出手数
+	private double totalHit = 0;// 总命中数
+	private double totalShot = 0;// 总出手数
+	private double threeHit = 0;// 三分命中数
+	private double threeShot = 0;// 三分出手数
+	private double freeHit = 0;// 罚球命中数
+	private double freeShot = 0;// 罚球出手数
+	private int numOfWin = 0;// 胜利场数
+	private double minute = 0;// 比赛时间
 
 	public TeamNormalInfo_Expand getTeamNormal_avg() {
 		TeamNormalInfo_Expand teamNormal_avg = new TeamNormalInfo_Expand();
@@ -25,6 +27,7 @@ public class TeamNormalInfo_Expand extends TeamNormalInfo {
 		teamNormal_avg.setShot(getShot());
 		teamNormal_avg.setTeamName(getTeamName());
 		teamNormal_avg.setThree(getThree());
+		teamNormal_avg.setNumOfWin(getNumOfWin());
 		teamNormal_avg.setAssist(CalculationOfTeamPerform.cutToFour(getAssist() / numOfGame));
 		teamNormal_avg.setBlockShot(CalculationOfTeamPerform.cutToFour(getBlockShot() / numOfGame));
 		teamNormal_avg.setDefendRebound(CalculationOfTeamPerform.cutToFour(getDefendRebound() / numOfGame));
@@ -90,5 +93,21 @@ public class TeamNormalInfo_Expand extends TeamNormalInfo {
 
 	public void setFreeShot(double freehot) {
 		this.freeShot = freehot;
+	}
+
+	public int getNumOfWin() {
+		return numOfWin;
+	}
+
+	public void setNumOfWin(int numOfWin) {
+		this.numOfWin = numOfWin;
+	}
+
+	public double getMinute() {
+		return minute;
+	}
+
+	public void setMinute(double minute) {
+		this.minute = minute;
 	}
 }
