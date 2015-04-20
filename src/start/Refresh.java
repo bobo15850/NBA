@@ -24,8 +24,9 @@ public class Refresh extends Thread {
 					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
 						matchName = event.context().toString();
 						OneMatch_add oneMatch = new OneMatch_add(matchName);
-						oneMatch.writeDetailInfoOfPlayerAndTeamToMEN();// 第一步应该先将po写入内存中
+						oneMatch.writeDetailInfoOfPlayerAndTeamToMEN();
 						oneMatch.writeGeneralMatchInfo();
+						// 第一步应该先将信息写入内存中
 						oneMatch.writeTeamNormalInfoToCACHE();// 第二步更新球队的普通数据
 						oneMatch.writeTeamHighInfoToCACHE();// 第三步更新球队高级数据
 						oneMatch.writePlayerNormalInfoToCACHE();// 第四步更新球员普通数据

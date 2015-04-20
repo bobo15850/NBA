@@ -1,7 +1,7 @@
 package common.mydatastructure;
 
 public class GeneralInfoOfTeam {
-	private String teamNameForShort;// 队名缩写
+	private String teamNameForShort;// 名缩写队
 	private String teamName;// 球队名称
 	private String location;// 球队所在地
 	private String conference;// 赛区
@@ -63,5 +63,9 @@ public class GeneralInfoOfTeam {
 
 	public void setEstablishYear(int establishYear) {
 		this.establishYear = establishYear;
+	}
+
+	public String toString() {
+		return "名缩写队：" +teamNameForShort+ "---球队名称：" +teamName+ "---球队所在地："+homeField + "---赛区：" +conference+ "---分区："+division + "---球队主场：" +homeField+ "---建立时间："+establishYear;
 	}
 }

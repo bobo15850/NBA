@@ -3,52 +3,52 @@ package common.mydatastructure;
 import java.util.ArrayList;
 
 public class TeamPerformOfOneMatch {
-	private String TeamNameForShort;// 球队名称缩写
+	private String teamName;// 球队名称缩写
 	private MyDate date;// 比赛时间
-	private MyTime playingTime = new MyTime();// 球员上场时间之和
-	private String opponentTeamNameForShort;// 对手名称
+	private MyTime minute = new MyTime();// 球员上场时间之和
+	private String opponentTeamName;// 对手名称
 	private int win;// 是否赢球
-	private int totalHitNumber;// 总命中数
-	private int totalShootNumber;// 总出手数
-	private int threePointHitNumber;// 三分命中数
-	private int threePointShootNumber;// 三分出手数
-	private int freePointHitNumber;// 罚球命中数
-	private int freePointShootNumber;// 罚球出手数
-	private int offensiveReboundNumber;// 进攻篮板
-	private int defensiveReboundNumber;// 防守篮板
-	private int totalReboundNumber;// 总篮板
-	private int assistNumber;// 助攻
-	private int stealNumber;// 抢断数
-	private int blockNumber;// 盖帽数
-	private int turnoverNumber;// 失误数
-	private int foulNumber;// 犯规数
-	private int scoreNumber;// 得分数
+	private int totalHit;// 总命中数
+	private int totalShot;// 总出手数
+	private int threeHit;// 三分命中数
+	private int threeShot;// 三分出手数
+	private int freeHit;// 罚球命中数
+	private int freeShot;// 罚球出手数
+	private int offendRebound;// 进攻篮板
+	private int defendRebound;// 防守篮板
+	private int rebound;// 总篮板
+	private int assist;// 助攻
+	private int steal;// 抢断数
+	private int block;// 盖帽数
+	private int fault;// 失误数
+	private int foul;// 犯规数
+	private int point;// 得分数
 
 	public TeamPerformOfOneMatch(String teamName, String opponentTeamName, MyDate date, int win,
 			ArrayList<PlayerPerformOfOneMatch> listOfPlayerPerformanceOfOneMatch) {
-		this.TeamNameForShort = teamName;
-		this.opponentTeamNameForShort = opponentTeamName;
+		this.teamName = teamName;
+		this.opponentTeamName = opponentTeamName;
 		this.date = date;
 		this.win = win;
 		PlayerPerformOfOneMatch temp;
 		for (int i = 0; i < listOfPlayerPerformanceOfOneMatch.size(); i++) {
 			temp = listOfPlayerPerformanceOfOneMatch.get(i);
-			this.totalHitNumber += temp.getTotalHitNumber();
-			this.totalShootNumber += temp.getTotalShootNumber();
-			this.threePointHitNumber += temp.getThreePointHitNumber();
-			this.threePointShootNumber += temp.getThreePointShootNumber();
-			this.freePointHitNumber += temp.getFreePointHitNumber();
-			this.freePointShootNumber += temp.getFreePointShootNumber();
-			this.offensiveReboundNumber += temp.getOffensiveReboundNumber();
-			this.defensiveReboundNumber += temp.getDefensiveReboundNumber();
-			this.totalReboundNumber += temp.getTotalReboundNumber();
-			this.assistNumber += temp.getAssistNumber();
-			this.stealNumber += temp.getStealNumber();
-			this.blockNumber += temp.getBlockNumber();
-			this.turnoverNumber += temp.getFaultNumber();
-			this.foulNumber += temp.getFoulNumber();
-			this.scoreNumber += temp.getScoreNumber();
-			this.playingTime.plus(temp.getPlayingTime());
+			this.totalHit += temp.getTotalHit();
+			this.totalShot += temp.getTotalShoot();
+			this.threeHit += temp.getThreeHit();
+			this.threeShot += temp.getThreeShot();
+			this.freeHit += temp.getFreeHit();
+			this.freeShot += temp.getFreeShot();
+			this.offendRebound += temp.getOffendRebound();
+			this.defendRebound += temp.getDefendRebound();
+			this.rebound += temp.getRebound();
+			this.assist += temp.getAssist();
+			this.steal += temp.getSteal();
+			this.block += temp.getBlock();
+			this.fault += temp.getFault();
+			this.foul += temp.getFoul();
+			this.point += temp.getPoint();
+			this.minute.plus(temp.getMinute());
 		}
 	}
 
@@ -56,173 +56,173 @@ public class TeamPerformOfOneMatch {
 		// 无参构造函数
 	}
 
-	public void setTeamNameForShort(String teamName) {
-		this.TeamNameForShort = teamName;
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}// 设置球队名称
 
 	public void setOpponentTeamName(String opponentTeamNameForShort) {
-		this.opponentTeamNameForShort = opponentTeamNameForShort;
+		this.opponentTeamName = opponentTeamNameForShort;
 	}// 设置对手名称
 
 	public void setDate(MyDate date) {
 		this.date = date;
 	}// 设置比赛时间
 
-	public void setTotalHitNumber(int totalHitNumber) {
-		this.totalHitNumber = totalHitNumber;
+	public void setTotalHit(int totalHitNumber) {
+		this.totalHit = totalHitNumber;
 	}// 设置总命中数
 
-	public void setTotalShootNumber(int totalShootNumber) {
-		this.totalShootNumber = totalShootNumber;
+	public void setTotalShot(int totalShootNumber) {
+		this.totalShot = totalShootNumber;
 	}// 设置总出手数
 
-	public void setThreePointHitNumber(int threePointHitNumber) {
-		this.threePointHitNumber = threePointHitNumber;
+	public void setThreeHit(int threePointHitNumber) {
+		this.threeHit = threePointHitNumber;
 	}// 设置总三分命中数
 
-	public void setThreePointShootNumber(int threePointShootNumber) {
-		this.threePointShootNumber = threePointShootNumber;
+	public void setThreeShot(int threePointShootNumber) {
+		this.threeShot = threePointShootNumber;
 	}// 设置总三分出手数
 
-	public void setFreePointHitNumber(int freePointHitNumber) {
-		this.freePointHitNumber = freePointHitNumber;
+	public void setFreeHit(int freePointHitNumber) {
+		this.freeHit = freePointHitNumber;
 	}// 设置总罚球命中数
 
-	public void setFreePointShootNumber(int freePointShootNumber) {
-		this.freePointShootNumber = freePointShootNumber;
+	public void setFreeShot(int freePointShootNumber) {
+		this.freeShot = freePointShootNumber;
 	}// 设置总罚球出手数
 
-	public void setOffensiveReboundNumber(int offensiveReboundNumber) {
-		this.offensiveReboundNumber = offensiveReboundNumber;
+	public void setOffendRebound(int offensiveReboundNumber) {
+		this.offendRebound = offensiveReboundNumber;
 	}// 设置总进攻篮板数
 
-	public void setDefensiveReboundNumber(int defensiveReboundNumber) {
-		this.defensiveReboundNumber = defensiveReboundNumber;
+	public void setDefendRebound(int defensiveReboundNumber) {
+		this.defendRebound = defensiveReboundNumber;
 	}// 设置总防守篮板数
 
-	public void setTotalReboundNumber(int totalReboundNumber) {
-		this.totalReboundNumber = totalReboundNumber;
+	public void setTotalRebound(int totalReboundNumber) {
+		this.rebound = totalReboundNumber;
 	}// 设置总篮板数
 
-	public void setAssistNumber(int assistNumber) {
-		this.assistNumber = assistNumber;
+	public void setAssist(int assistNumber) {
+		this.assist = assistNumber;
 	}// 设置助攻数
 
-	public void setStealNumber(int stealNumber) {
-		this.stealNumber = stealNumber;
+	public void setSteal(int stealNumber) {
+		this.steal = stealNumber;
 	}// 设置抢断数
 
-	public void setBlockNumber(int blockNumber) {
-		this.blockNumber = blockNumber;
+	public void setBlock(int blockNumber) {
+		this.block = blockNumber;
 	}// 设置盖帽数
 
-	public void setTurnoverNumber(int turnoverNumber) {
-		this.turnoverNumber = turnoverNumber;
+	public void setFault(int turnoverNumber) {
+		this.fault = turnoverNumber;
 	}// 设置失误数
 
-	public void setFoulNumber(int foulNumber) {
-		this.foulNumber = foulNumber;
+	public void setFoul(int foulNumber) {
+		this.foul = foulNumber;
 	}// 设置犯规数
 
-	public void setScoreNumber(int scoreNumber) {
-		this.scoreNumber = scoreNumber;
+	public void setPoint(int scoreNumber) {
+		this.point = scoreNumber;
 	}// 设置得分数
 
-	public String getTeamNameForShort() {
-		return this.TeamNameForShort;
+	public String getTeamName() {
+		return this.teamName;
 	}// 得到球队名称
 
-	public String getOpponentTeamNameForShort() {
-		return this.opponentTeamNameForShort;
+	public String getOpponentTeamName() {
+		return this.opponentTeamName;
 	}// 得到对手名称
 
 	public MyDate getDate() {
 		return this.date;
 	}// 得到比赛时间
 
-	public int getTotalHitNumber() {
-		return this.totalHitNumber;
+	public int getTotalHit() {
+		return this.totalHit;
 	}// 得到总命中数
 
-	public int getTotalShootNumber() {
-		return this.totalShootNumber;
+	public int getTotalShot() {
+		return this.totalShot;
 	}// 得到总出手数
 
-	public int getThreePointHitNumber() {
-		return this.threePointHitNumber;
+	public int getThreeHit() {
+		return this.threeHit;
 	}// 得到总三分命中数
 
-	public int getThreePointShootNumber() {
-		return this.threePointShootNumber;
+	public int getThreeShot() {
+		return this.threeShot;
 	}// 得到总三分出手数
 
-	public int getFreePointHitNumber() {
-		return this.freePointHitNumber;
+	public int getFreeHit() {
+		return this.freeHit;
 	}// 得到总罚球命中数
 
-	public int getFreePointShootNumber() {
-		return this.freePointShootNumber;
+	public int getFreeShot() {
+		return this.freeShot;
 	}// 得到总罚球出手数
 
-	public int getOffendReboundNumber() {
-		return this.offensiveReboundNumber;
+	public int getOffendRebound() {
+		return this.offendRebound;
 	}// 得到总进攻篮板数
 
-	public int getDefendReboundNumber() {
-		return this.defensiveReboundNumber;
+	public int getDefendRebound() {
+		return this.defendRebound;
 	}// 得到总防守篮板数
 
-	public int getTotalReboundNumber() {
-		return this.totalReboundNumber;
+	public int getRebound() {
+		return this.rebound;
 	}// 得到总篮板数
 
-	public int getAssistNumber() {
-		return this.assistNumber;
+	public int getAssist() {
+		return this.assist;
 	}// 得到助攻数
 
-	public int getStealNumber() {
-		return this.stealNumber;
+	public int getSteal() {
+		return this.steal;
 	}// 得到抢断数
 
-	public int getBlockNumber() {
-		return this.blockNumber;
+	public int getBlock() {
+		return this.block;
 	}// 得到盖帽数
 
-	public int getFaultNumber() {
-		return this.turnoverNumber;
+	public int getFault() {
+		return this.fault;
 	}// 得到失误数
 
-	public int getFoulNumber() {
-		return this.foulNumber;
+	public int getFoul() {
+		return this.foul;
 	}// 得到犯规数
 
-	public int getScoreNumber() {
-		return this.scoreNumber;
+	public int getPoint() {
+		return this.point;
 	}// 得到得分数
 
-	public MyTime getPlayingTime() {
-		return playingTime;
+	public MyTime getMinute() {
+		return minute;
 	}
 
-	public void setPlayingTime(MyTime playingTime) {
-		this.playingTime = playingTime;
+	public void setMinute(MyTime playingTime) {
+		this.minute = playingTime;
 	}
 
 	public String toString() {
-		return "队名：" + this.getTeamNameForShort() + "---比赛日期：" + this.getDate().getFormatString() + "---对手：" + this.getOpponentTeamNameForShort()
-				+ "---比赛时间：" + this.getPlayingTime().getTimeFormatString() + "---总命中数：" + this.getTotalHitNumber() + "---总出手数："
-				+ this.getTotalShootNumber() + "---三分总命中数：" + this.getThreePointHitNumber() + "---三分总命中数：" + this.getThreePointShootNumber()
-				+ "---罚球总出手数：" + this.getFreePointHitNumber() + "---罚球总命中数：" + this.getFreePointShootNumber() + "---进攻篮板数："
-				+ this.getOffendReboundNumber() + "---防守篮板数：" + this.getDefendReboundNumber() + "---总篮板数：" + this.getTotalReboundNumber()
-				+ "---助攻数：" + this.getAssistNumber() + "---抢断数：" + this.getStealNumber() + "---盖帽数：" + this.getBlockNumber() + "---失误数："
-				+ this.getFaultNumber() + "---犯规数：" + this.getFoulNumber() + "---得分数：" + this.getScoreNumber();
+		return "队名：" + this.getTeamName() + "---比赛日期：" + this.getDate().getFormatString() + "---对手：" + this.getOpponentTeamName()
+				+ "---比赛时间：" + this.getMinute().getTimeFormatString() + "---总命中数：" + this.getTotalHit() + "---总出手数："
+				+ this.getTotalShot() + "---三分总命中数：" + this.getThreeHit() + "---三分总命中数：" + this.getThreeShot()
+				+ "---罚球总出手数：" + this.getFreeHit() + "---罚球总命中数：" + this.getFreeShot() + "---进攻篮板数："
+				+ this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound() + "---总篮板数：" + this.getRebound() + "---助攻数："
+				+ this.getAssist() + "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlock() + "---失误数：" + this.getFault()
+				+ "---犯规数：" + this.getFoul() + "---得分数：" + this.getPoint();
 	}
 
-	public int getWin() {
+	public int getWinRate() {
 		return win;
 	}
 
-	public void setWin(int win) {
+	public void setWinRate(int win) {
 		this.win = win;
 	}
 }

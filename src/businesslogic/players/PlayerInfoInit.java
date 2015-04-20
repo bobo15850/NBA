@@ -36,12 +36,12 @@ public class PlayerInfoInit {
 			//
 			TreeMap<MyDate, PlayerPerformOfOneMatch> oneplayer = temp.getValue();
 			PlayerPerformOfOneMatch latestMatchPo = oneplayer.lastEntry().getValue();// 最后一场比赛
-			String teamName = latestMatchPo.getTeamNameForShort();// 得到所属球队
+			String teamName = latestMatchPo.getTeamName();// 得到所属球队
 			if (MEM.TEAM_LEAGUE.containsKey(teamName)) {
 				league = MEM.TEAM_LEAGUE.get(teamName);
 			}// 得到联盟
 			if (MEM.PLAYER_GENERALINFO.containsKey(playerName)) {
-				GeneralInfoOfPlayer playerGeneralInfo = MEM.PLAYER_GENERALINFO.get(latestMatchPo.getNameOfPlayer());
+				GeneralInfoOfPlayer playerGeneralInfo = MEM.PLAYER_GENERALINFO.get(latestMatchPo.getName());
 				age = playerGeneralInfo.getAge();
 				position = playerGeneralInfo.getPosition();
 			}// 得到年龄
@@ -89,58 +89,58 @@ public class PlayerInfoInit {
 				MyDate tempDate = onematch.getKey();
 				//
 				start += tempMatch.getStart();
-				totalHitNumber += tempMatch.getTotalHitNumber();
-				totalShotNumber += tempMatch.getTotalShootNumber();
-				threePointHitNumber += tempMatch.getThreePointHitNumber();
-				threePointShotNumber += tempMatch.getThreePointShootNumber();
-				freePointHitNumber += tempMatch.getFreePointHitNumber();
-				freePointShotNumber += tempMatch.getFreePointShootNumber();
-				totalReboundNumber += tempMatch.getTotalReboundNumber();
-				assistNumber += tempMatch.getAssistNumber();
-				playingTime.plus(tempMatch.getPlayingTime());
-				stealNumber += tempMatch.getStealNumber();
-				blockShotNumber += tempMatch.getBlockNumber();
-				faultNumber += tempMatch.getFaultNumber();
-				foulNumber += tempMatch.getFoulNumber();
-				point += tempMatch.getScoreNumber();
-				offendReboundNumber += tempMatch.getOffensiveReboundNumber();
-				defendReboundNumber += tempMatch.getDefensiveReboundNumber();
+				totalHitNumber += tempMatch.getTotalHit();
+				totalShotNumber += tempMatch.getTotalShoot();
+				threePointHitNumber += tempMatch.getThreeHit();
+				threePointShotNumber += tempMatch.getThreeShot();
+				freePointHitNumber += tempMatch.getFreeHit();
+				freePointShotNumber += tempMatch.getFreeShot();
+				totalReboundNumber += tempMatch.getRebound();
+				assistNumber += tempMatch.getAssist();
+				playingTime.plus(tempMatch.getMinute());
+				stealNumber += tempMatch.getSteal();
+				blockShotNumber += tempMatch.getBlock();
+				faultNumber += tempMatch.getFault();
+				foulNumber += tempMatch.getFoul();
+				point += tempMatch.getPoint();
+				offendReboundNumber += tempMatch.getOffendRebound();
+				defendReboundNumber += tempMatch.getDefendRebound();
 				//
-				String tempTeam = tempMatch.getTeamNameForShort();// 球队名称
+				String tempTeam = tempMatch.getTeamName();// 球队名称
 				TeamPerformOfOneMatch selfTeam = MEM.TEAM_PERFORM.get(tempTeam).get(tempDate);// 所属球队战绩
-				TeamPerformOfOneMatch opponentTeam = MEM.TEAM_PERFORM.get(selfTeam.getOpponentTeamNameForShort()).get(tempDate);// 对手球队战绩
+				TeamPerformOfOneMatch opponentTeam = MEM.TEAM_PERFORM.get(selfTeam.getOpponentTeamName()).get(tempDate);// 对手球队战绩
 				//
-				timeOfAllPlayer.plus(selfTeam.getPlayingTime());
-				totalReboundOfTeam += selfTeam.getTotalReboundNumber();
-				offendReboundOfTeam += selfTeam.getOffendReboundNumber();
-				defendReboundOfTeam += selfTeam.getDefendReboundNumber();
-				shootOfAllPlayer += selfTeam.getTotalShootNumber();
-				freePointShotOfAllPlayer += selfTeam.getFreePointShootNumber();
-				faultOfAllPlayer += selfTeam.getFaultNumber();
-				hitOfAllPlayer += selfTeam.getTotalHitNumber();
+				timeOfAllPlayer.plus(selfTeam.getMinute());
+				totalReboundOfTeam += selfTeam.getRebound();
+				offendReboundOfTeam += selfTeam.getOffendRebound();
+				defendReboundOfTeam += selfTeam.getDefendRebound();
+				shootOfAllPlayer += selfTeam.getTotalShot();
+				freePointShotOfAllPlayer += selfTeam.getFreeShot();
+				faultOfAllPlayer += selfTeam.getFault();
+				hitOfAllPlayer += selfTeam.getTotalHit();
 				//
-				totalReboundOfCompetitor += opponentTeam.getTotalReboundNumber();
-				offendReboundOfCompetior += opponentTeam.getOffendReboundNumber();
-				defendReboundOfCompetitor += opponentTeam.getDefendReboundNumber();
-				offendNumberOfCompetitor += CalculationOfTeamPerform.calOffensiveNum(selfTeam.getTotalShootNumber(), selfTeam.getFoulNumber(),
-						selfTeam.getOffendReboundNumber(), opponentTeam.getDefendReboundNumber(),
-						selfTeam.getTotalShootNumber() - selfTeam.getTotalHitNumber(), selfTeam.getFaultNumber());
-				shootNumOfCompetitor += opponentTeam.getTotalShootNumber();
-				threePointShootOfCompetitor += opponentTeam.getThreePointShootNumber();
+				totalReboundOfCompetitor += opponentTeam.getRebound();
+				offendReboundOfCompetior += opponentTeam.getOffendRebound();
+				defendReboundOfCompetitor += opponentTeam.getDefendRebound();
+				offendNumberOfCompetitor += CalculationOfTeamPerform.calOffensiveNum(selfTeam.getTotalShot(), selfTeam.getFoul(),
+						selfTeam.getOffendRebound(), opponentTeam.getDefendRebound(),
+						selfTeam.getTotalShot() - selfTeam.getTotalHit(), selfTeam.getFault());
+				shootNumOfCompetitor += opponentTeam.getTotalShot();
+				threePointShootOfCompetitor += opponentTeam.getThreeShot();
 				int doubleOfOneMatch = 0;// 一场比赛中上双的个数
-				if (tempMatch.getScoreNumber() >= 9.9) {
+				if (tempMatch.getPoint() >= 9.9) {
 					doubleOfOneMatch++;
 				}
-				if (tempMatch.getTotalReboundNumber() >= 9.9) {
+				if (tempMatch.getRebound() >= 9.9) {
 					doubleOfOneMatch++;
 				}
-				if (tempMatch.getAssistNumber() >= 9.9) {
+				if (tempMatch.getAssist() >= 9.9) {
 					doubleOfOneMatch++;
 				}
-				if (tempMatch.getBlockNumber() >= 9.9) {
+				if (tempMatch.getBlock() >= 9.9) {
 					doubleOfOneMatch++;
 				}
-				if (tempMatch.getStealNumber() >= 9.9) {
+				if (tempMatch.getSteal() >= 9.9) {
 					doubleOfOneMatch++;
 				}
 				if (doubleOfOneMatch >= 2) {

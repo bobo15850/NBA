@@ -127,7 +127,7 @@ public class MEM {
 		generalTeamInfo.setDivision(part[4].trim());
 		generalTeamInfo.setHomeField(part[5].trim());
 		generalTeamInfo.setEstablishYear(toInt(part[6].trim().substring(0, 4)));
-		MEM.TEAM_GENERALINFO.put(generalTeamInfo.getTeamName(), generalTeamInfo);
+		MEM.TEAM_GENERALINFO.put(generalTeamInfo.getTeamNameForShort(), generalTeamInfo);
 	}
 
 	private static int toInt(String str) {

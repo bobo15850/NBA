@@ -34,7 +34,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 				tempHotInfo.setField(field);
 				tempHotInfo.setName(playerName);
 				tempHotInfo.setPosition(playerData.getGeneralInfoOfOnePlayer(playerName).getPosition());
-				tempHotInfo.setTeamName(onePlayerPerform.get(numOfGame - 1).getTeamNameForShort());
+				tempHotInfo.setTeamName(onePlayerPerform.get(numOfGame - 1).getTeamName());
 				double before = 0;
 				double latestFive = 0;
 				double all = 0;
@@ -112,10 +112,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 		ArrayList<PlayerKingInfo> resultList = new ArrayList<PlayerKingInfo>(number);
 		for (int i = playerNormal_avg.size() - 1; i > playerNormal_avg.size() - number - 1; i--) {
 			PlayerKingInfo tempKing = new PlayerKingInfo();
-			tempKing.setField(field);
 			PlayerNormalInfo_Expand tempNormal_avg = playerNormal_avg.get(i);
-			tempKing.setName(tempNormal_avg.getName());
-			tempKing.setTeamName(tempNormal_avg.getTeamName());
 			double value = 0;
 			if (field.equals(Field.point)) {
 				value = tempNormal_avg.getPoint();
@@ -141,6 +138,9 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 			else if (field.equals(Field.penalty)) {
 				value = tempNormal_avg.getPenalty();
 			}
+			tempKing.setName(tempNormal_avg.getName());
+			tempKing.setTeamName(tempNormal_avg.getTeamName());
+			tempKing.setField(field);
 			tempKing.setValue(value);
 			tempKing.setPosition(this.playerData.getGeneralInfoOfOnePlayer(tempNormal_avg.getName()).getPosition());
 			resultList.add(tempKing);
@@ -165,37 +165,35 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 		for (int i = playerPerformOneDay.size() - 1; i > playerPerformOneDay.size() - number - 1; i--) {
 			PlayerKingInfo tempKing = new PlayerKingInfo();
 			PlayerPerformOfOneMatch tempPerformOfOneMatch = playerPerformOneDay.get(i);
-			tempKing.setField(field);
-			tempKing.setName(tempPerformOfOneMatch.getNameOfPlayer());
-			tempKing.setTeamName(tempPerformOfOneMatch.getTeamNameForShort());
-			tempKing.setPosition(this.playerData.getGeneralInfoOfOnePlayer(tempPerformOfOneMatch.getNameOfPlayer()).getName());
 			double value = 0;
 			if (field.equals(Field.point)) {
-				value = tempPerformOfOneMatch.getScoreNumber();
+				value = tempPerformOfOneMatch.getPoint();
 			}
 			else if (field.equals(Field.rebound)) {
-				value = tempPerformOfOneMatch.getTotalReboundNumber();
+				value = tempPerformOfOneMatch.getRebound();
 			}
 			else if (field.equals(Field.assist)) {
-				value = tempPerformOfOneMatch.getAssistNumber();
+				value = tempPerformOfOneMatch.getAssist();
 			}
 			else if (field.equals(Field.steal)) {
-				value = tempPerformOfOneMatch.getStealNumber();
+				value = tempPerformOfOneMatch.getSteal();
 			}
 			else if (field.equals(Field.blockShot)) {
-				value = tempPerformOfOneMatch.getBlockNumber();
+				value = tempPerformOfOneMatch.getBlock();
 			}
 			else if (field.equals(Field.shot)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getTotalHitNumber() / tempPerformOfOneMatch.getTotalShootNumber());
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getTotalHit() / tempPerformOfOneMatch.getTotalShoot());
 			}
 			else if (field.equals(Field.three)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getThreePointHitNumber()
-						/ tempPerformOfOneMatch.getThreePointShootNumber());
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getThreeHit() / tempPerformOfOneMatch.getThreeShot());
 			}
 			else if (field.equals(Field.penalty)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getFreePointHitNumber()
-						/ tempPerformOfOneMatch.getFreePointShootNumber());
+				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getFreeHit() / tempPerformOfOneMatch.getFreeShot());
 			}
+			tempKing.setField(field);
+			tempKing.setName(tempPerformOfOneMatch.getName());
+			tempKing.setTeamName(tempPerformOfOneMatch.getTeamName());
+			tempKing.setPosition(this.playerData.getGeneralInfoOfOnePlayer(tempPerformOfOneMatch.getName()).getPosition());
 			tempKing.setValue(value);
 			resultList.add(tempKing);
 		}
@@ -216,31 +214,31 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 
 	class Rebond implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getTotalReboundNumber();
+			return player.getRebound();
 		}
 	}// 总篮板
 
 	class Assist implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getAssistNumber();
+			return player.getAssist();
 		}
 	}// 总助攻数
 
 	class Steal implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getStealNumber();
+			return player.getSteal();
 		}
 	}// 总抢断数
 
 	class BlockShot implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getBlockNumber();
+			return player.getBlock();
 		}
 	}// 总盖帽数
 
 	class Point implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getScoreNumber();
+			return player.getPoint();
 		}
 	}// 得分
 }

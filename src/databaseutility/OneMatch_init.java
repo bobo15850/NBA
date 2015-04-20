@@ -32,23 +32,22 @@ public class OneMatch_init extends OneMatch {
 		}
 	}
 
-	@SuppressWarnings("null")
 	public void writeGeneralMatchInfo() {
-		int[] firstTeamQuarter = null;
-		int[] secondTeamQuarter = null;
 		ArrayList<String> firstTeamPlayer = new ArrayList<String>(16);
 		ArrayList<String> secondTeamPlayer = new ArrayList<String>(16);
 		String[] quarter = super.quarterPoint.split(";");
+		int[] firstTeamQuarter = new int[quarter.length];
+		int[] secondTeamQuarter = new int[quarter.length];
 		for (int i = 0; i < quarter.length; i++) {
 			String[] part = quarter[i].split("-");
 			firstTeamQuarter[i] = super.toInt(part[0]);
 			secondTeamQuarter[i] = super.toInt(part[1]);
 		}
 		for (int i = 0; i < super.listOfFirstTeamPlayerPerformance.size(); i++) {
-			firstTeamPlayer.add(listOfFirstTeamPlayerPerformance.get(i).getNameOfPlayer());
+			firstTeamPlayer.add(listOfFirstTeamPlayerPerformance.get(i).getName());
 		}
 		for (int i = 0; i < super.listOfSecondTeamPlayerPerformance.size(); i++) {
-			secondTeamPlayer.add(listOfSecondTeamPlayerPerformance.get(i).getNameOfPlayer());
+			secondTeamPlayer.add(listOfSecondTeamPlayerPerformance.get(i).getName());
 		}
 		GeneralInfoOfOneMatch oneMatch = new GeneralInfoOfOneMatch();
 		oneMatch.setDate(date);
@@ -72,7 +71,7 @@ public class OneMatch_init extends OneMatch {
 	}
 
 	private void writeDetailInfoOfTeamPerform(TeamPerformOfOneMatch teamPo) {
-		String teamNameForShort = teamPo.getTeamNameForShort();
+		String teamNameForShort = teamPo.getTeamName();
 		TreeMap<MyDate, TeamPerformOfOneMatch> oneTeamPerform;
 		if (MEM.TEAM_PERFORM.containsKey(teamNameForShort)) {
 			oneTeamPerform = MEM.TEAM_PERFORM.get(teamNameForShort);
@@ -86,7 +85,7 @@ public class OneMatch_init extends OneMatch {
 	}
 
 	private void writeDetailInfoOfPlayerPerform(PlayerPerformOfOneMatch playerPo) {
-		String playerName = playerPo.getNameOfPlayer();
+		String playerName = playerPo.getName();
 		TreeMap<MyDate, PlayerPerformOfOneMatch> onePlayerPerform;
 		if (MEM.PLAYERS_PERFORM.containsKey(playerName)) {
 			onePlayerPerform = MEM.PLAYERS_PERFORM.get(playerName);
@@ -97,15 +96,15 @@ public class OneMatch_init extends OneMatch {
 			onePlayerPerform.put(date, playerPo);
 			MEM.PLAYERS_PERFORM.put(playerName, onePlayerPerform);
 		}
-		if (MEM.PLAYER_IN_TEAM.containsKey(playerPo.getTeamNameForShort())) {
-			if (!MEM.PLAYER_IN_TEAM.get(playerPo.getTeamNameForShort()).contains(playerName)) {
-				MEM.PLAYER_IN_TEAM.get(playerPo.getTeamNameForShort()).add(playerName);
+		if (MEM.PLAYER_IN_TEAM.containsKey(playerPo.getTeamName())) {
+			if (!MEM.PLAYER_IN_TEAM.get(playerPo.getTeamName()).contains(playerName)) {
+				MEM.PLAYER_IN_TEAM.get(playerPo.getTeamName()).add(playerName);
 			}// 将球队的球员添加到球队的球员集合中
 		}
 		else {
 			HashSet<String> oneTeam = new HashSet<String>(16);
 			oneTeam.add(playerName);
-			MEM.PLAYER_IN_TEAM.put(playerPo.getTeamNameForShort(), oneTeam);
+			MEM.PLAYER_IN_TEAM.put(playerPo.getTeamName(), oneTeam);
 		}
 
 	}

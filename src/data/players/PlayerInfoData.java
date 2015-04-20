@@ -52,10 +52,17 @@ public class PlayerInfoData implements PlayerInfoDataService {
 			resultPo = MEM.PLAYER_GENERALINFO.get(nameOfPlayer);
 		}
 		else {
+			String unknown = "暂无数据";
 			resultPo = new GeneralInfoOfPlayer();
 			resultPo.setName(nameOfPlayer);
 			resultPo.setAge(NUMBER.UNKNOWN_AGE);
 			resultPo.setPosition(Position.UNKUOWN_POSITION);
+			resultPo.setBirthday(unknown);
+			resultPo.setHeight(unknown);
+			resultPo.setWeight(unknown);
+			resultPo.setPlayerNumber(unknown);
+			resultPo.setSchool(unknown);
+			resultPo.setTrainingYear(-1);
 		}
 		return resultPo;
 	}
@@ -69,9 +76,9 @@ public class PlayerInfoData implements PlayerInfoDataService {
 		TeamPerformOfOneMatch opponentTeamPo;
 		for (MyDate date : dateSet) {
 			temp = onePlayerOfOneSeason.get(date);
-			String teamNameForShort = temp.getTeamNameForShort();
+			String teamNameForShort = temp.getTeamName();
 			selfTeamPo = MEM.TEAM_PERFORM.get(teamNameForShort).get(date);
-			String opponentTeamNameForShort = selfTeamPo.getOpponentTeamNameForShort();
+			String opponentTeamNameForShort = selfTeamPo.getOpponentTeamName();
 			opponentTeamPo = MEM.TEAM_PERFORM.get(opponentTeamNameForShort).get(date);
 			resultList.add(new TeamPerformOfOneMatch[] { selfTeamPo, opponentTeamPo });
 		}
@@ -80,7 +87,7 @@ public class PlayerInfoData implements PlayerInfoDataService {
 
 	public String getLeague(String playerName) {
 		PlayerPerformOfOneMatch lastMatch = MEM.PLAYERS_PERFORM.get(playerName).lastEntry().getValue();
-		String team = lastMatch.getTeamNameForShort();
+		String team = lastMatch.getTeamName();
 		String league = League.UNKNOWN_LEAGUE;
 		if (MEM.TEAM_LEAGUE.containsKey(team)) {
 			league = MEM.TEAM_LEAGUE.get(team);

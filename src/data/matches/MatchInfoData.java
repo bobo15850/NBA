@@ -36,7 +36,6 @@ public class MatchInfoData implements MatchInfoDataService {
 	}
 
 	public ArrayList<GeneralInfoOfOneMatch> getTodayMatches(MyDate nowDate) {
-
 		if (MEM.GENERAL_MATCH.containsKey(nowDate)) {
 			ArrayList<GeneralInfoOfOneMatch> matchArray = new ArrayList<GeneralInfoOfOneMatch>(16);
 			HashSet<GeneralInfoOfOneMatch> todaySet = MEM.GENERAL_MATCH.get(nowDate);
@@ -59,6 +58,14 @@ public class MatchInfoData implements MatchInfoDataService {
 					return temp.getSecondTeamPlayer();
 				}
 			}
+		}
+		return null;
+	}
+
+	public MyDate getLatestDate() {
+		if (!MEM.GENERAL_MATCH.isEmpty()) {
+			MyDate latestDay = MEM.GENERAL_MATCH.lastKey();
+			return latestDay;
 		}
 		return null;
 	}
