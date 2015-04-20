@@ -49,10 +49,10 @@ public class PlayerPanel extends MyPanel {
 		playerShowPane.getViewport().add(playerShowTable);
 	}
 	private void setComponentsLocation() {
-		averageData.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*100),(int)(NUMBER.px*658),(int)(NUMBER.px*50));
-		totalData.setBounds((int)(NUMBER.px*706),(int)(NUMBER.px*100),(int)(NUMBER.px*660),(int)(NUMBER.px*50));
+		averageData.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*100),(int)(NUMBER.px*658),(int)(NUMBER.px*40));
+		totalData.setBounds((int)(NUMBER.px*706),(int)(NUMBER.px*100),(int)(NUMBER.px*660),(int)(NUMBER.px*40));
 		selectionPanel.setLocation((int)(NUMBER.px*50),(int)(NUMBER.px*20));
-		playerShowPane.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*150),(int)(NUMBER.FRAME_WIDTH-100),(int)(NUMBER.px*570));
+		playerShowPane.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*140),(int)(NUMBER.FRAME_WIDTH-100),(int)(NUMBER.px*580));
 		this.add(selectionPanel);
 		this.add(averageData);
 		this.add(totalData);
@@ -92,6 +92,7 @@ public class PlayerPanel extends MyPanel {
 		viewport.setView(rangeAndNameTable);
 		viewport.setPreferredSize(rangeAndNameTable.getPreferredSize());
 		playerShowPane.setRowHeaderView(viewport);
+		playerShowPane.getRowHeader().setOpaque(false);
 		playerShowPane.setCorner(JScrollPane.UPPER_LEFT_CORNER, rangeAndNameTable.getTableHeader());
 	}
 	private void checkSelection(boolean isFixedTable) {
