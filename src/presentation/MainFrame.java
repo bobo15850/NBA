@@ -13,6 +13,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import presentation.players.PlayerPanel;
+import presentation.teams.OneTeamPanel;
 import presentation.teams.TeamPanel;
 import common.mycomponent.MyButton;
 import common.statics.MyColor;
@@ -36,7 +37,7 @@ public class MainFrame extends JFrame {
 		this.setUndecorated(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setBackground(MyColor.LIGHT_COLOR);
+		this.getContentPane().setBackground(MyColor.BACKGROUNDCOLOR);
 		this.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
 				NUMBER.FRAME_HEIGHT);
 		navigationPanel = new NavigationPanel();
@@ -55,7 +56,7 @@ public class MainFrame extends JFrame {
 		private static final long serialVersionUID = 1L;
 		private CardLayout card;// 卡片布局管理器
 		private PlayerPanel playerPanel;// 球员界面
-		private TeamPanel teamPanel;// 球队界面
+		private OneTeamPanel teamPanel;// 球队界面
 
 		ContentPanel() {
 			card = new CardLayout();
@@ -63,7 +64,7 @@ public class MainFrame extends JFrame {
 			this.setLayout(card);
 			//
 			playerPanel = new PlayerPanel();
-			teamPanel = new TeamPanel();
+			teamPanel = new OneTeamPanel("");
 			this.add(playerPanel, "playerPanel");
 			this.add(teamPanel, "teamPanel");
 			this.setVisible(true);
