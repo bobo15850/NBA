@@ -1,7 +1,10 @@
 package databaseutility;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TreeMap;
 
+import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
@@ -26,6 +29,45 @@ public class OneMatch_init extends OneMatch {
 			}
 			writeDetailInfoOfTeamPerform(firstTeamPerformance);
 			writeDetailInfoOfTeamPerform(secondTeamPerformance);
+		}
+	}
+
+	@SuppressWarnings("null")
+	public void writeGeneralMatchInfo() {
+		int[] firstTeamQuarter = null;
+		int[] secondTeamQuarter = null;
+		ArrayList<String> firstTeamPlayer = new ArrayList<String>(16);
+		ArrayList<String> secondTeamPlayer = new ArrayList<String>(16);
+		String[] quarter = super.quarterPoint.split(";");
+		for (int i = 0; i < quarter.length; i++) {
+			String[] part = quarter[i].split("-");
+			firstTeamQuarter[i] = super.toInt(part[0]);
+			secondTeamQuarter[i] = super.toInt(part[1]);
+		}
+		for (int i = 0; i < super.listOfFirstTeamPlayerPerformance.size(); i++) {
+			firstTeamPlayer.add(listOfFirstTeamPlayerPerformance.get(i).getNameOfPlayer());
+		}
+		for (int i = 0; i < super.listOfSecondTeamPlayerPerformance.size(); i++) {
+			secondTeamPlayer.add(listOfSecondTeamPlayerPerformance.get(i).getNameOfPlayer());
+		}
+		GeneralInfoOfOneMatch oneMatch = new GeneralInfoOfOneMatch();
+		oneMatch.setDate(date);
+		oneMatch.setFirstTeamName(firstTeam);
+		oneMatch.setFirstTeamScore(firstTeamSocre);
+		oneMatch.setSecondTeamName(secondTeam);
+		oneMatch.setSecondTeamScore(secondTeamScore);
+		oneMatch.setFirstTeamQuarterScore(firstTeamQuarter);
+		oneMatch.setSecondTeamQuarterScore(secondTeamQuarter);
+		oneMatch.setFirstTeamPlayer(firstTeamPlayer);
+		oneMatch.setSecondTeamPlayer(secondTeamPlayer);
+		if (MEM.GENERAL_MATCH.containsKey(date)) {
+			MEM.GENERAL_MATCH.get(date).add(oneMatch);
+		}
+		else {
+			HashSet<GeneralInfoOfOneMatch> oneday = new HashSet<GeneralInfoOfOneMatch>(16);
+			oneday.add(oneMatch);
+			MEM.GENERAL_MATCH.put(date, oneday);
+
 		}
 	}
 
@@ -55,5 +97,16 @@ public class OneMatch_init extends OneMatch {
 			onePlayerPerform.put(date, playerPo);
 			MEM.PLAYERS_PERFORM.put(playerName, onePlayerPerform);
 		}
+		if (MEM.PLAYER_IN_TEAM.containsKey(playerPo.getTeamNameForShort())) {
+			if (!MEM.PLAYER_IN_TEAM.get(playerPo.getTeamNameForShort()).contains(playerName)) {
+				MEM.PLAYER_IN_TEAM.get(playerPo.getTeamNameForShort()).add(playerName);
+			}// 将球队的球员添加到球队的球员集合中
+		}
+		else {
+			HashSet<String> oneTeam = new HashSet<String>(16);
+			oneTeam.add(playerName);
+			MEM.PLAYER_IN_TEAM.put(playerPo.getTeamNameForShort(), oneTeam);
+		}
+
 	}
 }

@@ -3,6 +3,7 @@ package dataservice.players;
 import java.util.ArrayList;
 
 import common.mydatastructure.GeneralInfoOfPlayer;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.mydatastructure.TeamPerformOfOneMatch;
 
@@ -21,4 +22,6 @@ public interface PlayerInfoDataService {
 
 	// 查找某一球队在某一赛季的具体信息比赛信息的数组中第一个为自己的信息，第二个为对方的信息
 	public ArrayList<TeamPerformOfOneMatch[]> getOneTeamPerformOfOneSeason(String playerName);
+
+	public PlayerPerformOfOneMatch getOnePlayerOneMatchPerform(String playerName, MyDate date);
 }

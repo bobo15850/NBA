@@ -16,4 +16,6 @@ public interface TeamInfoDataService {
 	public ArrayList<String> getNamesForShortOfAllTeam();
 
 	public GeneralInfoOfTeam getGeneralInfoOfTeam(String teamName);
+
+	public String[] getNameOfAllPlayer(String teamName);// 根据球队名称得到其所有球员名称
 }

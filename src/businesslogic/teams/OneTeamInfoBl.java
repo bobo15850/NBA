@@ -15,7 +15,7 @@ public class OneTeamInfoBl implements OneTeamInfoBlService {
 	private TeamInfoDataService teamInfoData = TeamInfoData.getInstance();
 
 	public String[] getPlayerNameOfTeam(String teamName) {
-		return null;
+		return this.teamInfoData.getNameOfAllPlayer(teamName);
 	}
 
 	public TeamNormalInfo_Expand getTeamNormalInfo_tot(String teamName) {

@@ -115,9 +115,4 @@ public class TeamInfoInit {
 			CACHE.TEAM_HIGH.put(teamName, teamHigh);
 		}
 	}
-
-	public static void initTeamTodayCache() {
-
-	}
-
 }

@@ -64,4 +64,14 @@ public class TeamInfoData implements TeamInfoDataService {
 		}
 		return result;
 	}
+
+	public String[] getNameOfAllPlayer(String teamName) {
+		if (MEM.PLAYER_IN_TEAM.containsKey(teamName)) {
+			Set<String> playerSet = MEM.PLAYER_IN_TEAM.get(teamName);
+			return (String[]) playerSet.toArray();
+		}
+		else {
+			return null;
+		}
+	}
 }
