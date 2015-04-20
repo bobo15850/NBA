@@ -38,8 +38,8 @@ public class OneTeamPanel extends MyPanel {
 		teamMemberLabel.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*230),(int)(NUMBER.px*660),(int)(NUMBER.px*50));
 		machesLabel.setBounds((int)(NUMBER.px*710),(int)(NUMBER.px*230),(int)(NUMBER.px*670),(int)(NUMBER.px*50));
 		this.add(generalInfoPanel);
-//		this.add(matchPanel);
-		this.add(memberPanel);
+		this.add(matchPanel);
+//		this.add(memberPanel);
 		this.add(teamMemberLabel);
 		this.add(machesLabel);
 		teamMemberLabel.setOpaque(true);
@@ -130,6 +130,7 @@ public class OneTeamPanel extends MyPanel {
 
 	class AllMatchInfoPanel extends MyPanel{
 		private JScrollPane matchesShowPane;
+		private MatchLabel matchLabel,matchLabel2;
 		private static final long serialVersionUID = 1L;
 		public AllMatchInfoPanel(){
 			this.setSize(NUMBER.FRAME_WIDTH,(int)(NUMBER.px*400));
@@ -138,15 +139,46 @@ public class OneTeamPanel extends MyPanel {
 			this.setComponentsStyle();
 		}
 		private void createObjects() {
+			matchLabel=new MatchLabel("","",0,0);
+			matchLabel2=new MatchLabel("","",0,0);
 			matchesShowPane=new JScrollPane();
+			matchesShowPane.getViewport().setLayout(null);
 		}
 		private void setComponentsLocation() {
-			matchesShowPane.setBounds((int)(NUMBER.px*50),0,NUMBER.FRAME_WIDTH-(int)(NUMBER.px*100), (int)(NUMBER.px*500));
+			matchesShowPane.setBounds((int)(NUMBER.px*50),0,NUMBER.FRAME_WIDTH-(int)(NUMBER.px*100), (int)(NUMBER.px*400));
+			matchLabel.setLocation(0, 0);
+			matchLabel2.setLocation(0, (int)(NUMBER.px*50));
+			matchesShowPane.getViewport().add(matchLabel);
+			matchesShowPane.getViewport().add(matchLabel2);
 			this.add(matchesShowPane);
 		}
 		private void setComponentsStyle() {
 			
 		}
 	}
-
+	class MatchLabel extends JLabel{
+		private MyLabel homeTeamLogo,secondTeamLogo;
+		private JLabel matchPoint;
+		private static final long serialVersionUID = 1L;
+		public MatchLabel(String firstTeamName,String SecondTeamName,int firstTeamPoint,int secondTeamPoint){
+			this.setOpaque(true);
+			this.setBackground(MyColor.DEEP_COLOR);
+			this.setSize(NUMBER.FRAME_WIDTH-(int)(NUMBER.px*100), (int)(NUMBER.px*70));
+			homeTeamLogo=new MyLabel();
+			secondTeamLogo=new MyLabel();
+			matchPoint=new JLabel();
+			homeTeamLogo.setBounds((int)(NUMBER.px*350),(int)(NUMBER.px*5),(int)(NUMBER.px*90),(int)(NUMBER.px*60));
+			secondTeamLogo.setBounds((int)(NUMBER.px*900),(int)(NUMBER.px*5),(int)(NUMBER.px*90),(int)(NUMBER.px*60));
+			matchPoint.setBounds((int)(NUMBER.px*510),(int)(NUMBER.px*5),(int)(NUMBER.px*300),(int)(NUMBER.px*60));
+			this.add(homeTeamLogo);
+			this.add(secondTeamLogo);
+			this.add(matchPoint);
+			homeTeamLogo.setIcon(new ImageIcon("images/teams/logo/ATL00.png"));
+			secondTeamLogo.setIcon(new ImageIcon("images/teams/logo/ATL00.png"));
+			matchPoint.setText("114  -  121");
+			matchPoint.setFont(MyFont.LARGEST_BOLD);
+			matchPoint.setHorizontalAlignment(SwingConstants.CENTER);
+			matchPoint.setForeground(MyColor.MY_WHITE);
+		}
+	}
 }
