@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 
 import common.mycomponent.MyButton;
 import common.statics.Field;
+import common.statics.MyColor;
 import common.statics.NUMBER;
 
 public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListener {
@@ -16,7 +17,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	private String[] fieldString = new String[] { Field.point, Field.rebound, Field.assist, Field.steal, Field.blockShot, Field.shot, Field.three,
 			Field.penalty };
 	private MyButton[] fieldButton = new MyButton[8];// 属性按钮
-	protected final int buttonWidth = (int) (NUMBER.px * 160);
+	protected final int buttonWidth = (int) (NUMBER.px * 165);
 
 	public SeasonPlayerKingPanel() {
 		this.setLayout(null);
@@ -40,12 +41,15 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	}
 
 	private void setComponentsStyle() {
-
+		for (int i = 0; i < 8; i++) {
+			fieldButton[i].setContentAreaFilled(true);
+			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+		}
 	}
 
 	private void setComponentsLocation() {
 		for (int i = 0; i < 8; i++) {
-			fieldButton[i].setBounds((int) (buttonWidth * (i + 0.5)), 0, buttonWidth, buttonHeight);
+			fieldButton[i].setBounds((int) (buttonWidth * i+NUMBER.px*60), 0, buttonWidth, buttonHeight);
 			this.add(fieldButton[i]);
 		}
 	}
@@ -60,6 +64,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
 				super.playerKing = super.playerHotBl.getPlayerKingOfSeason(5, fieldString[i]);
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
 				break;
 			}
 		}
@@ -67,11 +72,22 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	}
 
 	public void mouseEntered(MouseEvent e) {
-
+		for (int i = 0; i < 8; i++) {
+			if (e.getSource().equals(fieldButton[i])) {
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				break;
+			}
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {
-
+		for (int i = 0; i < 8; i++) {
+			if (e.getSource().equals(fieldButton[i])) {
+				fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				break;
+			}
+		}
+	
 	}
 
 	public void mousePressed(MouseEvent e) {
