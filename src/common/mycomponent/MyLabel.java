@@ -1,5 +1,6 @@
 package common.mycomponent;
 
+import java.awt.Color;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -12,11 +13,14 @@ public class MyLabel extends JLabel {
 	private static final long serialVersionUID = 1L;
 
 	public MyLabel() {
+		super();
+//		this.setOpaque(true);
+		this.setBackground(Color.BLACK);
 	}
 
 	public MyLabel(String str) {
 		super(str);
-		this.setFont(MyFont.SMALL_BOLD);
+		this.setFont(MyFont.SMALLEST_PLAIN);
 		this.setForeground(MyColor.DEEP_COLOR);
 	}
 
@@ -36,7 +40,5 @@ public class MyLabel extends JLabel {
 
 	public void setTextAndStyle(String str) {
 		this.setText(str);
-		this.setFont(MyFont.SMALLEST_BOLD);
-		this.setForeground(MyColor.DEEP_COLOR);
 	}
 }

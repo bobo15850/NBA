@@ -1,11 +1,18 @@
 package presentation.teams;
 
+import java.awt.CardLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
@@ -15,43 +22,58 @@ import common.statics.MyColor;
 import common.statics.MyFont;
 import common.statics.NUMBER;
 
-public class OneTeamPanel extends MyPanel {
+public class OneTeamPanel extends MyPanel implements MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	private AllMatchInfoPanel matchPanel;
-	private AllPlayerNormalInfoOfTeamPanel memberPanel;
+	private PlayerNormalInfoPanel memberPanel;
 	private GeneralInfoPanel generalInfoPanel;
-	private JLabel teamMemberLabel;
-	private JLabel machesLabel;
+	private MyButton teamMember;
+	private MyButton matches;
+	private ContentPanel contentPanel;
 	private String PerformanceList[] = {"参赛场数", "先发场数", "在场时间","得分", "篮板", "助攻", 
 			"抢断", "盖帽","进攻篮板", "防守篮板", "失误", "犯规", "投篮命中率", "三分命中率","罚球命中率"};
 	//球队卡只展示普通数据，高级数据要点击球员卡看
 	public OneTeamPanel(String teamName) {
+		this.createObjects();
+		this.setComponentsLocation();
+		this.setCompStyle();
+		this.addListener();
+		this.setVisible(true);
+	}
+
+	private void createObjects() {
 		generalInfoPanel=new GeneralInfoPanel();
-		matchPanel=new AllMatchInfoPanel();
-		memberPanel=new AllPlayerNormalInfoOfTeamPanel();
-		teamMemberLabel=new MyLabel("球队成员");
-		machesLabel=new MyLabel("近期比赛");
+		contentPanel=new ContentPanel();
+		teamMember=new MyButton("球队成员");
+		matches=new MyButton("近期比赛");
+	}
+
+	private void setComponentsLocation() {
 		generalInfoPanel.setLocation(0,0);
-		matchPanel.setLocation(0,(int)(NUMBER.px*280));
-		memberPanel.setLocation(0,(int)(NUMBER.px*280));
-		teamMemberLabel.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*230),(int)(NUMBER.px*660),(int)(NUMBER.px*50));
-		machesLabel.setBounds((int)(NUMBER.px*710),(int)(NUMBER.px*230),(int)(NUMBER.px*670),(int)(NUMBER.px*50));
+		contentPanel.setLocation(0,(int)(NUMBER.px*280));
+		teamMember.setBounds((int)(NUMBER.px*50),(int)(NUMBER.px*230),(int)(NUMBER.px*660),(int)(NUMBER.px*50));
+		matches.setBounds((int)(NUMBER.px*710),(int)(NUMBER.px*230),(int)(NUMBER.px*670),(int)(NUMBER.px*50));
 		this.add(generalInfoPanel);
-		this.add(matchPanel);
-//		this.add(memberPanel);
-		this.add(teamMemberLabel);
-		this.add(machesLabel);
-		teamMemberLabel.setOpaque(true);
-		machesLabel.setOpaque(true);
-		teamMemberLabel.setBackground(MyColor.MIDDLE_COLOR);
-		teamMemberLabel.setForeground(MyColor.MY_WHITE);
-		teamMemberLabel.setFont(MyFont.SMALL_BOLD);
-		teamMemberLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		machesLabel.setBackground(MyColor.DEEP_COLOR);
-		machesLabel.setForeground(MyColor.MY_WHITE);
-		machesLabel.setFont(MyFont.SMALL_BOLD);
-		machesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		this.add(contentPanel);
+		this.add(teamMember);
+		this.add(matches);
+	}
+
+	private void setCompStyle() {
+		teamMember.setContentAreaFilled(true);
+		matches.setContentAreaFilled(true);
+		teamMember.setBackground(MyColor.MIDDLE_COLOR);
+		teamMember.setForeground(MyColor.MY_WHITE);
+		teamMember.setFont(MyFont.SMALL_BOLD);
+		matches.setBackground(MyColor.DEEP_COLOR);
+		matches.setForeground(MyColor.MY_WHITE);
+		matches.setFont(MyFont.SMALL_BOLD);
+	}
+
+	private void addListener() {
+		matches.addMouseListener(this);
+		teamMember.addMouseListener(this);
 	}
 
 	class GeneralInfoPanel extends MyPanel{
@@ -97,12 +119,12 @@ public class OneTeamPanel extends MyPanel {
 		}
 	}
 
-	class AllPlayerNormalInfoOfTeamPanel extends MyPanel{
+	class PlayerNormalInfoPanel extends MyPanel{
 		private MyTable teamMemberTable;
 		private MyTableModel teamMemberTableModel;
 		private JScrollPane teamMemberShowPane;
 		private static final long serialVersionUID = 1L;
-		public AllPlayerNormalInfoOfTeamPanel(){
+		public PlayerNormalInfoPanel(){
 			this.setSize(NUMBER.FRAME_WIDTH,(int)(NUMBER.px*400));
 			this.createObjects();
 			this.setComponentsLocation();
@@ -180,5 +202,79 @@ public class OneTeamPanel extends MyPanel {
 			matchPoint.setHorizontalAlignment(SwingConstants.CENTER);
 			matchPoint.setForeground(MyColor.MY_WHITE);
 		}
+	}
+	class ContentPanel extends JPanel {
+		private static final long serialVersionUID = 1L;
+		private CardLayout card;
+		private AllMatchInfoPanel matchPanel;
+		private PlayerNormalInfoPanel normalInfoPanel;
+
+		ContentPanel() {
+			card = new CardLayout();
+			this.setOpaque(false);
+			this.setLayout(card);
+			//
+			matchPanel = new AllMatchInfoPanel();
+			normalInfoPanel = new PlayerNormalInfoPanel();
+			//
+			this.add(matchPanel, "matchPanel");
+			this.add(normalInfoPanel, "normalInfoPanel");
+		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource().equals(teamMember)) {
+			contentPanel.card.show(contentPanel, "normalInfoPanel");
+			teamMember.setBackground(MyColor.DEEP_COLOR);
+			matches.setBackground(MyColor.MIDDLE_COLOR);
+		}
+		
+		else if (e.getSource().equals(matches)) {
+			contentPanel.card.show(contentPanel, "matchPanel");
+			teamMember.setBackground(MyColor.MIDDLE_COLOR);
+			matches.setBackground(MyColor.DEEP_COLOR);
+		}
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		if (e.getSource().equals(teamMember)) {
+			teamMember.setBorderPainted(true);
+		}
+		
+		else if (e.getSource().equals(matches)) {
+			matches.setBorderPainted(true);
+		}
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if (e.getSource().equals(teamMember)) {
+			teamMember.setBorderPainted(false);
+		}
+		else if (e.getSource().equals(matches)) {
+			matches.setBorderPainted(false);
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public static void main(String args[]) {
+		JFrame j = new JFrame();
+		j.setUndecorated(true);
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		j.setLayout(null);
+		j.setBackground(MyColor.BACKGROUNDCOLOR);
+		j.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
+				NUMBER.FRAME_HEIGHT);
+		OneTeamPanel contentPanel = new OneTeamPanel("");
+		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
+		j.add(contentPanel);
+		j.setVisible(true);
 	}
 }
