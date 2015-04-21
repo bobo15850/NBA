@@ -21,7 +21,6 @@ public class CACHE {
 	//
 	public static Map<String, PlayerPerformOfOneMatch> PLAYER_TODAY = new TreeMap<String, PlayerPerformOfOneMatch>();
 	//
-
 	static {
 		PlayerInfoInit.initPlayerCache();
 		PlayerInfoInit.initPlayerTodayCache();

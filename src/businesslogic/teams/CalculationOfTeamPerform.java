@@ -16,13 +16,13 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算平均数
 
-	public static double calHitRate(int hitNum, int shootNum) {
+	public static double calHitRate(double hitNum, double shootNum) {
 		if (shootNum == 0) {
 			return 0;
 		}
 		else {
 			double result = 0;
-			result = (double) hitNum / (double) shootNum;
+			result = hitNum / shootNum;
 			return cutToTwo(result);
 		}
 	}// 计算命中率
@@ -37,8 +37,9 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算胜率
 
-	public static double calOffensiveNum(int shoot, int foul, int offensiveRebound, int defensiveReboundOfCompetitor, int miss, int turnover) {
-		int totalNumber = offensiveRebound + defensiveReboundOfCompetitor;
+	public static double calOffensiveNum(double shoot, double foul, double offensiveRebound, double defensiveReboundOfCompetitor, double miss,
+			double turnover) {
+		double totalNumber = offensiveRebound + defensiveReboundOfCompetitor;
 		if (totalNumber == 0) {
 			return 0;
 		}
@@ -50,8 +51,8 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算进攻回合数
 
-	public static double calOffensiveEfficiency(double score, int shoot, int foul, int offensiveRebound, int defensiveReboundOfCompetitor, int miss,
-			int turnover) {
+	public static double calOffensiveEfficiency(double score, double shoot, double foul, double offensiveRebound,
+			double defensiveReboundOfCompetitor, double miss, double turnover) {
 		double offensiveNum = calOffensiveNum(shoot, foul, offensiveRebound, defensiveReboundOfCompetitor, miss, turnover);
 		if (offensiveNum == 0) {
 			return 0;
@@ -63,8 +64,8 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算进攻效率
 
-	public static double calDefensiveEfficiency(double scoreOfCompetitor, int shootOfCompetitor, int foulOfCompetitor,
-			int offensiveReboundOfCompetitor, int defensiveRebound, int missOfCompetitor, int turnoverOfCompetitor) {
+	public static double calDefensiveEfficiency(double scoreOfCompetitor, double shootOfCompetitor, double foulOfCompetitor,
+			double offensiveReboundOfCompetitor, double defensiveRebound, double missOfCompetitor, double turnoverOfCompetitor) {
 		double offensiveNum = calOffensiveNum(shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveRebound, missOfCompetitor,
 				turnoverOfCompetitor);
 		if (offensiveNum == 0) {
@@ -76,8 +77,8 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算防守效率
 
-	public static double calOffensiveReboundEfficiency(int reboundBefore, int reboundBehindOfCompetitor) {
-		int total = reboundBefore + reboundBehindOfCompetitor;
+	public static double calOffensiveReboundEfficiency(double reboundBefore, double reboundBehindOfCompetitor) {
+		double total = reboundBefore + reboundBehindOfCompetitor;
 		if (total == 0) {
 			return 0;
 		}
@@ -87,7 +88,7 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算进攻篮板效率
 
-	public static double calDefensiveReboundEfficiency(int reboundBehind, int reboundBeforeOfCompetitor) {
+	public static double calDefensiveReboundEfficiency(double reboundBehind, double reboundBeforeOfCompetitor) {
 		double total = reboundBehind + reboundBeforeOfCompetitor;
 		if (total == 0) {
 			return 0;
@@ -98,8 +99,8 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算防守篮板效率
 
-	public static double calStealEfficiency(int steal, int shootOfCompetitor, int foulOfCompetitor, int offensiveReboundOfCompetitor,
-			int defensiveRebound, int missOfCompetitor, int turnoverOfCompetitor) {
+	public static double calStealEfficiency(double steal, double shootOfCompetitor, double foulOfCompetitor, double offensiveReboundOfCompetitor,
+			double defensiveRebound, double missOfCompetitor, double turnoverOfCompetitor) {
 		double OffensiveNum = calOffensiveNum(shootOfCompetitor, foulOfCompetitor, offensiveReboundOfCompetitor, defensiveRebound, missOfCompetitor,
 				turnoverOfCompetitor);
 		if (OffensiveNum == 0) {
@@ -111,7 +112,8 @@ public class CalculationOfTeamPerform {
 		}
 	}// 计算抢断率
 
-	public static double calAssistRate(int assist, int shoot, int foul, int offensiveRebound, int defensiveReboundOfCompetitor, int miss, int turnover) {
+	public static double calAssistRate(double assist, double shoot, double foul, double offensiveRebound, double defensiveReboundOfCompetitor,
+			double miss, double turnover) {
 		double offensiveNum = calOffensiveNum(shoot, foul, offensiveRebound, defensiveReboundOfCompetitor, miss, turnover);
 		if (offensiveNum == 0) {
 			return 0;

@@ -5,7 +5,7 @@ public class PlayerPerformOfOneMatch {
 	private String teamName;// 效力球队
 	private MyDate date;// 比赛时间
 	private int start;// 是否首发
-	private MyTime minute;// 上场时间
+	private double minute;// 上场时间
 	private int totalHit;// 总命中数
 	private int totalShot;// 总出手数
 	private int threeHit;// 三分命中数
@@ -26,7 +26,7 @@ public class PlayerPerformOfOneMatch {
 		this.teamName = teamName;
 	}// 设置效力球队
 
-	public void setMinute(MyTime playingTime) {
+	public void setMinute(double playingTime) {
 		this.minute = playingTime;
 	}// 设置上场时间
 
@@ -94,7 +94,7 @@ public class PlayerPerformOfOneMatch {
 		return this.teamName;
 	}// 得到效力球队
 
-	public MyTime getMinute() {
+	public double getMinute() {
 		return this.minute;
 	}// 得到上场时间
 
@@ -176,11 +176,11 @@ public class PlayerPerformOfOneMatch {
 
 	public String toString() {
 		return "姓名：" + this.getName() + "---比赛时间：" + this.getDate().getFormatString() + "---效力球队：" + this.getTeamName() + "---上场时间："
-				+ this.getMinute().getTimeFormatString() + "---总命中数：" + this.getTotalHit() + "---总出手数：" + this.getTotalShoot() + "---三分命中数："
-				+ this.getThreeHit() + "---三分出手数：" + this.getThreeShot() + "---罚球命中数：" + this.getFreeHit() + "---罚球出手数："
-				+ this.getFreeShot() + "---进攻篮板数：" + this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound()
-				+ "---总篮板数：" + this.getRebound() + "---助攻数：" + this.getAssist() + "---抢断数：" + this.getSteal() + "---盖帽数："
-				+ this.getBlock() + "---失误数：" + this.getFault() + "---犯规数：" + this.getFoul() + "---得分数：" + this.getPoint();
+				+ this.getMinute() + "---总命中数：" + this.getTotalHit() + "---总出手数：" + this.getTotalShoot() + "---三分命中数：" + this.getThreeHit()
+				+ "---三分出手数：" + this.getThreeShot() + "---罚球命中数：" + this.getFreeHit() + "---罚球出手数：" + this.getFreeShot() + "---进攻篮板数："
+				+ this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound() + "---总篮板数：" + this.getRebound() + "---助攻数：" + this.getAssist()
+				+ "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlock() + "---失误数：" + this.getFault() + "---犯规数：" + this.getFoul() + "---得分数："
+				+ this.getPoint();
 	}
 
 	public int getStart() {
