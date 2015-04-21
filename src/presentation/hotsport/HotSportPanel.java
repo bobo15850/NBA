@@ -23,7 +23,7 @@ public class HotSportPanel extends MyPanel implements MouseListener {
 	private MyButton todayHotPlayer, seasonHotPlayer, seasonHotTeam, mostImprovedPlayer;// 按钮
 	private ContentPanel contentPanel;// 内容panel
 
-	HotSportPanel() {
+	public HotSportPanel() {
 		this.createObjects();
 		this.setComponentsLocation();
 		this.addListener();

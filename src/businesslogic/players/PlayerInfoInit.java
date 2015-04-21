@@ -145,7 +145,7 @@ public class PlayerInfoInit {
 				if (doubleOfOneMatch >= 2) {
 					doubleTwo++;
 				}
-				else if (doubleOfOneMatch >= 3) {
+				if (doubleOfOneMatch >= 3) {
 					tripleTwo++;
 				}
 			}

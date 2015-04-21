@@ -113,4 +113,12 @@ public class PlayerNormalInfo_Expand extends PlayerNormalInfo {
 		playerNormal_avg.setTripleTwo(tripleTwo);
 		return playerNormal_avg;
 	}
+
+	public String[] toStringArray() {
+		return new String[] { this.getTeamName(), String.valueOf(this.getNumOfGame()), String.valueOf(this.getMinute()),
+				String.valueOf(this.getEfficiency()), String.valueOf(this.getPoint()), String.valueOf(this.getShot()),
+				String.valueOf(this.getRebound()), String.valueOf(this.getAssist()), String.valueOf(this.getSteal()),
+				String.valueOf(this.getBlockShot()), String.valueOf(this.doubleTwo), String.valueOf(this.tripleTwo), String.valueOf(this.getFault()),
+				String.valueOf(this.getFoul()), String.valueOf(this.getThree()), String.valueOf(this.getPenalty()) };
+	}
 }
