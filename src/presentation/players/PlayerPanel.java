@@ -1,15 +1,20 @@
 package presentation.players;
 
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
@@ -43,9 +48,12 @@ public class PlayerPanel extends MyPanel {
 		this.createObjects();
 		this.setComponentsLocation();
 		this.setComponentsStyle();
-		this.setTableStyle();
 		this.initTable();
+		this.setTableStyle();
+		this.setTableRender();
 	}
+
+	private void setTableRender() {}
 
 	private void initTable() {
 		Filter filter = new Filter();
@@ -100,7 +108,7 @@ public class PlayerPanel extends MyPanel {
 		playerShowPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		playerShowTable.setAllTableColumnWidth((int) (NUMBER.px * 150));
 		rangeAndNameTable.setTableColumnWidth(1, (int) (NUMBER.px * 150));
-		rangeAndNameTable.setTableColumnWidth(2, (int) (NUMBER.px * 150));
+		rangeAndNameTable.setTableColumnWidth(2, (int) (NUMBER.px *200));
 		playerShowTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				checkSelection(false);

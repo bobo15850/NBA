@@ -1,5 +1,6 @@
 package presentation.teams;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import javax.swing.event.ListSelectionListener;
 
 import businesslogic.teams.TeamInfoBl;
 import businesslogicservice.teams.TeamInfoBlService;
-
 import common.mycomponent.MyComboBox;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
@@ -38,9 +38,9 @@ public class TeamPanel extends MyPanel {
 	public TeamPanel() {
 		this.createObjects();
 		this.setComponentsLocation();
-		this.setTableStyle();
 		this.setComponentsStyle();
 		this.initTable();
+		this.setTableStyle();
 	}
 
 	private void initTable() {
