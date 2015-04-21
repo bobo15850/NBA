@@ -179,16 +179,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 				value = tempPerformOfOneMatch.getSteal();
 			}
 			else if (field.equals(Field.blockShot)) {
-				value = tempPerformOfOneMatch.getBlock();
-			}
-			else if (field.equals(Field.shot)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getTotalHit() / tempPerformOfOneMatch.getTotalShoot());
-			}
-			else if (field.equals(Field.three)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getThreeHit() / tempPerformOfOneMatch.getThreeShot());
-			}
-			else if (field.equals(Field.penalty)) {
-				value = CalculationOfPlayerPerform.cutToFour(tempPerformOfOneMatch.getFreeHit() / tempPerformOfOneMatch.getFreeShot());
+				value = tempPerformOfOneMatch.getBlockShot();
 			}
 			tempKing.setField(field);
 			tempKing.setName(tempPerformOfOneMatch.getName());
@@ -232,7 +223,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 
 	class BlockShot implements PlayerPerform {
 		public double getPerformance(PlayerPerformOfOneMatch player) {
-			return player.getBlock();
+			return player.getBlockShot();
 		}
 	}// 总盖帽数
 

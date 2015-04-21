@@ -20,6 +20,7 @@ public class TeamInfoInit {
 			int numOfGame = oneTeam.size();
 			int numOfWin = 0;
 			//
+			double minute = 0;
 			int totalHitNumber = 0;// 总命中数
 			int totalShotNumber = 0;// 总出手数
 			int threePointHitNumber = 0;// 三分命中数
@@ -49,6 +50,7 @@ public class TeamInfoInit {
 				TeamPerformOfOneMatch tempMatch = oneMatch.getValue();
 				MyDate tempDate = oneMatch.getKey();
 				numOfWin += tempMatch.getWin();
+				minute += tempMatch.getMinute();
 				totalHitNumber += tempMatch.getTotalHit();// 总命中数
 				totalShotNumber += tempMatch.getTotalShot();// 总出手数
 				threePointHitNumber += tempMatch.getThreeHit();// 三分命中数
@@ -78,6 +80,7 @@ public class TeamInfoInit {
 			teamNormal.setTeamName(teamName);
 			teamNormal.setNumOfGame(numOfGame);
 			teamNormal.setNumOfWin(numOfWin);
+			teamNormal.setMinute(minute);
 			teamNormal.setPoint(point);
 			teamNormal.setRebound(totalReboundNumber);
 			teamNormal.setOffendRebound(offendReboundNumber);

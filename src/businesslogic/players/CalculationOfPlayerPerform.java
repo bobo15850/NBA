@@ -134,12 +134,6 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算使用率
 
-	public static double cutToTwo(double number) {
-		BigDecimal bigDecimal = new BigDecimal(number);
-		double result = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-		return result;
-	}// 保留两位小数
-
 	public static double cutToFour(double number) {
 		BigDecimal bigDecimal = new BigDecimal(number);
 		double result = bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();

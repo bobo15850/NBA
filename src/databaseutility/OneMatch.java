@@ -3,6 +3,7 @@ package databaseutility;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import common.mydatastructure.MyDate;
@@ -153,9 +154,9 @@ class OneMatch {
 		try {
 			String part[] = str.split(":");
 			result = Double.parseDouble(part[0]) + Double.parseDouble(part[1]) / 60;
-			return result;
+			BigDecimal bigDecimal = new BigDecimal(result);
+			return bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		}
 	}

@@ -12,7 +12,7 @@ public class CalculationOfTeamPerform {
 		}
 		else {
 			double result = num / time;
-			return cutToTwo(result);
+			return cutToFour(result);
 		}
 	}// 计算平均数
 
@@ -23,7 +23,7 @@ public class CalculationOfTeamPerform {
 		else {
 			double result = 0;
 			result = hitNum / shootNum;
-			return cutToTwo(result);
+			return cutToFour(result);
 		}
 	}// 计算命中率
 
@@ -33,7 +33,7 @@ public class CalculationOfTeamPerform {
 		}
 		else {
 			double result = (double) winNum / (double) totalNum;
-			return cutToTwo(result);
+			return cutToFour(result);
 		}
 	}// 计算胜率
 
@@ -47,7 +47,7 @@ public class CalculationOfTeamPerform {
 			double result = 0;
 			result = shoot + 0.4 * foul - (1.07 * ((double) offensiveRebound / (double) (offensiveRebound + defensiveReboundOfCompetitor) * miss))
 					+ (1.07 * turnover);
-			return cutToTwo(result);
+			return cutToFour(result);
 		}
 	}// 计算进攻回合数
 
@@ -123,12 +123,6 @@ public class CalculationOfTeamPerform {
 			return cutToFour(result);
 		}
 	}// 计算助攻率
-
-	public static double cutToTwo(double number) {
-		BigDecimal bigDecimal = new BigDecimal(number);
-		double result = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-		return result;
-	}// 保留两位小数
 
 	public static double cutToFour(double number) {
 		BigDecimal bigDecimal = new BigDecimal(number);
