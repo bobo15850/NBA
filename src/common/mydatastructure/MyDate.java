@@ -61,32 +61,73 @@ public class MyDate implements Comparable<MyDate> {
 		else {
 			return -1;
 		}
-
-		// int a = Integer.parseInt(String.valueOf(this.year) +
-		// String.valueOf(this.month) + String.valueOf(this.day));
-		// int b = Integer.parseInt(String.valueOf(o.year) +
-		// String.valueOf(o.month) + String.valueOf(o.day));
-		// if (a > b) {
-		// return -1;
-		// }
-		// else if (a < b) {
-		// return 1;
-		// }
-		// else {
-		// return 0;
-		// }
-		// 测试哪种方式更加高效
-
 	}
 
-	// public static void main(String arg[]) {
-	// MyDate d1 = new MyDate(13, 2, 3);
-	// MyDate d2 = new MyDate(13, 3, 5);
-	// long starTime = System.currentTimeMillis();
-	// for (int i = 0; i < 100000; i++) {
-	// System.out.println(d1.compareTo(d2));
-	// }
-	// long finishTime = System.currentTimeMillis();
-	// System.out.println(finishTime - starTime);
-	// }
+	public MyDate toPreDate() {
+		MyDate preDate = new MyDate(this.year, this.month, this.day);
+		if (preDate.day > 1) {
+			preDate.day--;
+		}
+		else {
+			if (preDate.month == 5 || preDate.month == 7 || preDate.month == 10 || preDate.month == 12) {
+				preDate.day = 30;
+				preDate.month--;
+			}
+			else if (preDate.month == 2 || preDate.month == 4 || preDate.month == 6 || preDate.month == 8 || preDate.month == 9
+					|| preDate.month == 11) {
+				preDate.day = 31;
+				preDate.month--;
+			}
+			else if (preDate.month == 1) {
+				preDate.day = 31;
+				preDate.month = 12;
+				preDate.year--;
+			}
+			else if (preDate.month == 3) {
+				preDate.day = 28;
+				preDate.month--;
+			}
+		}
+		return preDate;
+	}
+
+	public MyDate toNextDate() {
+		MyDate nextDate = new MyDate(this.year, this.month, this.day);
+		if (nextDate.day < 28 || nextDate.day == 29) {
+			nextDate.day++;
+		}
+		else {
+			if (nextDate.day == 28) {
+				if (nextDate.month == 2) {
+					nextDate.day = 1;
+					nextDate.month = 3;
+				}
+				else {
+					nextDate.day++;
+				}
+			}
+			else if (nextDate.day == 30) {
+				if (nextDate.month == 1 || nextDate.month == 3 || nextDate.month == 5 || nextDate.month == 7 || nextDate.month == 8
+						|| nextDate.month == 10 || nextDate.month == 12) {
+					nextDate.day++;
+				}
+				else if (nextDate.month == 4 || nextDate.month == 6 || nextDate.month == 9 || nextDate.month == 11) {
+					nextDate.month++;
+					nextDate.day = 1;
+				}
+			}
+			else if (nextDate.day == 31) {
+				if (nextDate.month == 12) {
+					nextDate.year++;
+					nextDate.month = 1;
+					nextDate.day = 1;
+				}
+				else {
+					nextDate.month++;
+					nextDate.day = 1;
+				}
+			}
+		}
+		return nextDate;
+	}
 }

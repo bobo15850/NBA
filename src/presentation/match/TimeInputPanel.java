@@ -1,4 +1,4 @@
-package presentation.match.change;
+package presentation.match;
 
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
@@ -70,9 +70,9 @@ public class TimeInputPanel extends JPanel {
 	}
 
 	public MyDate getDate() {
-		int y = (int) year.getSelectedItem();
-		int m = (int) month.getSelectedItem();
-		int d = (int) day.getSelectedItem();
+		int y = Integer.parseInt((String) year.getSelectedItem()) % 100;
+		int m = Integer.parseInt((String) month.getSelectedItem());
+		int d = Integer.parseInt((String) day.getSelectedItem());
 		MyDate date = new MyDate(y, m, d);
 		return date;
 	}

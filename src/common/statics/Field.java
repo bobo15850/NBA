@@ -15,6 +15,7 @@ public class Field {
 	public static final String three = "three";
 	public static final String penalty = "penalty";
 	public static final String doubleTwo = "doubleTwo";
+	public static final String numOfGame = "numOfGame";
 	//
 	public static final String realShot = "realShot";
 	public static final String GmSc = "GmSc";

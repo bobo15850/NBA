@@ -110,4 +110,12 @@ public class TeamNormalInfo_Expand extends TeamNormalInfo {
 	public void setMinute(double minute) {
 		this.minute = minute;
 	}
+
+	public String[] toStringArray() {
+		return new String[] { String.valueOf(this.getPoint()), String.valueOf(this.getRebound()), String.valueOf(this.getAssist()),
+				String.valueOf(this.getSteal()), String.valueOf(this.getBlockShot()), String.valueOf(this.getFoul()),
+				String.valueOf(this.getFault()), String.valueOf(this.getShot()), String.valueOf(this.getThree()), String.valueOf(this.getPenalty()),
+				String.valueOf(this.getOffendRebound()), String.valueOf(this.getDefendRebound()) };
+
+	}
 }
