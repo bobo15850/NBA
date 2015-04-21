@@ -96,7 +96,7 @@ public class OneMatch_add extends OneMatch_init {
 		if (playerPerform.getAssist() >= 9.9) {
 			doubleOfOneMatch++;
 		}
-		if (playerPerform.getBlock() >= 9.9) {
+		if (playerPerform.getBlockShot() >= 9.9) {
 			doubleOfOneMatch++;
 		}
 		if (playerPerform.getSteal() >= 9.9) {
@@ -123,7 +123,7 @@ public class OneMatch_add extends OneMatch_init {
 		PlayerNormalInfo_Expand playerNormal = CACHE.PLAYER_NORMAL.get(playerName);
 		playerNormal.setTeamName(playerPerform.getTeamName());
 		playerNormal.setAssist(playerNormal.getAssist() + playerPerform.getAssist());
-		playerNormal.setBlockShot(playerNormal.getBlockShot() + playerPerform.getBlock());
+		playerNormal.setBlockShot(playerNormal.getBlockShot() + playerPerform.getBlockShot());
 		playerNormal.setDefend(playerNormal.getDefend() + playerPerform.getDefendRebound());
 		playerNormal.setFault(playerNormal.getFault() + playerPerform.getFault());
 		playerNormal.setFoul(playerNormal.getFoul() + playerPerform.getFoul());

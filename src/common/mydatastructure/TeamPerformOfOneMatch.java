@@ -1,5 +1,6 @@
 package common.mydatastructure;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class TeamPerformOfOneMatch {
@@ -44,12 +45,14 @@ public class TeamPerformOfOneMatch {
 			this.rebound += temp.getRebound();
 			this.assist += temp.getAssist();
 			this.steal += temp.getSteal();
-			this.block += temp.getBlock();
+			this.block += temp.getBlockShot();
 			this.fault += temp.getFault();
 			this.foul += temp.getFoul();
 			this.point += temp.getPoint();
 			this.minute += temp.getMinute();
 		}
+		BigDecimal bigDecimal = new BigDecimal(minute);
+		minute = bigDecimal.setScale(4, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
 	public TeamPerformOfOneMatch() {
