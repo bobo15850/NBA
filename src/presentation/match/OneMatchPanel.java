@@ -3,28 +3,38 @@ package presentation.match;
 import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import presentation.SonFrame;
+import presentation.players.OnePlayerPanel;
+import presentation.teams.OneTeamPanel;
+import businesslogic.matches.OneMatchInfoBl;
+import businesslogicservice.matches.OneMatchInfoBlService;
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyScrollPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
+import common.mydatastructure.GeneralInfoOfOneMatch;
+import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.statics.MyColor;
 import common.statics.MyFont;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
-public class OneMatchPanel extends MyPanel implements MouseListener{
+public class OneMatchPanel extends MyPanel implements MouseListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private MyPanel thisPanel = this;
 	private MyLabel point;
 	private MyButton firstTeamMemberInfoButton;
 	private MyButton secondTeamMemberInfoButton;
@@ -35,20 +45,19 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 	private JScrollPane matchInfo;
 	private MyTable matchInfoTable;
 	private MyTableModel matchInfoTableModel;
-	private int Label_height=(int)(NUMBER.px*40);
-	private int Label_width=(int)(NUMBER.px*333);
-	private String quarter[]={
-		"球队","1","2","3","4","总分"	
-	};
-	//此处应加判断，如果有加时赛，字符数组加上加时
-	//CardLayout里共有三个Panel，分别是：
-	
-//	主队球员数据panel
-//	客队球员数据panel
-//	两队该场比赛信息数据对比panel(新增,未完成)；
-	
-	
-	public OneMatchPanel() {
+	private int Label_height = (int) (NUMBER.px * 40);
+	private int Label_width = (int) (NUMBER.px * 413);
+	private String title[];
+
+	private OneMatchInfoBlService oneMatchInfoBl = new OneMatchInfoBl();
+	private GeneralInfoOfOneMatch generalOneMatch;
+	private ArrayList<PlayerPerformOfOneMatch> firstTeamPlayerPerform;
+	private ArrayList<PlayerPerformOfOneMatch> secondTeamPlayerPerform;
+
+	public OneMatchPanel(GeneralInfoOfOneMatch generalOneMatch) {
+		this.generalOneMatch = generalOneMatch;
+		this.firstTeamPlayerPerform = oneMatchInfoBl.getPlayersPerformOfOneMatch(generalOneMatch.getFirstTeamName(), generalOneMatch.getDate());
+		this.secondTeamPlayerPerform = oneMatchInfoBl.getPlayersPerformOfOneMatch(generalOneMatch.getSecondTeamName(), generalOneMatch.getDate());
 		this.createObjects();
 		this.setComponentsLocation();
 		this.setComponentsStyle();
@@ -61,31 +70,39 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 		firstTeamMemberInfoButton.addMouseListener(this);
 		secondTeamMemberInfoButton.addMouseListener(this);
 		teamMatchInfoButton.addMouseListener(this);
+		firstTeamLogo.addMouseListener(this);
+		secondTeamLogo.addMouseListener(this);
 	}
 
 	private void createObjects() {
-		firstTeamMemberInfoButton=new MyButton("主场球员数据");
-		secondTeamMemberInfoButton=new MyButton("客场球员数据");
-		teamMatchInfoButton=new MyButton("球队对比");
-		point=new MyLabel();
-		firstTeamLogo=new MyLabel();
-		secondTeamLogo=new MyLabel();
-		matchInfoTableModel=new MyTableModel(quarter);
-		matchInfoTable=new MyTable(matchInfoTableModel);
-		matchInfo=new MyScrollPanel();
-		matchInfo.getViewport().add(matchInfoTable);
-		contentPanel=new ContentPanel();
+		firstTeamMemberInfoButton = new MyButton("主场球员数据");
+		secondTeamMemberInfoButton = new MyButton("客场球员数据");
+		teamMatchInfoButton = new MyButton("球队对比");
+		point = new MyLabel();
+		firstTeamLogo = new MyLabel();
+		secondTeamLogo = new MyLabel();
+		this.title = new String[generalOneMatch.getFirstTeamQuarterScore().length + 2];
+		title[0] = "球队";
+		title[title.length - 1] = "总分";
+		for (int i = 1; i <= generalOneMatch.getFirstTeamQuarterScore().length; i++) {
+			title[i] = String.valueOf(i);
+		}
+		matchInfoTableModel = new MyTableModel(title);
+		matchInfoTable = new MyTable(matchInfoTableModel);
+		matchInfo = new MyScrollPanel(matchInfoTable);
+		contentPanel = new ContentPanel();
 	}
 
 	private void setComponentsLocation() {
-		teamMatchInfoButton.setBounds((int)(NUMBER.px*865), (int)(NUMBER.px*250),Label_width, Label_height);
-		firstTeamMemberInfoButton.setBounds((int)(NUMBER.px*200), (int)(NUMBER.px*250),Label_width, Label_height);
-		secondTeamMemberInfoButton.setBounds((int)(NUMBER.px*532), (int)(NUMBER.px*250),Label_width, Label_height);
-		firstTeamLogo.setBounds((int)(NUMBER.px*450), (int)(NUMBER.px*10),  (int)(NUMBER.px*100),  (int)(NUMBER.px*80));
-		secondTeamLogo.setBounds((int)(NUMBER.px*850), (int)(NUMBER.px*10),  (int)(NUMBER.px*100),  (int)(NUMBER.px*80));
-		point.setBounds((int)(NUMBER.px*550), (int)(NUMBER.px*10),  (int)(NUMBER.px*300),  (int)(NUMBER.px*100));
-		matchInfo.setBounds((int)(NUMBER.px*200), (int)(NUMBER.px*100),  (int)(NUMBER.px*1000),  (int)(NUMBER.px*150));
-		contentPanel.setBounds((int)(NUMBER.px*200), (int)(NUMBER.px*290),  (int)(NUMBER.px*1000),  (int)(NUMBER.px*600));
+		firstTeamMemberInfoButton.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 250), Label_width, Label_height);
+		secondTeamMemberInfoButton.setBounds((int) (NUMBER.px * 493), (int) (NUMBER.px * 250), Label_width, Label_height);
+		teamMatchInfoButton.setBounds((int) (NUMBER.px * 906), (int) (NUMBER.px * 250), Label_width, Label_height);
+
+		firstTeamLogo.setBounds((int) (NUMBER.px * 450), (int) (NUMBER.px * 10), (int) (NUMBER.px * 100), (int) (NUMBER.px * 80));
+		secondTeamLogo.setBounds((int) (NUMBER.px * 850), (int) (NUMBER.px * 10), (int) (NUMBER.px * 100), (int) (NUMBER.px * 80));
+		point.setBounds((int) (NUMBER.px * 550), (int) (NUMBER.px * 10), (int) (NUMBER.px * 300), (int) (NUMBER.px * 100));
+		matchInfo.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 100), (int) (NUMBER.px * 1240), (int) (NUMBER.px * 150));
+		contentPanel.setBounds((int) (NUMBER.px * 80), (int) (NUMBER.px * 290), (int) (NUMBER.px * 1240), (int) (NUMBER.px * 600));
 		this.add(firstTeamLogo);
 		this.add(secondTeamLogo);
 		this.add(point);
@@ -115,125 +132,116 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 	}
 
 	private void initTable() {
-		firstTeamLogo.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE +  "ATL.png"));
-		secondTeamLogo.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE +  "ATL.png"));
-		point.setText("114 vs 155");
+		firstTeamLogo.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + this.generalOneMatch.getFirstTeamName() + ".png"));
+		secondTeamLogo.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + this.generalOneMatch.getSecondTeamName() + ".png"));
+		point.setText(generalOneMatch.getFirstTeamScore() + "  vs  " + generalOneMatch.getSecondTeamScore());
+		String[] firstContent = new String[title.length];
+		firstContent[0] = generalOneMatch.getFirstTeamName();
+		firstContent[title.length - 1] = String.valueOf(generalOneMatch.getFirstTeamScore());
+		for (int i = 1; i <= generalOneMatch.getFirstTeamQuarterScore().length; i++) {
+			firstContent[i] = String.valueOf(generalOneMatch.getFirstTeamQuarterScore()[i - 1]);
+		}
+		matchInfoTableModel.addRow(firstContent);
+		//
+		String[] secondContent = new String[title.length];
+		secondContent[0] = generalOneMatch.getSecondTeamName();
+		secondContent[title.length - 1] = String.valueOf(generalOneMatch.getSecondTeamScore());
+		for (int i = 1; i <= generalOneMatch.getFirstTeamQuarterScore().length; i++) {
+			secondContent[i] = String.valueOf(generalOneMatch.getSecondTeamQuarterScore()[i - 1]);
+		}
+		matchInfoTableModel.addRow(secondContent);
 	}
 
 	private void setTableStyle() {
-		matchInfoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);	
+		matchInfoTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	}
-	class FirstTeamMemberInfoPanel extends MyPanel{
-		private MyTable firstTeamInfoTable;
-		private JScrollPane firstTeamPlayerInfo;
-		private MyTableModel firstTeamInfoTableModel;
-		private String performance[] = { "所属球队", "参赛场数", "在场时间", "效率值", "得分", "投篮命中率", "篮板", "助攻", "抢断", "盖帽", "两双次数", "三双次数", "失误", "犯规", "三分命中率",
-		"罚球命中率" };
+
+	class TeamMemberInfoPanel extends MyPanel {
+		private MyTable teamInfoTable;
+		private JScrollPane teamPlayerInfo;
+		private MyTableModel teamInfoTableModel;
+		private String[] title = { "姓名", "日期", "时间", "得分", "篮板", "助攻", "抢断", "盖帽", "失误", "犯规", "命中", "出手", "三分命中", "三分出手", "罚球命中", "罚球出手", "前板", "后板" };
 		private static final long serialVersionUID = 1L;
-		public FirstTeamMemberInfoPanel(){
-			this.createObjects();
-			this.setComponentsLocation();
-			this.setComponentsStyle();
-			this.initTable();
-			this.setTableStyle();
+
+		public TeamMemberInfoPanel(ArrayList<PlayerPerformOfOneMatch> playerPerformList) {
+			teamInfoTableModel = new MyTableModel(title);
+			teamInfoTable = new MyTable(teamInfoTableModel);
+			teamPlayerInfo = new MyScrollPanel(teamInfoTable);
+			teamInfoTable.setTableColumnWidth(0, (int) (NUMBER.px * 110));
+			for (int i = 1; i <= 2; i++) {
+				teamInfoTable.setTableColumnWidth(i, (int) (NUMBER.px * 60));
+			}
+			for (int i = 3; i <= 11; i++) {
+				teamInfoTable.setTableColumnWidth(i, (int) (NUMBER.px * 45));
+			}
+			for (int i = 12; i <= 15; i++) {
+				teamInfoTable.setTableColumnWidth(i, (int) (NUMBER.px * 72));
+			}
+
+			if (playerPerformList != null) {
+				for (int i = 0; i < playerPerformList.size(); i++) {
+					String[] content = playerPerformList.get(i).toStringArray();
+					content[0] = playerPerformList.get(i).getName();
+					teamInfoTableModel.addRow(content);
+				}
+			}
+			teamPlayerInfo.setBounds(0, 0, (int) (NUMBER.px * 1240), (int) (NUMBER.px * 400));
+			this.add(teamPlayerInfo);
+			teamInfoTable.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				public void mousePressed(MouseEvent e) {
+				}
+
+				public void mouseExited(MouseEvent e) {
+				}
+
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					if (teamInfoTable.getSelectedRow() >= 0 && teamInfoTable.getSelectedRow() < teamInfoTable.getRowCount()) {
+						int row = teamInfoTable.getSelectedRow();
+						String playerName = (String) teamInfoTable.getValueAt(row, 0);
+						OnePlayerPanel playerPanel = new OnePlayerPanel(playerName);
+						SonFrame.changePanel(thisPanel, playerPanel);
+					}
+				}
+			});
+			this.setVisible(true);
 		}
-		private void createObjects() {
-			firstTeamInfoTableModel=new MyTableModel(performance);
-			firstTeamInfoTable=new MyTable(firstTeamInfoTableModel);
-			firstTeamPlayerInfo=new MyScrollPanel();
-			firstTeamPlayerInfo.getViewport().add(firstTeamInfoTable);
-		}
-		private void setComponentsLocation() {
-			firstTeamPlayerInfo.setBounds(0 , 0 ,  (int)(NUMBER.px*1000),  (int)(NUMBER.px*550));
-			this.add(firstTeamPlayerInfo);
-			
-		}
-		private void setComponentsStyle() {
-			
-		}
-		private void initTable() {
-			
-		}
-		private void setTableStyle() {
-			
-		}
-		
 	}
-	class SecondTeamMemberInfoPanel extends MyPanel{
-		private String performance[] = { "所属球队", "参赛场数", "在场时间", "效率值", "得分", "投篮命中率", "篮板", "助攻", "抢断", "盖帽", "两双次数", "三双次数", "失误", "犯规", "三分命中率",
-		"罚球命中率" };
-		private JScrollPane secondTeamPlayerInfo;
-		private MyTable secondTeamInfoTable;
-		private MyTableModel secondTeamInfoTableModel;
-		private static final long serialVersionUID = 1L;
-		public SecondTeamMemberInfoPanel(){
-			this.createObjects();
-			this.setComponentsLocation();
-			this.setComponentsStyle();
-			this.initTable();
-			this.setTableStyle();
-		}
-		private void createObjects() {
-			secondTeamInfoTableModel=new MyTableModel(performance);
-			secondTeamInfoTable=new MyTable(secondTeamInfoTableModel);
-			secondTeamPlayerInfo=new MyScrollPanel();
-			secondTeamPlayerInfo.getViewport().add(secondTeamInfoTable);
-		}
-		private void setComponentsLocation() {
-			secondTeamPlayerInfo.setBounds(0 , 0 ,  (int)(NUMBER.px*1000),  (int)(NUMBER.px*550));
-			this.add(secondTeamPlayerInfo);
-		}
-		private void setComponentsStyle() {
-			
-		}
-		private void initTable() {
-			
-		}
-		private void setTableStyle() {
-			
-		}
-		
-	}
-	class TeamInfoComparePanel extends MyPanel{
+
+	class TeamInfoComparePanel extends MyPanel {
 
 		private static final long serialVersionUID = 1L;
-		
+
 	}
+
 	class ContentPanel extends JPanel {
 		private static final long serialVersionUID = 1L;
 		private CardLayout card;
-		private FirstTeamMemberInfoPanel firstTeamMemberInfoPanel;
-		private SecondTeamMemberInfoPanel secondTeamMemberInfoPanel;
+		private TeamMemberInfoPanel firstTeamMemberInfoPanel;
+		private TeamMemberInfoPanel secondTeamMemberInfoPanel;
 		private TeamInfoComparePanel teamInfoComparePanel;
+
 		ContentPanel() {
 			card = new CardLayout();
 			this.setOpaque(false);
 			this.setLayout(card);
 			//
-			firstTeamMemberInfoPanel = new FirstTeamMemberInfoPanel();
-			secondTeamMemberInfoPanel = new SecondTeamMemberInfoPanel();
-			teamInfoComparePanel=new TeamInfoComparePanel();
+			firstTeamMemberInfoPanel = new TeamMemberInfoPanel(firstTeamPlayerPerform);
+			secondTeamMemberInfoPanel = new TeamMemberInfoPanel(secondTeamPlayerPerform);
+			teamInfoComparePanel = new TeamInfoComparePanel();
 			//
 			this.add(firstTeamMemberInfoPanel, "firstTeamMemberInfoPanel");
 			this.add(secondTeamMemberInfoPanel, "secondTeamMemberInfoPanel");
-			this.add(teamInfoComparePanel,"teamInfoComparePanel");
+			this.add(teamInfoComparePanel, "teamInfoComparePanel");
 		}
 	}
-	public static void main(String args[]) {
-		JFrame j = new JFrame();
-		j.setUndecorated(true);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setLayout(null);
-		j.setBackground(MyColor.BACKGROUNDCOLOR);
-		j.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
-				NUMBER.FRAME_HEIGHT);
-		OneMatchPanel contentPanel = new OneMatchPanel();
-		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
-		j.add(contentPanel);
-		j.setVisible(true);
-	}
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource().equals(firstTeamMemberInfoButton)) {
 			contentPanel.card.show(contentPanel, "firstTeamMemberInfoPanel");
@@ -253,9 +261,16 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 			secondTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 			teamMatchInfoButton.setBackground(MyColor.DEEP_COLOR);
 		}
+		else if (e.getSource().equals(firstTeamLogo)) {
+			OneTeamPanel teamPanel = new OneTeamPanel(generalOneMatch.getFirstTeamName());
+			SonFrame.changePanel(thisPanel, teamPanel);
+		}
+		else if (e.getSource().equals(secondTeamLogo)) {
+			OneTeamPanel teamPanel = new OneTeamPanel(generalOneMatch.getSecondTeamName());
+			SonFrame.changePanel(thisPanel, teamPanel);
+		}
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 		if (e.getSource().equals(firstTeamMemberInfoButton)) {
 			firstTeamMemberInfoButton.setBorderPainted(true);
@@ -268,7 +283,6 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 		}
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 		if (e.getSource().equals(firstTeamMemberInfoButton)) {
 			firstTeamMemberInfoButton.setBorderPainted(false);
@@ -281,16 +295,10 @@ public class OneMatchPanel extends MyPanel implements MouseListener{
 		}
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

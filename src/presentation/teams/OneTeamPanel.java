@@ -6,24 +6,28 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import presentation.SonFrame;
+import presentation.match.OneMatchPanel;
+import presentation.players.OnePlayerPanel;
 import test.data.TeamHighInfo;
+import businesslogic.matches.MatchInfoBl;
 import businesslogic.players.OnePlayerInfoBl;
 import businesslogic.teams.OneTeamInfoBl;
 import businesslogicservice.players.OnePlayerInfoBlService;
 import businesslogicservice.teams.OneTeamInfoBlService;
-
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mycomponent.MyTextArea;
+import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.GeneralInfoOfTeam;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerNormalInfo_Expand;
 import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
@@ -33,7 +37,7 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class OneTeamPanel extends MyPanel implements MouseListener {
-
+	private MyPanel thisPanel = this;
 	private static final long serialVersionUID = 1L;
 	private String teamName;
 	private GeneralInfoOfTeam teamGeneralInfo;
@@ -273,6 +277,33 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 			}
 			teamMemberScrollPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 10), (int) (NUMBER.px * 1320), (int) (NUMBER.px * 400));
 			this.add(teamMemberScrollPane);
+			teamMemberTable.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent arg0) {
+
+				}
+
+				public void mousePressed(MouseEvent arg0) {
+
+				}
+
+				public void mouseExited(MouseEvent arg0) {
+
+				}
+
+				public void mouseEntered(MouseEvent arg0) {
+
+				}
+
+				public void mouseClicked(MouseEvent arg0) {
+					if (teamMemberTable.getSelectedRow() >= 0 && teamMemberTable.getSelectedRow() < teamMemberTable.getRowCount()) {
+						int row = teamMemberTable.getSelectedRow();
+						String playerName = (String) teamMemberTable.getValueAt(row, 0);
+						OnePlayerPanel playerPanel = new OnePlayerPanel(playerName);
+						SonFrame.changePanel(thisPanel, playerPanel);
+					}
+				}
+			});
 		}
 	}
 
@@ -295,6 +326,32 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 			}
 			teamMemberScrollPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 10), (int) (NUMBER.px * 1320), (int) (NUMBER.px * 400));
 			this.add(teamMemberScrollPane);
+			allMatchTable.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				public void mousePressed(MouseEvent e) {
+				}
+
+				public void mouseExited(MouseEvent e) {
+				}
+
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					if (allMatchTable.getSelectedRow() >= 0 && allMatchTable.getSelectedRow() < allMatchTable.getRowCount()) {
+						int row = allMatchTable.getSelectedRow();
+						String teamName = (String) allMatchTable.getValueAt(row, 1);
+						String dateString = (String) allMatchTable.getValueAt(row, 0);
+						MyDate date = new MyDate(dateString);
+						GeneralInfoOfOneMatch generalMatch = new MatchInfoBl().getGeneralMatch(teamName, date);
+						OneMatchPanel matchPanel = new OneMatchPanel(generalMatch);
+						SonFrame.changePanel(thisPanel, matchPanel);
+					}
+				}
+			});
 		}
 	}
 
@@ -318,19 +375,5 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 			this.add(matchPanel, "matchPanel");
 			this.add(normalInfoPanel, "normalInfoPanel");
 		}
-	}
-
-	public static void main(String args[]) {
-		JFrame j = new JFrame();
-		j.setUndecorated(true);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setLayout(null);
-		j.setBackground(MyColor.BACKGROUNDCOLOR);
-		j.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
-				NUMBER.FRAME_HEIGHT);
-		OneTeamPanel contentPanel = new OneTeamPanel("OKC");
-		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
-		j.add(contentPanel);
-		j.setVisible(true);
 	}
 }

@@ -1,6 +1,5 @@
 package presentation.teams;
 
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,8 +11,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import presentation.SonFrame;
 import businesslogic.teams.TeamInfoBl;
 import businesslogicservice.teams.TeamInfoBlService;
+
 import common.mycomponent.MyComboBox;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
@@ -31,8 +32,8 @@ public class TeamPanel extends MyPanel {
 	private JScrollPane teamShowPane;// 展示界面
 	private MyTable teamShowTable, rangeAndNameTable;
 	private MyTableModel teamShowTableModel, rangeAndNameTableModel;
-	private String performanceList[] = { "得分", "篮板", "助攻", "抢断", "盖帽", "犯规", "失误", "投篮命中率", "三分命中率", "罚球命中率", "进攻篮板", "防守篮板" };
-	private String rangeAndName[] = { "排名", "队标", "球队名称" };
+	private String performanceList[] = { "得分", "篮板", "助攻", "抢断", "盖帽", "犯规", "失误", "投篮命中率", "三分命中率", "罚球命中率", "前板", "后板" };
+	private String rangeAndName[] = { "排名", "队标", "队名" };
 	private TeamInfoBlService teamInfoBl = new TeamInfoBl();
 
 	public TeamPanel() {
@@ -41,6 +42,32 @@ public class TeamPanel extends MyPanel {
 		this.setComponentsStyle();
 		this.initTable();
 		this.setTableStyle();
+		rangeAndNameTable.addMouseListener(new MouseListener() {
+
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			public void mouseExited(MouseEvent e) {
+
+			}
+
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			public void mouseClicked(MouseEvent arg0) {
+				if (rangeAndNameTable.getSelectedRow() >= 0 && rangeAndNameTable.getSelectedRow() < rangeAndNameTable.getRowCount()) {
+					int row = rangeAndNameTable.getSelectedRow();
+					String teamName = (String) rangeAndNameTable.getValueAt(row, 2);
+					new SonFrame(teamName, SonFrame.teamCard);
+				}
+			}
+		});
 	}
 
 	private void initTable() {
@@ -70,8 +97,12 @@ public class TeamPanel extends MyPanel {
 		teamShowPane.getViewport().setOpaque(false);
 		teamShowPane.setOpaque(false);
 		teamShowPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		teamShowTable.setAllTableColumnWidth((int) (NUMBER.px * 150));
-		rangeAndNameTable.setTableColumnWidth(1, (int) (NUMBER.px * 150));
+		for (int i = 0; i < 12; i++) {
+			teamShowTable.setTableColumnWidth(i, (int) (NUMBER.px * 75));
+		}
+		for (int i = 7; i < 10; i++) {
+			teamShowTable.setTableColumnWidth(i, (int) (NUMBER.px * 96));
+		}
 		teamShowTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				checkSelection(false);
@@ -105,8 +136,8 @@ public class TeamPanel extends MyPanel {
 	}
 
 	private void setComponentsLocation() {
-		selectionPanel.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 0), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 60));
-		teamShowPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 70), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 650));
+		selectionPanel.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 20), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 60));
+		teamShowPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 100), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 580));
 		this.add(teamShowPane);
 		this.add(selectionPanel);
 	}
@@ -172,8 +203,14 @@ public class TeamPanel extends MyPanel {
 				int sortCell = selectCellChoose.getSelectedIndex();
 				SortCell sort = new SortCell(sortField[sortCell] + Command.dot + Command.descend);
 				if (totOrAvg == 0) {
+					ArrayList<TeamNormalInfo_Expand> teamNormalList_avg = teamInfoBl.getTeamNormal_avg(30, new SortCell[] { sort });
+					clearTable();
+					fillTable(teamNormalList_avg);
 				}
 				else if (totOrAvg == 1) {
+					ArrayList<TeamNormalInfo_Expand> teamNormalList_tot = teamInfoBl.getTeamNormal_tot(30, new SortCell[] { sort });
+					clearTable();
+					fillTable(teamNormalList_tot);
 				}
 			}
 		}

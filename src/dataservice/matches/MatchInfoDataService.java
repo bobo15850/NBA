@@ -14,4 +14,6 @@ public interface MatchInfoDataService {
 	public ArrayList<String> getPlayerNameOfOneMatch(String teamName, MyDate date);
 
 	public MyDate getLatestDate();
+
+	public GeneralInfoOfOneMatch getGeneralMatch(String teamName, MyDate date);
 }

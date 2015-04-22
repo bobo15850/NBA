@@ -69,4 +69,16 @@ public class MatchInfoData implements MatchInfoDataService {
 		}
 		return null;
 	}
+
+	public GeneralInfoOfOneMatch getGeneralMatch(String teamName, MyDate date) {
+		if (MEM.GENERAL_MATCH.containsKey(date)) {
+			HashSet<GeneralInfoOfOneMatch> oneDayMatch = MEM.GENERAL_MATCH.get(date);
+			for (GeneralInfoOfOneMatch temp : oneDayMatch) {
+				if (temp.getFirstTeamName().equals(teamName) || temp.getSecondTeamName().equals(teamName)) {
+					return temp;
+				}
+			}
+		}
+		return null;
+	}
 }
