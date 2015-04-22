@@ -162,7 +162,7 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 		
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				fieldButton[i].setBorderPainted(false);
 				break;
 			}
 		}

@@ -61,7 +61,11 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
+			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+		}
+		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
 				super.playerKing = super.playerHotBl.getPlayerKingOfDaily(5, fieldString[i]);
 				break;
 			}
@@ -72,7 +76,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				fieldButton[i].setBorderPainted(true);
 				break;
 			}
 		}
@@ -81,7 +85,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				fieldButton[i].setBorderPainted(false);
 				break;
 			}
 		}

@@ -141,7 +141,11 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
+			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+		}
+		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
 				this.playerHotList = this.playerHotBl.getPlayerHot(5, fieldString[i]);
 				break;
 			}
@@ -153,7 +157,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				fieldButton[i].setBorderPainted(true);
 				break;
 			}
 		}
@@ -164,7 +168,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				fieldButton[i].setBorderPainted(false);
 				break;
 			}
 		}
