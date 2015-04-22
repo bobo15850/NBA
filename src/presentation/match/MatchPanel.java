@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+import presentation.SonFrame;
 import businesslogic.matches.MatchInfoBl;
 import businesslogicservice.matches.MatchInfoBlService;
-
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
@@ -37,8 +37,8 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		createObjects();
 		setComponentPosition();
 		setComponentStyle();
-		addListener();
 		this.init();
+
 		this.setVisible(true);
 	}
 
@@ -122,6 +122,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			nowDate.setTextAndStyle("当前日期为：" + showDay.getFormatString());
 			this.repaint();
 		}
+		addListener();
 	}
 
 	private void addListener() {
@@ -162,10 +163,11 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			this.setContent();
 		}
 		else {
+			System.out.println("进入监听");
 			for (int i = 0; i < oneDayMatch.size(); i++) {
 				if (e.getSource().equals(MatchGeneral[i])) {
-					
-					
+					new SonFrame(MatchGeneral[i].getGeneralInfoOfMatch(), SonFrame.matchCard);
+					break;
 				}
 			}
 		}
@@ -190,8 +192,10 @@ public class MatchPanel extends MyPanel implements MouseListener {
 
 	class MatchGeneralPanel extends MyPanel {
 		private static final long serialVersionUID = 1L;
+		private GeneralInfoOfOneMatch oneMatch;
 
 		public MatchGeneralPanel(GeneralInfoOfOneMatch oneMatch) {
+			this.oneMatch = oneMatch;
 			this.setLayout(null);
 			String firstTeamName = oneMatch.getFirstTeamName();
 			String secondTeamName = oneMatch.getSecondTeamName();
@@ -214,6 +218,10 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			this.add(scoreLabel);
 			this.add(secondTeam);
 			this.setVisible(true);
+		}
+
+		public GeneralInfoOfOneMatch getGeneralInfoOfMatch() {
+			return this.oneMatch;
 		}
 	}
 }

@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 import presentation.match.OneMatchPanel;
 import presentation.players.OnePlayerPanel;
 import presentation.teams.OneTeamPanel;
-
 import common.mycomponent.MyPanel;
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.statics.MyColor;
@@ -16,10 +15,6 @@ public class SonFrame {
 	public static String playerCard = "player";
 	public static String teamCard = "team";
 	public static String matchCard = "match";
-
-	public static void main(String args[]) {
-		new SonFrame("Kevin Durant", playerCard);
-	}
 
 	public SonFrame(Object o, String str) {
 		cardFrame = new JFrame();
@@ -40,7 +35,15 @@ public class SonFrame {
 			contentPanel = new OneMatchPanel((GeneralInfoOfOneMatch) o);
 		}
 		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
-		cardFrame.add(contentPanel);
+		cardFrame.getContentPane().add(contentPanel);
 		cardFrame.setVisible(true);
+	}
+
+	public static void changePanel(MyPanel before, MyPanel after) {
+		SonFrame.cardFrame.getContentPane().remove(before);
+		SonFrame.cardFrame.getContentPane().add(after);
+		after.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
+		SonFrame.cardFrame.getContentPane().validate();
+		SonFrame.cardFrame.getContentPane().repaint();
 	}
 }

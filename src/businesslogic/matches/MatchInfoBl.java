@@ -22,4 +22,8 @@ public class MatchInfoBl implements MatchInfoBlService {
 	public MyDate getLatestDate() {
 		return matchInfoData.getLatestDate();
 	}
+
+	public GeneralInfoOfOneMatch getGeneralMatch(String teamName, MyDate date) {
+		return matchInfoData.getGeneralMatch(teamName, date);
+	}
 }

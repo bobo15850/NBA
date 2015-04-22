@@ -11,9 +11,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import presentation.SonFrame;
+import presentation.players.OnePlayerPanel;
+import presentation.teams.OneTeamPanel;
 import businesslogic.matches.OneMatchInfoBl;
 import businesslogicservice.matches.OneMatchInfoBlService;
-
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
@@ -32,6 +34,7 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private MyPanel thisPanel = this;
 	private MyLabel point;
 	private MyButton firstTeamMemberInfoButton;
 	private MyButton secondTeamMemberInfoButton;
@@ -67,6 +70,8 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 		firstTeamMemberInfoButton.addMouseListener(this);
 		secondTeamMemberInfoButton.addMouseListener(this);
 		teamMatchInfoButton.addMouseListener(this);
+		firstTeamLogo.addMouseListener(this);
+		secondTeamLogo.addMouseListener(this);
 	}
 
 	private void createObjects() {
@@ -182,6 +187,29 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 			}
 			teamPlayerInfo.setBounds(0, 0, (int) (NUMBER.px * 1240), (int) (NUMBER.px * 400));
 			this.add(teamPlayerInfo);
+			teamInfoTable.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				public void mousePressed(MouseEvent e) {
+				}
+
+				public void mouseExited(MouseEvent e) {
+				}
+
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					if (teamInfoTable.getSelectedRow() >= 0 && teamInfoTable.getSelectedRow() < teamInfoTable.getRowCount()) {
+						int row = teamInfoTable.getSelectedRow();
+						String playerName = (String) teamInfoTable.getValueAt(row, 0);
+						OnePlayerPanel playerPanel = new OnePlayerPanel(playerName);
+						SonFrame.changePanel(thisPanel, playerPanel);
+					}
+				}
+			});
 			this.setVisible(true);
 		}
 	}
@@ -232,6 +260,14 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 			firstTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 			secondTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 			teamMatchInfoButton.setBackground(MyColor.DEEP_COLOR);
+		}
+		else if (e.getSource().equals(firstTeamLogo)) {
+			OneTeamPanel teamPanel = new OneTeamPanel(generalOneMatch.getFirstTeamName());
+			SonFrame.changePanel(thisPanel, teamPanel);
+		}
+		else if (e.getSource().equals(secondTeamLogo)) {
+			OneTeamPanel teamPanel = new OneTeamPanel(generalOneMatch.getSecondTeamName());
+			SonFrame.changePanel(thisPanel, teamPanel);
 		}
 	}
 

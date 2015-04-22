@@ -9,7 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import presentation.SonFrame;
+import presentation.match.OneMatchPanel;
+import presentation.teams.OneTeamPanel;
 import test.data.PlayerHighInfo;
+import businesslogic.matches.MatchInfoBl;
 import businesslogic.players.OnePlayerInfoBl;
 import businesslogicservice.players.OnePlayerInfoBlService;
 
@@ -20,7 +24,9 @@ import common.mycomponent.MyScrollPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mycomponent.MyTextArea;
+import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.GeneralInfoOfPlayer;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.PlayerNormalInfo_Expand;
 import common.mydatastructure.PlayerPerformOfOneMatch;
 import common.statics.MyColor;
@@ -29,11 +35,13 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class OnePlayerPanel extends MyPanel implements MouseListener {
+	private MyPanel thisPanel = this;
 	private String playerName;
 	private GeneralInfoPanel generalInfoPanel;
 	private MyButton normalInfo;
 	private MyButton highInfo;
 	private MyButton matches;
+	private MyButton teamLogo;
 	private ContentPanel contentPanel;
 	private int label_height = (int) (NUMBER.px * 50);
 	private int label_width = (int) (NUMBER.px * 400);
@@ -63,20 +71,24 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 		highInfo = new MyButton("高级数据");
 		matches = new MyButton("近期比赛");
 		normalInfo = new MyButton("普通数据");
+		teamLogo = new MyButton(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + playerNormal_avg.getTeamName() + ".png"), (int) (NUMBER.px * 150),
+				(int) (NUMBER.px * 100));
 	}
 
 	private void setComponentsLocation() {
-		generalInfoPanel.setBounds(0, 0, NUMBER.FRAME_WIDTH, (int) (NUMBER.px * 230));
+
+		generalInfoPanel.setBounds(0, 0, (int) (NUMBER.px * 1000), (int) (NUMBER.px * 230));
 		contentPanel.setBounds(0, (int) (NUMBER.px * 280), NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - (int) -(NUMBER.px * 280));
 		normalInfo.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 230), label_width, label_height);
 		highInfo.setBounds((int) (NUMBER.px * 50) + label_width, (int) (NUMBER.px * 230), label_width, label_height);
+		teamLogo.setBounds((int) (NUMBER.px * 1000), (int) (NUMBER.px * 50), (int) (NUMBER.px * 150), (int) (NUMBER.px * 100));
 		matches.setBounds((int) (NUMBER.px * 50) + 2 * label_width, (int) (NUMBER.px * 230), label_width, label_height);
-
 		this.add(generalInfoPanel);
 		this.add(contentPanel);
 		this.add(highInfo);
 		this.add(matches);
 		this.add(normalInfo);
+		this.add(teamLogo);
 	}
 
 	private void setCompStyle() {
@@ -98,6 +110,7 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 		normalInfo.addMouseListener(this);
 		highInfo.addMouseListener(this);
 		matches.addMouseListener(this);
+		teamLogo.addMouseListener(this);
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -118,6 +131,10 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			normalInfo.setBackground(MyColor.MIDDLE_COLOR);
 			highInfo.setBackground(MyColor.MIDDLE_COLOR);
 			matches.setBackground(MyColor.DEEP_COLOR);
+		}
+		else if (e.getSource().equals(teamLogo)) {
+			OneTeamPanel teamPanel = new OneTeamPanel(playerNormal_avg.getTeamName());
+			SonFrame.changePanel(this, teamPanel);
 		}
 	}
 
@@ -153,13 +170,12 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 
 	}
 
-	class GeneralInfoPanel extends MyPanel implements MouseListener {
+	class GeneralInfoPanel extends MyPanel {
 		private static final long serialVersionUID = 1L;
 		private MyLabel portrait;
 		private JTextArea playerNameText;
 		private JTextArea normalInfoText;
 		private JTextArea mainMatchInfoText;
-		private MyLabel teamLogo;
 
 		public GeneralInfoPanel() {
 			this.setSize(NUMBER.FRAME_WIDTH, (int) (NUMBER.px * 230));
@@ -167,11 +183,6 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			this.setComponentsLocation();
 			this.setComponentsStyle();
 			this.setContents();
-			this.addListener();
-		}
-
-		private void addListener() {
-			teamLogo.addMouseListener(this);
 		}
 
 		private void createObjects() {
@@ -179,11 +190,9 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			playerNameText = new MyTextArea();
 			normalInfoText = new MyTextArea();
 			mainMatchInfoText = new MyTextArea();
-			teamLogo = new MyLabel();
 		}
 
 		private void setComponentsLocation() {
-			teamLogo.setBounds((int) (NUMBER.px * 1000), (int) (NUMBER.px * 10), (int) (NUMBER.px * 150), (int) (NUMBER.px * 100));
 			portrait.setBounds((int) (NUMBER.px * 70), (int) (NUMBER.px * 10), (int) (NUMBER.px * 260), (int) (NUMBER.px * 220));
 			playerNameText.setBounds((int) (NUMBER.px * 400), (int) (NUMBER.px * 10), (int) (NUMBER.px * 140), (int) (NUMBER.px * 200));
 			normalInfoText.setBounds((int) (NUMBER.px * 700), (int) (NUMBER.px * 10), (int) (NUMBER.px * 400), (int) (NUMBER.px * 240));
@@ -192,7 +201,6 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			this.add(playerNameText);
 			this.add(normalInfoText);
 			this.add(mainMatchInfoText);
-			this.add(teamLogo);
 		}
 
 		private void setComponentsStyle() {
@@ -209,30 +217,6 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			normalInfoText.setText("号码：" + PlayerGeneralInfo.getPlayerNumber() + "\n位置：" + PlayerGeneralInfo.getPosition() + "\n身高："
 					+ PlayerGeneralInfo.getHeight() + "\n体重：" + PlayerGeneralInfo.getWeight() + "\n生日：" + PlayerGeneralInfo.getBirthday() + "\n年龄："
 					+ PlayerGeneralInfo.getAge() + "\n球龄：" + PlayerGeneralInfo.getTrainingYear() + "\n毕业院校：" + PlayerGeneralInfo.getSchool());
-			teamLogo.setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + playerNormal_avg.getTeamName() + ".png"));
-		}
-
-		public void mouseClicked(MouseEvent e) {
-			if (e.getSource().equals(teamLogo)) {
-				System.out.println(playerNormal_avg.getTeamName());
-			}
-
-		}
-
-		public void mouseEntered(MouseEvent e) {
-
-		}
-
-		public void mouseExited(MouseEvent e) {
-
-		}
-
-		public void mousePressed(MouseEvent e) {
-
-		}
-
-		public void mouseReleased(MouseEvent e) {
-
 		}
 	}
 
@@ -330,6 +314,32 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			}
 			scrollPanel.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 10), (int) (NUMBER.px * 1320), (int) (NUMBER.px * 400));
 			this.add(scrollPanel);
+			table.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent e) {
+				}
+
+				public void mousePressed(MouseEvent e) {
+				}
+
+				public void mouseExited(MouseEvent e) {
+				}
+
+				public void mouseEntered(MouseEvent e) {
+				}
+
+				public void mouseClicked(MouseEvent e) {
+					if (table.getSelectedRow() >= 0 && table.getSelectedRow() < table.getRowCount()) {
+						int row = table.getSelectedRow();
+						String teamName = (String) table.getValueAt(row, 0);
+						String dateString = (String) table.getValueAt(row, 1);
+						MyDate date = new MyDate(dateString);
+						GeneralInfoOfOneMatch generalMatch = new MatchInfoBl().getGeneralMatch(teamName, date);
+						OneMatchPanel matchPanel = new OneMatchPanel(generalMatch);
+						SonFrame.changePanel(thisPanel, matchPanel);
+					}
+				}
+			});
 			this.setVisible(true);
 		}
 	}

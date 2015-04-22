@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import presentation.SonFrame;
 import businesslogic.teams.TeamInfoBl;
 import businesslogicservice.teams.TeamInfoBlService;
 
@@ -41,6 +42,32 @@ public class TeamPanel extends MyPanel {
 		this.setComponentsStyle();
 		this.initTable();
 		this.setTableStyle();
+		rangeAndNameTable.addMouseListener(new MouseListener() {
+
+			public void mouseReleased(MouseEvent e) {
+
+			}
+
+			public void mousePressed(MouseEvent e) {
+
+			}
+
+			public void mouseExited(MouseEvent e) {
+
+			}
+
+			public void mouseEntered(MouseEvent e) {
+
+			}
+
+			public void mouseClicked(MouseEvent arg0) {
+				if (rangeAndNameTable.getSelectedRow() >= 0 && rangeAndNameTable.getSelectedRow() < rangeAndNameTable.getRowCount()) {
+					int row = rangeAndNameTable.getSelectedRow();
+					String teamName = (String) rangeAndNameTable.getValueAt(row, 2);
+					new SonFrame(teamName, SonFrame.teamCard);
+				}
+			}
+		});
 	}
 
 	private void initTable() {
