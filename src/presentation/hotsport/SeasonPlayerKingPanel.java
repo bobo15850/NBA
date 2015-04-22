@@ -62,6 +62,9 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
+			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+		}
+		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
 				super.playerKing = super.playerHotBl.getPlayerKingOfSeason(5, fieldString[i]);
 				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
@@ -74,7 +77,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				fieldButton[i].setBorderPainted(true);
 				break;
 			}
 		}
@@ -83,7 +86,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				fieldButton[i].setBorderPainted(true);
 				break;
 			}
 		}

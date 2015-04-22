@@ -215,8 +215,37 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 	}
 
 	class TeamInfoComparePanel extends MyPanel {
-
+		private String performanceList[]={"分数","投篮得分","三分球","罚球","助攻","篮板","抢断","盖帽"};
+		private MyLabel performLabel[]=new MyLabel[8];
+		private MyLabel firstTeamInfo[]=new MyLabel[8];
+		private MyLabel secondTeamInfo[]=new MyLabel[8];
 		private static final long serialVersionUID = 1L;
+		public TeamInfoComparePanel(){
+			for(int i=0;i<8;i++){
+				performLabel[i]=new MyLabel(performanceList[i]);
+				performLabel[i].setHorizontalAlignment(SwingConstants.CENTER);
+				performLabel[i].setOpaque(true);
+				performLabel[i].setBackground(MyColor.LIGHT_BLUE);
+				performLabel[i].setBounds((int) (NUMBER.px * 940)/2,i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
+				
+				firstTeamInfo[i]=new MyLabel();
+//				firstTeamInfo[i].setOpaque(true);
+//				firstTeamInfo[i].setBackground(MyColor.LIGHT_BLUE);
+				firstTeamInfo[i].setBounds((int) (NUMBER.px * 940)/2-(int) (NUMBER.px * 300),i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
+				
+				
+				secondTeamInfo[i]=new MyLabel();
+				secondTeamInfo[i].setHorizontalAlignment(SwingConstants.RIGHT);
+//				secondTeamInfo[i].setOpaque(true);
+//				secondTeamInfo[i].setBackground(MyColor.LIGHT_BLUE);
+				secondTeamInfo[i].setBounds((int) (NUMBER.px * 940)/2+(int) (NUMBER.px * 300),i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
+				
+				this.add(performLabel[i]);
+				this.add(firstTeamInfo[i]);
+				this.add(secondTeamInfo[i]);
+			}
+			
+		}
 
 	}
 
