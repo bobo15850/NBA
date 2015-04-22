@@ -1,28 +1,34 @@
 package presentation.players;
 
-import java.awt.Component;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.JViewport;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellRenderer;
 
+import start.Main;
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
-import common.mycomponent.ImageRenderer;
+import common.mycomponent.MyButton;
 import common.mycomponent.MyComboBox;
+import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
+import common.mycomponent.MyScrollPanel;
 import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
+import common.mycomponent.MyTextArea;
+import common.mydatastructure.CombineSelectionCell;
 import common.mydatastructure.Filter;
 import common.mydatastructure.PlayerNormalInfo_Expand;
 import common.mydatastructure.SortCell;
@@ -31,6 +37,7 @@ import common.statics.Command;
 import common.statics.Field;
 import common.statics.League;
 import common.statics.MyColor;
+import common.statics.MyFont;
 import common.statics.NUMBER;
 import common.statics.Position;
 
@@ -97,7 +104,7 @@ public class PlayerPanel extends MyPanel {
 
 	private void setComponentsLocation() {
 		selectionPanel.setLocation((int) (NUMBER.px * 50), (int) (NUMBER.px * 20));
-		playerShowPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 100), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 580));
+		playerShowPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 100), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 600));
 		this.add(selectionPanel);
 		this.add(playerShowPane);
 	}
@@ -233,7 +240,8 @@ public class PlayerPanel extends MyPanel {
 				}
 			}
 			else if (e.getSource().equals(advancedSelect)) {
-
+				@SuppressWarnings("unused")
+				AdvancedSelectionJdialog advancedSelectionJdialog=new AdvancedSelectionJdialog();
 			}
 		}
 
@@ -252,5 +260,191 @@ public class PlayerPanel extends MyPanel {
 		public void mouseReleased(MouseEvent e) {
 
 		}
+	}
+	protected class  AdvancedSelectionJdialog extends JDialog implements MouseListener{
+	    private MyScrollPanel hasChooseJscrollPane;
+	    private MyLabel advancedSelectionLabel;
+	    private MyTable hasChooseTable;
+	    private MyTableModel hasChooseTableModel;
+	    private MyButton addItemButton,deletButton;
+	    private MyButton sureButton,cancelButton;
+	    private JTextField valueInput;
+	    private MyComboBox<String> selectionChoose;
+	    private String selectionItemList[]={"得分","助攻","篮板","抢断","盖帽","总命中率","三分命中率","罚球命中率"};
+	    private String header[]={"筛选依据","大于数值"};
+		private static final long serialVersionUID = 1L;
+		private AdvancedSelectionJdialog advancedSelectionJdialog=this;
+		private PlayerInfoBlService playerInfoBl;
+		public AdvancedSelectionJdialog(){
+			super(Main.mainFrame,true);
+			this.setLayout(null);
+			this.setUndecorated(true);
+			this.setSize((int)(NUMBER.px*800), (int)(NUMBER.px*600));
+			this.setLocation((NUMBER.SCREEN_WIDTH-this.getWidth())/2, (NUMBER.SCREEN_HEIGHT-this.getHeight())/2);
+			this.createObjects();
+			this.setComponentsLocation();
+			this.addListener();
+			this.setComponentsStyle();
+			this.setVisible(true);
+		}
+        private void createObjects() {
+        	hasChooseTableModel=new MyTableModel(header);
+        	hasChooseTable=new MyTable(hasChooseTableModel);
+        	hasChooseJscrollPane=new MyScrollPanel();
+        	hasChooseJscrollPane.getViewport().add(hasChooseTable);
+        	addItemButton=new MyButton("添加筛选项");
+        	deletButton=new MyButton("移除筛选项");
+        	sureButton=new MyButton("确认");
+        	cancelButton=new MyButton("取消");
+        	advancedSelectionLabel=new MyLabel("高级筛选");
+        	valueInput=new JTextField("在此输入数值");
+        	selectionChoose=new MyComboBox<>(selectionItemList);
+        	playerInfoBl=new PlayerInfoBl();
+		}
+		private void setComponentsLocation() {
+			advancedSelectionLabel.setBounds((int) (NUMBER.px * 0), (int) (NUMBER.px * 0),this.getWidth(), (int) (NUMBER.px * 50));
+			selectionChoose.setBounds((int) (NUMBER.px * 20), (int) (NUMBER.px * 70),(int) (NUMBER.px * 200), (int) (NUMBER.px * 40));
+			valueInput.setBounds((int) (NUMBER.px * 240), (int) (NUMBER.px * 70),(int) (NUMBER.px * 200), (int) (NUMBER.px * 40));
+			cancelButton.setBounds(this.getWidth()/2, (int) (NUMBER.px * 551),this.getWidth()/2, (int) (NUMBER.px * 50));
+			sureButton.setBounds(0, (int) (NUMBER.px * 551),this.getWidth()/2, (int) (NUMBER.px * 50));
+			deletButton.setBounds((int) (NUMBER.px * 630), (int) (NUMBER.px * 70),(int) (NUMBER.px * 150), (int) (NUMBER.px * 40));
+			addItemButton.setBounds((int) (NUMBER.px * 460), (int) (NUMBER.px * 70),(int) (NUMBER.px * 150), (int) (NUMBER.px * 40));
+			hasChooseJscrollPane.setBounds((int) (NUMBER.px * 20), (int) (NUMBER.px * 130),(int) (NUMBER.px * 760), (int) (NUMBER.px * 400));
+			
+			this.add(advancedSelectionLabel);
+			this.add(selectionChoose);
+			this.add(valueInput);
+			this.add(cancelButton);
+			this.add(sureButton);
+			this.add(deletButton);
+			this.add(addItemButton);
+			this.add(hasChooseJscrollPane);
+		}
+
+		private void addListener() {
+			addItemButton.addMouseListener(this);
+			deletButton.addMouseListener(this);
+			sureButton.addMouseListener(this);
+			cancelButton.addMouseListener(this);
+			valueInput.addMouseListener(this);
+		}
+
+		private void setComponentsStyle() {
+			advancedSelectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			advancedSelectionLabel.setOpaque(true);
+			advancedSelectionLabel.setBackground(MyColor.MIDDLE_COLOR);
+			advancedSelectionLabel.setForeground(MyColor.MY_WHITE);
+			advancedSelectionLabel.setFont(MyFont.MIDDLE_BOLD);
+			valueInput.setForeground(MyColor.LIGHT_COLOR);
+			addItemButton.setBackground(MyColor.MIDDLE_COLOR);
+			deletButton.setBackground(MyColor.MIDDLE_COLOR);
+			sureButton.setBackground(MyColor.MIDDLE_COLOR);
+			cancelButton.setBackground(MyColor.MIDDLE_COLOR);
+			addItemButton.setContentAreaFilled(true);
+			deletButton.setContentAreaFilled(true);
+			sureButton.setContentAreaFilled(true);
+			cancelButton.setContentAreaFilled(true);
+			hasChooseTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(e.getSource().equals(cancelButton)){
+				advancedSelectionJdialog.dispose();
+			}
+			else if(e.getSource().equals(sureButton)){
+				
+				if(hasChooseTableModel.getRowCount()==0){
+					JOptionPane.showMessageDialog(advancedSelectionJdialog, "请添加筛选项");//弹出提示，请添加筛选项
+				}
+				else{
+				CombineSelectionCell combineSelectionCells[]=new CombineSelectionCell[hasChooseTableModel.getRowCount()];
+				for(int i=0;i<hasChooseTableModel.getRowCount();i++){
+					System.out.print(changeToSortField(hasChooseTableModel.getValueAt(i, 0)));
+					combineSelectionCells[i].setField(changeToSortField(hasChooseTableModel.getValueAt(i, 0)));
+					combineSelectionCells[i].setNumber(Double.parseDouble(hasChooseTableModel.getValueAt(i, 1)));
+				}
+				clearTable();
+				fillTable(playerInfoBl.getPlayerNormal_avg(combineSelectionCells));
+				advancedSelectionJdialog.dispose();
+				}
+			}
+			else if(e.getSource().equals(addItemButton)){
+				try {
+					   Double.parseDouble(valueInput.getText());
+					   String str[]={(String)selectionChoose.getSelectedItem(),valueInput.getText()};
+						hasChooseTableModel.addRow(str);
+						hasChooseTable.updateUI();
+					   }
+				catch (NumberFormatException a) {
+					 JOptionPane.showMessageDialog(advancedSelectionJdialog, "输入必须为数");
+			   }
+				
+			}
+            else if(e.getSource().equals(deletButton)){
+            	int index=hasChooseTable.getSelectedRow();
+            	if(index>=0){
+            	hasChooseTableModel.removeRow(index);
+            	hasChooseTable.updateUI();
+            	}
+            	else{
+            		JOptionPane.showMessageDialog(advancedSelectionJdialog, "请选中移除行");
+            	}
+            	
+			}
+            else if(e.getSource().equals(valueInput)){
+            	valueInput.setText("");
+            	valueInput.setForeground(MyColor.DEEP_COLOR);
+			}
+		}
+		private String changeToSortField(String valueAt) {
+		    String[] sortField = { Field.point, Field.assist,Field.rebound,Field.steal, Field.blockShot,
+					Field.shot, Field.three, Field.penalty};
+		    for(int i=0;i<selectionItemList.length;i++){
+		    	if(selectionItemList[i].equals(valueAt)){
+		    		return sortField[i];
+		    	}
+		    }
+		    return null;
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			if(e.getSource().equals(cancelButton)){
+				cancelButton.setBackground(MyColor.DEEP_COLOR);
+			}
+			else if(e.getSource().equals(sureButton)){
+				sureButton.setBackground(MyColor.DEEP_COLOR);
+			}
+			else if(e.getSource().equals(addItemButton)){
+				addItemButton.setBackground(MyColor.DEEP_COLOR);
+			}
+            else if(e.getSource().equals(deletButton)){
+            	deletButton.setBackground(MyColor.DEEP_COLOR);
+			}
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			if(e.getSource().equals(cancelButton)){
+				cancelButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
+			else if(e.getSource().equals(sureButton)){
+				sureButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
+			else if(e.getSource().equals(addItemButton)){
+				addItemButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
+            else if(e.getSource().equals(deletButton)){
+            	deletButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
+		}
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			
+		}
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			
+		}
+
+		
 	}
 }
