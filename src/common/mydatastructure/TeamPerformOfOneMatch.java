@@ -227,4 +227,26 @@ public class TeamPerformOfOneMatch {
 	public void setWin(int win) {
 		this.win = win;
 	}
+
+	public String[] toStringArray() {
+
+		return new String[] { date.getFormatString(),// 比赛时间
+				opponentTeamName,// 对手名称
+				String.valueOf(point), // 得分数
+				String.valueOf(rebound),// 总篮板
+				String.valueOf(assist),// 助攻
+				String.valueOf(steal),// 抢断数
+				String.valueOf(block),// 盖帽数
+				String.valueOf(fault),// 失误数
+				String.valueOf(foul),// 犯规数
+				String.valueOf(totalHit),// 总命中数
+				String.valueOf(totalShot),// 总出手数
+				String.valueOf(threeHit),// 三分命中数
+				String.valueOf(threeShot),// 三分出手数
+				String.valueOf(freeHit),// 罚球命中数
+				String.valueOf(freeShot),// 罚球出手数
+				String.valueOf(offendRebound),// 进攻篮板
+				String.valueOf(defendRebound),// 防守篮板
+		};
+	}
 }

@@ -179,8 +179,8 @@ public class PlayerPerformOfOneMatch {
 				+ this.getMinute() + "---总命中数：" + this.getTotalHit() + "---总出手数：" + this.getTotalShoot() + "---三分命中数：" + this.getThreeHit()
 				+ "---三分出手数：" + this.getThreeShot() + "---罚球命中数：" + this.getFreeHit() + "---罚球出手数：" + this.getFreeShot() + "---进攻篮板数："
 				+ this.getOffendRebound() + "---防守篮板数：" + this.getDefendRebound() + "---总篮板数：" + this.getRebound() + "---助攻数：" + this.getAssist()
-				+ "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlockShot() + "---失误数：" + this.getFault() + "---犯规数：" + this.getFoul() + "---得分数："
-				+ this.getPoint();
+				+ "---抢断数：" + this.getSteal() + "---盖帽数：" + this.getBlockShot() + "---失误数：" + this.getFault() + "---犯规数：" + this.getFoul()
+				+ "---得分数：" + this.getPoint();
 	}
 
 	public int getStart() {
@@ -189,5 +189,28 @@ public class PlayerPerformOfOneMatch {
 
 	public void setStart(int start) {
 		this.start = start;
+	}
+
+	public String[] toStringArray() {
+		return new String[] { teamName,// 效力球队
+				date.getFormatString(),// 比赛时间
+				String.valueOf(minute),// 上场时间
+				String.valueOf(point), // 得分数
+				String.valueOf(rebound),// 总篮板
+				String.valueOf(assist),// 助攻
+				String.valueOf(steal),// 抢断数
+				String.valueOf(blockShot),// 盖帽数
+				String.valueOf(fault),// 失误数
+				String.valueOf(foul),// 犯规数
+				String.valueOf(totalHit),// 总命中数
+				String.valueOf(totalShot),// 总出手数
+				String.valueOf(offendRebound),// 进攻篮板
+				String.valueOf(defendRebound),// 防守篮板
+				String.valueOf(threeHit),// 三分命中数
+				String.valueOf(threeShot),// 三分出手数
+				String.valueOf(freeHit),// 罚球命中数
+				String.valueOf(freeShot),// 罚球出手数
+		};
+
 	}
 }
