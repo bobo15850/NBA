@@ -18,6 +18,7 @@ import javax.swing.table.TableCellRenderer;
 
 import businesslogic.players.PlayerInfoBl;
 import businesslogicservice.players.PlayerInfoBlService;
+import common.mycomponent.ImageRenderer;
 import common.mycomponent.MyComboBox;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
@@ -53,7 +54,9 @@ public class PlayerPanel extends MyPanel {
 		this.setTableRender();
 	}
 
-	private void setTableRender() {}
+	private void setTableRender() {
+//		rangeAndNameTable.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer(new ImageIcon("images/teams/logo/ATL.png")));
+	}
 
 	private void initTable() {
 		Filter filter = new Filter();
