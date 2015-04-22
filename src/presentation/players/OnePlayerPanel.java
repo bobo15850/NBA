@@ -6,13 +6,13 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import test.data.PlayerHighInfo;
 import businesslogic.players.OnePlayerInfoBl;
 import businesslogicservice.players.OnePlayerInfoBlService;
+
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
@@ -29,7 +29,7 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class OnePlayerPanel extends MyPanel implements MouseListener {
-	private String playerName = "Kevin Durant";
+	private String playerName;
 	private GeneralInfoPanel generalInfoPanel;
 	private MyButton normalInfo;
 	private MyButton highInfo;
@@ -355,19 +355,5 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			this.add(matchPanel, "matchPanel");
 			this.setVisible(true);
 		}
-	}
-
-	public static void main(String args[]) {
-		JFrame j = new JFrame();
-		j.setUndecorated(true);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setLayout(null);
-		j.setBackground(MyColor.BACKGROUNDCOLOR);
-		j.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
-				NUMBER.FRAME_HEIGHT);
-		OnePlayerPanel contentPanel = new OnePlayerPanel("Kevin Durant");
-		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
-		j.add(contentPanel);
-		j.setVisible(true);
 	}
 }

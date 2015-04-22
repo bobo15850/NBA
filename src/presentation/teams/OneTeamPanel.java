@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -318,19 +317,5 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 			this.add(matchPanel, "matchPanel");
 			this.add(normalInfoPanel, "normalInfoPanel");
 		}
-	}
-
-	public static void main(String args[]) {
-		JFrame j = new JFrame();
-		j.setUndecorated(true);
-		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		j.setLayout(null);
-		j.setBackground(MyColor.BACKGROUNDCOLOR);
-		j.setBounds((NUMBER.SCREEN_WIDTH - NUMBER.FRAME_WIDTH) / 2, (NUMBER.SCREEN_HEIGHT - NUMBER.FRAME_HEIGHT) / 2 - 20, NUMBER.FRAME_WIDTH,
-				NUMBER.FRAME_HEIGHT);
-		OneTeamPanel contentPanel = new OneTeamPanel("OKC");
-		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
-		j.add(contentPanel);
-		j.setVisible(true);
 	}
 }

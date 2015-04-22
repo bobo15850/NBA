@@ -28,21 +28,21 @@ public class TeamNormalInfo_Expand extends TeamNormalInfo {
 		teamNormal_avg.setTeamName(getTeamName());
 		teamNormal_avg.setThree(getThree());
 		teamNormal_avg.setNumOfWin(getNumOfWin());
-		teamNormal_avg.setAssist(CalculationOfTeamPerform.cutToFour(getAssist() / numOfGame));
-		teamNormal_avg.setBlockShot(CalculationOfTeamPerform.cutToFour(getBlockShot() / numOfGame));
-		teamNormal_avg.setDefendRebound(CalculationOfTeamPerform.cutToFour(getDefendRebound() / numOfGame));
-		teamNormal_avg.setFault(CalculationOfTeamPerform.cutToFour(getFault() / numOfGame));
-		teamNormal_avg.setFoul(CalculationOfTeamPerform.cutToFour(getFoul() / numOfGame));
-		teamNormal_avg.setFreeHit(CalculationOfTeamPerform.cutToFour(getFreeHit() / numOfGame));
-		teamNormal_avg.setFreeShot(CalculationOfTeamPerform.cutToFour(getFreeShot() / numOfGame));
-		teamNormal_avg.setOffendRebound(CalculationOfTeamPerform.cutToFour(getOffendRebound() / numOfGame));
-		teamNormal_avg.setPoint(CalculationOfTeamPerform.cutToFour(getPoint() / numOfGame));
-		teamNormal_avg.setRebound(CalculationOfTeamPerform.cutToFour(getRebound() / numOfGame));
-		teamNormal_avg.setSteal(CalculationOfTeamPerform.cutToFour(getSteal() / numOfGame));
-		teamNormal_avg.setThreeHit(CalculationOfTeamPerform.cutToFour(getThreeHit() / numOfGame));
-		teamNormal_avg.setThreeShot(CalculationOfTeamPerform.cutToFour(getThreeShot() / numOfGame));
-		teamNormal_avg.setTotalHit(CalculationOfTeamPerform.cutToFour(getTotalHit() / numOfGame));
-		teamNormal_avg.setTotalShot(CalculationOfTeamPerform.cutToFour(getTotalShot() / numOfGame));
+		teamNormal_avg.setAssist(CalculationOfTeamPerform.cutTail(getAssist() / numOfGame));
+		teamNormal_avg.setBlockShot(CalculationOfTeamPerform.cutTail(getBlockShot() / numOfGame));
+		teamNormal_avg.setDefendRebound(CalculationOfTeamPerform.cutTail(getDefendRebound() / numOfGame));
+		teamNormal_avg.setFault(CalculationOfTeamPerform.cutTail(getFault() / numOfGame));
+		teamNormal_avg.setFoul(CalculationOfTeamPerform.cutTail(getFoul() / numOfGame));
+		teamNormal_avg.setFreeHit(CalculationOfTeamPerform.cutTail(getFreeHit() / numOfGame));
+		teamNormal_avg.setFreeShot(CalculationOfTeamPerform.cutTail(getFreeShot() / numOfGame));
+		teamNormal_avg.setOffendRebound(CalculationOfTeamPerform.cutTail(getOffendRebound() / numOfGame));
+		teamNormal_avg.setPoint(CalculationOfTeamPerform.cutTail(getPoint() / numOfGame));
+		teamNormal_avg.setRebound(CalculationOfTeamPerform.cutTail(getRebound() / numOfGame));
+		teamNormal_avg.setSteal(CalculationOfTeamPerform.cutTail(getSteal() / numOfGame));
+		teamNormal_avg.setThreeHit(CalculationOfTeamPerform.cutTail(getThreeHit() / numOfGame));
+		teamNormal_avg.setThreeShot(CalculationOfTeamPerform.cutTail(getThreeShot() / numOfGame));
+		teamNormal_avg.setTotalHit(CalculationOfTeamPerform.cutTail(getTotalHit() / numOfGame));
+		teamNormal_avg.setTotalShot(CalculationOfTeamPerform.cutTail(getTotalShot() / numOfGame));
 		return teamNormal_avg;
 
 	}

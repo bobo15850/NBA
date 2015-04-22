@@ -163,7 +163,7 @@ public class PlayerInfoInit {
 			playerNormal.setBlockShot(blockShotNumber);
 			playerNormal.setFoul(foulNumber);
 			playerNormal.setFault(faultNumber);
-			playerNormal.setMinute(CalculationOfPlayerPerform.cutToFour(playingTime));
+			playerNormal.setMinute(CalculationOfPlayerPerform.cutTail(playingTime));
 			playerNormal.setTotalHit(totalHitNumber);
 			playerNormal.setTotalShot(totalShotNumber);
 			playerNormal.setThreeHit(threePointHitNumber);
