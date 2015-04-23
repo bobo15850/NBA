@@ -12,16 +12,16 @@ public class MyTableModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Vector<Vector<String>> content = null;
+	private Vector<Vector<Object>> content = null;
 	private String[] title_name;
 
 	public MyTableModel(String[] title_name) {
 		this.title_name = title_name;
-		content = new Vector<Vector<String>>();
+		content = new Vector<Vector<Object>>();
 	}
 
-	public void addRow(String[] str) {
-		Vector<String> v = new Vector<String>(title_name.length);
+	public void addRow(Object[] str) {
+		Vector<Object> v = new Vector<Object>(title_name.length);
 		for (int i = 0; i < str.length; i++) {
 			v.add(i, str[i]);
 		}
@@ -66,8 +66,8 @@ public class MyTableModel extends AbstractTableModel {
 		return content.size();
 	}
 
-	public String getValueAt(int row, int col) {
-		return ((Vector<String>) content.get(row)).get(col);
+	public Object getValueAt(int row, int col) {
+		return ((Vector<Object>) content.get(row)).get(col);
 	}
 
 	public String getColumnName(int col) {
@@ -80,15 +80,15 @@ public class MyTableModel extends AbstractTableModel {
 		this.fireTableCellUpdated(row, col);
 	}
 
-	public ArrayList<String[]> getAllValue() {
+	public ArrayList<Object[]> getAllValue() {
 		int rownumber = this.getRowCount();
 		int colnumber = this.getColumnCount();
 		if (rownumber == 0) {
 			return null;
 		} else {
-			ArrayList<String[]> listvalue = new ArrayList<String[]>();
+			ArrayList<Object[]> listvalue = new ArrayList<Object[]>();
 			for (int i = 0; i < rownumber; i++) {
-				String[] rowvalue = new String[colnumber];
+				Object[] rowvalue = new String[colnumber];
 				for (int j = 0; j < colnumber; j++) {
 					rowvalue[j] = this.getValueAt(i, j);
 				}

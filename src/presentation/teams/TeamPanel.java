@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -18,7 +19,6 @@ import start.Main;
 import businesslogic.teams.OneTeamInfoBl;
 import businesslogic.teams.TeamInfoBl;
 import businesslogicservice.teams.TeamInfoBlService;
-
 import common.mycomponent.MyComboBox;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTable;
@@ -27,9 +27,11 @@ import common.mydatastructure.SortCell;
 import common.mydatastructure.TeamNormalInfo_Expand;
 import common.statics.Command;
 import common.statics.Field;
+import common.statics.Method;
 import common.statics.MyColor;
 import common.statics.MyFont;
 import common.statics.NUMBER;
+import common.statics.PathOfFile;
 
 public class TeamPanel extends MyPanel {
 	private static final long serialVersionUID = 1L;
@@ -85,7 +87,10 @@ public class TeamPanel extends MyPanel {
 	private void fillTable(ArrayList<TeamNormalInfo_Expand> voList) {
 		for (int i = 0; i < voList.size(); i++) {
 			String performRow[] = voList.get(i).toStringArray();
-			String infoRow[] = { String.valueOf(i + 1), "队标", voList.get(i).getTeamName() };
+			Object infoRow[] = {
+					String.valueOf(i + 1),
+					Method.changeSize(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + voList.get(i).getTeamName() + ".png"), (int) (60 * NUMBER.px),
+							(int) (55 * NUMBER.px)), voList.get(i).getTeamName() };
 			teamShowTableModel.addRow(performRow);
 			rangeAndNameTableModel.addRow(infoRow);
 		}
@@ -152,7 +157,20 @@ public class TeamPanel extends MyPanel {
 		teamShowTableModel = new MyTableModel(performanceList);
 		rangeAndNameTableModel = new MyTableModel(rangeAndName);
 		teamShowTable = new MyTable(teamShowTableModel);
-		rangeAndNameTable = new MyTable(rangeAndNameTableModel);
+		rangeAndNameTable = new MyTable(rangeAndNameTableModel) {
+			private static final long serialVersionUID = 1L;
+
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			public Class getColumnClass(int column) {
+				if (column == 1) {// 要这样定义table，要重写这个方法0，0的意思就是别的格子的类型都跟0,0的一样。
+					return ImageIcon.class;
+				}
+				else {
+					return getValueAt(0, 0).getClass();
+				}
+			}
+
+		};
 		teamShowPane = new JScrollPane();
 		teamShowPane.getViewport().add(teamShowTable);
 	}
