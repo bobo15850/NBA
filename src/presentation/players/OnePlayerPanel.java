@@ -116,21 +116,21 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource().equals(normalInfo)) {
 			contentPanel.card.show(contentPanel, "normalInfoPanel");
-			normalInfo.setBackground(MyColor.DEEP_COLOR);
+			normalInfo.setBackground(MyColor.MY_ORIANGE);
 			highInfo.setBackground(MyColor.MIDDLE_COLOR);
 			matches.setBackground(MyColor.MIDDLE_COLOR);
 		}
 		else if (e.getSource().equals(highInfo)) {
 			contentPanel.card.show(contentPanel, "highInfoPanel");
 			normalInfo.setBackground(MyColor.MIDDLE_COLOR);
-			highInfo.setBackground(MyColor.DEEP_COLOR);
+			highInfo.setBackground(MyColor.MY_ORIANGE);
 			matches.setBackground(MyColor.MIDDLE_COLOR);
 		}
 		else if (e.getSource().equals(matches)) {
 			contentPanel.card.show(contentPanel, "matchPanel");
 			normalInfo.setBackground(MyColor.MIDDLE_COLOR);
 			highInfo.setBackground(MyColor.MIDDLE_COLOR);
-			matches.setBackground(MyColor.DEEP_COLOR);
+			matches.setBackground(MyColor.MY_ORIANGE);
 		}
 		else if (e.getSource().equals(teamLogo)) {
 			OneTeamPanel teamPanel = new OneTeamPanel(playerNormal_avg.getTeamName());
@@ -148,6 +148,9 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 		else if (e.getSource().equals(matches)) {
 			matches.setBorderPainted(true);
 		}
+		else if (e.getSource().equals(teamLogo)) {
+			teamLogo.setLocation(teamLogo.getX() - (int) (NUMBER.px * 3), teamLogo.getY() - (int) (NUMBER.px * 3));
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -159,6 +162,9 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 		}
 		else if (e.getSource().equals(matches)) {
 			matches.setBorderPainted(false);
+		}
+		else if (e.getSource().equals(teamLogo)) {
+			teamLogo.setLocation(teamLogo.getX() + (int) (NUMBER.px * 3), teamLogo.getY() + (int) (NUMBER.px * 3));
 		}
 	}
 

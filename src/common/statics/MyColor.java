@@ -6,7 +6,7 @@ public class MyColor {
 
 	public static final Color MY_WHITE = Color.white;
 	public static final Color MY_RED = Color.red;
-	public static final Color MY_ORIANGE = new Color(200, 120, 73);
+	public static final Color MY_ORIANGE = new Color(240, 145, 70);
 	//
 	public static final Color BACKGROUNDCOLOR = Color.lightGray;
 	public static final Color DEEP_COLOR = new Color(52,52,52);

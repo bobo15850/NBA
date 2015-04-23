@@ -57,12 +57,11 @@ public class PlayerKingPanel extends MyPanel {
 		Portrait[0].setBounds((int) (NUMBER.px * 50), buttonHeight * 2, (int) (NUMBER.px * 250), (int) (NUMBER.px * 400));
 		number[0].setBounds((int) (NUMBER.px * 300), labelHeight + buttonHeight * 2, (int) (NUMBER.px * 100), (int) (NUMBER.px * 100));
 		name[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3, (int) (NUMBER.px * 300), (int) (NUMBER.px * 40));
-		position[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+		position[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 4 + (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
 				(int) (NUMBER.px * 40));
-		value[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + 2 * (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+		value[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 5 + 2 * (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
 				(int) (NUMBER.px * 40));
 		team[0].setBounds((int) (NUMBER.px * 550), buttonHeight * 2, (int) (NUMBER.px * 80), (int) (NUMBER.px * 80));
-
 		for (int i = 1; i < 5; i++) {
 			number[i].setBounds((int) (NUMBER.px * 700), labelHeight * (i - 1) + buttonHeight * 2, labelHeight, labelHeight);
 			Portrait[i].setBounds((int) (NUMBER.px * 830), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 70),
@@ -92,7 +91,10 @@ public class PlayerKingPanel extends MyPanel {
 			Portrait[0].setMyIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + tempIn.getName() + ".png"));
 			name[0].setTextAndStyle(tempIn.getName());
 			position[0].setTextAndStyle(tempIn.getPosition());
-			value[0].setTextAndStyle("数据为："+String.valueOf(tempIn.getValue()));
+			value[0].setTextAndStyle("数据为：" + String.valueOf(tempIn.getValue()));
+			name[0].setFont(MyFont.LARGE_PLAIN);
+			position[0].setFont(MyFont.LARGE_PLAIN);
+			value[0].setFont(MyFont.LARGE_PLAIN);
 			team[0].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + tempIn.getTeamName() + ".png"));
 			for (int i = 1; i < playerKing.size(); i++) {
 				PlayerKingInfo temp = this.playerKing.get(i);
@@ -103,19 +105,13 @@ public class PlayerKingPanel extends MyPanel {
 				team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
 			}
 		}
-
 	}
 
 	private void setComponentsStyle() {
 		number[0].setForeground(MyColor.MIDDLE_COLOR);
 		number[0].setFont(new Font("微软雅黑", Font.BOLD, (int) (NUMBER.px * 70)));
-		name[0].setFont(MyFont.MIDDLE_PLAIN);
-		position[0].setFont(MyFont.MIDDLE_PLAIN);
-		value[0].setFont(MyFont.MIDDLE_PLAIN);
-
 		for (int i = 1; i < 5; i++) {
-			number[i].setBackground(MyColor.MY_BULE);
-			number[i].setOpaque(true);
+			number[i].setFont(MyFont.LARGE_BOLD);
 			number[i].setHorizontalAlignment(SwingConstants.CENTER);
 			value[i].setFont(MyFont.SMALL_BOLD);
 			value[i].setForeground(MyColor.MIDDLE_COLOR);

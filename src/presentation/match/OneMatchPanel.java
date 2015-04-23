@@ -294,21 +294,21 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource().equals(firstTeamMemberInfoButton)) {
 			contentPanel.card.show(contentPanel, "firstTeamMemberInfoPanel");
-			firstTeamMemberInfoButton.setBackground(MyColor.DEEP_COLOR);
+			firstTeamMemberInfoButton.setBackground(MyColor.MY_ORIANGE);
 			secondTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 			teamMatchInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 		}
 		else if (e.getSource().equals(secondTeamMemberInfoButton)) {
 			contentPanel.card.show(contentPanel, "secondTeamMemberInfoPanel");
 			firstTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
-			secondTeamMemberInfoButton.setBackground(MyColor.DEEP_COLOR);
+			secondTeamMemberInfoButton.setBackground(MyColor.MY_ORIANGE);
 			teamMatchInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 		}
 		else if (e.getSource().equals(teamMatchInfoButton)) {
 			contentPanel.card.show(contentPanel, "teamInfoComparePanel");
 			firstTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
 			secondTeamMemberInfoButton.setBackground(MyColor.MIDDLE_COLOR);
-			teamMatchInfoButton.setBackground(MyColor.DEEP_COLOR);
+			teamMatchInfoButton.setBackground(MyColor.MY_ORIANGE);
 		}
 		else if (e.getSource().equals(firstTeamLogo)) {
 			OneTeamPanel teamPanel = new OneTeamPanel(generalOneMatch.getFirstTeamName());
@@ -330,6 +330,12 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 		else if (e.getSource().equals(teamMatchInfoButton)) {
 			teamMatchInfoButton.setBorderPainted(true);
 		}
+		else if (e.getSource().equals(firstTeamLogo)) {
+			firstTeamLogo.setLocation(firstTeamLogo.getX() - (int) (NUMBER.px * 3), firstTeamLogo.getY() - (int) (NUMBER.px * 3));
+		}
+		else if (e.getSource().equals(secondTeamLogo)) {
+			secondTeamLogo.setLocation(secondTeamLogo.getX() - (int) (NUMBER.px * 3), secondTeamLogo.getY() - (int) (NUMBER.px * 3));
+		}
 	}
 
 	public void mouseExited(MouseEvent e) {
@@ -341,6 +347,12 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 		}
 		else if (e.getSource().equals(teamMatchInfoButton)) {
 			teamMatchInfoButton.setBorderPainted(false);
+		}
+		else if (e.getSource().equals(firstTeamLogo)) {
+			firstTeamLogo.setLocation(firstTeamLogo.getX() + (int) (NUMBER.px * 3), firstTeamLogo.getY() + (int) (NUMBER.px * 3));
+		}
+		else if (e.getSource().equals(secondTeamLogo)) {
+			secondTeamLogo.setLocation(secondTeamLogo.getX() + (int) (NUMBER.px * 3), secondTeamLogo.getY() + (int) (NUMBER.px * 3));
 		}
 	}
 

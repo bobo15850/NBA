@@ -38,8 +38,10 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	private MyLabel[] upgrade = new MyLabel[5];// 近五场提升率
 	private MyLabel[] value = new MyLabel[5];// 属性值
 	private MyLabel[] team = new MyLabel[5];// 球队
+	private MyLabel[] type = new MyLabel[5];// 标识
 	private PlayerHotBlSrevice playerHotBl = new PlayerHotBl();
 	private ArrayList<PlayerHotInfo> playerHotList = new ArrayList<PlayerHotInfo>(5);
+	private String typeString[] = { "头像", "姓名/位置", "提升率", "球队", "数据" };
 
 	private static final long serialVersionUID = 1L;
 
@@ -62,11 +64,14 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 			nameAndPosition[i] = new MyTextArea();
 			value[i] = new MyLabel();
 			team[i] = new MyLabel();
+			type[i] = new MyLabel(typeString[i]);
 		}
 	}
 
 	private void setComponentsLocation() {
 		for (int i = 0; i < 5; i++) {
+			type[i].setBounds((int) ((buttonWidth / 2.5) * i + NUMBER.px * 850), buttonHeight, buttonWidth / 5 * 2, buttonHeight);
+			type[i].setFont(MyFont.SMALL_BOLD);
 			fieldButton[i].setBounds((int) (buttonWidth * i + NUMBER.px * 60), 0, buttonWidth, buttonHeight);
 			this.add(fieldButton[i]);
 		}
@@ -98,22 +103,20 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 			this.add(value[i]);
 			this.add(team[i]);
 			this.add(upgrade[i]);
+			this.add(type[i]);
 		}
 	}
 
 	private void setComponentsStyle() {
 		number[0].setForeground(MyColor.MIDDLE_COLOR);
 		number[0].setFont(new Font("微软雅黑", Font.BOLD, (int) (NUMBER.px * 70)));
-		nameAndPosition[0].setFont(MyFont.MIDDLE_PLAIN);
-		value[0].setFont(MyFont.MIDDLE_PLAIN);
-		upgrade[0].setFont(MyFont.MIDDLE_PLAIN);
+
 		for (int i = 1; i < 5; i++) {
-			number[i].setBackground(MyColor.MY_BULE);
-			number[i].setOpaque(true);
 			number[i].setHorizontalAlignment(SwingConstants.CENTER);
+			number[i].setFont(MyFont.LARGE_BOLD);
 			value[i].setFont(MyFont.SMALL_BOLD);
 			value[i].setForeground(MyColor.MIDDLE_COLOR);
-			nameAndPosition[i].setFont(MyFont.SMALLEST_PLAIN);
+
 		}
 		for (int i = 0; i < 5; i++) {
 			fieldButton[i].setContentAreaFilled(true);
@@ -147,9 +150,14 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 					Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + temp.getName() + ".png"));
 					upgrade[i].setTextAndStyle(String.valueOf(temp.getUpgradeRate()));
 					value[i].setTextAndStyle(String.valueOf(temp.getValue()));
+
 				}
-				nameAndPosition[i].setText(temp.getName() + "\n" + temp.getPosition());
+				nameAndPosition[i].setText(temp.getName() + "\n           " + temp.getPosition());
 				team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
+				nameAndPosition[i].setFont(MyFont.SMALLEST_BOLD);
+				nameAndPosition[i].setForeground(MyColor.DEEP_COLOR);
+				value[0].setFont(MyFont.LARGE_PLAIN);
+				upgrade[0].setFont(MyFont.LARGE_PLAIN);
 			}
 		}
 	}
@@ -188,6 +196,14 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 				fieldButton[i].setBorderPainted(true);
 				break;
 			}
+			if (e.getSource().equals(Portrait[i])) {
+				Portrait[i].setLocation(Portrait[i].getX() - (int) (NUMBER.px * 3), Portrait[i].getY() - (int) (NUMBER.px * 3));
+				break;
+			}
+			if (e.getSource().equals(team[i])) {
+				team[i].setLocation(team[i].getX() - (int) (NUMBER.px * 3), team[i].getY() - (int) (NUMBER.px * 3));
+				break;
+			}
 		}
 
 	}
@@ -196,6 +212,14 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
 				fieldButton[i].setBorderPainted(false);
+				break;
+			}
+			if (e.getSource().equals(Portrait[i])) {
+				Portrait[i].setLocation(Portrait[i].getX() + (int) (NUMBER.px * 3), Portrait[i].getY() + (int) (NUMBER.px * 3));
+				break;
+			}
+			if (e.getSource().equals(team[i])) {
+				team[i].setLocation(team[i].getX() + (int) (NUMBER.px * 3), team[i].getY() + (int) (NUMBER.px * 3));
 				break;
 			}
 		}

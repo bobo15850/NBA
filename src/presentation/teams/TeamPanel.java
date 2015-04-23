@@ -204,7 +204,7 @@ public class TeamPanel extends MyPanel {
 		private void setComponentsStyle() {
 			this.setButton(searchButton);
 			this.setButton(findTeamButton);
-			teamInput.setBackground(MyColor.LIGHT_BLUE);
+			teamInput.setOpaque(false);
 			teamInput.setForeground(MyColor.MY_WHITE);
 			teamInput.setFont(MyFont.SMALL_BOLD);
 		}
@@ -212,7 +212,8 @@ public class TeamPanel extends MyPanel {
 		private void setButton(JButton button) {
 			button.setFocusable(false);
 			button.setBorderPainted(false);
-			button.setForeground(MyColor.LIGHT_COLOR);
+			button.setFont(MyFont.SMALLEST_BOLD);
+			button.setForeground(MyColor.MY_WHITE);
 			button.setBackground(MyColor.MIDDLE_COLOR);
 			button.addMouseListener(this);
 		}

@@ -5,15 +5,18 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 import presentation.SonFrame;
 import businesslogic.matches.MatchInfoBl;
 import businesslogicservice.matches.MatchInfoBlService;
-import common.mycomponent.MyButton;
+
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.MyDate;
+import common.statics.MyColor;
+import common.statics.MyFont;
 import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
@@ -31,7 +34,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 	private MatchGeneralPanel[] MatchGeneral;
 	private TimeInputPanel dateChoosePanel;
 	private MyLabel nowDate, searchLable;
-	private MyButton searchButton, refresh, preDayButton, nextDayButton;
+	private JButton searchButton, refresh, preDayButton, nextDayButton;
 
 	public MatchPanel() {
 		createObjects();
@@ -41,24 +44,38 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		this.setVisible(true);
 	}
 
+	private void setButton(JButton button) {
+		button.setFocusable(false);
+		button.setBorderPainted(false);
+		button.setFont(MyFont.SMALLEST_BOLD);
+		button.setForeground(MyColor.MY_WHITE);
+		button.setBackground(MyColor.MIDDLE_COLOR);
+	}
+
 	private void createObjects() {
 		nowDate = new MyLabel();
-		searchLable = new MyLabel("请选择日期");
-		searchButton = new MyButton("搜索");
-		preDayButton = new MyButton("<html>前<br>一<br>天</html>");
-		nextDayButton = new MyButton("<html>后<br>一<br>天</html>");
-		refresh = new MyButton("刷新");
+		searchLable = new MyLabel("请选择日期:");
+		searchButton = new JButton("搜索");
+		preDayButton = new JButton("<html>前<br>一<br>天</html>");
+		nextDayButton = new JButton("<html>后<br>一<br>天</html>");
+		refresh = new JButton("刷新");
 		dateChoosePanel = new TimeInputPanel();
 	}
 
 	private void setComponentPosition() {
 		nowDate.setBounds(inter, 0, (int) (NUMBER.px * 200), (int) (NUMBER.px * 60));
-		searchLable.setBounds((int) (NUMBER.px * 200 + inter), 0, (int) (NUMBER.px * 150), (int) (NUMBER.px * 60));
-		dateChoosePanel.setBounds((int) (NUMBER.px * 380 + inter), (int) (10 * NUMBER.px), (int) (NUMBER.px * 200), (int) (NUMBER.px * 60));
-		searchButton.setBounds((int) (NUMBER.px * 600 + inter), 0, (int) (NUMBER.px * 100), (int) (NUMBER.px * 60));
-		refresh.setBounds((int) (NUMBER.px * 1000 + inter), 0, (int) (NUMBER.px * 100), (int) (NUMBER.px * 60));
-		preDayButton.setBounds(inter / 3, inter * 3, (int) (NUMBER.px * 60), (int) (NUMBER.px * 100));
-		nextDayButton.setBounds((int) (NUMBER.px * 1300), inter * 3, (int) (NUMBER.px * 60), (int) (NUMBER.px * 100));
+		searchLable.setBounds((int) (NUMBER.px * 300 + inter), 0, (int) (NUMBER.px * 150), (int) (NUMBER.px * 60));
+
+		dateChoosePanel.setBounds((int) (NUMBER.px * 420 + inter), (int) (10 * NUMBER.px), (int) (NUMBER.px * 300), (int) (NUMBER.px * 60));
+		searchButton.setBounds((int) (NUMBER.px * 730 + inter), (int) (NUMBER.px * 13), (int) (NUMBER.px * 150), (int) (NUMBER.px * 40));
+		refresh.setBounds((int) (NUMBER.px * 1000 + inter), (int) (NUMBER.px * 13), (int) (NUMBER.px * 150), (int) (NUMBER.px * 40));
+		preDayButton.setBounds(inter / 3, inter * 3, (int) (NUMBER.px * 40), (int) (NUMBER.px * 150));
+		nextDayButton.setBounds((int) (NUMBER.px * 1300), inter * 3, (int) (NUMBER.px * 40), (int) (NUMBER.px * 150));
+		this.setButton(searchButton);
+		this.setButton(refresh);
+		this.setButton(preDayButton);
+		this.setButton(nextDayButton);
+		this.searchLable.setFont(MyFont.SMALL_BOLD);
 		this.add(nowDate);
 		this.add(searchLable);
 		this.add(dateChoosePanel);
@@ -82,6 +99,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 				}
 			}
 			this.nowDate.setTextAndStyle(showDay.getFormatString() + " 没有比赛");
+			nowDate.setFont(MyFont.SMALL_BOLD);
 			this.repaint();
 		}
 		else {
@@ -114,7 +132,8 @@ public class MatchPanel extends MyPanel implements MouseListener {
 					MatchGeneral[j].setBounds(inter * 4 + matchPanelWidth, matchPanelHeight * (j - 8) + inter, matchPanelWidth, matchPanelHeight);
 				}
 			}
-			nowDate.setTextAndStyle("当前日期为：" + showDay.getFormatString());
+			nowDate.setTextAndStyle("当前日期：" + showDay.getFormatString());
+			nowDate.setFont(MyFont.SMALL_BOLD);
 			this.repaint();
 		}
 		if (MatchGeneral != null) {
@@ -137,7 +156,6 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		showDay = dateSearch;
 		this.oneDayMatch = this.matchInfoBl.getTodayMatches(dateSearch);
 		this.setContent();
-
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -169,11 +187,50 @@ public class MatchPanel extends MyPanel implements MouseListener {
 	}
 
 	public void mouseEntered(MouseEvent e) {
+		if (e.getSource().equals(searchButton)) {
+			searchButton.setBackground(MyColor.DEEP_COLOR);
+		}
+		else if (e.getSource().equals(refresh)) {
+			refresh.setBackground(MyColor.DEEP_COLOR);
+		}
+		else if (e.getSource().equals(preDayButton)) {
+			preDayButton.setBackground(MyColor.DEEP_COLOR);
+		}
+		else if (e.getSource().equals(nextDayButton)) {
+			nextDayButton.setBackground(MyColor.DEEP_COLOR);
+		}
+		else {
+			for (int i = 0; i < oneDayMatch.size(); i++) {
+				if (e.getSource().equals(MatchGeneral[i])) {
+					MatchGeneral[i].setLocation(MatchGeneral[i].getX() - (int) (NUMBER.px * 3), MatchGeneral[i].getY() - (int) (NUMBER.px * 3));
+					break;
+				}
+			}
+		}
 
 	}
 
 	public void mouseExited(MouseEvent e) {
-
+		if (e.getSource().equals(searchButton)) {
+			searchButton.setBackground(MyColor.MIDDLE_COLOR);
+		}
+		else if (e.getSource().equals(refresh)) {
+			refresh.setBackground(MyColor.MIDDLE_COLOR);
+		}
+		else if (e.getSource().equals(preDayButton)) {
+			preDayButton.setBackground(MyColor.MIDDLE_COLOR);
+		}
+		else if (e.getSource().equals(nextDayButton)) {
+			nextDayButton.setBackground(MyColor.MIDDLE_COLOR);
+		}
+		else {
+			for (int i = 0; i < oneDayMatch.size(); i++) {
+				if (e.getSource().equals(MatchGeneral[i])) {
+					MatchGeneral[i].setLocation(MatchGeneral[i].getX() + (int) (NUMBER.px * 3), MatchGeneral[i].getY() + (int) (NUMBER.px * 3));
+					break;
+				}
+			}
+		}
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -206,6 +263,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			firstTeam.setBounds(0, (int) (NUMBER.px * 5), matchPanelWidth / 4, matchPanelHeight - (int) (NUMBER.px * 5));
 			scoreLabel.setBounds(matchPanelWidth / 4, 0, matchPanelWidth / 2, matchPanelHeight - (int) (NUMBER.px * 5));
 			secondTeam.setBounds(matchPanelWidth / 4 * 3, (int) (NUMBER.px * 5), matchPanelWidth / 4, matchPanelHeight - (int) (NUMBER.px * 5));
+			scoreLabel.setFont(MyFont.SMALL_BOLD);
 			firstTeam.setMyIcon(firstImage);
 			secondTeam.setMyIcon(secondImage);
 			this.add(firstTeam);

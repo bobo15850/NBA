@@ -8,12 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import businesslogic.matches.MatchInfoBl;
-
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mydatastructure.MyDate;
 import common.statics.MyColor;
+import common.statics.MyFont;
 import common.statics.NUMBER;
 
 public class HotSportPanel extends MyPanel implements MouseListener {
@@ -39,6 +39,7 @@ public class HotSportPanel extends MyPanel implements MouseListener {
 
 	public static void showNew() {
 		showNew.setTextAndStyle("有更新");
+		showNew.setFont(MyFont.SMALL_BOLD);
 	}
 
 	public static void showRefreshed() {
@@ -47,6 +48,7 @@ public class HotSportPanel extends MyPanel implements MouseListener {
 
 	public static void refreshDate(String dateString) {
 		date.setTextAndStyle(dateString);
+		date.setFont(MyFont.SMALL_BOLD);
 	}
 
 	private void addListener() {

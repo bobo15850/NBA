@@ -10,6 +10,9 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import common.mydatastructure.MyDate;
+import common.statics.MyColor;
+import common.statics.MyFont;
+import common.statics.NUMBER;
 
 public class TimeInputPanel extends JPanel {
 	/**
@@ -23,16 +26,20 @@ public class TimeInputPanel extends JPanel {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public TimeInputPanel() {
 		this.setOpaque(false);
+		this.setFocusable(false);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		year = new JComboBox<Integer>();
-		year.setModel(new DefaultComboBoxModel(getModel(2013, 2014)));
+		this.setComBox(year);
+		year.setModel(new DefaultComboBoxModel(getModel(2012, 2014)));
 		this.add(year);
 
 		month = new JComboBox();
+		this.setComBox(month);
 		month.setModel(new DefaultComboBoxModel(getModel(1, 12)));
 		this.add(month);
 
 		day = new JComboBox();
+		this.setComBox(day);
 		this.add(day);
 
 		year.addItemListener(new ItemListener() {
@@ -67,6 +74,13 @@ public class TimeInputPanel extends JPanel {
 			m[i] = String.valueOf(i + start);
 		}
 		return m;
+	}
+
+	private void setComBox(JComboBox<Integer> com) {
+		com.setSize((int) (NUMBER.px * 180), (int) (NUMBER.px * 40));
+		com.setBackground(MyColor.MIDDLE_COLOR);
+		com.setForeground(MyColor.LIGHT_COLOR);
+		com.setFont(MyFont.SMALL_PLAIN);
 	}
 
 	public MyDate getDate() {

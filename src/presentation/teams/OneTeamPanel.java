@@ -115,7 +115,7 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 		if (e.getSource().equals(teamMember)) {
 			contentPanel.card.show(contentPanel, "normalInfoPanel");
 			teamInfo.setBackground(MyColor.MIDDLE_COLOR);
-			teamMember.setBackground(MyColor.DEEP_COLOR);
+			teamMember.setBackground(MyColor.MY_ORIANGE);
 			matches.setBackground(MyColor.MIDDLE_COLOR);
 		}
 
@@ -123,13 +123,13 @@ public class OneTeamPanel extends MyPanel implements MouseListener {
 			contentPanel.card.show(contentPanel, "matchPanel");
 			teamInfo.setBackground(MyColor.MIDDLE_COLOR);
 			teamMember.setBackground(MyColor.MIDDLE_COLOR);
-			matches.setBackground(MyColor.DEEP_COLOR);
+			matches.setBackground(MyColor.MY_ORIANGE);
 		}
 		else if (e.getSource().equals(teamInfo)) {
 			contentPanel.card.show(contentPanel, "teamInfoPanel");
 			teamMember.setBackground(MyColor.MIDDLE_COLOR);
 			matches.setBackground(MyColor.MIDDLE_COLOR);
-			teamInfo.setBackground(MyColor.DEEP_COLOR);
+			teamInfo.setBackground(MyColor.MY_ORIANGE);
 		}
 	}
 

@@ -54,7 +54,6 @@ public class PlayerPanel extends MyPanel {
 	public PlayerPanel() {
 		this.createObjects();
 		this.setComponentsLocation();
-		this.setComponentsStyle();
 		this.initTable();
 		this.setTableStyle();
 		rangeAndNameTable.addMouseListener(new MouseListener() {
@@ -127,9 +126,6 @@ public class PlayerPanel extends MyPanel {
 		playerShowPane.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 100), (int) (NUMBER.FRAME_WIDTH - 100), (int) (NUMBER.px * 600));
 		this.add(selectionPanel);
 		this.add(playerShowPane);
-	}
-
-	private void setComponentsStyle() {
 	}
 
 	private void setTableStyle() {
@@ -236,15 +232,17 @@ public class PlayerPanel extends MyPanel {
 			this.setButton(advancedSelect);
 			this.setButton(searchButton);
 			this.setButton(findButton);
-			playerInput.setBackground(MyColor.LIGHT_BLUE);
+			playerInput.setOpaque(false);
 			playerInput.setForeground(MyColor.MY_WHITE);
 			playerInput.setFont(MyFont.SMALL_BOLD);
+
 		}
 
 		private void setButton(JButton button) {
 			button.setFocusable(false);
 			button.setBorderPainted(false);
-			button.setForeground(MyColor.LIGHT_COLOR);
+			button.setFont(MyFont.SMALLEST_BOLD);
+			button.setForeground(MyColor.MY_WHITE);
 			button.setBackground(MyColor.MIDDLE_COLOR);
 			button.addMouseListener(this);
 		}
@@ -387,7 +385,8 @@ public class PlayerPanel extends MyPanel {
 			advancedSelectionLabel.setBackground(MyColor.MIDDLE_COLOR);
 			advancedSelectionLabel.setForeground(MyColor.MY_WHITE);
 			advancedSelectionLabel.setFont(MyFont.MIDDLE_BOLD);
-			valueInput.setForeground(MyColor.LIGHT_COLOR);
+			valueInput.setOpaque(false);
+			valueInput.setFont(MyFont.SMALLEST_BOLD);
 			addItemButton.setBackground(MyColor.MIDDLE_COLOR);
 			deletButton.setBackground(MyColor.MIDDLE_COLOR);
 			sureButton.setBackground(MyColor.MIDDLE_COLOR);
