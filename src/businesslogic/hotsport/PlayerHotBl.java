@@ -68,7 +68,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 					latestFive /= 5;
 					double upGradeRate = (CalculationOfPlayerPerform.cutTail(latestFive - before) / before);
 					tempHotInfo.setValue(CalculationOfPlayerPerform.cutTail(all));
-					tempHotInfo.setUpgradeRate(upGradeRate);
+					tempHotInfo.setUpgradeRate(CalculationOfPlayerPerform.cutTail(upGradeRate));
 					playerHotList.add(tempHotInfo);
 				}
 			}

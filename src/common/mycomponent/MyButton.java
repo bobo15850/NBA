@@ -19,7 +19,7 @@ public class MyButton extends JButton {
 	public MyButton(ImageIcon background, int width, int height) {
 		this.setFocusable(false);
 		this.setBorderPainted(false);
-//		this.setContentAreaFilled(false);
+		this.setContentAreaFilled(false);
 		this.width = width;
 		this.height = height;
 		this.setSize(width, height);

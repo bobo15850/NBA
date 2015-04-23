@@ -6,16 +6,18 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 
+import presentation.SonFrame;
 import test.data.PlayerHotInfo;
 import businesslogic.hotsport.PlayerHotBl;
+import businesslogic.matches.MatchInfoBl;
 import businesslogicservice.hotsport.PlayerHotBlSrevice;
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mycomponent.MyTextArea;
+import common.mydatastructure.MyDate;
 import common.statics.Field;
 import common.statics.MyColor;
 import common.statics.MyFont;
@@ -65,22 +67,29 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 
 	private void setComponentsLocation() {
 		for (int i = 0; i < 5; i++) {
-			fieldButton[i].setBounds((int) (buttonWidth * i+NUMBER.px*60), 0, buttonWidth, buttonHeight);
+			fieldButton[i].setBounds((int) (buttonWidth * i + NUMBER.px * 60), 0, buttonWidth, buttonHeight);
 			this.add(fieldButton[i]);
 		}
-		Portrait[0].setBounds((int)(NUMBER.px*50), buttonHeight * 2, (int)(NUMBER.px*250),(int)(NUMBER.px*400) );
-		number[0].setBounds((int)(NUMBER.px*300), labelHeight  + buttonHeight * 2,  (int)(NUMBER.px*100), (int)(NUMBER.px*100));
-		nameAndPosition[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3, (int)(NUMBER.px*300), (int)(NUMBER.px*80));
-		value[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+ (int)(NUMBER.px*80), (int)(NUMBER.px*200), (int)(NUMBER.px*40));
-		team[0].setBounds((int)(NUMBER.px*550),buttonHeight * 2 , (int)(NUMBER.px*80),(int)(NUMBER.px*80));
-		upgrade[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+2*(int)(NUMBER.px*80), (int)(NUMBER.px*200), (int)(NUMBER.px*80));
+		Portrait[0].setBounds((int) (NUMBER.px * 50), buttonHeight * 2, (int) (NUMBER.px * 250), (int) (NUMBER.px * 400));
+		number[0].setBounds((int) (NUMBER.px * 300), labelHeight + buttonHeight * 2, (int) (NUMBER.px * 100), (int) (NUMBER.px * 100));
+		nameAndPosition[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3, (int) (NUMBER.px * 300), (int) (NUMBER.px * 80));
+		value[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + (int) (NUMBER.px * 80), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 40));
+		team[0].setBounds((int) (NUMBER.px * 550), buttonHeight * 2, (int) (NUMBER.px * 80), (int) (NUMBER.px * 80));
+		upgrade[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + 2 * (int) (NUMBER.px * 80), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 80));
 		for (int i = 1; i < 5; i++) {
-			number[i].setBounds((int)(NUMBER.px*700),labelHeight * (i-1) + buttonHeight * 2,labelHeight, labelHeight);
-			Portrait[i].setBounds((int)(NUMBER.px*830), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*70), (int)(NUMBER.px*70));
-			nameAndPosition[i].setBounds((int)(NUMBER.px*920), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*40), (int)(NUMBER.px*120), (int)(NUMBER.px*60));
-			value[i].setBounds((int)(NUMBER.px*1260), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*80), (int)(NUMBER.px*80));
-			team[i].setBounds((int)(NUMBER.px*1160), labelHeight *(i-1) + buttonHeight * 2+(int)(NUMBER.px*20), (int)(NUMBER.px*60), (int)(NUMBER.px*60));
-			upgrade[i].setBounds((int)(NUMBER.px*1070), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*60), (int)(NUMBER.px*80));
+			number[i].setBounds((int) (NUMBER.px * 700), labelHeight * (i - 1) + buttonHeight * 2, labelHeight, labelHeight);
+			Portrait[i].setBounds((int) (NUMBER.px * 830), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 70),
+					(int) (NUMBER.px * 70));
+			nameAndPosition[i].setBounds((int) (NUMBER.px * 920), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 40),
+					(int) (NUMBER.px * 120), (int) (NUMBER.px * 60));
+			value[i].setBounds((int) (NUMBER.px * 1260), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 80),
+					(int) (NUMBER.px * 80));
+			team[i].setBounds((int) (NUMBER.px * 1160), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 20), (int) (NUMBER.px * 60),
+					(int) (NUMBER.px * 60));
+			upgrade[i].setBounds((int) (NUMBER.px * 1070), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 60),
+					(int) (NUMBER.px * 80));
 		}
 		for (int i = 0; i < 5; i++) {
 			this.add(number[i]);
@@ -94,7 +103,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 
 	private void setComponentsStyle() {
 		number[0].setForeground(MyColor.MIDDLE_COLOR);
-		number[0].setFont(new Font("微软雅黑",Font.BOLD,(int)(NUMBER.px*70)));
+		number[0].setFont(new Font("微软雅黑", Font.BOLD, (int) (NUMBER.px * 70)));
 		nameAndPosition[0].setFont(MyFont.MIDDLE_PLAIN);
 		value[0].setFont(MyFont.MIDDLE_PLAIN);
 		upgrade[0].setFont(MyFont.MIDDLE_PLAIN);
@@ -115,6 +124,8 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	private void addListener() {
 		for (int i = 0; i < 5; i++) {
 			fieldButton[i].addMouseListener(this);
+			Portrait[i].addMouseListener(this);
+			team[i].addMouseListener(this);
 		}
 	}
 
@@ -124,33 +135,50 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	}
 
 	private void setContent() {
-		for (int i = 0; i < 5; i++) {
-			PlayerHotInfo temp = this.playerHotList.get(i);
-			if(i==0){
-				Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + temp.getName() + ".png"));
+		if (playerHotList != null) {
+			for (int i = 0; i < playerHotList.size(); i++) {
+				PlayerHotInfo temp = this.playerHotList.get(i);
+				if (i == 0) {
+					Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + temp.getName() + ".png"));
+					upgrade[i].setTextAndStyle("提升率：" + String.valueOf(temp.getUpgradeRate()));
+					value[i].setTextAndStyle("数据为：" + String.valueOf(temp.getValue()));
+				}
+				else {
+					Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + temp.getName() + ".png"));
+					upgrade[i].setTextAndStyle(String.valueOf(temp.getUpgradeRate()));
+					value[i].setTextAndStyle(String.valueOf(temp.getValue()));
+				}
+				nameAndPosition[i].setText(temp.getName() + "\n" + temp.getPosition());
+				team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
 			}
-			else{
-			Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + temp.getName() + ".png"));
-			}
-			nameAndPosition[i].setText(temp.getName()+"\n"+temp.getPosition());
-			upgrade[i].setTextAndStyle(String.valueOf(temp.getUpgradeRate()));
-			value[i].setTextAndStyle(String.valueOf(temp.getValue()));
-			team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
 		}
 	}
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
-			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
-		}
-		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				for (int j = 0; j < 5; j++) {
+					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
+				}
+				fieldButton[i].setBackground(MyColor.MY_ORIANGE);
 				this.playerHotList = this.playerHotBl.getPlayerHot(5, fieldString[i]);
+				this.setContent();
+				HotSportPanel.showRefreshed();
+				MyDate date = new MatchInfoBl().getLatestDate();
+				HotSportPanel.refreshDate(date.getFormatString());
+				break;
+			}
+			if (e.getSource().equals(Portrait[i])) {
+				String playerName = playerHotList.get(i).getName();
+				new SonFrame(playerName, SonFrame.playerCard);
+				break;
+			}
+			if (e.getSource().equals(team[i])) {
+				String teamName = playerHotList.get(i).getTeamName();
+				new SonFrame(teamName, SonFrame.teamCard);
 				break;
 			}
 		}
-		this.setContent();
 
 	}
 
@@ -161,7 +189,6 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 				break;
 			}
 		}
-	
 
 	}
 

@@ -81,4 +81,13 @@ public class TeamInfoData implements TeamInfoDataService {
 			return null;
 		}
 	}
+
+	public TeamPerformOfOneMatch getOneMatchTeamPerform(String teamName, MyDate date) {
+		if (MEM.TEAM_PERFORM.containsKey(teamName)) {
+			if (MEM.TEAM_PERFORM.get(teamName).containsKey(date)) {
+				return MEM.TEAM_PERFORM.get(teamName).get(date);
+			}
+		}
+		return null;
+	}
 }

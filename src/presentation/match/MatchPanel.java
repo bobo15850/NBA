@@ -36,9 +36,8 @@ public class MatchPanel extends MyPanel implements MouseListener {
 	public MatchPanel() {
 		createObjects();
 		setComponentPosition();
-		setComponentStyle();
+		addListener();
 		this.init();
-
 		this.setVisible(true);
 	}
 
@@ -67,10 +66,6 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		this.add(refresh);
 		this.add(preDayButton);
 		this.add(nextDayButton);
-	}
-
-	private void setComponentStyle() {
-
 	}
 
 	private void init() {
@@ -122,7 +117,11 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			nowDate.setTextAndStyle("当前日期为：" + showDay.getFormatString());
 			this.repaint();
 		}
-		addListener();
+		if (MatchGeneral != null) {
+			for (int i = 0; i < MatchGeneral.length; i++) {
+				MatchGeneral[i].addMouseListener(this);
+			}
+		}
 	}
 
 	private void addListener() {
@@ -130,11 +129,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		refresh.addMouseListener(this);
 		preDayButton.addMouseListener(this);
 		nextDayButton.addMouseListener(this);
-		if (MatchGeneral != null) {
-			for (int i = 0; i < MatchGeneral.length; i++) {
-				MatchGeneral[i].addMouseListener(this);
-			}
-		}
+
 	}
 
 	private void searchButtonListener() {
@@ -163,7 +158,6 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			this.setContent();
 		}
 		else {
-			System.out.println("进入监听");
 			for (int i = 0; i < oneDayMatch.size(); i++) {
 				if (e.getSource().equals(MatchGeneral[i])) {
 					new SonFrame(MatchGeneral[i].getGeneralInfoOfMatch(), SonFrame.matchCard);

@@ -3,8 +3,8 @@ package businesslogicservice.teams;
 import java.util.ArrayList;
 
 import test.data.TeamHighInfo;
-
 import common.mydatastructure.GeneralInfoOfTeam;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
 
@@ -20,4 +20,6 @@ public interface OneTeamInfoBlService {
 	public ArrayList<TeamPerformOfOneMatch> getTeamPerform(String teamName);// 根据球队名称得到所有比赛的比赛数据
 
 	public GeneralInfoOfTeam getTeamGeneralInfo(String teamName);// 根据球队名称得到球队基本信息
+
+	public TeamPerformOfOneMatch getOneMatchTeamPerform(String teamName, MyDate date);// 根据队名和日期查找比赛数据
 }

@@ -14,7 +14,6 @@ public class MyLabel extends JLabel {
 
 	public MyLabel() {
 		super();
-//		this.setOpaque(true);
 		this.setBackground(Color.BLACK);
 	}
 
@@ -40,5 +39,6 @@ public class MyLabel extends JLabel {
 
 	public void setTextAndStyle(String str) {
 		this.setText(str);
+		this.setFont(MyFont.SMALLEST_BOLD);
 	}
 }

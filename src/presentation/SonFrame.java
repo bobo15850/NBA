@@ -1,13 +1,19 @@
 package presentation;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.JFrame;
 
 import presentation.match.OneMatchPanel;
 import presentation.players.OnePlayerPanel;
 import presentation.teams.OneTeamPanel;
+import common.mycomponent.MyButton;
+import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.statics.MyColor;
+import common.statics.MyFont;
 import common.statics.NUMBER;
 
 public class SonFrame {
@@ -34,8 +40,11 @@ public class SonFrame {
 		else if (str.endsWith(matchCard)) {
 			contentPanel = new OneMatchPanel((GeneralInfoOfOneMatch) o);
 		}
+		headPanel headPanel = new headPanel();
+		headPanel.setBounds(0, 0, NUMBER.FRAME_WIDTH, NUMBER.NAVIGATION_PANEL_HEIGHT);
 		contentPanel.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
 		cardFrame.getContentPane().add(contentPanel);
+		cardFrame.getContentPane().add(headPanel);
 		cardFrame.setVisible(true);
 	}
 
@@ -45,5 +54,46 @@ public class SonFrame {
 		after.setBounds(0, NUMBER.NAVIGATION_PANEL_HEIGHT, NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - NUMBER.NAVIGATION_PANEL_HEIGHT);
 		SonFrame.cardFrame.getContentPane().validate();
 		SonFrame.cardFrame.getContentPane().repaint();
+	}
+
+	class headPanel extends MyPanel {
+
+		private static final long serialVersionUID = 1L;
+		private MyButton quitButton = new MyButton("退出");
+		private MyLabel headLabel = new MyLabel("信息卡片");
+
+		public headPanel() {
+			headLabel.setFont(MyFont.LARGEST_BOLD);
+			headLabel.setBounds((NUMBER.FRAME_WIDTH - (int) (NUMBER.px * 400)) / 2, 0, (int) (NUMBER.px * 400), NUMBER.NAVIGATION_PANEL_HEIGHT);
+			this.add(headLabel);
+			quitButton.setForeground(MyColor.DEEP_COLOR);
+			quitButton.setFont(MyFont.LARGE_PLAIN);
+			quitButton.setBounds(NUMBER.FRAME_WIDTH / 8 * 7, 0, NUMBER.FRAME_WIDTH / 8 * 1, NUMBER.NAVIGATION_PANEL_HEIGHT);
+			quitButton.addMouseListener(new MouseListener() {
+
+				public void mouseReleased(MouseEvent arg0) {
+
+				}
+
+				public void mousePressed(MouseEvent arg0) {
+
+				}
+
+				public void mouseExited(MouseEvent arg0) {
+
+				}
+
+				public void mouseEntered(MouseEvent arg0) {
+
+				}
+
+				public void mouseClicked(MouseEvent arg0) {
+					cardFrame.dispose();
+				}
+			});
+			this.add(quitButton);
+			this.setVisible(true);
+		}
+
 	}
 }

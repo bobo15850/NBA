@@ -3,7 +3,10 @@ package presentation.hotsport;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import presentation.SonFrame;
+import businesslogic.matches.MatchInfoBl;
 import common.mycomponent.MyButton;
+import common.mydatastructure.MyDate;
 import common.statics.Field;
 import common.statics.MyColor;
 import common.statics.NUMBER;
@@ -36,6 +39,8 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	private void addListener() {
 		for (int i = 0; i < 5; i++) {
 			fieldButton[i].addMouseListener(this);
+			Portrait[i].addMouseListener(this);
+			team[i].addMouseListener(this);
 		}
 	}
 
@@ -48,7 +53,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 
 	private void setComponentsLocation() {
 		for (int i = 0; i < 5; i++) {
-			fieldButton[i].setBounds((int) (buttonWidth * i+NUMBER.px*60), 0, buttonWidth, buttonHeight);
+			fieldButton[i].setBounds((int) (buttonWidth * i + NUMBER.px * 60), 0, buttonWidth, buttonHeight);
 			this.add(fieldButton[i]);
 		}
 	}
@@ -60,17 +65,32 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		for (int i = 0; i < 5; i++) {
-			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
-		}
+
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				for (int j = 0; j < 5; j++) {
+					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
+				}
+				fieldButton[i].setBackground(MyColor.MY_ORIANGE);
 				super.playerKing = super.playerHotBl.getPlayerKingOfDaily(5, fieldString[i]);
+				this.setContent();
+				HotSportPanel.showRefreshed();
+				MyDate date = new MatchInfoBl().getLatestDate();
+				HotSportPanel.refreshDate(date.getFormatString());
+				break;
+			}
+			if (e.getSource().equals(Portrait[i])) {
+				String playerName = this.playerKing.get(i).getName();
+				new SonFrame(playerName, SonFrame.playerCard);
+				break;
+			}
+			if (e.getSource().equals(team[i])) {
+				String teamName = this.playerKing.get(i).getTeamName();
+				new SonFrame(teamName, SonFrame.teamCard);
 				break;
 			}
 		}
-		this.setContent();
+
 	}
 
 	public void mouseEntered(MouseEvent e) {

@@ -73,16 +73,22 @@ public class OneMatch_add extends OneMatch_init {
 	public void writePlayerNormalInfoToCACHE() {
 		for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
 			PlayerPerformOfOneMatch playerPerform = listOfFirstTeamPlayerPerformance.get(i);
-			this.writeOnePlayerNormalInfoToCACHE(playerPerform);
+			if (playerPerform != null) {
+				this.writeOnePlayerNormalInfoToCACHE(playerPerform);
+			}
+
 		}
 		for (int i = 0; i < listOfSecondTeamPlayerPerformance.size(); i++) {
 			PlayerPerformOfOneMatch playerPerform = listOfSecondTeamPlayerPerformance.get(i);
-			this.writeOnePlayerNormalInfoToCACHE(playerPerform);
+			if (playerPerform != null) {
+				this.writeOnePlayerNormalInfoToCACHE(playerPerform);
+			}
 		}
 		this.isPlayerNormalRefresh = true;
 	}// 更新cache中的球员普通信息
 
 	private void writeOnePlayerNormalInfoToCACHE(PlayerPerformOfOneMatch playerPerform) {
+
 		String playerName = playerPerform.getName();
 		int doubleOfOneMatch = 0;
 		int doubleTwo = 0;
@@ -108,7 +114,7 @@ public class OneMatch_add extends OneMatch_init {
 		else if (doubleOfOneMatch >= 3) {
 			tripleTwo = 1;
 		}
-		if (CACHE.PLAYER_NORMAL.containsKey(playerName)) {
+		if (!CACHE.PLAYER_NORMAL.containsKey(playerName)) {
 			PlayerNormalInfo_Expand playerInfo = new PlayerNormalInfo_Expand();
 			if (MEM.PLAYER_GENERALINFO.containsKey(playerName)) {
 				playerInfo.setAge(MEM.PLAYER_GENERALINFO.get(playerName).getAge());
@@ -235,12 +241,18 @@ public class OneMatch_add extends OneMatch_init {
 			TeamNormalInfo_Expand firstTeamNormal = CACHE.TEAM_NORMAL.get(firstTeam);
 			TeamNormalInfo_Expand secondTeamNormal = CACHE.TEAM_NORMAL.get(secondTeam);
 			for (int i = 0; i < listOfFirstTeamPlayerPerformance.size(); i++) {
-				PlayerNormalInfo_Expand playerNormal = CACHE.PLAYER_NORMAL.get(listOfFirstTeamPlayerPerformance.get(i).getName());
-				this.writeOnePlayerHighInfoToCACHE(playerNormal, firstTeamNormal, secondTeamNormal);
+				if (listOfFirstTeamPlayerPerformance.get(i) != null) {
+					PlayerNormalInfo_Expand playerNormal = CACHE.PLAYER_NORMAL.get(listOfFirstTeamPlayerPerformance.get(i).getName());
+					this.writeOnePlayerHighInfoToCACHE(playerNormal, firstTeamNormal, secondTeamNormal);
+				}
+
 			}
 			for (int i = 0; i < listOfSecondTeamPlayerPerformance.size(); i++) {
-				PlayerNormalInfo_Expand playerNormal = CACHE.PLAYER_NORMAL.get(listOfSecondTeamPlayerPerformance.get(i).getName());
-				this.writeOnePlayerHighInfoToCACHE(playerNormal, secondTeamNormal, firstTeamNormal);
+				if (listOfSecondTeamPlayerPerformance.get(i) != null) {
+					PlayerNormalInfo_Expand playerNormal = CACHE.PLAYER_NORMAL.get(listOfSecondTeamPlayerPerformance.get(i).getName());
+					this.writeOnePlayerHighInfoToCACHE(playerNormal, secondTeamNormal, firstTeamNormal);
+				}
+
 			}
 		}
 	}// 更新cache中的球员高级信息
@@ -250,11 +262,12 @@ public class OneMatch_add extends OneMatch_init {
 			PlayerHighInfo playerHigh = new PlayerHighInfo();
 			playerHigh.setName(playerNml.getName());
 			if (MEM.PLAYER_GENERALINFO.containsKey(playerNml.getName())) {
-				playerHigh.setPosition(MEM.PLAYER_GENERALINFO.get(playerNml).getName());
+				playerHigh.setPosition(MEM.PLAYER_GENERALINFO.get(playerNml.getName()).getPosition());
 			}
 			else {
 				playerHigh.setPosition(Position.UNKUOWN_POSITION);
 			}
+			CACHE.PLAYER_HIGH.put(playerHigh.getName(), playerHigh);
 		}
 		PlayerHighInfo playerH = CACHE.PLAYER_HIGH.get(playerNml.getName());
 		playerH.setTeamName(playerNml.getTeamName());

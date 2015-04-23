@@ -33,7 +33,7 @@ public class PlayerKingPanel extends MyPanel {
 	protected MyLabel[] team = new MyLabel[5];// 球队
 	protected PlayerHotBlSrevice playerHotBl = new PlayerHotBl();
 	protected ArrayList<PlayerKingInfo> playerKing = new ArrayList<PlayerKingInfo>(5);
-	
+
 	public PlayerKingPanel() {
 		this.setLayout(null);
 		this.createObjects();
@@ -41,6 +41,7 @@ public class PlayerKingPanel extends MyPanel {
 		this.setComponentsStyle();
 		this.setVisible(true);
 	}
+
 	private void createObjects() {
 		for (int i = 0; i < 5; i++) {
 			number[i] = new MyLabel(String.valueOf(i + 1));
@@ -51,21 +52,29 @@ public class PlayerKingPanel extends MyPanel {
 			team[i] = new MyLabel();
 		}
 	}
+
 	private void setComponentsLocation() {
-		Portrait[0].setBounds((int)(NUMBER.px*50), buttonHeight * 2, (int)(NUMBER.px*250),(int)(NUMBER.px*400) );
-		number[0].setBounds((int)(NUMBER.px*300), labelHeight  + buttonHeight * 2,  (int)(NUMBER.px*100), (int)(NUMBER.px*100));
-		name[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3, (int)(NUMBER.px*300), (int)(NUMBER.px*40));
-		position[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+ (int)(NUMBER.px*40), (int)(NUMBER.px*200), (int)(NUMBER.px*40));
-		value[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+2*(int)(NUMBER.px*40), (int)(NUMBER.px*200), (int)(NUMBER.px*40));
-		team[0].setBounds((int)(NUMBER.px*550),buttonHeight * 2 , (int)(NUMBER.px*80),(int)(NUMBER.px*80));
-		
+		Portrait[0].setBounds((int) (NUMBER.px * 50), buttonHeight * 2, (int) (NUMBER.px * 250), (int) (NUMBER.px * 400));
+		number[0].setBounds((int) (NUMBER.px * 300), labelHeight + buttonHeight * 2, (int) (NUMBER.px * 100), (int) (NUMBER.px * 100));
+		name[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3, (int) (NUMBER.px * 300), (int) (NUMBER.px * 40));
+		position[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 40));
+		value[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + 2 * (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 40));
+		team[0].setBounds((int) (NUMBER.px * 550), buttonHeight * 2, (int) (NUMBER.px * 80), (int) (NUMBER.px * 80));
+
 		for (int i = 1; i < 5; i++) {
-			number[i].setBounds((int)(NUMBER.px*700),labelHeight * (i-1) + buttonHeight * 2,labelHeight, labelHeight);
-			Portrait[i].setBounds((int)(NUMBER.px*830), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*70), (int)(NUMBER.px*70));
-			name[i].setBounds((int)(NUMBER.px*920), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*120), (int)(NUMBER.px*80));
-			position[i].setBounds((int)(NUMBER.px*1070), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*60), (int)(NUMBER.px*80));
-			value[i].setBounds((int)(NUMBER.px*1260), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*80), (int)(NUMBER.px*80));
-			team[i].setBounds((int)(NUMBER.px*1160), labelHeight *(i-1) + buttonHeight * 2+(int)(NUMBER.px*20), (int)(NUMBER.px*60), (int)(NUMBER.px*60));
+			number[i].setBounds((int) (NUMBER.px * 700), labelHeight * (i - 1) + buttonHeight * 2, labelHeight, labelHeight);
+			Portrait[i].setBounds((int) (NUMBER.px * 830), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 70),
+					(int) (NUMBER.px * 70));
+			name[i].setBounds((int) (NUMBER.px * 920), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 120),
+					(int) (NUMBER.px * 80));
+			position[i].setBounds((int) (NUMBER.px * 1070), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15),
+					(int) (NUMBER.px * 60), (int) (NUMBER.px * 80));
+			value[i].setBounds((int) (NUMBER.px * 1260), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 80),
+					(int) (NUMBER.px * 80));
+			team[i].setBounds((int) (NUMBER.px * 1160), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 20), (int) (NUMBER.px * 60),
+					(int) (NUMBER.px * 60));
 		}
 		for (int i = 0; i < 5; i++) {
 			this.add(number[i]);
@@ -76,26 +85,30 @@ public class PlayerKingPanel extends MyPanel {
 			this.add(team[i]);
 		}
 	}
+
 	protected void setContent() {
-		PlayerKingInfo tempIn = this.playerKing.get(0);
-		Portrait[0].setMyIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + tempIn.getName() + ".png"));
-		name[0].setTextAndStyle(tempIn.getName());
-		position[0].setTextAndStyle(tempIn.getPosition());
-		value[0].setTextAndStyle(String.valueOf(tempIn.getValue()));
-		team[0].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + tempIn.getTeamName() + ".png"));
-		for (int i = 1; i < 5; i++) {
-			PlayerKingInfo temp = this.playerKing.get(i);
-			Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + temp.getName() + ".png"));
-			name[i].setTextAndStyle(temp.getName());
-			position[i].setTextAndStyle(temp.getPosition());
-			value[i].setTextAndStyle(String.valueOf(temp.getValue()));
-			team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
+		if (playerKing != null) {
+			PlayerKingInfo tempIn = this.playerKing.get(0);
+			Portrait[0].setMyIcon(new ImageIcon(PathOfFile.PLAYER_ACTION_IMAGE + tempIn.getName() + ".png"));
+			name[0].setTextAndStyle(tempIn.getName());
+			position[0].setTextAndStyle(tempIn.getPosition());
+			value[0].setTextAndStyle("数据为："+String.valueOf(tempIn.getValue()));
+			team[0].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + tempIn.getTeamName() + ".png"));
+			for (int i = 1; i < playerKing.size(); i++) {
+				PlayerKingInfo temp = this.playerKing.get(i);
+				Portrait[i].setMyIcon(new ImageIcon(PathOfFile.PLAYER_PORTRAIT_IMAGE + temp.getName() + ".png"));
+				name[i].setTextAndStyle(temp.getName());
+				position[i].setTextAndStyle(temp.getPosition());
+				value[i].setTextAndStyle(String.valueOf(temp.getValue()));
+				team[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
+			}
 		}
+
 	}
 
 	private void setComponentsStyle() {
 		number[0].setForeground(MyColor.MIDDLE_COLOR);
-		number[0].setFont(new Font("微软雅黑",Font.BOLD,(int)(NUMBER.px*70)));
+		number[0].setFont(new Font("微软雅黑", Font.BOLD, (int) (NUMBER.px * 70)));
 		name[0].setFont(MyFont.MIDDLE_PLAIN);
 		position[0].setFont(MyFont.MIDDLE_PLAIN);
 		value[0].setFont(MyFont.MIDDLE_PLAIN);

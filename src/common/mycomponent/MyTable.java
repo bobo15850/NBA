@@ -28,7 +28,7 @@ public class MyTable extends JTable {
 		header.setFont(MyFont.SMALL_PLAIN);
 
 		//
-		this.setRowHeight((int) (43 * NUMBER.px));// 设置行高
+		this.setRowHeight((int) (55 * NUMBER.px));// 设置行高
 		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);// 设置只允许一次选择一行
 		this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);// 横向滚动
 		this.setFont(MyFont.SMALLEST_PLAIN);// 设置内容字体
@@ -42,7 +42,8 @@ public class MyTable extends JTable {
 				setForeground(MyColor.MY_WHITE);
 				if (row % 2 == 0) {
 					setBackground(MyColor.DEEP_COLOR);// 偶数行
-				} else {
+				}
+				else {
 					setBackground(MyColor.MIDDLE_COLOR);// 奇数行
 				}
 

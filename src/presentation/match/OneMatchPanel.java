@@ -16,6 +16,8 @@ import presentation.players.OnePlayerPanel;
 import presentation.teams.OneTeamPanel;
 import businesslogic.matches.OneMatchInfoBl;
 import businesslogicservice.matches.OneMatchInfoBlService;
+import businesslogicservice.teams.OneTeamInfoBlService;
+
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
@@ -24,6 +26,7 @@ import common.mycomponent.MyTable;
 import common.mycomponent.MyTableModel;
 import common.mydatastructure.GeneralInfoOfOneMatch;
 import common.mydatastructure.PlayerPerformOfOneMatch;
+import common.mydatastructure.TeamPerformOfOneMatch;
 import common.statics.MyColor;
 import common.statics.MyFont;
 import common.statics.NUMBER;
@@ -215,36 +218,53 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 	}
 
 	class TeamInfoComparePanel extends MyPanel {
-		private String performanceList[]={"分数","投篮得分","三分球","罚球","助攻","篮板","抢断","盖帽"};
-		private MyLabel performLabel[]=new MyLabel[8];
-		private MyLabel firstTeamInfo[]=new MyLabel[8];
-		private MyLabel secondTeamInfo[]=new MyLabel[8];
+		private OneTeamInfoBlService OneTeamInfoBl = new businesslogic.teams.OneTeamInfoBl();
+		private TeamPerformOfOneMatch firstTeamPerform = OneTeamInfoBl.getOneMatchTeamPerform(generalOneMatch.getFirstTeamName(),
+				generalOneMatch.getDate());
+		private TeamPerformOfOneMatch secondTeamPerform = OneTeamInfoBl.getOneMatchTeamPerform(generalOneMatch.getSecondTeamName(),
+				generalOneMatch.getDate());
+		private String performanceList[] = { "分数", "投篮", "三分球", "罚球", "助攻", "篮板", "抢断", "盖帽" };
+		private String firstPerform[] = { String.valueOf(firstTeamPerform.getPoint()),
+				String.valueOf(firstTeamPerform.getTotalHit()) + "/" + String.valueOf(firstTeamPerform.getTotalShot()),
+				String.valueOf(firstTeamPerform.getThreeHit()) + "/" + String.valueOf(firstTeamPerform.getThreeShot()),
+				String.valueOf(firstTeamPerform.getFreeHit()) + "/" + String.valueOf(firstTeamPerform.getFreeShot()),
+				String.valueOf(firstTeamPerform.getAssist()), String.valueOf(firstTeamPerform.getRebound()),
+				String.valueOf(firstTeamPerform.getSteal()), String.valueOf(firstTeamPerform.getBlock()) };
+
+		private String secondPerform[] = { String.valueOf(secondTeamPerform.getPoint()),
+				String.valueOf(secondTeamPerform.getTotalHit()) + "/" + String.valueOf(secondTeamPerform.getTotalShot()),
+				String.valueOf(secondTeamPerform.getThreeHit()) + "/" + String.valueOf(secondTeamPerform.getThreeShot()),
+				String.valueOf(secondTeamPerform.getFreeHit()) + "/" + String.valueOf(secondTeamPerform.getFreeShot()),
+				String.valueOf(secondTeamPerform.getAssist()), String.valueOf(secondTeamPerform.getRebound()),
+				String.valueOf(secondTeamPerform.getSteal()), String.valueOf(secondTeamPerform.getBlock()) };
+
+		private MyLabel performLabel[] = new MyLabel[8];
+		private MyLabel firstTeamInfo[] = new MyLabel[8];
+		private MyLabel secondTeamInfo[] = new MyLabel[8];
 		private static final long serialVersionUID = 1L;
-		public TeamInfoComparePanel(){
-			for(int i=0;i<8;i++){
-				performLabel[i]=new MyLabel(performanceList[i]);
+
+		public TeamInfoComparePanel() {
+			for (int i = 0; i < 8; i++) {
+				performLabel[i] = new MyLabel(performanceList[i]);
 				performLabel[i].setHorizontalAlignment(SwingConstants.CENTER);
 				performLabel[i].setOpaque(true);
 				performLabel[i].setBackground(MyColor.LIGHT_BLUE);
-				performLabel[i].setBounds((int) (NUMBER.px * 940)/2,i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
-				
-				firstTeamInfo[i]=new MyLabel();
-//				firstTeamInfo[i].setOpaque(true);
-//				firstTeamInfo[i].setBackground(MyColor.LIGHT_BLUE);
-				firstTeamInfo[i].setBounds((int) (NUMBER.px * 940)/2-(int) (NUMBER.px * 300),i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
-				
-				
-				secondTeamInfo[i]=new MyLabel();
+				performLabel[i].setBounds((int) (NUMBER.px * 940) / 2, i * (int) (NUMBER.px * 45), (int) (NUMBER.px * 300), (int) (NUMBER.px * 45));
+
+				firstTeamInfo[i] = new MyLabel(firstPerform[i] + "--------------------");
+				firstTeamInfo[i].setBounds((int) (NUMBER.px * 940) / 2 - (int) (NUMBER.px * 300), i * (int) (NUMBER.px * 45),
+						(int) (NUMBER.px * 300), (int) (NUMBER.px * 45));
+
+				secondTeamInfo[i] = new MyLabel("--------------------" + secondPerform[i]);
 				secondTeamInfo[i].setHorizontalAlignment(SwingConstants.RIGHT);
-//				secondTeamInfo[i].setOpaque(true);
-//				secondTeamInfo[i].setBackground(MyColor.LIGHT_BLUE);
-				secondTeamInfo[i].setBounds((int) (NUMBER.px * 940)/2+(int) (NUMBER.px * 300),i* (int) (NUMBER.px *45), (int) (NUMBER.px * 300), (int) (NUMBER.px *45));
-				
+				secondTeamInfo[i].setBounds((int) (NUMBER.px * 940) / 2 + (int) (NUMBER.px * 300), i * (int) (NUMBER.px * 45),
+						(int) (NUMBER.px * 300), (int) (NUMBER.px * 45));
+
 				this.add(performLabel[i]);
 				this.add(firstTeamInfo[i]);
 				this.add(secondTeamInfo[i]);
 			}
-			
+
 		}
 
 	}

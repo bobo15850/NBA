@@ -3,6 +3,7 @@ package dataservice.teams;
 import java.util.ArrayList;
 
 import common.mydatastructure.GeneralInfoOfTeam;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.TeamPerformOfOneMatch;
 
 public interface TeamInfoDataService {
@@ -18,4 +19,6 @@ public interface TeamInfoDataService {
 	public GeneralInfoOfTeam getGeneralInfoOfTeam(String teamName);
 
 	public String[] getNameOfAllPlayer(String teamName);// 根据球队名称得到其所有球员名称
+
+	public TeamPerformOfOneMatch getOneMatchTeamPerform(String teamName, MyDate date);
 }

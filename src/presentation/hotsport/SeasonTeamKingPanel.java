@@ -7,14 +7,16 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
+import presentation.SonFrame;
 import test.data.TeamHotInfo;
 import businesslogic.hotsport.TeamHotBl;
+import businesslogic.matches.MatchInfoBl;
 import businesslogicservice.hotsport.TeamHotBlService;
 import common.mycomponent.MyButton;
 import common.mycomponent.MyLabel;
 import common.mycomponent.MyPanel;
+import common.mydatastructure.MyDate;
 import common.statics.Field;
 import common.statics.MyColor;
 import common.statics.MyFont;
@@ -66,21 +68,27 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 
 	private void setComponentsLocation() {
 		for (int i = 0; i < 8; i++) {
-			fieldButton[i].setBounds((int) (buttonWidth * i+NUMBER.px*60), 0, buttonWidth, buttonHeight);
+			fieldButton[i].setBounds((int) (buttonWidth * i + NUMBER.px * 60), 0, buttonWidth, buttonHeight);
 			this.add(fieldButton[i]);
 		}
-		logo[0].setBounds((int)(NUMBER.px*50), buttonHeight * 2, (int)(NUMBER.px*300),(int)(NUMBER.px*300) );
-		number[0].setBounds((int)(NUMBER.px*400), (int)(NUMBER.px*100),  (int)(NUMBER.px*100), (int)(NUMBER.px*100));
-		team[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3, (int)(NUMBER.px*300), (int)(NUMBER.px*40));
-		league[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+ (int)(NUMBER.px*40), (int)(NUMBER.px*200), (int)(NUMBER.px*40));
-		value[0].setBounds((int)(NUMBER.px*400), labelHeight  + buttonHeight * 3+2*(int)(NUMBER.px*40), (int)(NUMBER.px*200), (int)(NUMBER.px*40));
-		
+		logo[0].setBounds((int) (NUMBER.px * 50), buttonHeight * 2, (int) (NUMBER.px * 300), (int) (NUMBER.px * 300));
+		number[0].setBounds((int) (NUMBER.px * 400), (int) (NUMBER.px * 100), (int) (NUMBER.px * 100), (int) (NUMBER.px * 100));
+		team[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3, (int) (NUMBER.px * 300), (int) (NUMBER.px * 40));
+		league[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 40));
+		value[0].setBounds((int) (NUMBER.px * 400), labelHeight + buttonHeight * 3 + 2 * (int) (NUMBER.px * 40), (int) (NUMBER.px * 200),
+				(int) (NUMBER.px * 40));
+
 		for (int i = 1; i < 5; i++) {
-			number[i].setBounds((int)(NUMBER.px*700),labelHeight * (i-1) + buttonHeight * 2,labelHeight, labelHeight);
-			logo[i].setBounds((int)(NUMBER.px*830), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*70), (int)(NUMBER.px*70));
-			team[i].setBounds((int)(NUMBER.px*950), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*120), (int)(NUMBER.px*80));
-			league[i].setBounds((int)(NUMBER.px*1070), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*60), (int)(NUMBER.px*80));
-			value[i].setBounds((int)(NUMBER.px*1160), labelHeight * (i-1) + buttonHeight * 2+(int)(NUMBER.px*15), (int)(NUMBER.px*180), (int)(NUMBER.px*80));
+			number[i].setBounds((int) (NUMBER.px * 700), labelHeight * (i - 1) + buttonHeight * 2, labelHeight, labelHeight);
+			logo[i].setBounds((int) (NUMBER.px * 830), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 70),
+					(int) (NUMBER.px * 70));
+			team[i].setBounds((int) (NUMBER.px * 950), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 120),
+					(int) (NUMBER.px * 80));
+			league[i].setBounds((int) (NUMBER.px * 1070), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 60),
+					(int) (NUMBER.px * 80));
+			value[i].setBounds((int) (NUMBER.px * 1160), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 15), (int) (NUMBER.px * 180),
+					(int) (NUMBER.px * 80));
 		}
 		for (int i = 0; i < 5; i++) {
 			this.add(number[i]);
@@ -93,7 +101,7 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 
 	private void setComponentsStyle() {
 		number[0].setForeground(MyColor.MIDDLE_COLOR);
-		number[0].setFont(new Font("微软雅黑",Font.BOLD,(int)(NUMBER.px*70)));
+		number[0].setFont(new Font("微软雅黑", Font.BOLD, (int) (NUMBER.px * 70)));
 		team[0].setFont(MyFont.MIDDLE_PLAIN);
 		league[0].setFont(MyFont.MIDDLE_PLAIN);
 		value[0].setFont(MyFont.MIDDLE_PLAIN);
@@ -110,12 +118,16 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 			fieldButton[i].setContentAreaFilled(true);
 			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
 		}
-	
+
 	}
 
 	private void addListener() {
 		for (int i = 0; i < 8; i++) {
 			fieldButton[i].addMouseListener(this);
+
+		}
+		for (int i = 0; i < 5; i++) {
+			logo[i].addMouseListener(this);
 		}
 
 	}
@@ -127,25 +139,38 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
-			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
-		}
-		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				for (int j = 0; j < 8; j++) {
+					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
+				}
+				fieldButton[i].setBackground(MyColor.MY_ORIANGE);
 				this.teamHotInfo = this.teamHotBl.getTeamHot(5, fieldString[i]);
+				this.setContent();
+				HotSportPanel.showRefreshed();
+				MyDate date = new MatchInfoBl().getLatestDate();
+				HotSportPanel.refreshDate(date.getFormatString());
 				break;
 			}
 		}
-		this.setContent();
+		for (int i = 0; i < 5; i++) {
+			if (e.getSource().equals(logo[i])) {
+				String teamName = this.teamHotInfo.get(i).getTeamName();
+				new SonFrame(teamName, SonFrame.teamCard);
+				break;
+			}
+		}
+
 	}
 
 	private void setContent() {
-		for (int i = 0; i < 5; i++) {
-			TeamHotInfo temp = this.teamHotInfo.get(i);
-			logo[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
-			team[i].setTextAndStyle(temp.getTeamName());
-			value[i].setTextAndStyle(String.valueOf(temp.getValue()));
-			league[i].setTextAndStyle(temp.getLeague());
+		if (teamHotInfo != null) {
+			for (int i = 0; i < teamHotInfo.size(); i++) {
+				TeamHotInfo temp = this.teamHotInfo.get(i);
+				logo[i].setMyIcon(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + temp.getTeamName() + ".png"));
+				team[i].setTextAndStyle(temp.getTeamName());
+				value[i].setTextAndStyle(String.valueOf(temp.getValue()));
+				league[i].setTextAndStyle(temp.getLeague());
+			}
 		}
 	}
 
@@ -159,7 +184,6 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 	}
 
 	public void mouseExited(MouseEvent e) {
-		
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
 				fieldButton[i].setBorderPainted(false);

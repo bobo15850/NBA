@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import test.data.TeamHighInfo;
 import common.mydatastructure.GeneralInfoOfTeam;
+import common.mydatastructure.MyDate;
 import common.mydatastructure.TeamNormalInfo_Expand;
 import common.mydatastructure.TeamPerformOfOneMatch;
 import data.teams.TeamInfoData;
@@ -58,4 +59,7 @@ public class OneTeamInfoBl implements OneTeamInfoBlService {
 		return this.teamInfoData.getGeneralInfoOfTeam(teamName);
 	}
 
+	public TeamPerformOfOneMatch getOneMatchTeamPerform(String teamName, MyDate date) {
+		return teamInfoData.getOneMatchTeamPerform( teamName, date);
+	}
 }
