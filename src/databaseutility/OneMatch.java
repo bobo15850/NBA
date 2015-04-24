@@ -32,14 +32,11 @@ class OneMatch {
 		this.listOfSecondTeamPlayerPerformance = new ArrayList<PlayerPerformOfOneMatch>(15);
 		try {
 			BufferedReader matchReader = new BufferedReader(new FileReader(PathOfFile.MATCH_INFO + nameOfFile));
-			System.out.println(PathOfFile.MATCH_INFO + nameOfFile);
 			String temp;
 			String mainInfo = matchReader.readLine();
 			this.quarterPoint = matchReader.readLine();
 			this.getMainInfoOfMatch(mainInfo);// 得到比赛的主要信息，包括得分,时间
-
 			this.firstTeam = matchReader.readLine().trim();// 初始化第一个队名
-
 			for (int j = 0; j < NUMBER.NUMBER_OF_FIRST; j++) {
 				temp = matchReader.readLine();
 				listOfFirstTeamPlayerPerformance.add(this.getFirstTeamFirstPlayerPo(temp));
@@ -64,7 +61,6 @@ class OneMatch {
 					this.listOfSecondTeamPlayerPerformance);
 			this.isDataCorrect = this.isDataCorrect();
 		} catch (IOException e) {
-			// e.printStackTrace();
 		}
 	}
 
@@ -78,7 +74,6 @@ class OneMatch {
 	}
 
 	private void getMainInfoOfMatch(String formatString) {
-		System.out.println(formatString);
 		String[] part = formatString.split(";");
 		String monthString = part[0].substring(0, 2);
 		String dayString = part[0].substring(3);
