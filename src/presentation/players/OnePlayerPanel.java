@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import presentation.SonFrame;
@@ -37,20 +36,20 @@ import common.statics.PathOfFile;
 public class OnePlayerPanel extends MyPanel implements MouseListener {
 	private MyPanel thisPanel = this;
 	private String playerName;
+	private MyButton[] button = new MyButton[] { new MyButton("普通数据"), new MyButton("高级数据"), new MyButton("近期比赛") };
+	private MyPanel[] panel;
 	private GeneralInfoPanel generalInfoPanel;
-	private MyButton normalInfo;
-	private MyButton highInfo;
-	private MyButton matches;
 	private MyButton teamLogo;
 	private ContentPanel contentPanel;
-	private int label_height = (int) (NUMBER.px * 50);
-	private int label_width = (int) (NUMBER.px * 400);
+	private int buttonHeight = (int) (NUMBER.px * 50);
+	private int buttonWidth = (int) (NUMBER.px * 400);
 	private static final long serialVersionUID = 1L;
 	private OnePlayerInfoBlService onePlayerInfoBl = new OnePlayerInfoBl();
 	private GeneralInfoOfPlayer PlayerGeneralInfo;
 	private PlayerNormalInfo_Expand playerNormal_avg;
 	private PlayerHighInfo playerHigh;
 	private ArrayList<PlayerPerformOfOneMatch> playerOneMatchInfoList;
+	private int flag = 0;
 
 	public OnePlayerPanel(String playerName) {
 		this.playerName = playerName;
@@ -58,6 +57,7 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 		playerNormal_avg = onePlayerInfoBl.getPlayerNormalInfo_avg(playerName);
 		playerHigh = onePlayerInfoBl.getPlayerHighInfo(playerName);
 		playerOneMatchInfoList = onePlayerInfoBl.getPlayerPerform(playerName);
+		panel = new MyPanel[] { new PlayerNormalInfoPanel(), new PlayerHighInfoPanel(), new AllMatchInfoPanel() };
 		this.createObjects();
 		this.setComponentsLocation();
 		this.setCompStyle();
@@ -68,112 +68,82 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 	private void createObjects() {
 		generalInfoPanel = new GeneralInfoPanel();
 		contentPanel = new ContentPanel();
-		highInfo = new MyButton("高级数据");
-		matches = new MyButton("近期比赛");
-		normalInfo = new MyButton("普通数据");
 		teamLogo = new MyButton(new ImageIcon(PathOfFile.TEAM_LOGO_IMAGE + playerNormal_avg.getTeamName() + ".png"), (int) (NUMBER.px * 150),
 				(int) (NUMBER.px * 100));
 	}
 
 	private void setComponentsLocation() {
-
+		for (int i = 0; i < 3; i++) {
+			button[i].setBounds((int) (NUMBER.px * 50) + buttonWidth * i, (int) (NUMBER.px * 230), buttonWidth, buttonHeight);
+			button[i].setBackground(MyColor.MIDDLE_COLOR);
+			button[i].setForeground(MyColor.MY_WHITE);
+			button[i].setFont(MyFont.SMALL_BOLD);
+			button[i].setContentAreaFilled(true);
+			button[i].addMouseListener(this);
+			this.add(button[i]);
+		}
+		teamLogo.setBounds((int) (NUMBER.px * 1000), (int) (NUMBER.px * 50), (int) (NUMBER.px * 150), (int) (NUMBER.px * 100));
 		generalInfoPanel.setBounds(0, 0, (int) (NUMBER.px * 1000), (int) (NUMBER.px * 230));
 		contentPanel.setBounds(0, (int) (NUMBER.px * 280), NUMBER.FRAME_WIDTH, NUMBER.FRAME_HEIGHT - (int) -(NUMBER.px * 280));
-		normalInfo.setBounds((int) (NUMBER.px * 50), (int) (NUMBER.px * 230), label_width, label_height);
-		highInfo.setBounds((int) (NUMBER.px * 50) + label_width, (int) (NUMBER.px * 230), label_width, label_height);
-		teamLogo.setBounds((int) (NUMBER.px * 1000), (int) (NUMBER.px * 50), (int) (NUMBER.px * 150), (int) (NUMBER.px * 100));
-		matches.setBounds((int) (NUMBER.px * 50) + 2 * label_width, (int) (NUMBER.px * 230), label_width, label_height);
 		this.add(generalInfoPanel);
 		this.add(contentPanel);
-		this.add(highInfo);
-		this.add(matches);
-		this.add(normalInfo);
 		this.add(teamLogo);
 	}
 
 	private void setCompStyle() {
-		highInfo.setContentAreaFilled(true);
-		highInfo.setBackground(MyColor.MIDDLE_COLOR);
-		highInfo.setForeground(MyColor.MY_WHITE);
-		highInfo.setFont(MyFont.SMALL_BOLD);
-		matches.setBackground(MyColor.MIDDLE_COLOR);
-		matches.setForeground(MyColor.MY_WHITE);
-		matches.setFont(MyFont.SMALL_BOLD);
-		matches.setContentAreaFilled(true);
-		normalInfo.setBackground(MyColor.DEEP_COLOR);
-		normalInfo.setForeground(MyColor.MY_WHITE);
-		normalInfo.setFont(MyFont.SMALL_BOLD);
-		normalInfo.setContentAreaFilled(true);
+		button[flag].setBackground(MyColor.MY_ORIANGE);
 	}
 
 	private void addListener() {
-		normalInfo.addMouseListener(this);
-		highInfo.addMouseListener(this);
-		matches.addMouseListener(this);
 		teamLogo.addMouseListener(this);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource().equals(normalInfo)) {
-			contentPanel.card.show(contentPanel, "normalInfoPanel");
-			normalInfo.setBackground(MyColor.MY_ORIANGE);
-			highInfo.setBackground(MyColor.MIDDLE_COLOR);
-			matches.setBackground(MyColor.MIDDLE_COLOR);
+		for (int i = 0; i < 3; i++) {
+			if (e.getSource().equals(button[i])) {
+				contentPanel.showMyPanel(i);
+				button[flag].setBackground(MyColor.MIDDLE_COLOR);
+				button[i].setBackground(MyColor.MY_ORIANGE);
+				flag = i;
+			}
 		}
-		else if (e.getSource().equals(highInfo)) {
-			contentPanel.card.show(contentPanel, "highInfoPanel");
-			normalInfo.setBackground(MyColor.MIDDLE_COLOR);
-			highInfo.setBackground(MyColor.MY_ORIANGE);
-			matches.setBackground(MyColor.MIDDLE_COLOR);
-		}
-		else if (e.getSource().equals(matches)) {
-			contentPanel.card.show(contentPanel, "matchPanel");
-			normalInfo.setBackground(MyColor.MIDDLE_COLOR);
-			highInfo.setBackground(MyColor.MIDDLE_COLOR);
-			matches.setBackground(MyColor.MY_ORIANGE);
-		}
-		else if (e.getSource().equals(teamLogo)) {
+		if (e.getSource().equals(teamLogo)) {
 			OneTeamPanel teamPanel = new OneTeamPanel(playerNormal_avg.getTeamName());
 			SonFrame.changePanel(this, teamPanel);
 		}
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		if (e.getSource().equals(normalInfo)) {
-			normalInfo.setBorderPainted(true);
+		for (int i = 0; i < 3; i++) {
+			if (e.getSource().equals(button[i])) {
+				button[i].setBackground(MyColor.DEEP_COLOR);
+			}
 		}
-		else if (e.getSource().equals(highInfo)) {
-			highInfo.setBorderPainted(true);
-		}
-		else if (e.getSource().equals(matches)) {
-			matches.setBorderPainted(true);
-		}
-		else if (e.getSource().equals(teamLogo)) {
+		if (e.getSource().equals(teamLogo)) {
 			teamLogo.setLocation(teamLogo.getX() - (int) (NUMBER.px * 3), teamLogo.getY() - (int) (NUMBER.px * 3));
 		}
 	}
 
 	public void mouseExited(MouseEvent e) {
-		if (e.getSource().equals(normalInfo)) {
-			normalInfo.setBorderPainted(false);
+		for (int i = 0; i < 3; i++) {
+			if (e.getSource().equals(button[i])) {
+				if (flag == i) {
+					button[i].setBackground(MyColor.MY_ORIANGE);
+				}
+				else {
+					button[i].setBackground(MyColor.MIDDLE_COLOR);
+				}
+			}
 		}
-		else if (e.getSource().equals(highInfo)) {
-			highInfo.setBorderPainted(false);
-		}
-		else if (e.getSource().equals(matches)) {
-			matches.setBorderPainted(false);
-		}
-		else if (e.getSource().equals(teamLogo)) {
+		if (e.getSource().equals(teamLogo)) {
 			teamLogo.setLocation(teamLogo.getX() + (int) (NUMBER.px * 3), teamLogo.getY() + (int) (NUMBER.px * 3));
 		}
 	}
 
 	public void mousePressed(MouseEvent e) {
-
 	}
 
 	public void mouseReleased(MouseEvent e) {
-
 	}
 
 	class GeneralInfoPanel extends MyPanel {
@@ -223,6 +193,24 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			normalInfoText.setText("号码：" + PlayerGeneralInfo.getPlayerNumber() + "\n位置：" + PlayerGeneralInfo.getPosition() + "\n身高："
 					+ PlayerGeneralInfo.getHeight() + "\n体重：" + PlayerGeneralInfo.getWeight() + "\n生日：" + PlayerGeneralInfo.getBirthday() + "\n年龄："
 					+ PlayerGeneralInfo.getAge() + "\n球龄：" + PlayerGeneralInfo.getTrainingYear() + "\n毕业院校：" + PlayerGeneralInfo.getSchool());
+		}
+	}
+
+	class ContentPanel extends MyPanel {
+		private static final long serialVersionUID = 1L;
+		private CardLayout card;
+
+		ContentPanel() {
+			card = new CardLayout();
+			this.setLayout(card);
+			for (int i = 0; i < 3; i++) {
+				this.add(panel[i], String.valueOf(i));
+			}
+			this.setVisible(true);
+		}
+
+		public void showMyPanel(int i) {
+			this.card.show(contentPanel, String.valueOf(i));
 		}
 	}
 
@@ -297,7 +285,6 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			}
 			this.setVisible(true);
 		}
-
 	}
 
 	class AllMatchInfoPanel extends MyPanel {
@@ -346,29 +333,6 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 					}
 				}
 			});
-			this.setVisible(true);
-		}
-	}
-
-	class ContentPanel extends JPanel {
-		private static final long serialVersionUID = 1L;
-		private CardLayout card;
-		private PlayerNormalInfoPanel normalInfoPanel;
-		private PlayerHighInfoPanel highInfoPanel;
-		private AllMatchInfoPanel matchPanel;
-
-		ContentPanel() {
-			card = new CardLayout();
-			this.setOpaque(false);
-			this.setLayout(card);
-			//
-			matchPanel = new AllMatchInfoPanel();
-			normalInfoPanel = new PlayerNormalInfoPanel();
-			highInfoPanel = new PlayerHighInfoPanel();
-			//
-			this.add(normalInfoPanel, "normalInfoPanel");
-			this.add(highInfoPanel, "highInfoPanel");
-			this.add(matchPanel, "matchPanel");
 			this.setVisible(true);
 		}
 	}

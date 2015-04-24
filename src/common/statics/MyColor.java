@@ -13,5 +13,4 @@ public class MyColor {
 	public static final Color MIDDLE_COLOR = new Color(128, 128, 128);
 	public static final Color LIGHT_COLOR = new Color(204, 204, 204);
 	public static final Color LIGHT_BLUE = new Color(154,165,161);
-	public static final Color MY_BULE = new Color(224,248,251);
 }

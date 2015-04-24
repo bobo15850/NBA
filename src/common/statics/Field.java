@@ -2,7 +2,6 @@ package common.statics;
 
 public class Field {
 	public static final String point = "point";
-	// public static final String score = "score";//只有在控制台版本才用得到
 	public static final String rebound = "rebound";
 	public static final String assist = "assist";
 	public static final String blockShot = "blockShot";
