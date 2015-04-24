@@ -19,7 +19,7 @@ public class TeamHotBl implements TeamHotBlService {
 	private TeamInfoDataService teamData = TeamInfoData.getInstance();
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<TeamHotInfo> getTeamHot(int number, String field) {
+	public ArrayList<TeamHotInfo> getTeamHot(int number, final String field) {
 		ArrayList<TeamNormalInfo_Expand> teamNormal_avg = new ArrayList<TeamNormalInfo_Expand>(32);
 		for (Entry<String, TeamNormalInfo_Expand> temp : CACHE.TEAM_NORMAL.entrySet()) {
 			teamNormal_avg.add(temp.getValue().getTeamNormal_avg());

@@ -25,6 +25,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	private MyLabel[] type = new MyLabel[5];// 标识
 	private String typeString[] = { "头像", "姓名", "位置", "球队", "数据" };
 	protected final int buttonWidth = (int) (NUMBER.px * 165);
+	private int flag = 0;
 
 	public SeasonPlayerKingPanel() {
 		this.setLayout(null);
@@ -56,6 +57,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 			fieldButton[i].setContentAreaFilled(true);
 			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
 		}
+		fieldButton[flag].setBackground(MyColor.MY_ORIANGE);
 	}
 
 	private void setComponentsLocation() {
@@ -83,6 +85,7 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
+				flag = i;
 				for (int j = 0; j < 8; j++) {
 					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
 				}
@@ -113,7 +116,8 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				;
 				break;
 			}
 		}
@@ -133,7 +137,12 @@ public class SeasonPlayerKingPanel extends PlayerKingPanel implements MouseListe
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				if (flag == i) {
+					fieldButton[i].setBackground(MyColor.MY_ORIANGE);
+				}
+				else {
+					fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				}
 				break;
 			}
 		}

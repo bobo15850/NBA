@@ -15,7 +15,7 @@ public class MatchInfoBl implements MatchInfoBlService {
 		return matchInfoData.getLatestMatches();
 	}
 
-	public ArrayList<GeneralInfoOfOneMatch> getTodayMatches(MyDate nowDate) {
+	public ArrayList<GeneralInfoOfOneMatch> getTodayMatches(final MyDate nowDate) {
 		return matchInfoData.getTodayMatches(nowDate);
 	}
 
@@ -23,7 +23,7 @@ public class MatchInfoBl implements MatchInfoBlService {
 		return matchInfoData.getLatestDate();
 	}
 
-	public GeneralInfoOfOneMatch getGeneralMatch(String teamName, MyDate date) {
+	public GeneralInfoOfOneMatch getGeneralMatch(final String teamName,final MyDate date) {
 		return matchInfoData.getGeneralMatch(teamName, date);
 	}
 }

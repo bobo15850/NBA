@@ -17,9 +17,6 @@ import common.statics.NUMBER;
 import common.statics.PathOfFile;
 
 public class PlayerKingPanel extends MyPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected MyLabel[] contentLable = new MyLabel[6];
 	protected final int labelWidth = (int) (NUMBER.px * 200);
@@ -31,6 +28,7 @@ public class PlayerKingPanel extends MyPanel {
 	protected MyLabel[] position = new MyLabel[5];// 位置
 	protected MyLabel[] value = new MyLabel[5];// 属性值
 	protected MyLabel[] team = new MyLabel[5];// 球队
+	protected MyLabel[][] allLabel = new MyLabel[][] { number, Portrait, name, position, value, team };
 	protected PlayerHotBlSrevice playerHotBl = new PlayerHotBl();
 	protected ArrayList<PlayerKingInfo> playerKing = new ArrayList<PlayerKingInfo>(5);
 
@@ -43,13 +41,13 @@ public class PlayerKingPanel extends MyPanel {
 	}
 
 	private void createObjects() {
-		for (int i = 0; i < 5; i++) {
-			number[i] = new MyLabel(String.valueOf(i + 1));
-			Portrait[i] = new MyLabel();
-			name[i] = new MyLabel();
-			position[i] = new MyLabel();
-			value[i] = new MyLabel();
-			team[i] = new MyLabel();
+		for (int k = 0; k < 5; k++) {
+			allLabel[0][k] = new MyLabel(String.valueOf(k + 1));
+		}
+		for (int i = 1; i < 6; i++) {
+			for (int j = 0; j < 5; j++) {
+				allLabel[i][j] = new MyLabel();
+			}
 		}
 	}
 
@@ -75,13 +73,10 @@ public class PlayerKingPanel extends MyPanel {
 			team[i].setBounds((int) (NUMBER.px * 1160), labelHeight * (i - 1) + buttonHeight * 2 + (int) (NUMBER.px * 20), (int) (NUMBER.px * 60),
 					(int) (NUMBER.px * 60));
 		}
-		for (int i = 0; i < 5; i++) {
-			this.add(number[i]);
-			this.add(Portrait[i]);
-			this.add(name[i]);
-			this.add(position[i]);
-			this.add(value[i]);
-			this.add(team[i]);
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 5; j++) {
+				this.add(allLabel[i][j]);
+			}
 		}
 	}
 

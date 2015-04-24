@@ -270,11 +270,21 @@ public class TeamPanel extends MyPanel {
 		}
 
 		public void mouseEntered(MouseEvent e) {
-
+			if (e.getSource().equals(searchButton)) {
+				searchButton.setBackground(MyColor.DEEP_COLOR);
+			}
+			else if (e.getSource().equals(findTeamButton)) {
+				findTeamButton.setBackground(MyColor.DEEP_COLOR);
+			}
 		}
 
 		public void mouseExited(MouseEvent e) {
-
+			if (e.getSource().equals(searchButton)) {
+				searchButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
+			else if (e.getSource().equals(findTeamButton)) {
+				findTeamButton.setBackground(MyColor.MIDDLE_COLOR);
+			}
 		}
 
 		public void mousePressed(MouseEvent e) {

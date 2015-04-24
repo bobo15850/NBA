@@ -14,11 +14,11 @@ import dataservice.players.PlayerInfoDataService;
 public class OnePlayerInfoBl implements OnePlayerInfoBlService {
 	PlayerInfoDataService playerInfoData = PlayerInfoData.getInstance();
 
-	public GeneralInfoOfPlayer getPlayerGeneralInfo(String playerName) {
+	public GeneralInfoOfPlayer getPlayerGeneralInfo(final String playerName) {
 		return this.playerInfoData.getGeneralInfoOfOnePlayer(playerName);
 	}
 
-	public PlayerNormalInfo_Expand getPlayerNormalInfo_avg(String playerName) {
+	public PlayerNormalInfo_Expand getPlayerNormalInfo_avg(final String playerName) {
 		if (CACHE.PLAYER_NORMAL.containsKey(playerName)) {
 			return CACHE.PLAYER_NORMAL.get(playerName).getPlayerNormal_avg();
 		}
@@ -27,7 +27,7 @@ public class OnePlayerInfoBl implements OnePlayerInfoBlService {
 		}
 	}
 
-	public PlayerNormalInfo_Expand getPlayerNormalInfo_tot(String playerName) {
+	public PlayerNormalInfo_Expand getPlayerNormalInfo_tot(final String playerName) {
 		if (CACHE.PLAYER_NORMAL.containsKey(playerName)) {
 			return CACHE.PLAYER_NORMAL.get(playerName);
 		}
@@ -36,7 +36,7 @@ public class OnePlayerInfoBl implements OnePlayerInfoBlService {
 		}
 	}
 
-	public PlayerHighInfo getPlayerHighInfo(String playerName) {
+	public PlayerHighInfo getPlayerHighInfo(final String playerName) {
 		if (CACHE.PLAYER_HIGH.containsKey(playerName)) {
 			return CACHE.PLAYER_HIGH.get(playerName);
 		}
@@ -45,7 +45,7 @@ public class OnePlayerInfoBl implements OnePlayerInfoBlService {
 		}
 	}
 
-	public ArrayList<PlayerPerformOfOneMatch> getPlayerPerform(String playerName) {
+	public ArrayList<PlayerPerformOfOneMatch> getPlayerPerform(final String playerName) {
 		return this.playerInfoData.getOnePlayerPerformOfOneSeasonPo(playerName);
 	}
 }

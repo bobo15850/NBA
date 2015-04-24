@@ -14,7 +14,7 @@ public class OneMatchInfoBl implements OneMatchInfoBlService {
 	MatchInfoDataService matchInfoData = MatchInfoData.getInstance();
 	PlayerInfoDataService playerInfoData = PlayerInfoData.getInstance();
 
-	public ArrayList<PlayerPerformOfOneMatch> getPlayersPerformOfOneMatch(String teamName, MyDate date) {
+	public ArrayList<PlayerPerformOfOneMatch> getPlayersPerformOfOneMatch(final String teamName, final MyDate date) {
 		ArrayList<String> playerName = matchInfoData.getPlayerNameOfOneMatch(teamName, date);
 		if (playerName != null) {
 			ArrayList<PlayerPerformOfOneMatch> playerPerform = new ArrayList<PlayerPerformOfOneMatch>(16);

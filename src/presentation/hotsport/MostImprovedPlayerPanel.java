@@ -42,6 +42,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	private PlayerHotBlSrevice playerHotBl = new PlayerHotBl();
 	private ArrayList<PlayerHotInfo> playerHotList = new ArrayList<PlayerHotInfo>(5);
 	private String typeString[] = { "头像", "姓名/位置", "提升率", "球队", "数据" };
+	private int flag = 0;
 
 	private static final long serialVersionUID = 1L;
 
@@ -122,6 +123,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 			fieldButton[i].setContentAreaFilled(true);
 			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
 		}
+		fieldButton[flag].setBackground(MyColor.MY_ORIANGE);
 	}
 
 	private void addListener() {
@@ -165,6 +167,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
+				flag = i;
 				for (int j = 0; j < 5; j++) {
 					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
 				}
@@ -193,7 +196,7 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
 				break;
 			}
 			if (e.getSource().equals(Portrait[i])) {
@@ -211,7 +214,12 @@ public class MostImprovedPlayerPanel extends MyPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(false);
+				if (flag == i) {
+					fieldButton[i].setBackground(MyColor.MY_ORIANGE);
+				}
+				else {
+					fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				}
 				break;
 			}
 			if (e.getSource().equals(Portrait[i])) {

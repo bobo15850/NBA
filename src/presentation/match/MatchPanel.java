@@ -116,12 +116,12 @@ public class MatchPanel extends MyPanel implements MouseListener {
 			}
 			if (numOfMatch <= 4) {
 				for (int j = 0; j < numOfMatch; j++) {
-					MatchGeneral[j].setBounds(inter * 4, (matchPanelHeight + inter) * j + inter, matchPanelWidth, matchPanelHeight);
+					MatchGeneral[j].setBounds(inter * 5, (matchPanelHeight + inter) * j + inter, matchPanelWidth, matchPanelHeight);
 				}
 			}
 			else if (numOfMatch <= 8) {
 				for (int j = 0; j < numOfMatch; j++) {
-					MatchGeneral[j].setBounds(inter * 4, matchPanelHeight * j + inter, matchPanelWidth, matchPanelHeight);
+					MatchGeneral[j].setBounds(inter * 5, matchPanelHeight * j + inter, matchPanelWidth, matchPanelHeight);
 				}
 			}
 			else {

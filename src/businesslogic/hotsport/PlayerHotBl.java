@@ -22,7 +22,7 @@ import dataservice.players.PlayerInfoDataService;
 public class PlayerHotBl implements PlayerHotBlSrevice {
 	private PlayerInfoDataService playerData = PlayerInfoData.getInstance();
 
-	public ArrayList<PlayerHotInfo> getPlayerHot(int number, String field) {
+	public ArrayList<PlayerHotInfo> getPlayerHot(int number, final String field) {
 		ArrayList<PlayerHotInfo> playerHotList = new ArrayList<PlayerHotInfo>();
 		ArrayList<String> playerNames = this.playerData.getNamesOfAllPlayer();
 		for (int i = 0; i < playerNames.size(); i++) {
@@ -97,7 +97,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<PlayerKingInfo> getPlayerKingOfSeason(int number, String field) {
+	public ArrayList<PlayerKingInfo> getPlayerKingOfSeason(int number,final String field) {
 		ArrayList<PlayerNormalInfo_Expand> playerNormal_avg = new ArrayList<PlayerNormalInfo_Expand>(512);
 		for (Entry<String, PlayerNormalInfo_Expand> temp : CACHE.PLAYER_NORMAL.entrySet()) {
 			playerNormal_avg.add(temp.getValue().getPlayerNormal_avg());
@@ -149,7 +149,7 @@ public class PlayerHotBl implements PlayerHotBlSrevice {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<PlayerKingInfo> getPlayerKingOfDaily(int number, String field) {
+	public ArrayList<PlayerKingInfo> getPlayerKingOfDaily(int number,final String field) {
 		ArrayList<PlayerPerformOfOneMatch> playerPerformOneDay = new ArrayList<PlayerPerformOfOneMatch>();
 		for (Entry<String, PlayerPerformOfOneMatch> playerPerformOfOneMatch : CACHE.PLAYER_TODAY.entrySet()) {
 			playerPerformOneDay.add(playerPerformOfOneMatch.getValue());

@@ -15,15 +15,13 @@ import common.statics.NUMBER;
 
 public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String[] fieldString = new String[] { Field.point, Field.rebound, Field.assist, Field.steal, Field.blockShot };
 	private MyButton[] fieldButton = new MyButton[5];// 属性按钮
-	protected final int buttonWidth = (int) (NUMBER.px * 260);
+	private final int buttonWidth = (int) (NUMBER.px * 260);
 	private MyLabel[] type = new MyLabel[5];// 标识
 	private String typeString[] = { "头像", "姓名", "位置", "球队", "数据" };
+	private int flag = 0;
 
 	public DailyPlayerKingPanel() {
 		this.setLayout(null);
@@ -53,6 +51,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 			fieldButton[i].setContentAreaFilled(true);
 			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
 		}
+		fieldButton[flag].setBackground(MyColor.MY_ORIANGE);
 	}
 
 	private void setComponentsLocation() {
@@ -80,6 +79,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
 				}
 				fieldButton[i].setBackground(MyColor.MY_ORIANGE);
+				flag = i;
 				super.playerKing = super.playerHotBl.getPlayerKingOfDaily(5, fieldString[i]);
 				this.setContent();
 				HotSportPanel.showRefreshed();
@@ -104,7 +104,7 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
 				break;
 			}
 			if (e.getSource().equals(Portrait[i])) {
@@ -121,7 +121,12 @@ public class DailyPlayerKingPanel extends PlayerKingPanel implements MouseListen
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 5; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(false);
+				if (flag == i) {
+					fieldButton[i].setBackground(MyColor.MY_ORIANGE);
+				}
+				else {
+					fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				}
 				break;
 			}
 			if (e.getSource().equals(Portrait[i])) {

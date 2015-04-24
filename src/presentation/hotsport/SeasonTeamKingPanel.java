@@ -44,6 +44,7 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 	private ArrayList<TeamHotInfo> teamHotInfo = new ArrayList<TeamHotInfo>(5);
 	private MyLabel[] type = new MyLabel[5];// 标识
 	private String typeString[] = { "队标", "队名", "联盟", "数据" };
+	private int flag = 0;
 
 	public SeasonTeamKingPanel() {
 		this.setLayout(null);
@@ -124,7 +125,7 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 			fieldButton[i].setContentAreaFilled(true);
 			fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
 		}
-
+		fieldButton[flag].setBackground(MyColor.MY_ORIANGE);
 	}
 
 	private void addListener() {
@@ -145,7 +146,9 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 
 	public void mouseClicked(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
+
 			if (e.getSource().equals(fieldButton[i])) {
+				flag = i;
 				for (int j = 0; j < 8; j++) {
 					fieldButton[j].setBackground(MyColor.MIDDLE_COLOR);
 				}
@@ -189,7 +192,8 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(true);
+				fieldButton[i].setBackground(MyColor.DEEP_COLOR);
+				;
 				break;
 			}
 
@@ -205,7 +209,12 @@ public class SeasonTeamKingPanel extends MyPanel implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		for (int i = 0; i < 8; i++) {
 			if (e.getSource().equals(fieldButton[i])) {
-				fieldButton[i].setBorderPainted(false);
+				if (flag == i) {
+					fieldButton[i].setBackground(MyColor.MY_ORIANGE);
+				}
+				else {
+					fieldButton[i].setBackground(MyColor.MIDDLE_COLOR);
+				}
 				break;
 			}
 		}

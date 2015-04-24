@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  */
 public class CalculationOfPlayerPerform {
 
-	public static double calHitRate(double hitNum, double shootNum) {
+	public static double calHitRate(final double hitNum, final double shootNum) {
 		if (shootNum == 0) {
 			return 0;
 		}
@@ -18,8 +18,8 @@ public class CalculationOfPlayerPerform {
 		}
 	}// 计算命中率
 
-	public static double calEfficiency(double score, double rebound, double assist, double steal, double block, double shoot, double hit,
-			double freePointShoot, double freePointHit, double turnover, double numberOfMatch) {
+	public static double calEfficiency(final double score, final double rebound, final double assist, final double steal, final double block,
+			final double shoot, double hit, final double freePointShoot, final double freePointHit, final double turnover, final double numberOfMatch) {
 		if (numberOfMatch == 0) {
 			return 0;
 		}

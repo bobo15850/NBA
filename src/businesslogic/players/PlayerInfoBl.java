@@ -28,7 +28,7 @@ import dataservice.players.PlayerInfoDataService;
 
 public class PlayerInfoBl implements PlayerInfoBlService {
 	@SuppressWarnings("unchecked")
-	public ArrayList<PlayerHighInfo> getPlayerHigh(int number, SortCell[] sortCells) {
+	public ArrayList<PlayerHighInfo> getPlayerHigh(int number, final SortCell[] sortCells) {
 		ArrayList<PlayerHighInfo> playerHighList = new ArrayList<PlayerHighInfo>(512);// 合格的球员链表
 		for (Entry<String, PlayerHighInfo> temp : CACHE.PLAYER_HIGH.entrySet()) {
 			PlayerHighInfo tempHighInfo = temp.getValue();
@@ -55,7 +55,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 	}// 得到球员的高级数据
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<PlayerNormalInfo_Expand> getPlayerNormal_avg(int number, Filter filter, SortCell[] sortCells) {
+	public ArrayList<PlayerNormalInfo_Expand> getPlayerNormal_avg(int number, Filter filter, final SortCell[] sortCells) {
 		ArrayList<PlayerNormalInfo_Expand> playerNormalList = new ArrayList<PlayerNormalInfo_Expand>(512);
 		for (Entry<String, PlayerNormalInfo_Expand> temp : CACHE.PLAYER_NORMAL.entrySet()) {
 			PlayerNormalInfo_Expand playerNormal_avg = temp.getValue().getPlayerNormal_avg();
@@ -84,7 +84,7 @@ public class PlayerInfoBl implements PlayerInfoBlService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<PlayerNormalInfo_Expand> getPlayerNormal_tot(int number, Filter filter, SortCell[] sortCells) {
+	public ArrayList<PlayerNormalInfo_Expand> getPlayerNormal_tot(int number, final Filter filter,final SortCell[] sortCells) {
 		ArrayList<PlayerNormalInfo_Expand> playerNormalList = new ArrayList<PlayerNormalInfo_Expand>(512);
 		for (Entry<String, PlayerNormalInfo_Expand> temp : CACHE.PLAYER_NORMAL.entrySet()) {
 			PlayerNormalInfo_Expand playerNormal = temp.getValue();
