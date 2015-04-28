@@ -202,7 +202,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		else {
 			for (int i = 0; i < oneDayMatch.size(); i++) {
 				if (e.getSource().equals(MatchGeneral[i])) {
-					MatchGeneral[i].setLocation(MatchGeneral[i].getX() - (int) (NUMBER.px * 3), MatchGeneral[i].getY() - (int) (NUMBER.px * 3));
+					MatchGeneral[i].setLocation(MatchGeneral[i].getX() - NUMBER.STEP, MatchGeneral[i].getY() - NUMBER.STEP);
 					break;
 				}
 			}
@@ -226,7 +226,7 @@ public class MatchPanel extends MyPanel implements MouseListener {
 		else {
 			for (int i = 0; i < oneDayMatch.size(); i++) {
 				if (e.getSource().equals(MatchGeneral[i])) {
-					MatchGeneral[i].setLocation(MatchGeneral[i].getX() + (int) (NUMBER.px * 3), MatchGeneral[i].getY() + (int) (NUMBER.px * 3));
+					MatchGeneral[i].setLocation(MatchGeneral[i].getX() + NUMBER.STEP, MatchGeneral[i].getY() + NUMBER.STEP);
 					break;
 				}
 			}

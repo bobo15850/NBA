@@ -297,10 +297,10 @@ public class OneMatchPanel extends MyPanel implements MouseListener {
 			}
 		}
 		if (e.getSource().equals(firstTeamLogo)) {
-			firstTeamLogo.setLocation(firstTeamLogo.getX() - (int) (NUMBER.px * 3), firstTeamLogo.getY() - (int) (NUMBER.px * 3));
+			firstTeamLogo.setLocation(firstTeamLogo.getX() - NUMBER.STEP, firstTeamLogo.getY() - NUMBER.STEP);
 		}
 		else if (e.getSource().equals(secondTeamLogo)) {
-			secondTeamLogo.setLocation(secondTeamLogo.getX() - (int) (NUMBER.px * 3), secondTeamLogo.getY() - (int) (NUMBER.px * 3));
+			secondTeamLogo.setLocation(secondTeamLogo.getX() - NUMBER.STEP, secondTeamLogo.getY() - NUMBER.STEP);
 		}
 	}
 

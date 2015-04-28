@@ -120,7 +120,7 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 			}
 		}
 		if (e.getSource().equals(teamLogo)) {
-			teamLogo.setLocation(teamLogo.getX() - (int) (NUMBER.px * 3), teamLogo.getY() - (int) (NUMBER.px * 3));
+			teamLogo.setLocation(teamLogo.getX() - NUMBER.STEP, teamLogo.getY() - NUMBER.STEP);
 		}
 	}
 
@@ -235,7 +235,7 @@ public class OnePlayerPanel extends MyPanel implements MouseListener {
 				String.valueOf(playerNormal_avg.getPenalty()), String.valueOf(playerNormal_avg.getOffend()),
 				String.valueOf(playerNormal_avg.getDefend()), String.valueOf(playerNormal_avg.getTotalShot()),
 				String.valueOf(playerNormal_avg.getTotalHit()), String.valueOf(playerNormal_avg.getThreeShot()),
-				String.valueOf(playerNormal_avg.getThreeShot()), String.valueOf(playerNormal_avg.getFreehot()),
+				String.valueOf(playerNormal_avg.getThreeHit()), String.valueOf(playerNormal_avg.getFreehot()),
 				String.valueOf(playerNormal_avg.getFreeHit()) };
 
 		public PlayerNormalInfoPanel() {
